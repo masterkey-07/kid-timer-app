@@ -93,7 +93,7 @@ tooling. **⚠️ No story starts before this phase is done.**
 - [x] T033 [P] Write `SessionRepository` tests in `test/unit/features/timer/data/session_repository_test.dart` (save with flush, load, clear, fixture `test/fixtures/persistence/v1/session_running.json`)
 - [x] T034 Implement `SessionRepository` in `lib/features/timer/data/session_repository.dart` (depends on T032, T033)
 - [x] T035 [P] Write `AppSettings` and `SettingsRepository` tests in `test/unit/features/settings/settings_repository_test.dart` (data-model defaults; `lastConfig`; onboarding flags; v1 fixture)
-- [ ] T036 Implement `AppSettings` in `lib/features/settings/domain/app_settings.dart` and `SettingsRepository` in `lib/features/settings/data/settings_repository.dart` (depends on T032, T035)
+- [x] T036 Implement `AppSettings` in `lib/features/settings/domain/app_settings.dart` and `SettingsRepository` in `lib/features/settings/data/settings_repository.dart` (depends on T032, T035)
 
 ### 2d. Platform ports (contracts + fakes + base implementations)
 

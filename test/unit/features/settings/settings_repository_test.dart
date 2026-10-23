@@ -13,11 +13,11 @@ import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
 import '../../../helpers/fixtures.dart';
 import '../../../helpers/hive_test_utils.dart';
 
-class _MockBox extends Mock implements Box<Map<dynamic, dynamic>> {}
+class _MockBox extends Mock implements Box<Map<dynamic, dynamic>>;
 
 void main() {
-  group('AppSettings defaults (data-model)', () {
-    const settings = AppSettings.defaults;
+  group('AppSettings.initial (data-model defaults)', () {
+    const settings = AppSettings.initial;
 
     test('match the data model', () {
       expect(settings.themeMode, AppThemeMode.system);
@@ -42,7 +42,7 @@ void main() {
   group('AppSettings', () {
     test('copyWith changes only the given fields', () {
       final lastConfig = TimerConfig.defaults.copyWith(scale: DialScale.min5);
-      final changed = AppSettings.defaults.copyWith(
+      final changed = AppSettings.initial.copyWith(
         themeMode: AppThemeMode.light,
         childLockEnabled: false,
         a11yAnnounceInterval: AnnounceInterval.off,
@@ -56,11 +56,11 @@ void main() {
       expect(changed.defaults, TimerConfig.defaults);
       expect(changed.lastConfig, lastConfig);
       expect(changed.onboarding.webKeepOpenSeen, isTrue);
-      expect(changed, isNot(AppSettings.defaults));
-      expect(AppSettings.defaults.copyWith(), AppSettings.defaults);
+      expect(changed, isNot(AppSettings.initial));
+      expect(AppSettings.initial.copyWith(), AppSettings.initial);
       expect(
-        AppSettings.defaults.copyWith().hashCode,
-        AppSettings.defaults.hashCode,
+        AppSettings.initial.copyWith().hashCode,
+        AppSettings.initial.hashCode,
       );
     });
 
@@ -79,7 +79,7 @@ void main() {
     });
 
     test('JSON round-trips', () {
-      final settings = AppSettings.defaults.copyWith(
+      final settings = AppSettings.initial.copyWith(
         themeMode: AppThemeMode.dark,
         defaults: TimerConfig.defaults.copyWith(
           visual: PaletteSource(paletteId: PaletteId.calm),
@@ -91,7 +91,7 @@ void main() {
     });
 
     test('missing onboarding flags default to false', () {
-      final json = AppSettings.defaults.toJson()
+      final json = AppSettings.initial.toJson()
         ..['onboarding'] = {'examplesSeeded': true};
 
       final flags = AppSettings.fromJson(json).onboarding;
@@ -101,13 +101,13 @@ void main() {
     });
 
     test('rejects an unsupported schema version', () {
-      final json = AppSettings.defaults.toJson()..['schemaVersion'] = 2;
+      final json = AppSettings.initial.toJson()..['schemaVersion'] = 2;
 
       expect(() => AppSettings.fromJson(json), throwsFormatException);
     });
 
     test('rejects an unknown theme mode', () {
-      final json = AppSettings.defaults.toJson()..['themeMode'] = 'neon';
+      final json = AppSettings.initial.toJson()..['themeMode'] = 'neon';
 
       expect(() => AppSettings.fromJson(json), throwsFormatException);
     });
@@ -125,7 +125,7 @@ void main() {
     });
 
     test('load returns the defaults on first use', () {
-      expect(repository.load(), AppSettings.defaults);
+      expect(repository.load(), AppSettings.initial);
     });
 
     test('saves and reloads lastConfig (FR-006)', () async {
@@ -135,7 +135,7 @@ void main() {
       );
 
       await repository.save(
-        AppSettings.defaults.copyWith(lastConfig: lastConfig),
+        AppSettings.initial.copyWith(lastConfig: lastConfig),
       );
       await box.close();
       final reopened = await Hive.openBox<Map<dynamic, dynamic>>('settings');
@@ -145,7 +145,7 @@ void main() {
 
     test('saves onboarding flags', () async {
       await repository.save(
-        AppSettings.defaults.copyWith(
+        AppSettings.initial.copyWith(
           onboarding: OnboardingFlags.none.copyWith(dialHintDismissed: true),
         ),
       );
@@ -190,10 +190,10 @@ void main() {
     when(() => box.put(any<Object?>(), any())).thenAnswer((_) async {});
     when(box.flush).thenAnswer((_) async {});
 
-    await SettingsRepository(box).save(AppSettings.defaults);
+    await SettingsRepository(box).save(AppSettings.initial);
 
     verifyInOrder([
-      () => box.put('app', AppSettings.defaults.toJson()),
+      () => box.put('app', AppSettings.initial.toJson()),
       box.flush,
     ]);
   });
