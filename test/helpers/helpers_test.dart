@@ -27,7 +27,9 @@ void main() {
     ]) {
       testWidgets('provides localizations for $locale', (tester) async {
         await tester.pumpApp(
-          Builder(builder: (context) => Text(AppLocalizations.of(context).appTitle)),
+          Builder(
+            builder: (context) => Text(AppLocalizations.of(context).appTitle),
+          ),
           locale: locale,
         );
 
@@ -39,7 +41,9 @@ void main() {
 
     testWidgets('applies provider overrides', (tester) async {
       await tester.pumpApp(
-        Consumer(builder: (context, ref, _) => Text(ref.watch(_greetingProvider))),
+        Consumer(
+          builder: (context, ref, _) => Text(ref.watch(_greetingProvider)),
+        ),
         overrides: [_greetingProvider.overrideWithValue('fake')],
       );
 
@@ -85,10 +89,7 @@ void main() {
     testWidgets('no overflow at 200% detects overflowing layouts', (
       tester,
     ) async {
-      await expectNoOverflowAt200Percent(
-        tester,
-        const Text('Short'),
-      );
+      await expectNoOverflowAt200Percent(tester, const Text('Short'));
 
       await expectLater(
         () => expectNoOverflowAt200Percent(
