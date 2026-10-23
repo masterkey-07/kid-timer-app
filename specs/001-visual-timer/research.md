@@ -55,13 +55,20 @@ them.
   - **iOS/iPadOS/macOS**: local notification with a bundled sound (< 30 s), `timeSensitive`
     interruption level ("Time Sensitive Notifications" capability).
   - **Windows**: **Verify in spike** whether `zonedSchedule` works in the Windows plugin; if
-    not, Windows falls back to "keep the window open" mode.
+    not, Windows falls back to "keep the window open" mode. **Decision criterion (T042)**:
+    adopt native scheduling only if, on both Windows 10 22H2 and Windows 11, a notification
+    scheduled 1 min ahead fires within ≤ 5 s with the app closed in 10/10 runs, plays the
+    bundled sound, and its tap opens the app with the payload; otherwise use the fallback.
   - **Linux and Web**: no scheduling (documented limitation of the plugin and of browsers) →
     foreground-only alarm + notice (FR-015).
 - **Rationale**: A mature plugin covering 4 of 6 platforms with native scheduling.
 - **Alternatives considered**: `android_alarm_manager_plus` (runs Dart in the background, more
   fragile), push server (violates Constitution I), the `alarm` package (aimed at alarm clocks,
   plays audio in a foreground service; more permissions).
+- **Single ring in the foreground**: iOS/macOS keep the notification scheduled and turn off its
+  foreground presentation (no banner, no sound); Android/Windows cancel the OS alarm on
+  `resumed` and reschedule it on `inactive`/`paused`/`hidden` (contracts/ui/02 Behavior 5).
+  Accepted risk: a crash while in the foreground leaves no OS alarm; reopening reconciles.
 - **Limits**: iOS 64 pending notifications; Android ~500 alarms per app (Samsung). Routines
   schedule at most 20 steps + warnings, below both limits.
 
@@ -83,6 +90,11 @@ them.
   across platforms).
 - **Source**: Kenney (CC0) and the project's own sounds; licenses in
   `assets/sounds/LICENSES.md`.
+- **Gentleness targets** (Constitution II, FR-052), checked by `tool/sounds/check_sounds.dart`:
+  integrated loudness −20 LUFS ± 1 for alarm and transition sounds and −30 LUFS ± 1 for the tick;
+  true peak ≤ −3 dBTP; attack (fade-in) ≥ 20 ms, no click at start or end; alarm sounds 1–5 s
+  per play (repeated by the app, never a long loop); no frequency content above −40 dBFS beyond
+  12 kHz (no piercing tones). Default volumes: alarm 0.7, tick 0.3.
 
 ## R7. Persistence
 
@@ -118,6 +130,16 @@ them.
 - **Rationale**: Friendly style, coverage of children's activities (🪥 🛁 🍽️ 🧸 🛏️ 🎒 👟),
   license compatible with Constitution IX, renders the same on every platform and needs no SVG
   package at runtime.
+- **Human review criteria** (Constitution II; recorded per asset in `docs/assets-review.md` with
+  reviewer, date and verdict): license verified at the source and listed in `LICENSES.md`;
+  no violence, fear, weapons, brands, logos, text or religious/political symbols; no
+  stereotypes (gender, skin tone variants where people appear); recognizable at 64 dp; for
+  sounds, the R6 targets pass. An asset fails if any criterion fails.
+- **Recognition validation**: before v1.0, each library image is shown alone at 96 dp to at
+  least 3 children aged 3–6 (with consent from their guardians, no data recorded beyond the
+  tally) or, if unavailable, to at least 2 teachers/therapists who judge it for that age; an
+  image passes if ≥ 2/3 of the children name the activity (or all professionals agree). Failing
+  images are replaced. Results go to `docs/assets-review.md` (T094, T164).
 - **Alternatives considered**: ARASAAC (CC BY-NC-SA, forbidden), OpenMoji (CC BY-SA,
   forbidden), Twemoji (CC BY 4.0, flatter and less expressive style; kept as fallback), Noto
   Emoji (Apache-2.0, fallback), original illustrations (cost; future contributions welcome).
@@ -185,7 +207,7 @@ sector)` + `drawImageRect` of the pre-decoded image (`ui.Image` at the dial's si
 ## R16. Routines in the background (v1.x)
 
 - **Decision**: When an automatic routine starts, schedule the end of all remaining steps
-  (≤ 20) and warnings (≤ 2 per step) — at most 60 notifications, below iOS's limit of 64; on
+  (≤ 20) and warnings (≤ 2 per step, enforced by `WarningOffsets` and FR-080) — at most 60 notifications, below iOS's limit of 64; on
   pause/cancel, cancel them all by id group. Manual mode schedules only the current step.
 - **Rationale**: FR-073 without background execution.
 
@@ -197,6 +219,10 @@ sector)` + `drawImageRect` of the pre-decoded image (`ui.Image` at the dial's si
   `AlarmScheduler` port (`AlarmKitScheduler` implementation), with fallback to local
   notifications; Live Activity via the plugin's `uiConfig`. **Verify in the US12 spike** the
   plugin's maturity; if inadequate, implement own Swift code behind the same port.
+  **Decision criterion (T194)**: adopt the plugin only if all hold: MIT/Apache-2.0 license; a
+  release in the last 6 months; countdown alarm, cancel and Live Activity with Pause/Stop work
+  on an iOS 26 device in 10/10 runs (alarm rings in silent mode within ≤ 1 s); authorization
+  denial is reported without crashing; no networking code. Otherwise, own Swift code.
 - **Rationale**: FR-090/091; native code isolated.
 
 ## R18. Export and import (v1.x)
@@ -218,15 +244,21 @@ sector)` + `drawImageRect` of the pre-decoded image (`ui.Image` at the dial's si
 
 ## R20. Web
 
-- **Decision**: Default build (CanvasKit); a `--wasm` compilation check in CI as a non-blocking
-  job. Hosting on GitHub Pages with `--base-href /visual-time-counter/`. No aggressive caching
+- **Decision**: Default build (CanvasKit) with `--no-web-resources-cdn`, so CanvasKit and its
+  fonts are served from the app's own origin instead of `www.gstatic.com` (Constitution I,
+  SC-008); `tool/privacy_check.dart` fails if `build/web/` references `gstatic.com` or any
+  other external origin. A `--wasm` compilation check in CI as a non-blocking job (same flag).
+  Hosting on GitHub Pages of `masterkey-07/kid-timer-app` with `--base-href /kid-timer-app/`. No aggressive caching
   service worker in v1.0 (optional installable PWA in v1.x).
 - **Rationale**: Some plugins may not be WASM-compatible (Patrol web is not).
 
 ## R21. Performance
 
-- **Decision**: Reference device: Android with 3 GB RAM and a 4-core CPU (e.g., the Galaxy A0x
-  line). Measured with `flutter run --profile` + a performance `integration_test`
+- **Decision**: Reference device class: Android with 3 GB RAM, a 4-core CPU (≤ 2.0 GHz),
+  720p screen at 60 Hz, Android 13 or later. Every measurement records the exact model, Android
+  version, build number, app commit and battery saver off/charged ≥ 50% in
+  `docs/releases/<version>.md`; the model used for v1.0 becomes the baseline for later
+  releases (re-measured on the same model). Measured with `flutter run --profile` + a performance `integration_test`
   (`traceAction`) producing `FrameTiming`; target ≥ 99% of frames < 16 ms.
 - **Rationale**: SC-004 and Constitution VIII.
 
@@ -243,4 +275,10 @@ sector)` + `drawImageRect` of the pre-decoded image (`ui.Image` at the dial's si
   Transitive dependencies with unused networking code (e.g., `http` pulled in by
   `audioplayers`) are tolerated because the manifest without `INTERNET` prevents any connection
   on Android and the release traffic test (SC-008) covers the other platforms.
+  Per platform, the privacy check also fails if: `macos/Runner/*.entitlements` contains
+  `com.apple.security.network.client` or `network.server`; `ios/Runner/Info.plist` or
+  `macos/Runner/Info.plist` contains `NSAppTransportSecurity` exceptions; `web/index.html` or
+  `web/manifest.json` references an external URL, or `build/web/` references `gstatic.com` (CanvasKit CDN; R20) (`http://`/`https://` other than the
+  repository link in metadata) or a font/script CDN; `windows/runner/` or `linux/` sources
+  call networking APIs (`WinHTTP`, `WinINet`, `libcurl`, `libsoup`).
 - **Rationale**: Constitution, Quality Gates.

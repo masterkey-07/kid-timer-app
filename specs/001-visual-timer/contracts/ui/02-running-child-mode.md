@@ -53,34 +53,47 @@ Show the child time passing, without distractions and without any way to change 
 | Stop          | `run.stop`             | "Stop timer"                                                                                     | `ConfirmDialog` → cancel → `/`                                                    |
 | Mute          | `run.mute`             | "Mute ticking"                                                                                   | Toggles ticking for this session                                                  |
 | Full screen   | `run.fullscreenToggle` | "Exit full screen"                                                                               | Desktop/Web only                                                                  |
-| Capture layer | `run.touchShield`      | `excludeSemantics`                                                                               | Absorbs touches in child mode; feedback: padlock glow for 300 ms                  |
+| Capture layer | `run.touchShield`      | `excludeSemantics`                                                                               | Absorbs touches in child mode; feedback: padlock glow (see Behavior 2)            |
 
 ## Behavior
 
 1. On entry: enables the wakelock (FR-014); full screen if `childLockEnabled` (FR-030); preloads
    the sound; starts ticking if enabled.
 2. Child mode: `AbsorbPointer` + `touchShield`; keys ignored except Esc held for 3 s. Android
-   "back" is consumed (no effect); the iOS back gesture is disabled.
+   "back" is consumed (no effect); the iOS back gesture is disabled. Padlock glow on an
+   absorbed touch: opacity 0.35 → 0.8 over 100 ms, held 100 ms, back to 0.35 over 100 ms
+   (300 ms total, no scale or color change); repeated touches restart it, never stacking
+   faster than once per 300 ms. With reduce motion: the same opacity steps without easing.
 3. Unlock: controls for 10 s; any interaction restarts the 10 s; then back to child mode. With
    `childLockEnabled = false`, controls are always visible and there is no padlock.
-4. Lifecycle: `paused`/`inactive` → keeps the session (the OS alarm handles it); `resumed` →
-   `reconcile(now)`; if `finished`, navigates to `/finished`.
-5. End with the app open: stops ticking; plays the sound; vibrates; cancels the scheduled
-   notification (or lets the OS show it, depending on the platform, without ringing twice);
-   navigates to `/finished`.
+4. Lifecycle: `paused`/`inactive`/`hidden` → keeps the session (the OS alarm handles it);
+   `resumed` → `reconcile(now)`; if `finished`, navigates to `/finished`. See Behavior 5 for
+   what happens to the OS alarm on each transition.
+5. End with the app open: stops ticking; plays the sound; vibrates; navigates to `/finished`.
+   The end must ring exactly once, so the OS alarm is handled per platform:
+
+   | Platform                        | OS alarm while the app is in the foreground                                                                                                                                                                              |
+   | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+   | iOS, iPadOS, macOS              | Stays scheduled; the foreground presentation options of the timer notifications are off (no banner, no sound), so only the app's sound plays. Removed from the tray on entering `/finished`.                             |
+   | Android, Windows (if supported) | Cancelled on `resumed`; rescheduled (same id, session already persisted) on `inactive`/`paused`/`hidden`. Only the app's sound plays in the foreground; the OS alarm covers background, locked screen and process death. |
+   | Web, Linux, Windows (fallback)  | No OS alarm; the app's sound is the only alarm.                                                                                                                                                                          |
+   | iOS 26+ with AlarmKit (v1.x)    | The system alarm is the only alarm; the app plays no sound of its own and shows `/finished` when the alarm is stopped or the app is open.                                                                                |
+
 6. On leaving (`/finished` or `/`): releases the wakelock and full screen.
-7. Landscape/portrait and resizing: the dial recomputes its size without restarting.
+7. Landscape/portrait, resizing and moving the window to another monitor: the dial recomputes
+   its size without restarting; on desktop, full screen follows the window to the new monitor.
 8. v1.x US9: intermediate warning → single dial pulse (scale 1.0→1.04→1.0, 400 ms) + soft sound.
    US10: image effect per `imageEffect`. US11: dial grid.
 
 ## Special states
 
-| Situation                | Presentation                                                             |
-| ------------------------ | ------------------------------------------------------------------------ |
-| Paused                   | Frozen dial with a translucent central ⏸ icon; same visual in child mode |
-| System volume 0 (mobile) | When unlocking: notice "Volume is at zero"                               |
-| Alarm permission denied  | When unlocking: reduced-accuracy notice with a link to the setting       |
-| Image failed to load     | Falls back to color without interrupting                                 |
+| Situation                | Presentation                                                                                                                                                         |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Paused                   | Frozen dial with a translucent central ⏸ icon; same visual in child mode                                                                                            |
+| System volume 0 (mobile) | When unlocking: notice "Volume is at zero"                                                                                                                           |
+| Alarm permission denied  | When unlocking: reduced-accuracy notice with a link to the setting                                                                                                   |
+| Image failed to load     | Falls back to color without interrupting                                                                                                                             |
+| Screen reader turned on  | No restart; the semantics tree is always built, so the dial is announced at the next interval; the padlock is focusable and unlocks with double-tap and hold for 3 s |
 
 ## Main strings
 

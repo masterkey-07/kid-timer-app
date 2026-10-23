@@ -72,7 +72,7 @@ test/golden` (review the image diff in the PR).
 ```bash
 fvm flutter build apk --release --split-per-abi
 fvm flutter build appbundle --release
-fvm flutter build web --release --base-href /visual-time-counter/
+fvm flutter build web --release --base-href /kid-timer-app/ --no-web-resources-cdn
 fvm flutter build linux --release
 fvm flutter build windows --release
 fvm flutter build macos --release

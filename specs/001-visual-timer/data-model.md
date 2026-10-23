@@ -11,7 +11,8 @@ Conventions:
 - Durations as integer milliseconds (`int`) when serialized; `Duration` in the domain.
 - Instants in UTC, ISO-8601 with milliseconds when serialized; UTC `DateTime` in the domain.
 - IDs: UUID v4 (string) generated locally; library images use a stable textual id
-  (`bank:<category>/<slug>`).
+  (`bank:<category>/<slug>`). "Bank" is the code name of the spec's built-in image library
+  (`image_bank_*`, `BankImageSource`); both terms mean the same thing.
 
 ---
 
@@ -63,7 +64,9 @@ Enum: `vanish` (v1.0 default), `reveal`, `mosaic`, `puzzle4`, `puzzle9`, `puzzle
 
 ### WarningOffsets (v1.x)
 
-Set of {1, 2, 5, 10} minutes. Warnings ≥ duration are ignored at start time.
+Set of at most 2 values from {1, 2, 5, 10} minutes (FR-080). Warnings ≥ duration are ignored
+at start time. The cap keeps a 20-step routine at ≤ 60 pending notifications (20 step ends +
+2 × 20 warnings; research R16).
 
 ---
 
@@ -101,7 +104,7 @@ Active timer (at most 1 at a time in v1.0; routines create one session per step)
 | endsAt                   | DateTime? (UTC) | required when `running`                             |
 | pausedRemaining          | Duration?       | required when `paused`                              |
 | origin                   | SessionOrigin   | `manual`, `preset(id)`, `routine(runId, stepIndex)` |
-| scheduledNotificationIds | List<int>       | ids scheduled with the OS, for cancellation         |
+| scheduledNotificationIds | List<int>       | ids scheduled with the OS, for cancellation; ≤ 60   |
 | finishedAcknowledged     | bool            | false until the tap on the final screen             |
 
 Derived: `remaining(now)`, `progress(now)` (0..1 remaining), `isOverdue(now)`.
@@ -124,9 +127,12 @@ Derived: `remaining(now)`, `progress(now)` (0..1 remaining), `isOverdue(now)`.
 
 Rules:
 
-- `start`: `startedAt = now`, `endsAt = now + duration`; schedules notification; persists.
-- `pause`: `pausedRemaining = endsAt − now` (≥ 0); cancels notification; persists.
-- `resume`: `endsAt = now + pausedRemaining`; reschedules; persists.
+- `start`: `startedAt = now`, `endsAt = now + duration`; persists (with `flush`); then
+  schedules the notification. A persistence failure aborts the start without scheduling.
+- `pause`: `pausedRemaining = endsAt − now` (≥ 0); persists (with `flush`); then cancels the
+  notification (a crash in between leaves an alarm for a paused timer, which reconcile ignores,
+  never a running timer without an alarm).
+- `resume`: `endsAt = now + pausedRemaining`; persists (with `flush`); then reschedules.
 - `cancel`: cancels notifications; removes the persisted session.
 - `restart`: equivalent to `cancel` + `start` with the same config.
 - `reconcile(now)`: if `running` and `now ≥ endsAt` → `finished`; other states unchanged.
@@ -173,6 +179,8 @@ Limit: 100 presets.
 | steps       | List<RoutineStep>       | 2–20 items                           |
 | order       | int                     | —                                    |
 
+Limit: 100 routines.
+
 ### RoutineStep (v1.x)
 
 | Field  | Type          | Rules                  |
@@ -195,7 +203,8 @@ Limit: 100 presets.
 
 Transitions: a step ends → automatic: `currentIndex++` and a new `running` session; manual:
 `waitingNext` until "Next". The last step ends → `finished`. Reconcile on reopening walks the
-steps using the scheduled `endsAt` values.
+steps using the scheduled `endsAt` values. At most 60 notifications are pending per run
+(steps + warnings; research R16), all under the run's `groupKey`.
 
 ### AppSettings
 

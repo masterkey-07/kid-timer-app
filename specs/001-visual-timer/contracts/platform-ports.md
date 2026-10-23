@@ -8,6 +8,28 @@ against the fake (unit) and against the real implementation (integration).
 All asynchronous methods return a `Future` and never throw for an expected platform condition:
 they return a typed result.
 
+## Support matrix
+
+✅ supported · ◐ degraded (works with a documented limitation) · ✕ unsupported (no-op or typed
+result, never an exception).
+
+| Port               | Android                    | iOS/iPadOS                       | macOS                 | Windows                | Linux              | Web                                   |
+| ------------------ | -------------------------- | -------------------------------- | --------------------- | ---------------------- | ------------------ | ------------------------------------- |
+| AlarmScheduler     | ✅ (◐ without exact alarm) | ✅ (◐ silent mode before iOS 26) | ✅                    | ✅ or ✕ per spike T042 | ✕ (`unsupported`)  | ✕ (`unsupported`)                     |
+| WakeLockPort       | ✅                         | ✅                               | ✅                    | ✅                     | ◐ (depends on DE)  | ◐ (Screen Wake Lock API; tab visible) |
+| FullscreenPort     | ✅ immersive               | ◐ hides status bar only          | ✅                    | ✅                     | ✅                 | ◐ needs a user gesture                |
+| AudioPort          | ✅                         | ✅                               | ✅                    | ✅                     | ◐ needs GStreamer  | ◐ autoplay after a gesture            |
+| `systemVolume()`   | ✅                         | ✅                               | ✕ `null`              | ✕ `null`               | ✕ `null`           | ✕ `null`                              |
+| HapticsPort        | ✅ if vibrator             | ✅                               | ✕ `hasVibrator=false` | ✕                      | ✕                  | ✕                                     |
+| ImagePickerPort    | ✅ Photo Picker            | ✅ PHPicker                      | ✅ file_selector      | ✅ file_selector       | ✅ file_selector   | ✅ file input                         |
+| SystemSettingsPort | ✅                         | ✕ `false`                        | ✕ `false`             | ✕ `false`              | ✕ `false`          | ✕ `false`                             |
+| ExternalLinkPort   | ✅                         | ✅                               | ✅                    | ✅                     | ◐ needs `xdg-open` | ✅ new tab                            |
+| HomeWidgetPort     | ✅ (v1.x)                  | ✅ (v1.x)                        | ✕                     | ✕                      | ✕                  | ✕                                     |
+| AppLifecyclePort   | ✅                         | ✅                               | ✅                    | ✅                     | ✅                 | ◐ `hidden` on tab switch only         |
+
+Every ◐ and ✕ cell is covered by a notice or a silent fallback defined in
+[contracts/ui/08](./ui/08-permissions-and-notices.md) or the screen contracts.
+
 ## AlarmScheduler
 
 ```dart

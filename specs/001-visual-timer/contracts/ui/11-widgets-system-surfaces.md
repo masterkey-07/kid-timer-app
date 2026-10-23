@@ -41,6 +41,17 @@ A continuous silent notification with the system chronometer (`setUsesChronomete
 `setChronometerCountDown`) during the countdown, with Pause/Stop actions. Can be enabled in
 settings ("Show the countdown in the notification bar"), off by default.
 
+## States
+
+| Surface       | Situation                        | Presentation                                                                                    |
+| ------------- | -------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Widget        | Before the app is first opened   | "Open the app to set up" → opens `/`                                                            |
+| Widget        | No favorites                     | "Choose favorites in the app" → `/presets`                                                      |
+| Widget        | Favorite deleted                 | Removed at the next payload publish; a stale tap opens `/` with the "Preset not found" snackbar |
+| Widget        | Thumbnail missing                | Colored circle with the preset's initial                                                        |
+| Widget        | Timer finished, not acknowledged | Status line "Time's up" → `vtc://run`                                                           |
+| Live Activity | Authorization denied/revoked     | Not shown; falls back to US2 notifications silently                                             |
+
 ## Planned tests
 
 - Unit: widget payload serialization; favorites selection (max. 4).

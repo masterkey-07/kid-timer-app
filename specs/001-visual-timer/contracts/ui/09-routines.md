@@ -78,6 +78,17 @@ Manual mode, at the end of a step (`waitingNext`):
 
 When everything is done: final screen with stars ([03](./03-finished.md)).
 
+## States
+
+| Situation                          | Presentation                                                                               |
+| ---------------------------------- | ------------------------------------------------------------------------------------------ |
+| List empty                         | Illustration + "Create a routine to guide the day step by step" + New / First-Then buttons |
+| List at 100 routines               | `routines.new` disabled with the limit explanation                                         |
+| Editor: invalid                    | Inline errors (name 1–40, 2–20 steps, step duration); Save disabled                        |
+| Run: step image failed to load     | Falls back to the step's color without interrupting                                        |
+| Run: scheduling failed/unsupported | Same notices as a single timer ([08](./08-permissions-and-notices.md)) before starting     |
+| Run: routine deleted while running | The run continues from its `routineSnapshot`                                               |
+
 ## Planned tests
 
 - Unit: `RoutineRunner` (automatic/manual, skip, pause, reconcile across several steps with the

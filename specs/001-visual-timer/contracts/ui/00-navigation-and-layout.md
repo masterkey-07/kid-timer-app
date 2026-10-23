@@ -52,6 +52,19 @@ Links with an unknown id open `/` with a "Preset not found" snackbar.
 | Medium   | 600–839 dp | portrait: column; landscape: dial left, panel right | top bar                      |
 | Expanded | ≥ 840 dp   | large central dial + fixed 360 dp side panel        | top bar + keyboard shortcuts |
 
+**Other screens** (portrait and landscape, every class):
+
+| Screen                                                   | Compact                                                             | Medium                              | Expanded                              |
+| -------------------------------------------------------- | ------------------------------------------------------------------- | ----------------------------------- | ------------------------------------- |
+| `/run`, `/finished`, `/routines/:id/run`                 | dial centered; controls below (portrait) or at the side (landscape) | same                                | same                                  |
+| `/images`, `/images/mine`                                | 3-column grid                                                       | 4–5 columns                         | 6 columns, max width 1200 dp          |
+| `/presets`, `/routines`                                  | list                                                                | list                                | 2–3 column card grid                  |
+| Editors, `/images/frame`                                 | single column, scrolls                                              | landscape: preview left, form right | preview left, form right, max 1200 dp |
+| `/settings`, `/settings/battery`, `/parent`, `/transfer` | single column, scrolls                                              | single centered column, max 600 dp  | single centered column, max 720 dp    |
+| Dialogs                                                  | full width − 2 × margin; full screen if the height < 480 dp         | max 560 dp wide                     | max 560 dp wide                       |
+
+- Compact landscape (height < 480 dp, e.g. a phone sideways): every screen scrolls vertically;
+  the home screen places the dial on the left and the controls on the right.
 - Dial: diameter = `min(usable width, usable height) × 0.82` during the countdown; × 0.6 during
   setup.
 - Margins: 16 dp (compact), 24 dp (medium), 32 dp (expanded). 8 dp grid.
@@ -75,6 +88,11 @@ The dial always has a 2 dp outline in the secondary text color (contrast ≥ 3:1
 background), so light images on a light theme (or dark ones on a dark theme) do not "vanish"
 into the background.
 
+Text is never drawn directly over an image (thumbnails put their labels below; digits sit
+below the dial). Where an overlay over an image is unavoidable (e.g., the paused ⏸ icon), it
+sits on a scrim of the theme surface color at 0.7 opacity, guaranteeing ≥ 4.5:1 for text and
+≥ 3:1 for icons regardless of the image.
+
 ## 4. Design tokens
 
 - **Font**: Atkinson Hyperlegible Next. Scale: display 56/64 (countdown digits), title 22/28,
@@ -82,11 +100,25 @@ into the background.
 - **Base colors** (light / dark theme): surface `#FFFBF5` / `#14161A`; primary text `#1C1B1F` /
   `#ECEDEE`; primary `#3A6FD8` / `#8AB0FF`. Minimum contrast 4.5:1 for text and 3:1 for
   components.
+- **High-contrast variant** (FR-055; on when `MediaQuery.highContrastOf` is true, and in v1.x
+  also when chosen in settings, FR-110): light — surface `#FFFFFF`, text `#000000`, primary
+  `#0039A6`, secondary text `#1F1F1F`; dark — surface `#000000`, text `#FFFFFF`, primary
+  `#A8C7FF`, secondary text `#E6E6E6`. Text and icons ≥ 7:1, components ≥ 4.5:1, focus ring
+  3 dp, dial outline 3 dp in the text color. Dial palettes keep their hues; their sectors get a
+  2 dp outline in the text color so phases do not rely on color alone.
 - **Progressive dial palette**: green `#3BAA5C`, yellow `#F2C14E`, red `#E05A47`.
 - **Calm mode**: blue `#8FB8E8` → lilac `#B9A7E0` → peach `#F3C3A3`.
-- **Elapsed**: neutral `#9AA0A6` at 0.18 opacity (light) / 0.28 (dark).
+- **Elapsed**: neutral `#9AA0A6` at 0.18 opacity (light) / 0.28 (dark). With the system's
+  increase-contrast setting on (`MediaQuery.highContrastOf`), an opaque tone is used instead:
+  `#E3E5E8` (light) / `#2A2D33` (dark); the padlock is then drawn at full opacity. This also
+  covers users of "reduce transparency" (not exposed by Flutter; see spec Assumptions).
 - **Corners**: 16 dp (cards), 28 dp (primary buttons).
 - **Motion**: 200 ms default, `easeOutCubic` curve; with "reduce motion", 0 ms or opacity only.
+- **Flash safety** (Constitution II, WCAG 2.3.1): no animated element (including celebration
+  particles, the padlock glow and the v1.x warning pulse) may change its luminance by more than
+  10% of the screen's relative luminance more than 3 times per second. In practice: every
+  repeating animation has a cycle ≥ 400 ms, particles fade in/out over ≥ 400 ms and never
+  blink, and no full-screen color change happens more than once per second.
 
 ## 5. Shared components
 
@@ -110,6 +142,10 @@ key requires updating the tests in the same PR.
 ## 7. Common accessibility
 
 - Focus order = visual order; one `FocusTraversalGroup` per region.
+- Dialogs and sheets: on opening, focus moves to the first interactive element (the question
+  in the parental gate, so the screen reader reads it first); focus is trapped inside the modal;
+  Esc closes it (except the parental gate during lockout, where Esc still closes the dialog but
+  the lockout keeps running); on closing, focus returns to the element that opened it.
 - Global shortcuts (desktop/Web): `Space` start/pause (outside child mode), `Esc` held 3 s
   unlocks, `Ctrl/Cmd+,` settings, `?` shortcut list.
 - Every icon without text has a `tooltip` and a semantic label.

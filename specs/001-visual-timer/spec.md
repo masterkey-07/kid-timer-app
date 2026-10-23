@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-23
 
-**Status**: Clarified — ready for planning
+**Status**: Planned — tasks generated and analyzed
 
 **Input**: User description: "A free, open source visual timer for children, strongly inspired
 by (but not a clone of) Fehners Software's Visual Countdown Timer. Universal: phone, tablet and
@@ -448,7 +448,7 @@ another device, with no server.
 
 ### User Story 14 - Additional themes, palettes and languages (Priority: P3) — v1.x
 
-The adult chooses high-contrast themes and palettes safe for color vision deficiency; the
+The adult chooses the high-contrast theme manually (v1.0 already follows the system setting) and palettes safe for color vision deficiency; the
 community adds languages through an open translation platform.
 
 **Why this priority**: Broadens inclusion; the basics are already in v1.0.
@@ -458,8 +458,8 @@ dial phases are distinguishable in a color blindness simulator.
 
 **Acceptance Scenarios**:
 
-1. **Given** the "high contrast" theme, **When** enabled, **Then** all text and icons have a
-   contrast of at least 7:1 (AAA).
+1. **Given** the "high contrast" theme chosen in settings with the system setting off, **When**
+   enabled, **Then** all text and icons have a contrast of at least 7:1 (AAA).
 2. **Given** palettes for protanopia, deuteranopia and tritanopia, **When** simulated, **Then**
    the three phases of the progressive palette are distinguishable (luminance difference
    ≥ 20%).
@@ -471,9 +471,10 @@ dial phases are distinguishable in a color blindness simulator.
 ### Edge Cases
 
 - Zero duration or below 10 s: the start button is disabled with an explanation.
-- Timer started and the system clock manually moved forward/backward: the countdown uses
-  monotonic time in the foreground and reconciles with the scheduled time on reopening; the
-  system alarm prevails.
+- Timer started and the system clock manually moved forward/backward: remaining time is always
+  derived from the end instant and the current system time, so the on-screen countdown jumps
+  by the same amount; the system alarm prevails and the app reconciles on resuming or
+  reopening. Time zone changes have no effect (the end instant is absolute).
 - App reopened hours after a finished timer: shows the final screen only once; after a tap,
   returns home.
 - Two timers cannot run at the same time in v1.0; starting another replaces the current one
@@ -492,7 +493,13 @@ dial phases are distinguishable in a color blindness simulator.
   starting.
 - Screen rotation and window resizing during the countdown: the dial readjusts without
   restarting the countdown.
-- Projector/external display on desktop: full screen covers the current window's monitor.
+- Projector/external display on desktop: full screen covers the current window's monitor; if
+  the window is moved to another monitor while in full screen (e.g., with a system shortcut),
+  full screen follows it to the new monitor and the dial readjusts without restarting the
+  countdown.
+- Screen reader turned on in the middle of a countdown: the countdown continues unchanged;
+  the next announcement follows the configured interval, and the padlock remains reachable
+  (double-tap and hold for 3 s with the screen reader).
 - System font at 200% on a compact screen: controls wrap onto several lines, without clipping.
 - Data saved in an earlier format: migrated automatically; if migration fails, the original data
   is preserved and the app uses defaults with a notice.
@@ -571,10 +578,13 @@ dial phases are distinguishable in a color blindness simulator.
 - **FR-051**: The app MUST offer palettes: progressive (green → yellow → red), single color (at
   least 8 colors) and calm mode (no red).
 - **FR-052**: The app MUST include at least 8 friendly alarm sounds, with preview, own volume and
-  a no-sound option.
+  a no-sound option. All bundled sounds MUST be loudness-normalized and free of abrupt onsets
+  (measurable targets in research R6).
 - **FR-053**: Ticking MUST be optional (off by default) and have its own volume.
 - **FR-054**: Vibration MUST be optional on devices that support it.
-- **FR-055**: The app MUST offer light, dark and follow-system themes.
+- **FR-055**: The app MUST offer light, dark and follow-system themes. When the system's
+  increase-contrast (high contrast) setting is on, the app MUST switch to a high-contrast
+  variant of the current theme in which text and icons reach at least 7:1.
 - **FR-056**: Preferences MUST persist across sessions.
 
 **Accessibility, languages and parent area (US7)**
@@ -592,7 +602,7 @@ dial phases are distinguishable in a color blindness simulator.
 **Routines (US8)**
 
 - **FR-070**: The adult MUST be able to create, edit, duplicate, reorder and delete routines
-  with 2 to 20 steps; each step with name, duration, image or color.
+  with 2 to 20 steps; each step with name, duration, image or color; limit of 100 routines.
 - **FR-071**: Routines MUST support automatic and manual advance.
 - **FR-072**: Execution MUST show the current step on the dial, the step strip and stars on
   completed steps.
@@ -604,7 +614,8 @@ dial phases are distinguishable in a color blindness simulator.
 
 **Warnings, effects, dials (US9–US11)**
 
-- **FR-080**: The adult MUST be able to enable warnings 1, 2, 5 and 10 min before the end, with
+- **FR-080**: The adult MUST be able to enable up to 2 warnings, chosen from 1, 2, 5 and 10 min
+  before the end, with
   soft sound and vibration, also with the app closed on the FR-011 platforms.
 - **FR-081**: The app MUST offer image effects: vanish (default), reveal, mosaic and puzzle (4,
   9 or 16 pieces).
@@ -620,14 +631,40 @@ dial phases are distinguishable in a color blindness simulator.
 **Export and import (US13)**
 
 - **FR-100**: The app MUST export presets and routines, optionally with own images, to a single
-  versioned file and import it with a preview, in add and replace modes.
-- **FR-101**: Import MUST validate the file and be atomic (all or nothing).
+  versioned file and import it with a preview, in add and replace modes. Imported own images
+  MUST be re-processed under the FR-023 rules (resized, re-encoded, metadata removed) before
+  being stored.
+- **FR-101**: Import MUST validate the file and be atomic (all or nothing); a file that would
+  exceed a limit is rejected as a whole, with an explanation.
 
 **Additional themes and languages (US14)**
 
-- **FR-110**: The app MUST offer a high-contrast theme (7:1) and palettes for protanopia,
+- **FR-110**: The app MUST let the adult choose the high-contrast theme (7:1, FR-055) manually,
+  independent of the system setting, and offer palettes for protanopia,
   deuteranopia and tritanopia.
 - **FR-111**: The project MUST accept community translations through an open platform.
+
+### Platform support
+
+Per Constitution VI. ✅ supported · ◐ degraded, with the difference shown in the UI · ✕ not
+available (the UI hides the feature or explains it). Technical detail per port in
+[contracts/platform-ports.md](./contracts/platform-ports.md).
+
+| Feature                                      | Android                 | iOS/iPadOS                  | macOS          | Windows           | Linux              | Web                     |
+| -------------------------------------------- | ----------------------- | --------------------------- | -------------- | ----------------- | ------------------ | ----------------------- |
+| Timer, dial, presets, images, settings       | ✅                      | ✅                          | ✅             | ✅                | ✅                 | ✅                      |
+| Alarm with the app closed (FR-011/012/015)   | ✅ (◐ no exact alarm)   | ✅ (◐ silent mode < iOS 26) | ✅             | ✅ or ◐ per spike | ◐ keep window open | ◐ keep window open      |
+| Screen always on (FR-014)                    | ✅                      | ✅                          | ✅             | ✅                | ◐                  | ◐ tab must be visible   |
+| Full screen in child mode (FR-030)           | ✅                      | ◐ status bar hidden only    | ✅             | ✅                | ✅                 | ◐ after the Start tap   |
+| Unlock with Esc (FR-031)                     | ◐ with a keyboard       | ◐ with a keyboard           | ✅             | ✅                | ✅                 | ✅                      |
+| Vibration (FR-054)                           | ✅ if the device has it | ✅ iPhone                   | ✕              | ✕                 | ✕                  | ✕                       |
+| Own image from the device (FR-021)           | ✅                      | ✅                          | ✅             | ✅                | ✅                 | ◐ stored in the browser |
+| System volume notice                         | ✅                      | ✅                          | ✕              | ✕                 | ✕                  | ✕                       |
+| Screen pinning and battery help (FR-018/033) | ✅                      | ✕                           | ✕              | ✕                 | ✕                  | ✕                       |
+| Routine step alarms when closed (FR-073)     | ✅                      | ✅                          | ✅             | per spike         | ◐ keep window open | ◐ keep window open      |
+| Home screen widget (FR-090, v1.x)            | ✅                      | ✅                          | ✕              | ✕                 | ✕                  | ✕                       |
+| System alarm in silent mode (FR-091, v1.x)   | ✕                       | ✅ iOS 26+                  | ✕              | ✕                 | ✕                  | ✕                       |
+| Export/import (FR-100, v1.x)                 | ✅ share sheet          | ✅ share sheet              | ✅ save dialog | ✅ save dialog    | ✅ save dialog     | ✅ download             |
 
 ### Key Entities _(include if feature involves data)_
 
@@ -649,15 +686,19 @@ dial phases are distinguishable in a color blindness simulator.
 
 ### Measurable Outcomes
 
+Measurement protocols for SC-001 to SC-005, SC-008 and SC-010 are defined in
+[testing-strategy.md §8](./testing-strategy.md).
+
 - **SC-001**: An adult without instructions sets up and starts a 5 min timer within 15 s on
   first use (test with 5 adults, median).
 - **SC-002**: The alarm fires within ≤ 1 s with the app open and ≤ 5 s with the app closed or the
   screen locked in 100% of 20 runs per platform with native alarms.
 - **SC-003**: In 30 attempts of random touches by a child during the countdown, 0 result in a
-  pause, cancellation or leaving the app.
+  pause, cancellation or leaving the app (both the automated and the manual protocol).
 - **SC-004**: The dial animates without perceptible stutter (≥ 99% of frames on time) on a
   reference low-end Android device.
-- **SC-005**: An adult picks a device photo, frames it and applies it to the dial within 30 s.
+- **SC-005**: An adult picks a device photo, frames it and applies it to the dial within 30 s
+  (same participants and conditions as SC-001, median).
 - **SC-006**: Starting a preset takes at most 2 taps from the home screen.
 - **SC-007**: 100% of screens pass a WCAG 2.2 AA accessibility audit (contrast, labels, focus,
   target size) and the platforms' accessibility scanners.
@@ -683,5 +724,8 @@ dial phases are distinguishable in a color blindness simulator.
   site data; the app says so in the picker.
 - Distribution: Google Play, App Store, F-Droid, Web (GitHub Pages), Flathub and GitHub
   Releases; publishing to stores is a release activity, outside this functional specification.
+- The system "reduce transparency" setting (iOS/macOS/Windows) is not read directly (Flutter
+  does not expose it); the app uses no blur or vibrancy, and its only translucency (the elapsed
+  sector) becomes opaque when the system's increase-contrast setting is on.
 - Out of scope up to v1.x: watches (Wear OS, Apple Watch), classroom mode with several
   simultaneous timers, recorded narration, reward board, per-child profiles, sync.

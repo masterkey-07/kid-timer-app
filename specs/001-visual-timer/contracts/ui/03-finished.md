@@ -46,6 +46,15 @@ request from teachers).
 - v1.x routine: shows the stars of all steps and the routine's name; for an intermediate step in
   manual mode, this screen is not used (see [09](./09-routines.md)).
 
+## States
+
+| Situation            | Presentation                                                                                |
+| -------------------- | ------------------------------------------------------------------------------------------- |
+| Image failed to load | ✓ icon on the full dial in the timer's color; no error message                              |
+| Sound failed to play | Visual celebration only; the failure is logged locally (no network)                         |
+| Reduce motion        | No spin and no particles; opacity transition only                                           |
+| Particles            | ≤ 20 particles, each fading in/out over ≥ 400 ms, no blinking (contract 00 §4 flash safety) |
+
 ## Strings
 
 `finishedTitle`, `finishedTapToReturn`, `finishedSemantics`.

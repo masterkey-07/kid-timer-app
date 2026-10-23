@@ -65,11 +65,11 @@ tooling. **⚠️ No story starts before this phase is done.**
 
 ### 2a. Quality tooling and CI
 
-- [ ] T014 [P] Implement `tool/check_coverage.dart` (reads `coverage/lcov.info`; fails if `lib/core/**` < 95%, `lib/features/**/application/**` < 85%, overall < 80%; excludes `lib/l10n/generated/**`, `lib/main.dart`, `lib/bootstrap.dart`, `lib/core/platform/**/impl/**`) with a test in `test/unit/tool/check_coverage_test.dart`
-- [ ] T015 [P] Implement `tool/privacy_check.dart` (fails if the merged release manifest `build/app/intermediates/merged_manifests/release/**/AndroidManifest.xml` contains `android.permission.INTERNET` or broad storage permissions; if `pubspec.lock` contains `firebase_*`, `google_mobile_ads`, `*analytics*`, `sentry*`, `*crashlytics*`; if `lib/` imports `package:http`, `package:dio`, `HttpClient` or `WebSocket`) with a test in `test/unit/tool/privacy_check_test.dart`
+- [ ] T014 [P] Implement `tool/check_coverage.dart` (reads `coverage/lcov.info`; fails if `lib/core/**` < 95%, `lib/features/**/application/**` < 85%, overall < 80%; excludes exactly the testing-strategy §2 rule 8 list: `lib/**/*.g.dart`, `lib/l10n/generated/**`, `lib/main*.dart`, `lib/core/platform/**/impl/**`) with a test in `test/unit/tool/check_coverage_test.dart`
+- [ ] T015 [P] Implement `tool/privacy_check.dart` (fails if the merged release manifest `build/app/intermediates/merged_manifests/release/**/AndroidManifest.xml` contains `android.permission.INTERNET` or broad storage permissions; if `pubspec.lock` contains `firebase_*`, `google_mobile_ads`, `*analytics*`, `sentry*`, `*crashlytics*`; if `lib/` imports `package:http`, `package:dio`, `HttpClient` or `WebSocket`; if macOS entitlements allow `network.client`/`network.server`; if iOS/macOS `Info.plist` has `NSAppTransportSecurity` exceptions; if `web/index.html`/`web/manifest.json` reference external URLs or CDNs; if `build/web/` references `gstatic.com` or any other external origin (CanvasKit CDN, research R20); if `windows/runner/` or `linux/` sources call WinHTTP/WinINet/libcurl/libsoup — research R22) with a test in `test/unit/tool/privacy_check_test.dart`
 - [ ] T016 [P] Implement `tool/license_check.dart` (every file in `assets/images/**`, `assets/sounds/**`, `assets/fonts/**` listed in the folder's `LICENSES.md`; allowed licenses: CC0-1.0, CC-BY-4.0, MIT, Apache-2.0, OFL-1.1) with a test in `test/unit/tool/license_check_test.dart`
 - [ ] T017 [P] Implement `tool/l10n_check.dart` (same set of keys and placeholders in `app_pt.arb` and `app_en.arb`) with a test in `test/unit/tool/l10n_check_test.dart`
-- [ ] T018 Create `.github/workflows/ci.yml`: FVM; `dart format --set-exit-if-changed`; `flutter analyze`; `flutter test --coverage` with `TZ=UTC` and `TZ=America/Sao_Paulo`; `tool/check_coverage.dart`; `tool/license_check.dart`; `tool/l10n_check.dart`; release APK build + `tool/privacy_check.dart`; `xvfb-run flutter test integration_test -d linux`; web build; desktop build matrix (ubuntu, windows, macos); non-blocking `flutter build web --wasm` job
+- [ ] T018 Create `.github/workflows/ci.yml`: FVM; `dart format --set-exit-if-changed`; `flutter analyze`; `flutter test --coverage` with `TZ=UTC` and `TZ=America/Sao_Paulo`; `tool/check_coverage.dart`; `tool/license_check.dart`; `tool/l10n_check.dart`; release APK build (`--split-per-abi`) + `tool/privacy_check.dart` + fail if any APK > 25 MB (Constitution VIII); `xvfb-run flutter test integration_test -d linux`; web build with `--no-web-resources-cdn`; desktop build matrix (ubuntu, windows, macos); non-blocking `flutter build web --wasm` job
 - [ ] T019 [P] Create `.github/workflows/e2e-android.yml` (API 34 x86_64 emulator with `reactivecircus/android-emulator-runner`, `patrol test -t patrol_test/`, Android integration; triggers: `e2e` label, daily schedule on `main`, `workflow_dispatch`)
 - [ ] T020 [P] Create `test/helpers/pump_app.dart` (wraps a widget with `ProviderScope` + overrides, `MaterialApp` with pt/en l10n, theme, screen size per class), `test/helpers/hive_test_utils.dart` (Hive in a temporary directory per test) and `test/helpers/a11y_expectations.dart` (shortcut for the 4 guidelines + 200% font)
 - [ ] T021 [P] Configure `alchemist` in `test/flutter_test_config.dart` (CI goldens with Ahem; app fonts loaded for platform goldens)
@@ -102,7 +102,7 @@ tooling. **⚠️ No story starts before this phase is done.**
 - [ ] T039 [P] Implement fakes in `test/helpers/fakes/fake_alarm_scheduler.dart`, `fake_wakelock.dart`, `fake_fullscreen.dart`, `fake_audio.dart`, `fake_haptics.dart`, `fake_image_picker.dart`, `fake_system_settings.dart`, `fake_external_link.dart`, `fake_lifecycle.dart` and run the contracts against them in `test/contract/fakes_contract_test.dart`
 - [ ] T040 Implement `LocalNotificationsAlarmScheduler` in `lib/core/platform/alarm/local_notifications_alarm_scheduler.dart` (`zonedSchedule` with `AndroidScheduleMode.alarmClock`; channels `timer_end_<soundId>` and `timer_warning`; iOS/macOS `timeSensitive` with bundled sound; `capabilities()` queries permissions; `notificationTaps` and `launchPayload`)
 - [ ] T041 Implement `ForegroundOnlyAlarmScheduler` in `lib/core/platform/alarm/foreground_only_alarm_scheduler.dart` (Web, Linux; `scheduling = unsupported`)
-- [ ] T042 **Spike** Windows: test `flutter_local_notifications` `zonedSchedule` on Windows 10/11; record the result in `specs/001-visual-timer/research.md` (R4) and select the Windows implementation in `lib/core/platform/providers.dart`
+- [ ] T042 **Spike** Windows: test `flutter_local_notifications` `zonedSchedule` on Windows 10/11; apply the R4 decision criterion (10/10 runs ≤ 5 s on Windows 10 22H2 and 11, sound, tap payload); record the result in `specs/001-visual-timer/research.md` (R4) and select the Windows implementation in `lib/core/platform/providers.dart`
 - [ ] T043 Configure Android for alarms in `android/app/src/main/AndroidManifest.xml`: `USE_EXACT_ALARM`, `SCHEDULE_EXACT_ALARM` with `android:maxSdkVersion="32"`, `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`, `VIBRATE`, `WAKE_LOCK`, receivers `ScheduledNotificationReceiver` and `ScheduledNotificationBootReceiver` (actions `BOOT_COMPLETED`, `MY_PACKAGE_REPLACED`, `QUICKBOOT_POWERON`) to reschedule after reboot and app update; make sure the `main` manifest does not declare `INTERNET`
 - [ ] T044 [P] Configure iOS/macOS for notifications: "Time Sensitive Notifications" capability in `ios/Runner/Runner.entitlements` and `macos/Runner/*.entitlements`; `UNUserNotificationCenter` delegate in `ios/Runner/AppDelegate.swift`
 - [ ] T045 [P] Implement `WakelockPlusPort` (`lib/core/platform/wakelock/wakelock_plus_port.dart`), `SystemChromeFullscreen`, `WindowManagerFullscreen`, `WebFullscreen` (`lib/core/platform/fullscreen/`), `AudioplayersAudioPort` (`lib/core/platform/audio/audioplayers_audio_port.dart`, one player per channel), `FlutterHapticsPort` (`lib/core/platform/haptics/flutter_haptics_port.dart`), `FlutterAppLifecyclePort` (`lib/core/platform/lifecycle/`)
@@ -113,8 +113,8 @@ tooling. **⚠️ No story starts before this phase is done.**
 ### 2e. App shell: bootstrap, theme, routes, l10n
 
 - [ ] T049 Implement `lib/bootstrap.dart` (initializes `timezone`, Hive, migrations, loads session and settings, creates the `ProviderContainer` with platform overrides) and `lib/main.dart`
-- [ ] T050 [P] Implement tokens and themes in `lib/app/theme/tokens.dart`, `palettes.dart` (progressive palette `#3BAA5C`/`#F2C14E`/`#E05A47`, calm `#8FB8E8`/`#B9A7E0`/`#F3C3A3`, elapsed `#9AA0A6` 0.18 light/0.28 dark, 8 `ColorToken`s), `typography.dart` (Atkinson, tabular digits), `app_theme.dart` (light/dark) per contracts/ui/00 §4
-- [ ] T051 [P] Write a contrast test in `test/unit/app/theme/contrast_test.dart` (text ≥ 4.5:1 and components ≥ 3:1 in both themes)
+- [ ] T050 [P] Implement tokens and themes in `lib/app/theme/tokens.dart`, `palettes.dart` (progressive palette `#3BAA5C`/`#F2C14E`/`#E05A47`, calm `#8FB8E8`/`#B9A7E0`/`#F3C3A3`, elapsed `#9AA0A6` 0.18 light/0.28 dark, 8 `ColorToken`s), `typography.dart` (Atkinson, tabular digits), `app_theme.dart` (light/dark, each with a high-contrast variant selected by `MediaQuery.highContrastOf` — FR-055) per contracts/ui/00 §4
+- [ ] T051 [P] Write a contrast test in `test/unit/app/theme/contrast_test.dart` (text ≥ 4.5:1 and components ≥ 3:1 in both themes; text and icons ≥ 7:1 and components ≥ 4.5:1 in both high-contrast variants)
 - [ ] T052 Write route and guard tests in `test/widget/app/router_test.dart` (running session → `/run`; unacknowledged finished → `/finished`; deep links `vtc://preset/<id>/start`, `vtc://run`; unknown id → `/` with a snackbar)
 - [ ] T053 Implement `lib/app/router.dart` (routes from contracts/ui/00 §1, guards and deep links) and `lib/app/app.dart` (`MaterialApp.router`, themes, `localizationsDelegates`, `localeResolutionCallback` with en fallback, global `Shortcuts`/`Actions`) (depends on T052)
 - [ ] T054 [P] Write `test/unit/app/locale_resolution_test.dart` (pt-_ → pt-BR, en-_ → en, others → en)
@@ -137,7 +137,7 @@ screen that stays until a tap.
 ### Tests for User Story 1 ⚠️ (write first, they must fail)
 
 - [ ] T057 [P] [US1] Dial geometry tests in `test/unit/features/timer/application/dial_geometry_test.dart` (angle ↔ duration per scale, rounding to the step, clockwise/counter-clockwise, remaining fraction)
-- [ ] T058 [P] [US1] `TimerController` tests in `test/unit/features/timer/application/timer_controller_test.dart` (start persists before scheduling; pause/resume/cancel/restart call the right ports; end with the app open plays the alarm once, vibrates, goes to finished; acknowledge clears the session; `lastConfig` saved with a 300 ms debounce; starting with an active session requires confirmation and replaces the previous one (v1.0: one timer at a time, FR-007); a failure to persist the session (storage full) prevents starting, without scheduling an alarm, and shows an error)
+- [ ] T058 [P] [US1] `TimerController` tests in `test/unit/features/timer/application/timer_controller_test.dart` (start and resume persist before scheduling; pause persists before cancelling; pause/resume/cancel/restart call the right ports; end with the app open plays the alarm once, vibrates, goes to finished; acknowledge clears the session; `lastConfig` saved with a 300 ms debounce; starting with an active session requires confirmation and replaces the previous one (v1.0: one timer at a time, FR-007); a failure to persist the session (storage full) prevents starting, without scheduling an alarm, and shows an error)
 - [ ] T059 [P] [US1] Home screen widget tests in `test/widget/features/timer/home_screen_test.dart` (drag adjusts duration; −1/+1/+5 and the 10 s–2 h limits; keyboard arrows/PageUp/PageDown; slider semantics; `home.start` disabled < 10 s; navigation to `/run`)
 - [ ] T060 [P] [US1] Countdown widget tests in `test/widget/features/timer/run_screen_test.dart` (with `childLockEnabled=false`: pause/resume/restart with confirmation < 50%/stop with confirmation; digits hidden if `showDigits=false`; repaint isolated in a `RepaintBoundary`)
 - [ ] T061 [P] [US1] Final screen widget tests in `test/widget/features/timer/finished_screen_test.dart` (800 ms guard; tap acknowledges and returns to `/`; Enter/Space/Esc; "Time's up" announcement; stays after 10 simulated minutes)
@@ -174,10 +174,10 @@ honest notices where unsupported.
 
 - [ ] T076 [P] [US2] `StartPreflight` tests in `test/unit/features/timer/application/start_preflight_test.dart` (the contracts/ui/08 §8.1 tree for every `AlarmCapabilities` combination; flags `webKeepOpenSeen`, `iosSilentWarned`, `exactAlarmExplained`; system volume 0 → 4 s notice banner without blocking)
 - [ ] T077 [P] [US2] Reconcile/restore tests in `test/unit/features/timer/application/reconcile_test.dart` (resume before the end continues with the real remaining time; after the end → finished; app reopened hours later shows finished once)
-- [ ] T078 [P] [US2] `RunController` tests in `test/unit/features/timer/application/run_controller_test.dart` (wakelock on when entering and off when leaving; fullscreen; no double alarm sound when the app is open)
+- [ ] T078 [P] [US2] `RunController` tests in `test/unit/features/timer/application/run_controller_test.dart` (wakelock on when entering and off when leaving; fullscreen; single ring per platform per contracts/ui/02 Behavior 5: Android/Windows cancel the OS alarm on `resumed` and reschedule on `inactive`/`paused`/`hidden`, iOS/macOS foreground presentation off, Web/Linux app sound only)
 - [ ] T079 [P] [US2] Notice widget tests in `test/widget/features/timer/notices_test.dart` (dialogs `notice.keepOpen`, `notice.notificationsDenied`, `notice.exactAlarm`, `notice.iosSilent`; `notice.banner` on home and on the unlocked controls, never in child mode)
-- [ ] T080 [P] [US2] Integration `integration_test/restart_resumes_running_test.dart`, `integration_test/wakelock_integration_test.dart` (Android and Linux) and `integration_test/persistence_roundtrip_test.dart` (Android, Linux, Web)
-- [ ] T081 [P] [US2] E2E `patrol_test/e2e_us2_alarm_locked_screen_test.dart` (Android/iOS: `$.native.pressHome()` and lock; notification within ≤ 65 s)
+- [ ] T080 [P] [US2] Integration `integration_test/restart_resumes_running_test.dart`, `integration_test/wakelock_integration_test.dart` (Android and Linux) and `integration_test/persistence_roundtrip_test.dart` (Android, Linux, Web), and `integration_test/alarm_accuracy_test.dart` (Android, Linux: 20 runs of 30 s, `playAlarm` within ≤ 1 s of `endsAt`; testing-strategy §8 SC-002)
+- [ ] T081 [P] [US2] E2E `patrol_test/e2e_us2_alarm_locked_screen_test.dart` (Android/iOS: `$.native.pressHome()` and lock; notification within ≤ 65 s; on Android, assert `postTime − endsAt ≤ 5 s` from `dumpsys notification`)
 - [ ] T082 [P] [US2] E2E `patrol_test/e2e_us2_alarm_closed_app_test.dart` (Android: kill the app; tapping the notification opens `/finished`)
 - [ ] T083 [P] [US2] E2E `patrol_test/e2e_us2_permissions_android_test.dart` (Android 14: deny notifications → dialog → "Open settings")
 
@@ -208,11 +208,11 @@ images", image on the dial with a fallback to colors.
 
 - [ ] T092 [US3] Verify the license of `microsoft/fluentui-emoji` (the `LICENSE` file and its scope over the assets) and record the result in `specs/001-visual-timer/research.md` (R9); if it is not MIT/compatible, use the fallback (Twemoji CC BY 4.0 or Noto Emoji Apache-2.0)
 - [ ] T093 [US3] Create the `tool/image_bank/` pipeline (`package.json`, `build.mjs` with `@resvg/resvg-js` + `sharp`, `sources.json` mapping emoji → id/category/pt-en names) that generates `assets/images/bank/<category>/<slug>.webp` at 768×768 with a soft circular background and `assets/images/bank/manifest.json`
-- [ ] T094 [US3] Generate and commit ≥ 36 images (≥ 6 per category: `hygiene`, `meal`, `play`, `rest`, `school`, `goingOut`), `assets/images/bank/manifest.json` and `assets/images/bank/LICENSES.md` (author, license, source per file); human review recorded in `docs/assets-review.md`
+- [ ] T094 [US3] Generate and commit ≥ 36 images (≥ 6 per category: `hygiene`, `meal`, `play`, `rest`, `school`, `goingOut`), `assets/images/bank/manifest.json` and `assets/images/bank/LICENSES.md` (author, license, source per file); human review recorded in `docs/assets-review.md` using the research R9 criteria (per asset: reviewer, date, verdict) and the R9 recognition validation; replace failing images
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T095 [P] [US3] Manifest test in `test/unit/features/images/image_bank_manifest_test.dart` (≥ 36 images; 6 categories with ≥ 6 each; pt and en names; allowed license; file exists)
+- [ ] T095 [P] [US3] Manifest test in `test/unit/features/images/image_bank_manifest_test.dart` (≥ 36 images; 6 categories with ≥ 6 each; non-empty pt and en names (FR-026); allowed license; file exists; every image has an approved entry in `docs/assets-review.md`)
 - [ ] T096 [P] [US3] `ImageProcessor` tests in `test/unit/features/images/image_processor_test.dart` (JPEG 1024×1024 output; EXIF/GPS absent from the result using the fixture `test/fixtures/images/with_gps.jpg`; center/zoom framing; errors `UnsupportedImageFormat`, `CorruptImage`, `ImageTooLarge` > 100 MP)
 - [ ] T097 [P] [US3] `UserImageRepository` tests in `test/unit/features/images/user_image_repository_test.dart` (write bytes → meta; remove meta → bytes; orphans cleaned at bootstrap; limit 50; reference count in presets/`lastConfig`; deleting converts references to the default palette; storage full during writing leaves no partial bytes or meta)
 - [ ] T098 [P] [US3] Geometry/painting tests with an image in `test/unit/features/timer/application/dial_image_clip_test.dart` (remaining sector clipped; neutral elapsed) and image goldens in `test/golden/features/timer/dial_image_golden_test.dart`
@@ -248,9 +248,9 @@ controls.
 ### Tests for User Story 4 ⚠️
 
 - [ ] T112 [P] [US4] `UnlockController` tests in `test/unit/features/child_lock/unlock_controller_test.dart` (`fake_async`: 3 s completes; releasing earlier resets; controls for 10 s; interaction restarts the 10 s; Esc held for 3 s)
-- [ ] T113 [P] [US4] Widget tests in `test/widget/features/child_lock/run_screen_child_lock_test.dart` (30 random gestures with `Random(42)`: tap, drag, double tap, pinch → state unchanged; Android back button consumed; padlock glow; `childLockEnabled=false` always shows controls; reduce motion replaces the ring with "1… 2… 3")
+- [ ] T113 [P] [US4] Widget tests in `test/widget/features/child_lock/run_screen_child_lock_test.dart` (30 random gestures with `Random(42)`: tap, drag, double tap, pinch → state unchanged; Android back button consumed; padlock glow; `childLockEnabled=false` always shows controls; reduce motion replaces the ring with "1… 2… 3"; turning on accessible navigation mid-countdown keeps the session unchanged and the padlock focusable)
 - [ ] T114 [P] [US4] Goldens of child mode and unlocked controls in `test/golden/features/child_lock/child_lock_golden_test.dart`
-- [ ] T115 [P] [US4] E2E `patrol_test/e2e_us4_child_lock_test.dart` (30 taps + native back with no effect; holding for 3 s shows the controls)
+- [ ] T115 [P] [US4] E2E `patrol_test/e2e_us4_child_lock_test.dart` (30 taps + native back with no effect; holding for 3 s shows the controls) and integration `integration_test/child_lock_integration_test.dart` (Android, Linux: real `FullscreenPort` and `AppLifecyclePort`; entering `/run` enters full screen, Esc held 3 s on Linux shows the controls, leaving exits full screen)
 
 ### Implementation for User Story 4
 
@@ -302,7 +302,7 @@ ticking, vibration, theme; all persisted.
 
 ### Assets
 
-- [ ] T134 [US6] Select ≥ 8 friendly sounds (Kenney CC0 or own), normalize them (WAV 16-bit mono 44.1 kHz, ≤ 30 s, ≤ 500 KB, peak ≤ −3 dBFS), add `tick_soft.wav` and `transition_soft.wav`, update `assets/sounds/manifest.json` and `LICENSES.md`; run `tool/sounds/sync_notification_sounds.dart`
+- [ ] T134 [US6] Select ≥ 8 friendly sounds (Kenney CC0 or own), normalize them (WAV 16-bit mono 44.1 kHz, ≤ 30 s, ≤ 500 KB, research R6 targets: −20 LUFS ± 1 (tick −30), true peak ≤ −3 dBTP, attack ≥ 20 ms, alarm 1–5 s), implement `tool/sounds/check_sounds.dart` (with a test in `test/unit/tool/check_sounds_test.dart`) and run it in CI, add `tick_soft.wav` and `transition_soft.wav`, update `assets/sounds/manifest.json` and `LICENSES.md`; human review of every sound recorded in `docs/assets-review.md` (research R9 criteria); run `tool/sounds/sync_notification_sounds.dart`
 
 ### Tests for User Story 6 ⚠️
 
@@ -318,7 +318,7 @@ ticking, vibration, theme; all persisted.
 - [ ] T141 [US6] Implement `SettingsController` in `lib/features/settings/application/settings_controller.dart` (depends on T135)
 - [ ] T142 [US6] Implement `SettingsScreen` (`/settings`) with every section and the keys from contracts/ui/06 in `lib/features/settings/presentation/settings_screen.dart` (depends on T141)
 - [ ] T143 [P] [US6] Implement `SoundPickerSheet` (list + preview + volume) in `lib/features/timer/presentation/widgets/sound_picker_sheet.dart` and wire it into `home.soundPicker` and the preset editor
-- [ ] T144 [US6] Apply `themeMode` in `lib/app/app.dart`, scale/direction/palette in `lib/features/timer/presentation/widgets/dial_painter.dart`, ticking in `lib/features/timer/application/run_controller.dart` (depends on T136, T137)
+- [ ] T144 [US6] Apply `themeMode` and the system high-contrast variant in `lib/app/app.dart`, scale/direction/palette in `lib/features/timer/presentation/widgets/dial_painter.dart`, ticking in `lib/features/timer/application/run_controller.dart` (depends on T136, T137)
 - [ ] T145 [US6] Validate palettes for color vision deficiency with simulation (Machado/Brettel) in `test/unit/app/theme/colorblind_check_test.dart` (phases distinguishable by luminance ≥ 20%) and adjust colors if needed
 - [ ] T146 [US6] Add US6 strings (`settings*`, sound names, palettes, colors) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
 
@@ -337,8 +337,8 @@ parent area with privacy and licenses.
 
 - [ ] T147 [P] [US7] Parental gate tests in `test/unit/features/parental/gate_challenge_test.dart` (factors 3–9 with a seeded `Random`; 3 errors → 30 s lockout with `fake_async`; 5 min validity) and `number_words_test.dart` (products in words in pt and en, e.g. 7×8 → "sete vezes oito"/"seven times eight")
 - [ ] T148 [P] [US7] Widget tests in `test/widget/features/parental/parental_gate_test.dart` (custom and physical keypad, error, lockout, screen reader reading) and `parent_area_test.dart` (privacy, licenses including assets' `LICENSES.md`, credits from the manifests, confirmation before an external link, diagnostic report without personal data)
-- [ ] T149 [P] [US7] Accessibility sweep in `test/widget/a11y/all_screens_a11y_test.dart` (every v1.0 screen × pt/en × light/dark: 4 guidelines, 200% font, Tab focus reaches every control, dial announcements via `AnnounceThrottle`, reduce motion)
-- [ ] T150 [P] [US7] E2E `patrol_test/e2e_us7_parental_gate_test.dart` and `patrol_test/e2e_us7_a11y_smoke_test.dart` (TalkBack enabled via `adb shell settings put secure enabled_accessibility_services …`)
+- [ ] T149 [P] [US7] Accessibility sweep in `test/widget/a11y/all_screens_a11y_test.dart` (every v1.0 screen × pt/en × light/dark: 4 guidelines, 200% font, Tab focus reaches every control, dial announcements via `AnnounceThrottle`, reduce motion; dialogs move focus in, trap it and return it to the opener; compact landscape 800×360 without overflow; elapsed sector opaque with `highContrast`; every repeating animation cycle ≥ 400 ms (flash safety, contracts/ui/00 §4))
+- [ ] T150 [P] [US7] E2E `patrol_test/e2e_us7_parental_gate_test.dart` and `patrol_test/e2e_us7_a11y_smoke_test.dart` (TalkBack enabled via `adb shell settings put secure enabled_accessibility_services …`), and integration `integration_test/locale_and_gate_integration_test.dart` (Linux, Web: app boots in en and pt-BR from the platform locale, an unsupported locale falls back to en; gate → `/parent`; the external link asks for confirmation through the real `ExternalLinkPort` wiring)
 
 ### Implementation for User Story 7
 
@@ -359,12 +359,12 @@ parent area with privacy and licenses.
 **Purpose**: Performance, final verification and v1.0 publication.
 
 - [ ] T158 [P] Performance tests `integration_test/perf_dial_animation_test.dart` (profile; 10 s `traceAction`; ≥ 99% frames < 16 ms; result saved as an artifact) and `integration_test/perf_startup_test.dart` (≤ 2 s)
-- [ ] T159 [P] Write `docs/release-checklist.md` (devices, alarm locked/killed per vendor, reboot, iOS silent, SC-008 traffic inspection, screen readers, projector, APK and IPA privacy check)
-- [ ] T160 [P] Create `.github/workflows/release.yml` (tag `v*`: APK per ABI, AAB, Web on GitHub Pages with `--base-href /visual-time-counter/`, Linux AppImage, Windows zip/MSIX, macOS dmg; artifacts on the GitHub Release; iOS via fastlane when secrets exist)
+- [ ] T159 [P] Write `docs/release-checklist.md` (devices, alarm locked/killed per vendor, reboot, iOS silent, screen readers (incl. turning one on mid-countdown), projector and moving the full-screen window between monitors, APK and IPA privacy check; the testing-strategy §8 protocols for SC-002 background, SC-003 manual and SC-008)
+- [ ] T160 [P] Create `.github/workflows/release.yml` (tag `v*`: APK per ABI, AAB, Web on GitHub Pages with `--base-href /kid-timer-app/ --no-web-resources-cdn`, a check that every APK per ABI is ≤ 25 MB, Linux AppImage, Windows zip/MSIX, macOS dmg; artifacts on the GitHub Release; iOS via fastlane when secrets exist)
 - [ ] T161 [P] Create store metadata in `fastlane/metadata/android/pt-BR/` and `en-US/` (title, short/full descriptions, screenshots, changelog), F-Droid compatible
-- [ ] T162 [P] Create the app icon and splash (original art, license recorded) in `assets/branding/` and generate per-platform icons
+- [ ] T162 [P] Create the app icon and splash (original art, license recorded, human review in `docs/assets-review.md`) in `assets/branding/` and generate per-platform icons
 - [ ] T163 Prepare store declarations in `docs/store-declarations.md` (Google Play: target audience, Data Safety "no data collected", `USE_EXACT_ALARM` justification; Apple: privacy nutrition label "Data Not Collected", decision on the Kids Category; IARC)
-- [ ] T164 Run `quickstart.md` §5 (US1–US7), the release checklist and the usage test with 3 families/teachers/therapists over 1 week (SC-001, SC-005, SC-010); record the results in `docs/releases/v1.0.0.md`
+- [ ] T164 Run `quickstart.md` §5 (US1–US7), the release checklist and the usability protocols of testing-strategy §8 (SC-001, SC-005 with 5 adults; SC-010 with 3 families/teachers/therapists over 1 week) and the library recognition validation (research R9); record the results in `docs/releases/v1.0.0.md`
 - [ ] T165 Update `CHANGELOG.md` and create the `v1.0.0` tag
 
 **Checkpoint**: v1.0 published (Web, GitHub Releases; stores depending on available accounts).
@@ -406,8 +406,8 @@ per-step notifications.
 
 ### Tests for User Story 9 ⚠️
 
-- [ ] T178 [P] [US9] Tests in `test/unit/features/timer/application/warning_schedule_test.dart` (warnings ≥ duration ignored; scheduling with `kind = warning`; cancelled together with the session)
-- [ ] T179 [P] [US9] Widget tests in `test/widget/features/timer/run_screen_warning_test.dart` (pulse 1.0→1.04→1.0 over 400 ms; soft sound; no pulse with reduce motion) and E2E `patrol_test/e2e_us9_warnings_test.dart`
+- [ ] T178 [P] [US9] Tests in `test/unit/features/timer/application/warning_schedule_test.dart` (at most 2 warnings accepted — FR-080; warnings ≥ duration ignored; scheduling with `kind = warning`; cancelled together with the session)
+- [ ] T179 [P] [US9] Widget tests in `test/widget/features/timer/run_screen_warning_test.dart` (pulse 1.0→1.04→1.0 over 400 ms; soft sound; no pulse with reduce motion), E2E `patrol_test/e2e_us9_warnings_test.dart` and integration `integration_test/warning_schedule_integration_test.dart` (Android: the real `AlarmScheduler` holds the end and warning requests under one group; cancel removes all)
 
 ### Implementation for User Story 9
 
@@ -421,7 +421,7 @@ per-step notifications.
 ### Tests for User Story 10 ⚠️
 
 - [ ] T182 [P] [US10] Tests in `test/unit/features/timer/application/image_effect_test.dart` (reveal inverts sectors; mosaic ≥ 10 steps; puzzle 4/9/16 pieces, one piece every 1/n of the time, pseudo-random order stable per `sessionId`)
-- [ ] T183 [P] [US10] Goldens in `test/golden/features/timer/effect_goldens_test.dart` (each effect at 0/33/66/100%; reduce motion)
+- [ ] T183 [P] [US10] Goldens in `test/golden/features/timer/effect_goldens_test.dart` (each effect at 0/33/66/100%; reduce motion), E2E `patrol_test/e2e_us10_effects_test.dart` (Android: preset with the puzzle effect → start 30 s → app in background and back → the dial shows the effect at the real progress) and integration `integration_test/effect_persist_test.dart` (Android, Linux: `imageEffect` survives a restart in presets and in the running session)
 
 ### Implementation for User Story 10
 
@@ -434,7 +434,7 @@ per-step notifications.
 
 ### Tests for User Story 11 ⚠️
 
-- [ ] T186 [P] [US11] Tests in `test/unit/features/timer/application/multi_dial_layout_test.dart` (dials = ceil(duration/scale); empty from right to left; maximum 12 h) and goldens in `test/golden/features/timer/multi_dial_golden_test.dart` (grid without scrolling on compact)
+- [ ] T186 [P] [US11] Tests in `test/unit/features/timer/application/multi_dial_layout_test.dart` (dials = ceil(duration/scale); empty from right to left; maximum 12 h) and goldens in `test/golden/features/timer/multi_dial_golden_test.dart` (grid without scrolling on compact), E2E `patrol_test/e2e_us11_long_timer_test.dart` (Android: 2 h 30 min → start → kill the app → reopen shows 3 dials with the real remaining time; the end alarm is pending in `dumpsys alarm`) and integration `integration_test/long_timer_restart_test.dart` (Android, Linux: a 12 h session survives a restart)
 
 ### Implementation for User Story 11
 
@@ -455,7 +455,7 @@ per-step notifications.
 - [ ] T191 [US12] Implement `HomeWidgetPort` + `WidgetSync` in `lib/core/platform/home_widget/` and `lib/features/home_widget/application/widget_sync.dart` (publishes when favorites change and when starting/stopping)
 - [ ] T192 [P] [US12] Android widget in Jetpack Glance: `android/app/src/main/kotlin/io/github/masterkey07/visualtimecounter/widget/PresetsWidget.kt` + `res/xml/presets_widget_info.xml` (2×2 and 4×2)
 - [ ] T193 [P] [US12] iOS widget in WidgetKit: `ios/PresetsWidget/` target (SwiftUI, small/medium) with App Group `group.io.github.masterkey07.visualtimecounter`
-- [ ] T194 [US12] **Spike** `flutter_alarmkit` on iOS 26 (countdown, Live Activity, authorization); record the decision in `specs/001-visual-timer/research.md` (R17)
+- [ ] T194 [US12] **Spike** `flutter_alarmkit` on iOS 26 (countdown, Live Activity, authorization); apply the R17 decision criterion (license, release in the last 6 months, 10/10 runs ringing in silent mode within ≤ 1 s, denial handled, no networking); record the decision in `specs/001-visual-timer/research.md` (R17)
 - [ ] T195 [US12] Implement `AlarmKitScheduler` (decorator with fallback) in `lib/core/platform/alarm/alarmkit_alarm_scheduler.dart`, the `notice.alarmKit` dialog and the Live Activity; decorator tests in `test/unit/core/platform/alarmkit_alarm_scheduler_test.dart`
 - [ ] T196 [US12] Favorites in the preset editor/list (`favorite`, at most 4) in `lib/features/presets/presentation/`; strings in `lib/l10n/*.arb`
 
@@ -465,14 +465,14 @@ per-step notifications.
 
 ### Tests for User Story 13 ⚠️
 
-- [ ] T197 [P] [US13] Codec tests in `test/unit/features/transfer/export_codec_test.dart` (format from contracts/export-format.md; validations 1–7; id remapping; " (2)" suffixes; images without metadata)
+- [ ] T197 [P] [US13] Codec tests in `test/unit/features/transfer/export_codec_test.dart` (format from contracts/export-format.md; validations 1–7; id remapping; " (2)" suffixes; exported images are the stored bytes; an imported JPEG fixture with EXIF/GPS is stored re-encoded without metadata; exceeding any limit rejects the whole file with `LimitExceeded`)
 - [ ] T198 [P] [US13] Atomicity tests in `test/unit/features/transfer/import_atomicity_test.dart` (a failure injected midway restores state; replace mode)
 - [ ] T199 [P] [US13] Widget tests in `test/widget/features/transfer/transfer_screen_test.dart`; integration `integration_test/transfer_roundtrip_test.dart`; E2E `patrol_test/e2e_us13_export_android_test.dart`
 
 ### Implementation for User Story 13
 
 - [ ] T200 [US13] Implement `ExportBundle` and `ExportCodec` in `lib/features/transfer/domain/` and `lib/features/transfer/data/export_codec.dart`
-- [ ] T201 [US13] Implement an atomic `ImportService` (temporary boxes and swap) in `lib/features/transfer/application/import_service.dart`
+- [ ] T201 [US13] Implement an atomic `ImportService` (temporary boxes and swap; every image re-processed through `ImageProcessor`; limits checked before writing) in `lib/features/transfer/application/import_service.dart`
 - [ ] T202 [US13] Implement `TransferScreen` (`/transfer`, parental gate) with `share_plus` (mobile) and `file_selector` (desktop/Web) in `lib/features/transfer/presentation/transfer_screen.dart`; strings in `lib/l10n/*.arb`
 
 **Checkpoint**: SC-012 validated.
@@ -483,12 +483,12 @@ per-step notifications.
 
 ### Tests for User Story 14 ⚠️
 
-- [ ] T203 [P] [US14] Tests in `test/unit/app/theme/high_contrast_test.dart` (text and icons ≥ 7:1) and `test/unit/app/theme/colorblind_palettes_test.dart` (protanopia, deuteranopia, tritanopia: distinguishable phases, luminance ≥ 20%)
-- [ ] T204 [P] [US14] High-contrast theme and palette goldens in `test/golden/app/themes_golden_test.dart`
+- [ ] T203 [P] [US14] Tests in `test/unit/app/theme/high_contrast_test.dart` (the manual high-contrast choice overrides the system setting; text and icons ≥ 7:1) and `test/unit/app/theme/colorblind_palettes_test.dart` (protanopia, deuteranopia, tritanopia: distinguishable phases, luminance ≥ 20%)
+- [ ] T204 [P] [US14] High-contrast theme and palette goldens in `test/golden/app/themes_golden_test.dart`, E2E `patrol_test/e2e_us14_high_contrast_test.dart` (Android: choose high contrast and the deuteranopia palette in settings → restart → home and `/run` use them) and the `highContrast`/palette cases in `integration_test/theme_persist_test.dart`
 
 ### Implementation for User Story 14
 
-- [ ] T205 [US14] Implement the `highContrast` theme and the `protanopia`, `deuteranopia`, `tritanopia` palettes in `lib/app/theme/` and the options in settings
+- [ ] T205 [US14] Add the manual high-contrast option (reusing the T050 high-contrast variant) and implement the `protanopia`, `deuteranopia`, `tritanopia` palettes in `lib/app/theme/`, with the options in settings
 - [ ] T206 [US14] Set up Hosted Weblate (project, ARB component, automatic PRs) and document it in `docs/translations.md`; CI accepts a new language only if 100% translated (`tool/l10n_check.dart --complete-only`)
 
 ---
@@ -549,7 +549,7 @@ corresponding tests per level are in [testing-strategy.md](./testing-strategy.md
 | FR-052      | T134, T137, T143                               |
 | FR-053      | T137, T144                                     |
 | FR-054      | T045, T058                                     |
-| FR-055      | T050, T138, T144                               |
+| FR-055      | T050, T051, T138, T144                         |
 | FR-056      | T135, T139, T141                               |
 | FR-060      | T029, T149, T155                               |
 | FR-061      | T063, T149, T155                               |

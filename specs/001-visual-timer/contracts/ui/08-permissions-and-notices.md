@@ -53,6 +53,18 @@ Android channels: `timer_end` (maximum importance, the chosen alarm sound, vibra
 `timer_warning` (default, soft sound). Because an Android channel's sound is fixed once created,
 each app sound has its own channel `timer_end_<soundId>`.
 
+## Main strings
+
+`noticeKeepOpenTitle`, `noticeKeepOpenBody`, `noticeKeepOpenOk`, `noticeNotificationsDeniedTitle`,
+`noticeNotificationsDeniedBody`, `noticeOpenSettings`, `noticeContinueAnyway`,
+`noticeExactAlarmTitle`, `noticeExactAlarmBody`, `noticeAllow`, `noticeNotNow`,
+`noticeIosSilentBody`, `noticeVolumeZero`, `noticeBannerNoBackgroundAlarm`,
+`noticeBannerReducedAccuracy`, `noticeLearnMore`, `notificationTimerEndTitle`,
+`notificationTimerEndBody`, `notificationChannelTimerEnd`, `notificationChannelWarning`;
+v1.x: `notificationStepEndTitle`, `notificationStepEndBody`, `notificationWarningTitle`,
+`noticeAlarmKitTitle`, `noticeAlarmKitBody`. Every key exists in `app_pt.arb` and
+`app_en.arb` (`tool/l10n_check.dart`).
+
 ## Planned tests
 
 - Unit: the preflight decision tree with a fake port for every capability combination.

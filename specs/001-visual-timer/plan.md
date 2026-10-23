@@ -57,7 +57,7 @@ _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 | II. Child Safety and Well-being        | Child mode absorbs touches with a 3 s unlock; parental gate for ways out; gentle sounds; calm mode; reviewed assets; no ads/purchases                                                                 | ✅                                      |
 | III. Time Reliability                  | Pure `TimerEngine` with `Clock`; `endsAt` in UTC; persistence before scheduling; reconcile on resume/boot; OS alarm; notices where unsupported                                                        | ✅                                      |
 | IV. Test-First                         | Test tasks before each implementation; unit/widget/golden/integration/E2E suites per story; coverage thresholds in CI ([testing-strategy.md](./testing-strategy.md))                                  | ✅                                      |
-| V. Accessibility                       | Dial semantics as a slider, throttled announcements, full keyboard support, 200% font, reduce motion, Atkinson Hyperlegible, guidelines in widget tests                                               | ✅                                      |
+| V. Accessibility                       | Dial semantics as a slider, throttled announcements, full keyboard support, 200% font, reduce motion, system high contrast in v1.0 (FR-055), Atkinson Hyperlegible, guidelines in widget tests        | ✅                                      |
 | VI. Parity and Honest Degradation      | Ports with per-platform implementations and `capabilities()`; `PlatformNotice` and preflight; compact/medium/expanded layouts                                                                         | ✅                                      |
 | VII. Clean Architecture and Simplicity | Layered feature-first; Flutter-free domain; Riverpod without codegen; single persistence (hive_ce)                                                                                                    | ✅ (extra dependencies justified below) |
 | VIII. Quality and Performance          | `very_good_analysis`, `RepaintBoundary`, cached static layer, targets measured by performance tests                                                                                                   | ✅                                      |
@@ -166,8 +166,10 @@ integration_test/
 patrol_test/
 test_driver/integration_test.dart
 tool/            # check_coverage.dart, privacy_check.dart, license_check.dart, l10n_check.dart,
-                 # image_bank/ (Node: build.mjs, package.json), sounds/README.md
-docs/            # release-checklist.md, architecture.md, contributing-assets.md
+                 # image_bank/ (Node: build.mjs, package.json),
+                 # sounds/ (check_sounds.dart, sync_notification_sounds.dart, README.md)
+docs/            # release-checklist.md, architecture.md, contributing-assets.md,
+                 # assets-review.md (human review of every asset), releases/<version>.md
 android/ ios/ macos/ windows/ linux/ web/
 .github/workflows/  # ci.yml, e2e-android.yml, release.yml
 fastlane/metadata/android/{pt-BR,en-US}/
@@ -191,7 +193,12 @@ widgets/AlarmKit (v1.x).
           └─ router.go('/run')
 [Run] Ticker → DialView.repaint(remaining = endsAt − clock.now())
   ├─ lifecycle resumed → reconcile(now) → finished? → /finished
-  └─ now ≥ endsAt (app open) → Audio.playAlarm, Haptics, cancel notification → /finished
+  │    └─ Android/Windows: AlarmScheduler.cancel(end)            (single ring, contracts/ui/02 §5)
+  ├─ lifecycle inactive/paused/hidden
+  │    └─ Android/Windows: AlarmScheduler.schedule(end)          (session already persisted)
+  └─ now ≥ endsAt (app open) → Audio.playAlarm, Haptics → /finished
+       (iOS/macOS: notification stays scheduled with foreground presentation off;
+        removed from the tray on entering /finished)
 [Finished] tap → acknowledge → session cleared → WakeLock.disable → /
 [Boot] bootstrap → load session → reconcile → route guard (/run | /finished | /)
 ```

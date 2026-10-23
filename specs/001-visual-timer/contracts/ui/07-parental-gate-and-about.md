@@ -61,12 +61,22 @@
 | Source code | `parent.source`   | Dialog "Open the browser?" → `url_launcher`                                     |
 | Report      | `parent.report`   | Copies: version, platform, OS, screen size, permission status; nothing personal |
 
+## States
+
+| Situation                           | Presentation                                                                                  |
+| ----------------------------------- | --------------------------------------------------------------------------------------------- |
+| Gate: lockout active                | Keys disabled, `gate.lockout` countdown; closing and reopening the dialog keeps the lockout   |
+| Gate: validity expired (> 5 min)    | Navigating to `/parent` or `/transfer` shows the gate again                                   |
+| Parent area: loading credits        | Manifests are bundled assets; no spinner if ≤ 300 ms, otherwise a centered progress indicator |
+| Parent area: manifest unreadable    | Credits screen shows "Credits could not be loaded" with the asset `LICENSES.md` text instead  |
+| External link: no browser available | `ExternalLinkPort.open` returns false → snackbar "No browser available"                       |
+
 ## Strings
 
 `gateTitle`, `gatePrompt`, `gateWrong`, `gateLockout`, `gateNumberWords` (0–9 and products in
 words via ICU/plural or a table), `parentTitle`, `parentTagline`, `parentPrivacy`,
 `parentLicenses`, `parentCredits`, `parentSource`, `parentReport`, `parentOpenBrowserConfirm`,
-`privacyPolicyBody`.
+`privacyPolicyBody`, `parentCreditsError`, `parentNoBrowser`.
 
 ## Planned tests
 
