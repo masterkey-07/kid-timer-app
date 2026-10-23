@@ -11,7 +11,7 @@ browser.
 - Child lock, calm mode, accessible (screen readers, keyboard, large fonts).
 - Brazilian Portuguese and English.
 
-> **Status**: specification and planning complete; implementation not started yet.
+> **Status**: implementation in progress (see `specs/001-visual-timer/tasks.md`).
 
 ## Platforms
 
@@ -31,6 +31,9 @@ To continue the implementation with Claude Code, open the repository and run
 `/speckit-implement`.
 
 ## Development
+
+The Flutter SDK is pinned with [FVM](https://fvm.app) in [`.fvmrc`](.fvmrc): **Flutter 3.47.8
+(stable channel, Dart 3.13.7)**. CI uses the same version.
 
 Prerequisites and commands are in
 [`specs/001-visual-timer/quickstart.md`](specs/001-visual-timer/quickstart.md). In short:
