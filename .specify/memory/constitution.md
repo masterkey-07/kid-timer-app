@@ -1,4 +1,4 @@
-# Visual Time Counter Constitution
+# Kid Timer Constitution
 
 A free, open source visual timer for children, built with Flutter for Android, iOS, iPadOS,
 Windows, macOS, Linux and Web. This document defines the project's non-negotiable rules.

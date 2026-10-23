@@ -1,4 +1,4 @@
-# CLAUDE.md — Visual Time Counter
+# CLAUDE.md — Kid Timer
 
 Runtime guide for agents (Claude Code) in this repository. Read it before any task.
 
@@ -10,21 +10,21 @@ no data collection. Apache-2.0 license.
 
 ## Source of truth (Spec-Driven Development with GitHub Spec Kit)
 
-| Artifact | Path |
-|---|---|
-| Constitution (non-negotiable rules) | `.specify/memory/constitution.md` |
-| Active feature | `.specify/feature.json` → `specs/001-visual-timer/` |
-| Specification (what and why) | `specs/001-visual-timer/spec.md` |
-| Technical plan (how) | `specs/001-visual-timer/plan.md` |
-| Decisions and alternatives | `specs/001-visual-timer/research.md` |
-| Data model | `specs/001-visual-timer/data-model.md` |
-| UI contracts (one per screen) | `specs/001-visual-timer/contracts/ui/00…11-*.md` |
-| Platform ports, persistence, export | `specs/001-visual-timer/contracts/*.md` |
-| Testing strategy (unit, integration, E2E) | `specs/001-visual-timer/testing-strategy.md` |
-| Executable task list | `specs/001-visual-timer/tasks.md` |
-| Manual validation | `specs/001-visual-timer/quickstart.md` |
-| Requirement quality checklists | `specs/001-visual-timer/checklists/` |
-| Latest consistency analysis | `specs/001-visual-timer/analysis.md` |
+| Artifact                                  | Path                                                |
+| ----------------------------------------- | --------------------------------------------------- |
+| Constitution (non-negotiable rules)       | `.specify/memory/constitution.md`                   |
+| Active feature                            | `.specify/feature.json` → `specs/001-visual-timer/` |
+| Specification (what and why)              | `specs/001-visual-timer/spec.md`                    |
+| Technical plan (how)                      | `specs/001-visual-timer/plan.md`                    |
+| Decisions and alternatives                | `specs/001-visual-timer/research.md`                |
+| Data model                                | `specs/001-visual-timer/data-model.md`              |
+| UI contracts (one per screen)             | `specs/001-visual-timer/contracts/ui/00…11-*.md`    |
+| Platform ports, persistence, export       | `specs/001-visual-timer/contracts/*.md`             |
+| Testing strategy (unit, integration, E2E) | `specs/001-visual-timer/testing-strategy.md`        |
+| Executable task list                      | `specs/001-visual-timer/tasks.md`                   |
+| Manual validation                         | `specs/001-visual-timer/quickstart.md`              |
+| Requirement quality checklists            | `specs/001-visual-timer/checklists/`                |
+| Latest consistency analysis               | `specs/001-visual-timer/analysis.md`                |
 
 On conflict: constitution > spec > plan/contracts > tasks > code.
 

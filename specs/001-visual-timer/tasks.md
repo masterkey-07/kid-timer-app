@@ -1,9 +1,8 @@
 ---
-
-description: "Task list to implement Visual Time Counter (v1.0 and v1.x)"
+description: "Task list to implement Kid Timer (v1.0 and v1.x)"
 ---
 
-# Tasks: Visual Time Counter (v1.0 and v1.x)
+# Tasks: Kid Timer (v1.0 and v1.x)
 
 **Input**: Design documents from `/specs/001-visual-timer/`
 
@@ -51,7 +50,7 @@ Phase 19 = final polish.
 - [ ] T006 [P] Create the folder structure for `lib/`, `test/`, `integration_test/`, `patrol_test/`, `tool/`, `assets/`, `docs/` per plan.md (Project Structure), with `.gitkeep` where empty
 - [ ] T007 [P] Adjust `.gitignore` for Flutter + FVM (`.fvm/flutter_sdk`), `coverage/`, `build/`, `tool/image_bank/node_modules/`, golden failures (`**/failures/`)
 - [ ] T008 [P] Configure Android: `minSdk 26`, `targetSdk 36`, `compileSdk 36`, core library desugaring (required by `flutter_local_notifications`), `applicationId io.github.masterkey07.visualtimecounter` in `android/app/build.gradle.kts`
-- [ ] T009 [P] Configure iOS/macOS: deployment target iOS 16 / macOS 13, bundle id `io.github.masterkey07.visualtimecounter`, display name "Visual Time Counter" in `ios/Runner/Info.plist` and `macos/Runner/Configs/AppInfo.xcconfig`
+- [ ] T009 [P] Configure iOS/macOS: deployment target iOS 16 / macOS 13, bundle id `io.github.masterkey07.visualtimecounter`, display name "Kid Timer" in `ios/Runner/Info.plist` and `macos/Runner/Configs/AppInfo.xcconfig`
 - [ ] T010 [P] Configure Patrol: `patrol` in `pubspec.yaml` (`patrol:` section with `app_name`, `android.package_name`, `ios.bundle_id`), instrumentation in `android/app/build.gradle.kts` and `android/app/src/androidTest/java/.../MainActivityTest.java`, `RunnerUITests` target in `ios/`
 - [ ] T011 [P] Create `test_driver/integration_test.dart` for Web runs via `flutter drive`
 - [ ] T012 [P] Download and add the Atkinson Hyperlegible Next font (Regular, Bold) to `assets/fonts/AtkinsonHyperlegibleNext/` with `OFL.txt`
@@ -118,7 +117,7 @@ tooling. **⚠️ No story starts before this phase is done.**
 - [ ] T051 [P] Write a contrast test in `test/unit/app/theme/contrast_test.dart` (text ≥ 4.5:1 and components ≥ 3:1 in both themes)
 - [ ] T052 Write route and guard tests in `test/widget/app/router_test.dart` (running session → `/run`; unacknowledged finished → `/finished`; deep links `vtc://preset/<id>/start`, `vtc://run`; unknown id → `/` with a snackbar)
 - [ ] T053 Implement `lib/app/router.dart` (routes from contracts/ui/00 §1, guards and deep links) and `lib/app/app.dart` (`MaterialApp.router`, themes, `localizationsDelegates`, `localeResolutionCallback` with en fallback, global `Shortcuts`/`Actions`) (depends on T052)
-- [ ] T054 [P] Write `test/unit/app/locale_resolution_test.dart` (pt-* → pt-BR, en-* → en, others → en)
+- [ ] T054 [P] Write `test/unit/app/locale_resolution_test.dart` (pt-_ → pt-BR, en-_ → en, others → en)
 - [ ] T055 [P] Implement the shared components `lib/app/widgets/platform_notice.dart` (key `notice.banner`) and `lib/app/widgets/confirm_dialog.dart` with tests in `test/widget/app/widgets/shared_widgets_test.dart`
 - [ ] T056 Configure the `vtc://` deep link in `android/app/src/main/AndroidManifest.xml` (intent-filter) and `ios/Runner/Info.plist` (`CFBundleURLTypes`)
 
@@ -513,78 +512,78 @@ per-step notifications.
 Every requirement and success criterion in the spec has test and implementation tasks. The
 corresponding tests per level are in [testing-strategy.md](./testing-strategy.md) §3.
 
-| Requirement | Tasks |
-|---|---|
-| FR-001 | T022, T023, T057, T059, T066, T071 |
-| FR-002 | T057, T062, T068, T069 |
-| FR-003 | T026, T027, T058, T060, T067, T072 |
-| FR-004 | T030, T070 |
-| FR-005 | T058, T061, T073 |
-| FR-006 | T035, T036, T058, T067 |
-| FR-007 | T058, T067 |
-| FR-010 | T026, T027 |
-| FR-011 | T038, T040, T043, T044, T048, T081, T082, T087 |
-| FR-012 | T042 |
-| FR-013 | T033, T034, T077, T080, T086 |
-| FR-014 | T078, T080, T085 |
-| FR-015 | T041, T076, T079, T084, T088 |
-| FR-016 | T040, T076, T083, T084, T088 |
-| FR-017 | T043 |
-| FR-018 | T046, T090 |
-| FR-020 | T092, T093, T094, T095, T103 |
-| FR-021 | T101, T106, T110 |
-| FR-022 | T096, T099, T108 |
-| FR-023 | T096, T104 |
-| FR-024 | T097, T099, T105, T108, T132 |
-| FR-025 | T098, T107, T109 |
-| FR-026 | T094, T095, T103 |
-| FR-030 | T113, T117, T118 |
-| FR-031 | T112, T116, T117 |
-| FR-032 | T119, T142 |
-| FR-033 | T090 |
-| FR-040 | T121, T122, T123, T127, T128, T129, T130 |
-| FR-041 | T126, T131 |
-| FR-042 | T122, T128 |
-| FR-050 | T022, T062, T144 |
-| FR-051 | T022, T136, T144, T145 |
-| FR-052 | T134, T137, T143 |
-| FR-053 | T137, T144 |
-| FR-054 | T045, T058 |
-| FR-055 | T050, T138, T144 |
-| FR-056 | T135, T139, T141 |
-| FR-060 | T029, T149, T155 |
-| FR-061 | T063, T149, T155 |
-| FR-062 | T054, T156 |
-| FR-063 | T147, T148, T151, T152 |
-| FR-064 | T148, T153, T154 |
-| FR-065 | T015, T018, T212 |
-| FR-070 | T166, T168, T171, T172, T175 |
-| FR-071 | T167, T173 |
-| FR-072 | T169, T175 |
-| FR-073 | T167, T170, T173 |
-| FR-074 | T166, T169, T175 |
-| FR-075 | T174 |
-| FR-080 | T178, T179, T180, T181 |
-| FR-081 | T182, T183, T184, T185 |
-| FR-082 | T186, T187, T188 |
-| FR-090 | T189, T190, T191, T192, T193, T196 |
-| FR-091 | T194, T195 |
-| FR-100 | T197, T199, T200, T202 |
-| FR-101 | T198, T201 |
-| FR-110 | T203, T204, T205 |
-| FR-111 | T206 |
-| SC-001 | T164 |
-| SC-002 | T081, T082, T164 |
-| SC-003 | T113, T115 |
-| SC-004 | T158 |
-| SC-005 | T101, T164 |
-| SC-006 | T126 |
-| SC-007 | T149 |
-| SC-008 | T015, T164, T212 |
-| SC-009 | T158 |
-| SC-010 | T164 |
-| SC-011 | T170, T208 |
-| SC-012 | T199, T208 |
+| Requirement | Tasks                                          |
+| ----------- | ---------------------------------------------- |
+| FR-001      | T022, T023, T057, T059, T066, T071             |
+| FR-002      | T057, T062, T068, T069                         |
+| FR-003      | T026, T027, T058, T060, T067, T072             |
+| FR-004      | T030, T070                                     |
+| FR-005      | T058, T061, T073                               |
+| FR-006      | T035, T036, T058, T067                         |
+| FR-007      | T058, T067                                     |
+| FR-010      | T026, T027                                     |
+| FR-011      | T038, T040, T043, T044, T048, T081, T082, T087 |
+| FR-012      | T042                                           |
+| FR-013      | T033, T034, T077, T080, T086                   |
+| FR-014      | T078, T080, T085                               |
+| FR-015      | T041, T076, T079, T084, T088                   |
+| FR-016      | T040, T076, T083, T084, T088                   |
+| FR-017      | T043                                           |
+| FR-018      | T046, T090                                     |
+| FR-020      | T092, T093, T094, T095, T103                   |
+| FR-021      | T101, T106, T110                               |
+| FR-022      | T096, T099, T108                               |
+| FR-023      | T096, T104                                     |
+| FR-024      | T097, T099, T105, T108, T132                   |
+| FR-025      | T098, T107, T109                               |
+| FR-026      | T094, T095, T103                               |
+| FR-030      | T113, T117, T118                               |
+| FR-031      | T112, T116, T117                               |
+| FR-032      | T119, T142                                     |
+| FR-033      | T090                                           |
+| FR-040      | T121, T122, T123, T127, T128, T129, T130       |
+| FR-041      | T126, T131                                     |
+| FR-042      | T122, T128                                     |
+| FR-050      | T022, T062, T144                               |
+| FR-051      | T022, T136, T144, T145                         |
+| FR-052      | T134, T137, T143                               |
+| FR-053      | T137, T144                                     |
+| FR-054      | T045, T058                                     |
+| FR-055      | T050, T138, T144                               |
+| FR-056      | T135, T139, T141                               |
+| FR-060      | T029, T149, T155                               |
+| FR-061      | T063, T149, T155                               |
+| FR-062      | T054, T156                                     |
+| FR-063      | T147, T148, T151, T152                         |
+| FR-064      | T148, T153, T154                               |
+| FR-065      | T015, T018, T212                               |
+| FR-070      | T166, T168, T171, T172, T175                   |
+| FR-071      | T167, T173                                     |
+| FR-072      | T169, T175                                     |
+| FR-073      | T167, T170, T173                               |
+| FR-074      | T166, T169, T175                               |
+| FR-075      | T174                                           |
+| FR-080      | T178, T179, T180, T181                         |
+| FR-081      | T182, T183, T184, T185                         |
+| FR-082      | T186, T187, T188                               |
+| FR-090      | T189, T190, T191, T192, T193, T196             |
+| FR-091      | T194, T195                                     |
+| FR-100      | T197, T199, T200, T202                         |
+| FR-101      | T198, T201                                     |
+| FR-110      | T203, T204, T205                               |
+| FR-111      | T206                                           |
+| SC-001      | T164                                           |
+| SC-002      | T081, T082, T164                               |
+| SC-003      | T113, T115                                     |
+| SC-004      | T158                                           |
+| SC-005      | T101, T164                                     |
+| SC-006      | T126                                           |
+| SC-007      | T149                                           |
+| SC-008      | T015, T164, T212                               |
+| SC-009      | T158                                           |
+| SC-010      | T164                                           |
+| SC-011      | T170, T208                                     |
+| SC-012      | T199, T208                                     |
 
 ---
 

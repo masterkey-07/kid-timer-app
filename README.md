@@ -1,4 +1,4 @@
-# Visual Time Counter
+# Kid Timer
 
 A **free and open source** visual timer for children. The adult picks a time and an image; the
 child watches a dial shrink until time is up. Works on phones, tablets, computers and in the

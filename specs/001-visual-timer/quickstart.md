@@ -1,4 +1,4 @@
-# Quickstart & Validation Guide: Visual Time Counter
+# Quickstart & Validation Guide: Kid Timer
 
 **Feature**: `001-visual-timer` | **Plan**: [plan.md](./plan.md)
 
@@ -7,17 +7,17 @@ data details live in [contracts/](./contracts/) and [data-model.md](./data-model
 
 ## 1. Prerequisites
 
-| Tool | Version | Use |
-|---|---|---|
-| FVM | latest | Pins Flutter from `.fvmrc` |
-| Flutter | 3.47.x (via FVM) | SDK |
-| Android Studio + SDK | API 36, API 34 x86_64 emulator | Android |
-| Xcode | 26+ (macOS) | iOS/macOS |
-| Visual Studio 2022 (C++ desktop) | latest | Windows |
-| `clang`, `cmake`, `ninja-build`, `libgtk-3-dev`, `gstreamer1.0-*`, `xvfb` | distro | Linux |
-| Chrome + chromedriver | latest | Web and web tests |
-| Patrol CLI | 4.x (`dart pub global activate patrol_cli`) | E2E |
-| Node.js | 22+ | only for `tool/image_bank/` |
+| Tool                                                                      | Version                                     | Use                         |
+| ------------------------------------------------------------------------- | ------------------------------------------- | --------------------------- |
+| FVM                                                                       | latest                                      | Pins Flutter from `.fvmrc`  |
+| Flutter                                                                   | 3.47.x (via FVM)                            | SDK                         |
+| Android Studio + SDK                                                      | API 36, API 34 x86_64 emulator              | Android                     |
+| Xcode                                                                     | 26+ (macOS)                                 | iOS/macOS                   |
+| Visual Studio 2022 (C++ desktop)                                          | latest                                      | Windows                     |
+| `clang`, `cmake`, `ninja-build`, `libgtk-3-dev`, `gstreamer1.0-*`, `xvfb` | distro                                      | Linux                       |
+| Chrome + chromedriver                                                     | latest                                      | Web and web tests           |
+| Patrol CLI                                                                | 4.x (`dart pub global activate patrol_cli`) | E2E                         |
+| Node.js                                                                   | 22+                                         | only for `tool/image_bank/` |
 
 ## 2. Setup
 
@@ -55,17 +55,17 @@ test/golden` (review the image diff in the PR).
 
 ## 5. Validation scenarios per story
 
-| Story | How to validate | Expected result |
-|---|---|---|
-| US1 | Drag the dial to 1 min → Start | Dial shrinks; final screen stays until a tap |
-| US2 | Start 1 min → lock the screen (Android/iOS) | Alarm within ≤ 65 s; reopening shows the final screen |
-| US2 (Web/Linux) | Start | "Keep this window open" notice |
-| US3 | Library image "Brush teeth" → 1 min; then a device photo | Image disappears with the dial; no gallery permission prompt |
-| US4 | Start → tap many times → hold the padlock for 3 s | No effect until unlocked |
-| US5 | Save a preset → restart the app → start with 2 taps | The preset's timer |
-| US6 | Calm mode + ticking off | No red, no ticking |
-| US7 | TalkBack/VoiceOver; English language; ⓘ → parental gate | Everything announced/translated; parent area |
-| US8–US14 (v1.x) | See the acceptance scenarios in the [spec](./spec.md) | — |
+| Story           | How to validate                                          | Expected result                                              |
+| --------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
+| US1             | Drag the dial to 1 min → Start                           | Dial shrinks; final screen stays until a tap                 |
+| US2             | Start 1 min → lock the screen (Android/iOS)              | Alarm within ≤ 65 s; reopening shows the final screen        |
+| US2 (Web/Linux) | Start                                                    | "Keep this window open" notice                               |
+| US3             | Library image "Brush teeth" → 1 min; then a device photo | Image disappears with the dial; no gallery permission prompt |
+| US4             | Start → tap many times → hold the padlock for 3 s        | No effect until unlocked                                     |
+| US5             | Save a preset → restart the app → start with 2 taps      | The preset's timer                                           |
+| US6             | Calm mode + ticking off                                  | No red, no ticking                                           |
+| US7             | TalkBack/VoiceOver; English language; ⓘ → parental gate  | Everything announced/translated; parent area                 |
+| US8–US14 (v1.x) | See the acceptance scenarios in the [spec](./spec.md)    | —                                                            |
 
 ## 6. Release builds (summary)
 

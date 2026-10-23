@@ -1,4 +1,4 @@
-# Feature Specification: Visual Time Counter (v1.0 and v1.x)
+# Feature Specification: Kid Timer (v1.0 and v1.x)
 
 **Feature Branch**: `001-visual-timer`
 
@@ -28,10 +28,10 @@ data collection.
 
 **Releases**
 
-| Release | Stories |
-|---|---|
-| v1.0 (MVP) | US1 to US7 |
-| v1.x | US8 to US14 |
+| Release    | Stories     |
+| ---------- | ----------- |
+| v1.0 (MVP) | US1 to US7  |
+| v1.x       | US8 to US14 |
 
 ## Clarifications
 
@@ -63,7 +63,7 @@ revise them before implementation.
   A persistent notice "Keep this window open to hear the alarm" appears before starting and on
   the countdown screen (outside the child lock, visible only to the adult when unlocked).
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Visual countdown with a shrinking dial (Priority: P1) — v1.0
 
@@ -497,7 +497,7 @@ dial phases are distinguishable in a color blindness simulator.
 - Data saved in an earlier format: migrated automatically; if migration fails, the original data
   is preserved and the app uses defaults with a notice.
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -629,7 +629,7 @@ dial phases are distinguishable in a color blindness simulator.
   deuteranopia and tritanopia.
 - **FR-111**: The project MUST accept community translations through an open platform.
 
-### Key Entities *(include if feature involves data)*
+### Key Entities _(include if feature involves data)_
 
 - **TimerConfig**: duration, scale, direction, visual source (image or palette), sound, volumes,
   ticking, vibration, show digits, image effect (v1.x), warnings (v1.x).
@@ -645,7 +645,7 @@ dial phases are distinguishable in a color blindness simulator.
   interval, sound and appearance defaults, onboarding flags and notices seen.
 - **ExportBundle** (v1.x): format version, date, presets, routines, own images.
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

@@ -1,4 +1,4 @@
-# Specification Quality Checklist: Visual Time Counter (v1.0 and v1.x)
+# Specification Quality Checklist: Kid Timer (v1.0 and v1.x)
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-10-23

@@ -1,4 +1,4 @@
-# Research: Visual Time Counter
+# Research: Kid Timer
 
 **Feature**: `001-visual-timer` | **Date**: 2026-10-23 | **Plan**: [plan.md](./plan.md)
 
@@ -101,8 +101,7 @@ them.
 - **Decision**: `image_picker` (Android Photo Picker with no permission; PHPicker on iOS; file
   input on the Web; delegates to `file_selector` on desktop). Processing with the `image`
   package (pure Dart) in an isolate (`compute`; on the Web it runs on the main thread): decode,
-  apply the framing (center and zoom), crop square, resize to 1024×1024, re-encode JPEG quality
-  85. Re-encoding drops EXIF/GPS. Accepted formats: JPEG, PNG, WebP, GIF (first frame), BMP;
+  apply the framing (center and zoom), crop square, resize to 1024×1024, re-encode JPEG quality 85. Re-encoding drops EXIF/GPS. Accepted formats: JPEG, PNG, WebP, GIF (first frame), BMP;
   HEIC arrives converted on iOS; on other platforms HEIC yields a friendly error.
 - **Rationale**: Meets FR-021/FR-023 without broad permissions and without native code.
 - **Alternatives considered**: `image_cropper` (native UI differs per platform, no desktop),
@@ -127,7 +126,7 @@ them.
 
 - **Decision**: `CustomPainter` inside a `RepaintBoundary`, repainted by a `Ticker` at 60/120
   fps (or once per second with "reduce motion"). With an image: `canvas.clipPath(remaining
-  sector)` + `drawImageRect` of the pre-decoded image (`ui.Image` at the dial's size); elapsed
+sector)` + `drawImageRect` of the pre-decoded image (`ui.Image` at the dial's size); elapsed
   sector in a translucent neutral color. Without an image: `drawArc` with the palette's
   interpolated color. Minute markers drawn once in a static layer (cached `Picture`).
 - **Rationale**: Full control, no dependencies, testable with goldens.
@@ -214,7 +213,7 @@ them.
 ## R19. App identifiers
 
 - **Decision**: Application ID / Bundle ID `io.github.masterkey07.visualtimecounter`; display
-  name "Visual Time Counter"; deep link scheme `vtc://`. **Confirm with the repository owner
+  name "Kid Timer"; deep link scheme `vtc://`. **Confirm with the repository owner
   before the first release** (changing it after publishing is costly).
 
 ## R20. Web

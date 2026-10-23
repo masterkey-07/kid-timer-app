@@ -1,4 +1,4 @@
-# UX & Accessibility Requirements Checklist: Visual Time Counter
+# UX & Accessibility Requirements Checklist: Kid Timer
 
 **Purpose**: Test the quality of the UI, accessibility and child well-being requirements before
 implementation (specification PR review).

@@ -1,4 +1,4 @@
-# Data Model: Visual Time Counter
+# Data Model: Kid Timer
 
 **Feature**: `001-visual-timer` | **Date**: 2026-10-23 | **Plan**: [plan.md](./plan.md)
 
@@ -19,8 +19,8 @@ Conventions:
 
 ### TimerDuration
 
-| Field | Type | Rules |
-|---|---|---|
+| Field | Type     | Rules                                                           |
+| ----- | -------- | --------------------------------------------------------------- |
 | value | Duration | v1.0: 10 s ≤ value ≤ 2 h. v1.x (US11): ≤ 12 h. Multiple of 1 s. |
 
 Adjustment steps: below 2 min, 10 s; from 2 min on, 1 min (FR-001).
@@ -37,11 +37,11 @@ Enum: `clockwise` (default), `counterClockwise`.
 
 ### VisualSource (sealed union)
 
-| Variant | Fields | Rules |
-|---|---|---|
-| `PaletteSource` | paletteId: PaletteId, singleColor: ColorToken? | `singleColor` required if `paletteId == single`. |
-| `BankImageSource` | imageId: String | Must exist in the library manifest. |
-| `UserImageSource` | imageId: String (UUID) | Must exist in `user_images`; if deleted → fallback to the default `PaletteSource`. |
+| Variant           | Fields                                         | Rules                                                                              |
+| ----------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `PaletteSource`   | paletteId: PaletteId, singleColor: ColorToken? | `singleColor` required if `paletteId == single`.                                   |
+| `BankImageSource` | imageId: String                                | Must exist in the library manifest.                                                |
+| `UserImageSource` | imageId: String (UUID)                         | Must exist in `user_images`; if deleted → fallback to the default `PaletteSource`. |
 
 ### PaletteId
 
@@ -73,36 +73,36 @@ Set of {1, 2, 5, 10} minutes. Warnings ≥ duration are ignored at start time.
 
 Full configuration of a timer (used by TimerSession, Preset and RoutineStep).
 
-| Field | Type | Default | Rules |
-|---|---|---|---|
-| duration | TimerDuration | 5 min | see value object |
-| scale | DialScale | min60 | — |
-| direction | DialDirection | clockwise | — |
-| visual | VisualSource | PaletteSource(progressive) | — |
-| soundId | SoundId | `chime_soft` | — |
-| alarmVolume | double | 0.7 | 0.0–1.0 |
-| tickEnabled | bool | false | — |
-| tickVolume | double | 0.3 | 0.0–1.0 |
-| vibrate | bool | true | ignored without support |
-| showDigits | bool | true | — |
-| imageEffect | ImageEffect | vanish | v1.x |
-| warnings | WarningOffsets | {} | v1.x |
+| Field       | Type           | Default                    | Rules                   |
+| ----------- | -------------- | -------------------------- | ----------------------- |
+| duration    | TimerDuration  | 5 min                      | see value object        |
+| scale       | DialScale      | min60                      | —                       |
+| direction   | DialDirection  | clockwise                  | —                       |
+| visual      | VisualSource   | PaletteSource(progressive) | —                       |
+| soundId     | SoundId        | `chime_soft`               | —                       |
+| alarmVolume | double         | 0.7                        | 0.0–1.0                 |
+| tickEnabled | bool           | false                      | —                       |
+| tickVolume  | double         | 0.3                        | 0.0–1.0                 |
+| vibrate     | bool           | true                       | ignored without support |
+| showDigits  | bool           | true                       | —                       |
+| imageEffect | ImageEffect    | vanish                     | v1.x                    |
+| warnings    | WarningOffsets | {}                         | v1.x                    |
 
 ### TimerSession
 
 Active timer (at most 1 at a time in v1.0; routines create one session per step).
 
-| Field | Type | Rules |
-|---|---|---|
-| id | String (UUID) | — |
-| config | TimerConfig | frozen copy at start |
-| status | SessionStatus | see state machine |
-| startedAt | DateTime? (UTC) | set on `start` |
-| endsAt | DateTime? (UTC) | required when `running` |
-| pausedRemaining | Duration? | required when `paused` |
-| origin | SessionOrigin | `manual`, `preset(id)`, `routine(runId, stepIndex)` |
-| scheduledNotificationIds | List<int> | ids scheduled with the OS, for cancellation |
-| finishedAcknowledged | bool | false until the tap on the final screen |
+| Field                    | Type            | Rules                                               |
+| ------------------------ | --------------- | --------------------------------------------------- |
+| id                       | String (UUID)   | —                                                   |
+| config                   | TimerConfig     | frozen copy at start                                |
+| status                   | SessionStatus   | see state machine                                   |
+| startedAt                | DateTime? (UTC) | set on `start`                                      |
+| endsAt                   | DateTime? (UTC) | required when `running`                             |
+| pausedRemaining          | Duration?       | required when `paused`                              |
+| origin                   | SessionOrigin   | `manual`, `preset(id)`, `routine(runId, stepIndex)` |
+| scheduledNotificationIds | List<int>       | ids scheduled with the OS, for cancellation         |
+| finishedAcknowledged     | bool            | false until the tap on the final screen             |
 
 Derived: `remaining(now)`, `progress(now)` (0..1 remaining), `isOverdue(now)`.
 
@@ -135,63 +135,63 @@ Rules:
 
 ### ImageAsset
 
-| Field | Type | Rules |
-|---|---|---|
-| id | String | `bank:<cat>/<slug>` or UUID |
-| kind | `bank` \| `user` | — |
-| category | ImageCategory? | required for `bank`: `hygiene`, `meal`, `play`, `rest`, `school`, `goingOut` (v1.x: `routine`) |
-| labels | Map<locale, String> | `bank`: pt and en required; `user`: optional label (≤ 40) |
-| assetPath | String? | `bank`: path to the 768×768 WebP |
-| bytesKey | String? | `user`: key in the `user_images` `LazyBox` |
-| createdAt | DateTime? | `user` |
-| license / author / source | String | `bank`: required (manifest) |
+| Field                     | Type                | Rules                                                                                          |
+| ------------------------- | ------------------- | ---------------------------------------------------------------------------------------------- |
+| id                        | String              | `bank:<cat>/<slug>` or UUID                                                                    |
+| kind                      | `bank` \| `user`    | —                                                                                              |
+| category                  | ImageCategory?      | required for `bank`: `hygiene`, `meal`, `play`, `rest`, `school`, `goingOut` (v1.x: `routine`) |
+| labels                    | Map<locale, String> | `bank`: pt and en required; `user`: optional label (≤ 40)                                      |
+| assetPath                 | String?             | `bank`: path to the 768×768 WebP                                                               |
+| bytesKey                  | String?             | `user`: key in the `user_images` `LazyBox`                                                     |
+| createdAt                 | DateTime?           | `user`                                                                                         |
+| license / author / source | String              | `bank`: required (manifest)                                                                    |
 
 Own-image rules: JPEG 1024×1024, ≤ 400 KB, no metadata; maximum 50.
 
 ### Preset
 
-| Field | Type | Rules |
-|---|---|---|
-| id | String (UUID) | — |
-| name | String | 1–40 characters after `trim`; uniqueness not required |
-| order | int | 0..n-1, no gaps after reordering |
-| config | TimerConfig | — |
-| isExample | bool | first-use example presets |
-| favorite | bool | v1.x (widget), at most 4 favorites |
-| createdAt / updatedAt | DateTime | UTC |
+| Field                 | Type          | Rules                                                 |
+| --------------------- | ------------- | ----------------------------------------------------- |
+| id                    | String (UUID) | —                                                     |
+| name                  | String        | 1–40 characters after `trim`; uniqueness not required |
+| order                 | int           | 0..n-1, no gaps after reordering                      |
+| config                | TimerConfig   | —                                                     |
+| isExample             | bool          | first-use example presets                             |
+| favorite              | bool          | v1.x (widget), at most 4 favorites                    |
+| createdAt / updatedAt | DateTime      | UTC                                                   |
 
 Limit: 100 presets.
 
 ### Routine (v1.x)
 
-| Field | Type | Rules |
-|---|---|---|
-| id | String (UUID) | — |
-| name | String | 1–40 characters |
-| advanceMode | `automatic` \| `manual` | default `automatic` |
-| layout | `strip` \| `firstThen` | `firstThen` requires exactly 2 steps |
-| steps | List<RoutineStep> | 2–20 items |
-| order | int | — |
+| Field       | Type                    | Rules                                |
+| ----------- | ----------------------- | ------------------------------------ |
+| id          | String (UUID)           | —                                    |
+| name        | String                  | 1–40 characters                      |
+| advanceMode | `automatic` \| `manual` | default `automatic`                  |
+| layout      | `strip` \| `firstThen`  | `firstThen` requires exactly 2 steps |
+| steps       | List<RoutineStep>       | 2–20 items                           |
+| order       | int                     | —                                    |
 
 ### RoutineStep (v1.x)
 
-| Field | Type | Rules |
-|---|---|---|
-| id | String (UUID) | — |
-| name | String | 1–40 characters |
-| config | TimerConfig | step duration 10 s–2 h |
+| Field  | Type          | Rules                  |
+| ------ | ------------- | ---------------------- |
+| id     | String (UUID) | —                      |
+| name   | String        | 1–40 characters        |
+| config | TimerConfig   | step duration 10 s–2 h |
 
 ### RoutineRun (v1.x)
 
-| Field | Type | Rules |
-|---|---|---|
-| id | String (UUID) | — |
-| routineId | String | snapshot stored in `routineSnapshot` |
-| routineSnapshot | Routine | copy at start (edits do not affect the run) |
-| currentIndex | int | 0..steps-1 |
-| completed | List<bool> | stars |
-| session | TimerSession | current step's session |
-| status | `running` \| `waitingNext` \| `paused` \| `finished` \| `cancelled` | — |
+| Field           | Type                                                                | Rules                                       |
+| --------------- | ------------------------------------------------------------------- | ------------------------------------------- |
+| id              | String (UUID)                                                       | —                                           |
+| routineId       | String                                                              | snapshot stored in `routineSnapshot`        |
+| routineSnapshot | Routine                                                             | copy at start (edits do not affect the run) |
+| currentIndex    | int                                                                 | 0..steps-1                                  |
+| completed       | List<bool>                                                          | stars                                       |
+| session         | TimerSession                                                        | current step's session                      |
+| status          | `running` \| `waitingNext` \| `paused` \| `finished` \| `cancelled` | —                                           |
 
 Transitions: a step ends → automatic: `currentIndex++` and a new `running` session; manual:
 `waitingNext` until "Next". The last step ends → `finished`. Reconcile on reopening walks the
@@ -199,15 +199,15 @@ steps using the scheduled `endsAt` values.
 
 ### AppSettings
 
-| Field | Type | Default |
-|---|---|---|
-| schemaVersion | int | 1 |
-| themeMode | `system` \| `light` \| `dark` (v1.x `highContrast`) | system |
-| childLockEnabled | bool | true |
-| a11yAnnounceInterval | `oneMin` \| `fiveMin` \| `off` | oneMin |
-| defaults | TimerConfig | defaults above |
-| lastConfig | TimerConfig | same as defaults |
-| onboarding | Map<String,bool> | `exactAlarmExplained`, `iosSilentWarned`, `webKeepOpenSeen`, `examplesSeeded` |
+| Field                | Type                                                | Default                                                                       |
+| -------------------- | --------------------------------------------------- | ----------------------------------------------------------------------------- |
+| schemaVersion        | int                                                 | 1                                                                             |
+| themeMode            | `system` \| `light` \| `dark` (v1.x `highContrast`) | system                                                                        |
+| childLockEnabled     | bool                                                | true                                                                          |
+| a11yAnnounceInterval | `oneMin` \| `fiveMin` \| `off`                      | oneMin                                                                        |
+| defaults             | TimerConfig                                         | defaults above                                                                |
+| lastConfig           | TimerConfig                                         | same as defaults                                                              |
+| onboarding           | Map<String,bool>                                    | `exactAlarmExplained`, `iosSilentWarned`, `webKeepOpenSeen`, `examplesSeeded` |
 
 Language follows the system (no field).
 

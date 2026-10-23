@@ -40,16 +40,16 @@ Grouped list (sections with headers). Expanded: two columns of sections.
 └──────────────────────────────────────┘
 ```
 
-| Element | Key | Persistence | Notes |
-|---|---|---|---|
-| Theme | `settings.theme` | `AppSettings.themeMode` | applies immediately |
-| Scale, direction, colors, digits, sound, volumes, ticking, vibrate | `settings.<field>` | `AppSettings.defaults` | affect new timers; `lastConfig` is also updated if it equals the previous default |
-| Child lock | `settings.childLock` | `childLockEnabled` | disabling asks for confirmation "The child will be able to pause the timer" |
-| Alarm status | `settings.alarmStatus` | — (queried from the port) | states: ok, no exact alarm, no notifications, not supported on this platform |
-| Allow | `settings.alarmFix` | — | opens the system setting (R15) |
-| Announcements | `settings.a11yInterval` | `a11yAnnounceInterval` | — |
-| My images | `settings.myImages` | — | — |
-| About | `settings.about` | — | parental gate |
+| Element                                                            | Key                     | Persistence               | Notes                                                                             |
+| ------------------------------------------------------------------ | ----------------------- | ------------------------- | --------------------------------------------------------------------------------- |
+| Theme                                                              | `settings.theme`        | `AppSettings.themeMode`   | applies immediately                                                               |
+| Scale, direction, colors, digits, sound, volumes, ticking, vibrate | `settings.<field>`      | `AppSettings.defaults`    | affect new timers; `lastConfig` is also updated if it equals the previous default |
+| Child lock                                                         | `settings.childLock`    | `childLockEnabled`        | disabling asks for confirmation "The child will be able to pause the timer"       |
+| Alarm status                                                       | `settings.alarmStatus`  | — (queried from the port) | states: ok, no exact alarm, no notifications, not supported on this platform      |
+| Allow                                                              | `settings.alarmFix`     | —                         | opens the system setting (R15)                                                    |
+| Announcements                                                      | `settings.a11yInterval` | `a11yAnnounceInterval`    | —                                                                                 |
+| My images                                                          | `settings.myImages`     | —                         | —                                                                                 |
+| About                                                              | `settings.about`        | —                         | parental gate                                                                     |
 
 The sound preview plays at the selected volume; tapping another sound stops the previous one.
 
@@ -58,7 +58,7 @@ The sound preview plays at the selected volume; tapping another sound stops the 
 A localized static content page with anchors:
 
 - `#alarms` — why the app asks for exact alarms and notifications; buttons to open the settings
-  (Android) or instructions (iOS: Settings → Notifications → Visual Time Counter →
+  (Android) or instructions (iOS: Settings → Notifications → Kid Timer →
   "Time Sensitive").
 - `#battery` — steps per vendor (Samsung, Xiaomi/Redmi/POCO, Motorola, Huawei, others), with an
   "Open battery optimization" button (Android).

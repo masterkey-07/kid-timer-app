@@ -1,4 +1,4 @@
-# Implementation Plan: Visual Time Counter (v1.0 and v1.x)
+# Implementation Plan: Kid Timer (v1.0 and v1.x)
 
 **Branch**: `001-visual-timer` | **Date**: 2026-10-23 | **Spec**: [spec.md](./spec.md)
 
@@ -49,19 +49,19 @@ up to 20 steps; 36+ bundled images and 8+ sounds.
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+_GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
-| Principle | How the plan complies | Status |
-|---|---|---|
-| I. Privacy by Design | No network, no third-party SDKs that collect data; Android release without `INTERNET`; images processed and stored locally without EXIF; export only by adult action; `tool/privacy_check.dart` in CI | ✅ |
-| II. Child Safety and Well-being | Child mode absorbs touches with a 3 s unlock; parental gate for ways out; gentle sounds; calm mode; reviewed assets; no ads/purchases | ✅ |
-| III. Time Reliability | Pure `TimerEngine` with `Clock`; `endsAt` in UTC; persistence before scheduling; reconcile on resume/boot; OS alarm; notices where unsupported | ✅ |
-| IV. Test-First | Test tasks before each implementation; unit/widget/golden/integration/E2E suites per story; coverage thresholds in CI ([testing-strategy.md](./testing-strategy.md)) | ✅ |
-| V. Accessibility | Dial semantics as a slider, throttled announcements, full keyboard support, 200% font, reduce motion, Atkinson Hyperlegible, guidelines in widget tests | ✅ |
-| VI. Parity and Honest Degradation | Ports with per-platform implementations and `capabilities()`; `PlatformNotice` and preflight; compact/medium/expanded layouts | ✅ |
-| VII. Clean Architecture and Simplicity | Layered feature-first; Flutter-free domain; Riverpod without codegen; single persistence (hive_ce) | ✅ (extra dependencies justified below) |
-| VIII. Quality and Performance | `very_good_analysis`, `RepaintBoundary`, cached static layer, targets measured by performance tests | ✅ |
-| IX. Free Software | Apache-2.0; Fluent Emoji assets (MIT), CC0 sounds, OFL font; `tool/license_check.dart`; no third-party trademarks | ✅ |
+| Principle                              | How the plan complies                                                                                                                                                                                 | Status                                  |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| I. Privacy by Design                   | No network, no third-party SDKs that collect data; Android release without `INTERNET`; images processed and stored locally without EXIF; export only by adult action; `tool/privacy_check.dart` in CI | ✅                                      |
+| II. Child Safety and Well-being        | Child mode absorbs touches with a 3 s unlock; parental gate for ways out; gentle sounds; calm mode; reviewed assets; no ads/purchases                                                                 | ✅                                      |
+| III. Time Reliability                  | Pure `TimerEngine` with `Clock`; `endsAt` in UTC; persistence before scheduling; reconcile on resume/boot; OS alarm; notices where unsupported                                                        | ✅                                      |
+| IV. Test-First                         | Test tasks before each implementation; unit/widget/golden/integration/E2E suites per story; coverage thresholds in CI ([testing-strategy.md](./testing-strategy.md))                                  | ✅                                      |
+| V. Accessibility                       | Dial semantics as a slider, throttled announcements, full keyboard support, 200% font, reduce motion, Atkinson Hyperlegible, guidelines in widget tests                                               | ✅                                      |
+| VI. Parity and Honest Degradation      | Ports with per-platform implementations and `capabilities()`; `PlatformNotice` and preflight; compact/medium/expanded layouts                                                                         | ✅                                      |
+| VII. Clean Architecture and Simplicity | Layered feature-first; Flutter-free domain; Riverpod without codegen; single persistence (hive_ce)                                                                                                    | ✅ (extra dependencies justified below) |
+| VIII. Quality and Performance          | `very_good_analysis`, `RepaintBoundary`, cached static layer, targets measured by performance tests                                                                                                   | ✅                                      |
+| IX. Free Software                      | Apache-2.0; Fluent Emoji assets (MIT), CC0 sounds, OFL font; `tool/license_check.dart`; no third-party trademarks                                                                                     | ✅                                      |
 
 **Post-design re-check (Phase 1)**: the UI, port, persistence and export contracts introduced no
 violations. Packages outside the Constitution's approved list are justified in Complexity
@@ -201,12 +201,12 @@ widgets/AlarmKit (v1.x).
 > Packages outside the Constitution's approved list (Technical Constraints) and decisions that
 > require justification.
 
-| Item | Why Needed | Simpler Alternative Rejected Because |
-|---|---|---|
-| `url_launcher` | Open source code/issues from the parent area (after the parental gate) | Copying the URL to the clipboard is worse UX; the package makes no network calls |
-| `uuid` | Stable local ids for presets, images, sessions | Generating with our own `Random` reimplements something trivial and well tested |
-| `hive_ce_flutter` | Initialize Hive in the right directory in Flutter | Manual `path_provider` + `Hive.init` duplicates what the package offers |
-| `share_plus` (v1.x) | Export a file on Android/iOS through the system sheet | `file_selector` cannot save on mobile; an own MethodChannel for 2 OSes is more code |
-| `flutter_alarmkit` (v1.x) | Alarm that breaks through silent mode on iOS 26+ (FR-091) | An own Swift implementation remains the fallback if the plugin falls short (R17) |
-| Own MethodChannel `vtc/system_settings` | Open 3 Android settings screens | `app_settings` would add a dependency with partial coverage |
-| Node script in `tool/image_bank/` | Rasterize the library's SVGs into WebP reproducibly | Rasterizing at runtime would require `flutter_svg` and CPU cost; the tool is dev-only and does not ship in the app |
+| Item                                    | Why Needed                                                             | Simpler Alternative Rejected Because                                                                               |
+| --------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `url_launcher`                          | Open source code/issues from the parent area (after the parental gate) | Copying the URL to the clipboard is worse UX; the package makes no network calls                                   |
+| `uuid`                                  | Stable local ids for presets, images, sessions                         | Generating with our own `Random` reimplements something trivial and well tested                                    |
+| `hive_ce_flutter`                       | Initialize Hive in the right directory in Flutter                      | Manual `path_provider` + `Hive.init` duplicates what the package offers                                            |
+| `share_plus` (v1.x)                     | Export a file on Android/iOS through the system sheet                  | `file_selector` cannot save on mobile; an own MethodChannel for 2 OSes is more code                                |
+| `flutter_alarmkit` (v1.x)               | Alarm that breaks through silent mode on iOS 26+ (FR-091)              | An own Swift implementation remains the fallback if the plugin falls short (R17)                                   |
+| Own MethodChannel `vtc/system_settings` | Open 3 Android settings screens                                        | `app_settings` would add a dependency with partial coverage                                                        |
+| Node script in `tool/image_bank/`       | Rasterize the library's SVGs into WebP reproducibly                    | Rasterizing at runtime would require `flutter_svg` and CPU cost; the tool is dev-only and does not ship in the app |

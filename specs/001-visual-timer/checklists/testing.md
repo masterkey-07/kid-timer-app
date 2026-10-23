@@ -1,4 +1,4 @@
-# Testability & Reliability Requirements Checklist: Visual Time Counter
+# Testability & Reliability Requirements Checklist: Kid Timer
 
 **Purpose**: Test whether the reliability, privacy and testing requirements are complete and
 verifiable before implementation.

@@ -22,12 +22,12 @@
 └──────────────────────────────────────┘
 ```
 
-| Element | Key | Behavior |
-|---|---|---|
-| Question | `gate.question` | Random factors 3–9 (seed testable via an injected `Random`) |
-| Keys | `gate.key.<0-9>`, `gate.backspace`, `gate.ok` | At most 2 digits |
-| Error | `gate.error` | "Incorrect answer"; new question |
-| Lockout | `gate.lockout` | After 3 errors: "Try again in 30 s" with a countdown; keys disabled |
+| Element  | Key                                           | Behavior                                                            |
+| -------- | --------------------------------------------- | ------------------------------------------------------------------- |
+| Question | `gate.question`                               | Random factors 3–9 (seed testable via an injected `Random`)         |
+| Keys     | `gate.key.<0-9>`, `gate.backspace`, `gate.ok` | At most 2 digits                                                    |
+| Error    | `gate.error`                                  | "Incorrect answer"; new question                                    |
+| Lockout  | `gate.lockout`                                | After 3 errors: "Try again in 30 s" with a countdown; keys disabled |
 
 - Physical keyboard: digits, Backspace, Enter.
 - Success: records `parentalUnlockedAt` in memory (not persisted); valid for 5 min for `/parent`
@@ -40,7 +40,7 @@
 ┌──────────────────────────────────────┐
 │ ← Parent area                        │
 ├──────────────────────────────────────┤
-│ Visual Time Counter  v1.0.0 (build)  │
+│ Kid Timer  v1.0.0 (build)  │
 │ Free, no ads and no data collection. │
 │ ───────────────────────────────────  │
 │ Privacy policy                 >     │  local localized text (does not open the web)
@@ -53,13 +53,13 @@
 └──────────────────────────────────────┘
 ```
 
-| Element | Key | Behavior |
-|---|---|---|
-| Privacy | `parent.privacy` | Text screen (local Markdown rendered as plain text) |
-| Licenses | `parent.licenses` | `LicenseRegistry` includes `assets/**/LICENSES.md` |
-| Credits | `parent.credits` | List from the library and sound manifests |
-| Source code | `parent.source` | Dialog "Open the browser?" → `url_launcher` |
-| Report | `parent.report` | Copies: version, platform, OS, screen size, permission status; nothing personal |
+| Element     | Key               | Behavior                                                                        |
+| ----------- | ----------------- | ------------------------------------------------------------------------------- |
+| Privacy     | `parent.privacy`  | Text screen (local Markdown rendered as plain text)                             |
+| Licenses    | `parent.licenses` | `LicenseRegistry` includes `assets/**/LICENSES.md`                              |
+| Credits     | `parent.credits`  | List from the library and sound manifests                                       |
+| Source code | `parent.source`   | Dialog "Open the browser?" → `url_launcher`                                     |
+| Report      | `parent.report`   | Copies: version, platform, OS, screen size, permission status; nothing personal |
 
 ## Strings
 
