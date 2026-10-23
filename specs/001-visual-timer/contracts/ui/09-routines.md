@@ -70,11 +70,11 @@ Manual mode, at the end of a step (`waitingNext`):
 │      └────────────────────────┘      │  (outside the child lock: it is the child's action)
 ```
 
-| Element | Key | Behavior |
-|---|---|---|
-| Strip | `routineRun.strip` | semantics "Step 3 of 5: Brush teeth. 2 done" |
-| Next | `routineRun.next` | only in `waitingNext` |
-| Controls (unlocked) | `routineRun.pause`, `.skip`, `.stop` | Skipping a step marks it without a star |
+| Element             | Key                                  | Behavior                                     |
+| ------------------- | ------------------------------------ | -------------------------------------------- |
+| Strip               | `routineRun.strip`                   | semantics "Step 3 of 5: Brush teeth. 2 done" |
+| Next                | `routineRun.next`                    | only in `waitingNext`                        |
+| Controls (unlocked) | `routineRun.pause`, `.skip`, `.stop` | Skipping a step marks it without a star      |
 
 When everything is done: final screen with stars ([03](./03-finished.md)).
 

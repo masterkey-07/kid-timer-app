@@ -26,12 +26,12 @@ capabilities = AlarmScheduler.capabilities()
 No dialog blocks starting once it has been answered; decisions are stored in
 `AppSettings.onboarding`.
 
-| Dialog | Key | Buttons (keys) |
-|---|---|---|
-| Keep window open | `notice.keepOpen` | `notice.keepOpen.ok` |
+| Dialog               | Key                          | Buttons (keys)               |
+| -------------------- | ---------------------------- | ---------------------------- |
+| Keep window open     | `notice.keepOpen`            | `notice.keepOpen.ok`         |
 | Notifications denied | `notice.notificationsDenied` | `.openSettings`, `.continue` |
-| Exact alarm | `notice.exactAlarm` | `.allow`, `.notNow` |
-| iOS silent | `notice.iosSilent` | `.ok` |
+| Exact alarm          | `notice.exactAlarm`          | `.allow`, `.notNow`          |
+| iOS silent           | `notice.iosSilent`           | `.ok`                        |
 
 ## 8.2 `PlatformNotice` banner
 
@@ -43,11 +43,11 @@ No dialog blocks starting once it has been answered; decisions are stored in
 
 ## 8.3 System notifications (content)
 
-| Type | Title | Body | Tap action |
-|---|---|---|---|
-| Timer end | "Time's up!" | Preset name or "5 min timer" | `vtc://run` → `/finished` |
-| Step end (v1.x) | "Next: Brush teeth" | "Morning routine — step 3 of 5" | `vtc://run` |
-| Warning (v1.x) | "1 minute left" | name | `vtc://run` |
+| Type            | Title               | Body                            | Tap action                |
+| --------------- | ------------------- | ------------------------------- | ------------------------- |
+| Timer end       | "Time's up!"        | Preset name or "5 min timer"    | `vtc://run` → `/finished` |
+| Step end (v1.x) | "Next: Brush teeth" | "Morning routine — step 3 of 5" | `vtc://run`               |
+| Warning (v1.x)  | "1 minute left"     | name                            | `vtc://run`               |
 
 Android channels: `timer_end` (maximum importance, the chosen alarm sound, vibration),
 `timer_warning` (default, soft sound). Because an Android channel's sound is fixed once created,

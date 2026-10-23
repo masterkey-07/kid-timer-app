@@ -42,18 +42,18 @@ Show the child time passing, without distractions and without any way to change 
 
 ## Components, keys and semantics
 
-| Element | Key | Semantics | Behavior |
-|---|---|---|---|
-| Dial | `run.dial` | `label: "Time remaining"`, `value: "4 minutes and 12 seconds"`; throttled announcements (FR-060) | Repainted by a Ticker; with reduce motion, once per second |
-| Digits | `run.digits` | excluded from semantics (the dial already announces) | Updates once per second |
-| Padlock | `run.lock` | "Hold for 3 seconds to show the controls" | Press and hold 3 s → ring completes → controls; releasing earlier resets (FR-031) |
-| Padlock ring | `run.lockProgress` | `value` in % | Linear 3 s animation; reduce motion: text bar "1… 2… 3" |
-| Pause/Resume | `run.pauseResume` | "Pause timer" / "Resume timer" | State machine transitions |
-| Restart | `run.restart` | "Restart timer" | Confirmation if remaining < 50% |
-| Stop | `run.stop` | "Stop timer" | `ConfirmDialog` → cancel → `/` |
-| Mute | `run.mute` | "Mute ticking" | Toggles ticking for this session |
-| Full screen | `run.fullscreenToggle` | "Exit full screen" | Desktop/Web only |
-| Capture layer | `run.touchShield` | `excludeSemantics` | Absorbs touches in child mode; feedback: padlock glow for 300 ms |
+| Element       | Key                    | Semantics                                                                                        | Behavior                                                                          |
+| ------------- | ---------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| Dial          | `run.dial`             | `label: "Time remaining"`, `value: "4 minutes and 12 seconds"`; throttled announcements (FR-060) | Repainted by a Ticker; with reduce motion, once per second                        |
+| Digits        | `run.digits`           | excluded from semantics (the dial already announces)                                             | Updates once per second                                                           |
+| Padlock       | `run.lock`             | "Hold for 3 seconds to show the controls"                                                        | Press and hold 3 s → ring completes → controls; releasing earlier resets (FR-031) |
+| Padlock ring  | `run.lockProgress`     | `value` in %                                                                                     | Linear 3 s animation; reduce motion: text bar "1… 2… 3"                           |
+| Pause/Resume  | `run.pauseResume`      | "Pause timer" / "Resume timer"                                                                   | State machine transitions                                                         |
+| Restart       | `run.restart`          | "Restart timer"                                                                                  | Confirmation if remaining < 50%                                                   |
+| Stop          | `run.stop`             | "Stop timer"                                                                                     | `ConfirmDialog` → cancel → `/`                                                    |
+| Mute          | `run.mute`             | "Mute ticking"                                                                                   | Toggles ticking for this session                                                  |
+| Full screen   | `run.fullscreenToggle` | "Exit full screen"                                                                               | Desktop/Web only                                                                  |
+| Capture layer | `run.touchShield`      | `excludeSemantics`                                                                               | Absorbs touches in child mode; feedback: padlock glow for 300 ms                  |
 
 ## Behavior
 
@@ -75,12 +75,12 @@ Show the child time passing, without distractions and without any way to change 
 
 ## Special states
 
-| Situation | Presentation |
-|---|---|
-| Paused | Frozen dial with a translucent central ⏸ icon; same visual in child mode |
-| System volume 0 (mobile) | When unlocking: notice "Volume is at zero" |
-| Alarm permission denied | When unlocking: reduced-accuracy notice with a link to the setting |
-| Image failed to load | Falls back to color without interrupting |
+| Situation                | Presentation                                                             |
+| ------------------------ | ------------------------------------------------------------------------ |
+| Paused                   | Frozen dial with a translucent central ⏸ icon; same visual in child mode |
+| System volume 0 (mobile) | When unlocking: notice "Volume is at zero"                               |
+| Alarm permission denied  | When unlocking: reduced-accuracy notice with a link to the setting       |
+| Image failed to load     | Falls back to color without interrupting                                 |
 
 ## Main strings
 

@@ -25,11 +25,11 @@ request from teachers).
 
 ## Components and keys
 
-| Element | Key | Semantics | Behavior |
-|---|---|---|---|
+| Element    | Key                    | Semantics                          | Behavior                                                                     |
+| ---------- | ---------------------- | ---------------------------------- | ---------------------------------------------------------------------------- |
 | Whole area | `finished.dismissArea` | button "Time's up. Tap to go back" | Tap (after an 800 ms guard against accidental touches) → `acknowledge` → `/` |
-| Image/icon | `finished.image` | the image's label | Celebration animation |
-| Title | `finished.title` | header | — |
+| Image/icon | `finished.image`       | the image's label                  | Celebration animation                                                        |
+| Title      | `finished.title`       | header                             | —                                                                            |
 
 ## Behavior
 

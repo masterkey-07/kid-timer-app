@@ -4,23 +4,23 @@ Cross-cutting contract every screen follows. Individual screens are in `01-*.md`
 
 ## 1. Route map (go_router)
 
-| Route | Screen | Contract | Release | Access |
-|---|---|---|---|---|
-| `/` | Home (set up timer) | [01](./01-home-setup.md) | v1.0 | open |
-| `/run` | Countdown (child mode) | [02](./02-running-child-mode.md) | v1.0 | from `/`, preset, routine, widget |
-| `/finished` | Final screen | [03](./03-finished.md) | v1.0 | automatic |
-| `/images` | Choose image (library + my images) | [04](./04-image-picker.md) | v1.0 | `/`, editors |
-| `/images/frame` | Frame own image | [04](./04-image-picker.md) | v1.0 | after the system picker |
-| `/images/mine` | Manage "My images" | [04](./04-image-picker.md) | v1.0 | `/images`, `/settings` |
-| `/presets` | Preset list | [05](./05-presets.md) | v1.0 | `/` |
-| `/presets/:id/edit`, `/presets/new` | Preset editor | [05](./05-presets.md) | v1.0 | `/presets`, `/` |
-| `/settings` | Settings | [06](./06-settings.md) | v1.0 | `/` |
-| `/settings/battery` | Help: battery and screen pinning | [06](./06-settings.md) | v1.0 | `/settings`, notices |
-| `/parent` | Parent area (About, licenses, privacy) | [07](./07-parental-gate-and-about.md) | v1.0 | after the parental gate |
-| `/routines` | Routine list | [09](./09-routines.md) | v1.x | `/` |
-| `/routines/:id/edit`, `/routines/new` | Routine editor | [09](./09-routines.md) | v1.x | `/routines` |
-| `/routines/:id/run` | Routine run | [09](./09-routines.md) | v1.x | `/routines`, widget |
-| `/transfer` | Export/Import | [10](./10-export-import.md) | v1.x | `/settings` |
+| Route                                 | Screen                                 | Contract                              | Release | Access                            |
+| ------------------------------------- | -------------------------------------- | ------------------------------------- | ------- | --------------------------------- |
+| `/`                                   | Home (set up timer)                    | [01](./01-home-setup.md)              | v1.0    | open                              |
+| `/run`                                | Countdown (child mode)                 | [02](./02-running-child-mode.md)      | v1.0    | from `/`, preset, routine, widget |
+| `/finished`                           | Final screen                           | [03](./03-finished.md)                | v1.0    | automatic                         |
+| `/images`                             | Choose image (library + my images)     | [04](./04-image-picker.md)            | v1.0    | `/`, editors                      |
+| `/images/frame`                       | Frame own image                        | [04](./04-image-picker.md)            | v1.0    | after the system picker           |
+| `/images/mine`                        | Manage "My images"                     | [04](./04-image-picker.md)            | v1.0    | `/images`, `/settings`            |
+| `/presets`                            | Preset list                            | [05](./05-presets.md)                 | v1.0    | `/`                               |
+| `/presets/:id/edit`, `/presets/new`   | Preset editor                          | [05](./05-presets.md)                 | v1.0    | `/presets`, `/`                   |
+| `/settings`                           | Settings                               | [06](./06-settings.md)                | v1.0    | `/`                               |
+| `/settings/battery`                   | Help: battery and screen pinning       | [06](./06-settings.md)                | v1.0    | `/settings`, notices              |
+| `/parent`                             | Parent area (About, licenses, privacy) | [07](./07-parental-gate-and-about.md) | v1.0    | after the parental gate           |
+| `/routines`                           | Routine list                           | [09](./09-routines.md)                | v1.x    | `/`                               |
+| `/routines/:id/edit`, `/routines/new` | Routine editor                         | [09](./09-routines.md)                | v1.x    | `/routines`                       |
+| `/routines/:id/run`                   | Routine run                            | [09](./09-routines.md)                | v1.x    | `/routines`, widget               |
+| `/transfer`                           | Export/Import                          | [10](./10-export-import.md)           | v1.x    | `/settings`                       |
 
 Dialogs and sheets (not routes): parental gate, permission and platform notices
 ([08](./08-permissions-and-notices.md)), confirmations.
@@ -36,21 +36,21 @@ Dialogs and sheets (not routes): parental gate, permission and platform notices
 
 Scheme `vtc://` (Android intent-filter, iOS URL scheme; desktop/Web internal route only).
 
-| Link | Action |
-|---|---|
-| `vtc://preset/<id>/start` | Starts the preset and opens `/run` |
-| `vtc://routine/<id>/start` (v1.x) | Starts the routine |
-| `vtc://run` | Opens the active countdown (notification tap) |
+| Link                              | Action                                        |
+| --------------------------------- | --------------------------------------------- |
+| `vtc://preset/<id>/start`         | Starts the preset and opens `/run`            |
+| `vtc://routine/<id>/start` (v1.x) | Starts the routine                            |
+| `vtc://run`                       | Opens the active countdown (notification tap) |
 
 Links with an unknown id open `/` with a "Preset not found" snackbar.
 
 ## 3. Size classes and layout
 
-| Class | Width | Home layout | Navigation |
-|---|---|---|---|
-| Compact | < 600 dp | column: dial on top, controls below | top bar with icons |
-| Medium | 600–839 dp | portrait: column; landscape: dial left, panel right | top bar |
-| Expanded | ≥ 840 dp | large central dial + fixed 360 dp side panel | top bar + keyboard shortcuts |
+| Class    | Width      | Home layout                                         | Navigation                   |
+| -------- | ---------- | --------------------------------------------------- | ---------------------------- |
+| Compact  | < 600 dp   | column: dial on top, controls below                 | top bar with icons           |
+| Medium   | 600–839 dp | portrait: column; landscape: dial left, panel right | top bar                      |
+| Expanded | ≥ 840 dp   | large central dial + fixed 360 dp side panel        | top bar + keyboard shortcuts |
 
 - Dial: diameter = `min(usable width, usable height) × 0.82` during the countdown; × 0.6 during
   setup.
@@ -60,14 +60,14 @@ Links with an unknown id open `/` with a "Preset not found" snackbar.
 
 ## 3.1 System back
 
-| Screen | Back button/gesture |
-|---|---|
-| `/` | Leaves the app (Android) / no effect (iOS) |
-| `/run` (child mode) | Consumed, no effect |
-| `/run` (controls visible) | Same as "Stop" with confirmation |
-| `/finished` | Same as the acknowledgement tap |
-| Editors with changes | Asks "Discard changes?" |
-| Other screens and dialogs | Go back/close normally |
+| Screen                    | Back button/gesture                        |
+| ------------------------- | ------------------------------------------ |
+| `/`                       | Leaves the app (Android) / no effect (iOS) |
+| `/run` (child mode)       | Consumed, no effect                        |
+| `/run` (controls visible) | Same as "Stop" with confirmation           |
+| `/finished`               | Same as the acknowledgement tap            |
+| Editors with changes      | Asks "Discard changes?"                    |
+| Other screens and dialogs | Go back/close normally                     |
 
 ## 3.2 Dial legibility
 
@@ -90,16 +90,16 @@ into the background.
 
 ## 5. Shared components
 
-| Component | File | Use |
-|---|---|---|
-| `DialView` | `lib/features/timer/presentation/widgets/dial_view.dart` | Dial (setup and countdown) |
-| `DurationQuickButtons` | `.../widgets/duration_quick_buttons.dart` | +1, +5, −1 min |
-| `DigitsLabel` | `.../widgets/digits_label.dart` | mm:ss |
-| `ImageThumb` | `lib/features/images/presentation/widgets/image_thumb.dart` | Circular thumbnail |
-| `ParentalGate` | `lib/features/parental/presentation/parental_gate.dart` | Parental gate dialog |
-| `HoldToUnlock` | `lib/features/child_lock/presentation/hold_to_unlock.dart` | Padlock with ring |
-| `PlatformNotice` | `lib/app/widgets/platform_notice.dart` | Notice banners (Web/Linux, permissions) |
-| `ConfirmDialog` | `lib/app/widgets/confirm_dialog.dart` | Destructive confirmations |
+| Component              | File                                                        | Use                                     |
+| ---------------------- | ----------------------------------------------------------- | --------------------------------------- |
+| `DialView`             | `lib/features/timer/presentation/widgets/dial_view.dart`    | Dial (setup and countdown)              |
+| `DurationQuickButtons` | `.../widgets/duration_quick_buttons.dart`                   | +1, +5, −1 min                          |
+| `DigitsLabel`          | `.../widgets/digits_label.dart`                             | mm:ss                                   |
+| `ImageThumb`           | `lib/features/images/presentation/widgets/image_thumb.dart` | Circular thumbnail                      |
+| `ParentalGate`         | `lib/features/parental/presentation/parental_gate.dart`     | Parental gate dialog                    |
+| `HoldToUnlock`         | `lib/features/child_lock/presentation/hold_to_unlock.dart`  | Padlock with ring                       |
+| `PlatformNotice`       | `lib/app/widgets/platform_notice.dart`                      | Notice banners (Web/Linux, permissions) |
+| `ConfirmDialog`        | `lib/app/widgets/confirm_dialog.dart`                       | Destructive confirmations               |
 
 ## 6. Widget keys for tests
 

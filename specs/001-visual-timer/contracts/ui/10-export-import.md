@@ -28,13 +28,13 @@ Import preview (sheet):
 │ [Cancel]                       [Import]   │
 ```
 
-| Element | Key | Behavior |
-|---|---|---|
-| Export options | `transfer.exportPresets`, `.exportRoutines`, `.exportImages` | Estimated size recomputed |
-| Export | `transfer.export` | Generates `visual-time-counter-YYYY-MM-DD.vtc.json` ([contract](../export-format.md)) |
-| Import | `transfer.import` | Opens the picker; validates; shows the preview |
-| Mode | `transfer.mode.add`, `transfer.mode.replace` | Replace asks for a second confirmation |
-| Confirm | `transfer.confirmImport` | Atomic import (FR-101); snackbar with a summary |
+| Element        | Key                                                          | Behavior                                                                              |
+| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| Export options | `transfer.exportPresets`, `.exportRoutines`, `.exportImages` | Estimated size recomputed                                                             |
+| Export         | `transfer.export`                                            | Generates `visual-time-counter-YYYY-MM-DD.vtc.json` ([contract](../export-format.md)) |
+| Import         | `transfer.import`                                            | Opens the picker; validates; shows the preview                                        |
+| Mode           | `transfer.mode.add`, `transfer.mode.replace`                 | Replace asks for a second confirmation                                                |
+| Confirm        | `transfer.confirmImport`                                     | Atomic import (FR-101); snackbar with a summary                                       |
 
 Errors: invalid file, future version, corrupted image, preset/image limit exceeded (in add mode,
 shows how many fit and offers a partial import — an explicit exception to atomicity, only with

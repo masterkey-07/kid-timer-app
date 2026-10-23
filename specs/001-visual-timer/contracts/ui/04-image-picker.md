@@ -37,13 +37,13 @@ primary color and a ✓.
 
 ### Components and keys
 
-| Element | Key | Semantics | Behavior |
-|---|---|---|---|
-| Category tab | `images.tab.<category>` | "Category Hygiene, 6 images" | Filters the grid |
-| From my device | `images.fromDevice` | "Choose an image from my device" | Opens the system picker (FR-021); with 50 images, limit dialog → `/images/mine` |
-| Thumbnail | `images.item.<id>` | the image's localized label; `selected` | Tap selects and returns (`pop(result)`) |
-| No image | `images.none` | "Use colors instead of an image" | `pop(PaletteSource)` |
-| Manage | `images.manage` | "Manage my images" | `/images/mine` |
+| Element        | Key                     | Semantics                               | Behavior                                                                        |
+| -------------- | ----------------------- | --------------------------------------- | ------------------------------------------------------------------------------- |
+| Category tab   | `images.tab.<category>` | "Category Hygiene, 6 images"            | Filters the grid                                                                |
+| From my device | `images.fromDevice`     | "Choose an image from my device"        | Opens the system picker (FR-021); with 50 images, limit dialog → `/images/mine` |
+| Thumbnail      | `images.item.<id>`      | the image's localized label; `selected` | Tap selects and returns (`pop(result)`)                                         |
+| No image       | `images.none`           | "Use colors instead of an image"        | `pop(PaletteSource)`                                                            |
+| Manage         | `images.manage`         | "Manage my images"                      | `/images/mine`                                                                  |
 
 ### States
 
@@ -78,14 +78,14 @@ primary color and a ✓.
 
 ### Components and keys
 
-| Element | Key | Behavior |
-|---|---|---|
-| Framing area | `frame.canvas` | Drag moves; pinch zooms; keyboard: arrows move 8 px, +/− zoom |
-| Zoom slider | `frame.zoom` | 1.0–4.0, step 0.1; semantics "Zoom 150%" |
-| Center | `frame.reset` | Back to zoom 1.0 centered |
-| Name | `frame.name` | Optional, the image's accessible label |
-| Save | `frame.save` | Processes (decode, crop, 1024×1024, JPEG 85, no metadata — FR-023) with a progress indicator; success → `pop(UserImageSource)` |
-| Cancel | `frame.cancel` | Discards without saving |
+| Element      | Key            | Behavior                                                                                                                       |
+| ------------ | -------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Framing area | `frame.canvas` | Drag moves; pinch zooms; keyboard: arrows move 8 px, +/− zoom                                                                  |
+| Zoom slider  | `frame.zoom`   | 1.0–4.0, step 0.1; semantics "Zoom 150%"                                                                                       |
+| Center       | `frame.reset`  | Back to zoom 1.0 centered                                                                                                      |
+| Name         | `frame.name`   | Optional, the image's accessible label                                                                                         |
+| Save         | `frame.save`   | Processes (decode, crop, 1024×1024, JPEG 85, no metadata — FR-023) with a progress indicator; success → `pop(UserImageSource)` |
+| Cancel       | `frame.cancel` | Discards without saving                                                                                                        |
 
 Processing > 300 ms shows a "Preparing image…" overlay; errors: storage full, decoding failure →
 friendly message, nothing saved (atomic).
@@ -101,11 +101,11 @@ friendly message, nothing saved (atomic).
 └──────────────────────────────────────┘
 ```
 
-| Element | Key | Behavior |
-|---|---|---|
-| Item | `mine.item.<id>` | Long press/menu: rename, delete |
-| Delete | `mine.delete.<id>` | `ConfirmDialog` listing affected presets/routines (FR-024); confirm → removes bytes + references switch to colors |
-| Counter | `mine.count` | "12 of 50" |
+| Element | Key                | Behavior                                                                                                          |
+| ------- | ------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| Item    | `mine.item.<id>`   | Long press/menu: rename, delete                                                                                   |
+| Delete  | `mine.delete.<id>` | `ConfirmDialog` listing affected presets/routines (FR-024); confirm → removes bytes + references switch to colors |
+| Counter | `mine.count`       | "12 of 50"                                                                                                        |
 
 ## Strings
 

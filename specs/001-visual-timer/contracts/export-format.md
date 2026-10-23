@@ -9,8 +9,8 @@ import: 25 MB.
   "formatVersion": 1,
   "exportedAt": "2026-10-23T12:00:00.000Z",
   "app": { "version": "1.2.0", "platform": "android" },
-  "presets": [ { "...Preset without schemaVersion": "" } ],
-  "routines": [ { "...Routine": "" } ],
+  "presets": [{ "...Preset without schemaVersion": "" }],
+  "routines": [{ "...Routine": "" }],
   "images": [
     {
       "id": "uuid",

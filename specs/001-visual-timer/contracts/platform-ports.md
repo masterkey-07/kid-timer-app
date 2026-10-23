@@ -58,12 +58,12 @@ final class AlarmRequest {
 sealed class ScheduleResult { /* Scheduled(exact|inexact) | NotSupported | Failed(reason) */ }
 ```
 
-| Implementation | Platforms | Notes |
-|---|---|---|
-| `LocalNotificationsAlarmScheduler` | Android, iOS, macOS, Windows* | `flutter_local_notifications` + `timezone`; *Windows depending on the spike |
-| `AlarmKitScheduler` (v1.x) | iOS 26+ | decorator: tries AlarmKit, falls back to the previous one |
-| `ForegroundOnlyAlarmScheduler` | Web, Linux | `scheduling = unsupported`; schedules nothing |
-| `FakeAlarmScheduler` | tests | records requests; can simulate taps and permissions |
+| Implementation                     | Platforms                      | Notes                                                                        |
+| ---------------------------------- | ------------------------------ | ---------------------------------------------------------------------------- |
+| `LocalNotificationsAlarmScheduler` | Android, iOS, macOS, Windows\* | `flutter_local_notifications` + `timezone`; \*Windows depending on the spike |
+| `AlarmKitScheduler` (v1.x)         | iOS 26+                        | decorator: tries AlarmKit, falls back to the previous one                    |
+| `ForegroundOnlyAlarmScheduler`     | Web, Linux                     | `scheduling = unsupported`; schedules nothing                                |
+| `FakeAlarmScheduler`               | tests                          | records requests; can simulate taps and permissions                          |
 
 **Contract rules** (tested): `schedule` with the same id replaces; `cancel` of an unknown id does
 not fail; `fireAtUtc` in the past → `ScheduleResult.Failed(pastTime)`; never more than 60

@@ -4,14 +4,14 @@ All boxes live in the app support directory (IO) or in IndexedDB (Web). Values a
 `Map<String, dynamic>`, except `user_images` (bytes). Every document has a `schemaVersion`. Boxes
 are opened in `bootstrap()` before `runApp`.
 
-| Box | Type | Key | Value |
-|---|---|---|---|
-| `settings` | `Box<Map>` | `"app"` | AppSettings |
-| `presets` | `Box<Map>` | preset id | Preset |
-| `routines` (v1.x) | `Box<Map>` | routine id | Routine |
-| `session` | `Box<Map>` | `"timer"`, `"routineRun"` (v1.x) | TimerSession / RoutineRun |
-| `user_images_meta` | `Box<Map>` | image id | ImageAsset(user) metadata |
-| `user_images` | `LazyBox<Uint8List>` | image id | 1024×1024 JPEG |
+| Box                | Type                 | Key                              | Value                     |
+| ------------------ | -------------------- | -------------------------------- | ------------------------- |
+| `settings`         | `Box<Map>`           | `"app"`                          | AppSettings               |
+| `presets`          | `Box<Map>`           | preset id                        | Preset                    |
+| `routines` (v1.x)  | `Box<Map>`           | routine id                       | Routine                   |
+| `session`          | `Box<Map>`           | `"timer"`, `"routineRun"` (v1.x) | TimerSession / RoutineRun |
+| `user_images_meta` | `Box<Map>`           | image id                         | ImageAsset(user) metadata |
+| `user_images`      | `LazyBox<Uint8List>` | image id                         | 1024×1024 JPEG            |
 
 ## Documents (schemaVersion 1)
 
@@ -22,7 +22,11 @@ are opened in `bootstrap()` before `runApp`.
   "durationMs": 300000,
   "scale": "min60",
   "direction": "clockwise",
-  "visual": { "type": "palette", "paletteId": "progressive", "singleColor": null },
+  "visual": {
+    "type": "palette",
+    "paletteId": "progressive",
+    "singleColor": null
+  },
   "soundId": "chime_soft",
   "alarmVolume": 0.7,
   "tickEnabled": false,
@@ -96,8 +100,15 @@ the alarm (guarantees that reopening after process death finds the state).
 ### ImageAsset(user) meta — `user_images_meta[id]`
 
 ```json
-{ "schemaVersion": 1, "id": "uuid", "label": "Lucas", "createdAt": "…", "width": 1024,
-  "height": 1024, "byteLength": 183422 }
+{
+  "schemaVersion": 1,
+  "id": "uuid",
+  "label": "Lucas",
+  "createdAt": "…",
+  "width": 1024,
+  "height": 1024,
+  "byteLength": 183422
+}
 ```
 
 Invariant: meta exists ⇔ bytes exist. Writes in the order bytes → meta; deletes in the order
