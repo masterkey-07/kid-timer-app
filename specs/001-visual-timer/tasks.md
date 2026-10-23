@@ -53,7 +53,7 @@ Phase 19 = final polish.
 - [ ] T009 [P] Configure iOS/macOS: deployment target iOS 16 / macOS 13, bundle id `io.github.masterkey07.visualtimecounter`, display name "Kid Timer" in `ios/Runner/Info.plist` and `macos/Runner/Configs/AppInfo.xcconfig`
 - [ ] T010 [P] Configure Patrol: `patrol` in `pubspec.yaml` (`patrol:` section with `app_name`, `android.package_name`, `ios.bundle_id`), instrumentation in `android/app/build.gradle.kts` and `android/app/src/androidTest/java/.../MainActivityTest.java`, `RunnerUITests` target in `ios/`
 - [ ] T011 [P] Create `test_driver/integration_test.dart` for Web runs via `flutter drive`
-- [ ] T012 [P] Download and add the Atkinson Hyperlegible Next font (Regular, Bold) to `assets/fonts/AtkinsonHyperlegibleNext/` with `OFL.txt`
+- [x] T012 [P] Download and add the Atkinson Hyperlegible Next font (Regular, Bold) to `assets/fonts/AtkinsonHyperlegibleNext/` with `OFL.txt`
 - [ ] T013 Create `CONTRIBUTING.md` (Spec Kit flow, DCO, Conventional Commits, how to run tests) and `docs/architecture.md` summarizing layers and ports (link to plan.md)
 
 ---
