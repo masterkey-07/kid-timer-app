@@ -61,6 +61,28 @@ void main() {
         );
       });
 
+      test('primary text on every surface container', () {
+        final containers = [
+          colors.surfaceContainerLowest,
+          colors.surfaceContainerLow,
+          colors.surfaceContainer,
+          colors.surfaceContainerHigh,
+          colors.surfaceContainerHighest,
+        ];
+        for (final container in containers) {
+          expect(
+            contrastRatio(colors.primary, container),
+            greaterThanOrEqualTo(minimums.text),
+            reason: 'on $container',
+          );
+          expect(
+            contrastRatio(colors.onSurface, container),
+            greaterThanOrEqualTo(minimums.text),
+            reason: 'on $container',
+          );
+        }
+      });
+
       test('the scaffold uses the surface color', () {
         expect(theme.scaffoldBackgroundColor, colors.surface);
       });
