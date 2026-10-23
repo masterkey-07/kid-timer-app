@@ -30,6 +30,7 @@ dependencies:
   url_launcher: ^6.3.3
   uuid: ^4.6.0
   wakelock_plus: ^1.8.2
+  web: ^1.1.2
   window_manager: ^0.5.2
 
 dev_dependencies:
