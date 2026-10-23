@@ -213,12 +213,13 @@ void main() {
   });
 
   test('FakeLifecycle emits simulated states', () async {
-    final lifecycle = FakeLifecycle();
     final states = <AppLifecycleState>[];
+    final lifecycle = FakeLifecycle();
     lifecycle.states.listen(states.add);
 
-    lifecycle.emit(AppLifecycleState.paused);
-    lifecycle.emit(AppLifecycleState.resumed);
+    lifecycle
+      ..emit(AppLifecycleState.paused)
+      ..emit(AppLifecycleState.resumed);
     await Future<void>.delayed(Duration.zero);
 
     expect(states, [AppLifecycleState.paused, AppLifecycleState.resumed]);
