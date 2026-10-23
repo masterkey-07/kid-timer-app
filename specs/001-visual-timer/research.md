@@ -59,6 +59,11 @@ them.
     adopt native scheduling only if, on both Windows 10 22H2 and Windows 11, a notification
     scheduled 1 min ahead fires within ≤ 5 s with the app closed in 10/10 runs, plays the
     bundled sound, and its tap opens the app with the payload; otherwise use the fallback.
+    **Interim (until T042 runs on real Windows 10/11 machines)**: Windows uses the
+    `ForegroundOnlyAlarmScheduler` and shows the "keep the window open" notice, because an
+    unverified OS alarm could fail silently (Constitution III). `choosePorts` in
+    `lib/core/platform/providers.dart` switches Windows to `localNotifications` if the spike
+    passes.
   - **Linux and Web**: no scheduling (documented limitation of the plugin and of browsers) →
     foreground-only alarm + notice (FR-015).
 - **Rationale**: A mature plugin covering 4 of 6 platforms with native scheduling.

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
 
@@ -123,7 +124,7 @@ void main() {
         addTearDown(container.dispose);
 
         expect(
-          () => container.read(provider),
+          () => container.read<Object?>(provider),
           throwsA(
             predicate(
               (error) => error.toString().contains('must be overridden'),
