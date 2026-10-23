@@ -29,14 +29,20 @@ void main() {
     write('assets/fonts/Font/OFL.txt');
     write(
       'assets/fonts/LICENSES.md',
-      table([('Font/Font-Regular.ttf', 'OFL-1.1'), ('Font/OFL.txt', 'OFL-1.1')]),
+      table([
+        ('Font/Font-Regular.ttf', 'OFL-1.1'),
+        ('Font/OFL.txt', 'OFL-1.1'),
+      ]),
     );
     write('assets/sounds/chime_soft.wav');
     write('assets/sounds/manifest.json', '{}');
     write('assets/sounds/LICENSES.md', table([('chime_soft.wav', 'CC0-1.0')]));
     write('assets/images/bank/meal/plate.webp');
     write('assets/images/bank/manifest.json', '{}');
-    write('assets/images/bank/LICENSES.md', table([('meal/plate.webp', 'MIT')]));
+    write(
+      'assets/images/bank/LICENSES.md',
+      table([('meal/plate.webp', 'MIT')]),
+    );
     write('assets/images/.gitkeep', '');
 
     expect(checkLicenses(root), isEmpty);
@@ -72,7 +78,10 @@ void main() {
     write('assets/images/bank/meal/plate.webp');
 
     expect(checkLicenses(root), [
-      allOf(contains('assets/images/bank/meal/plate.webp'), contains('not listed')),
+      allOf(
+        contains('assets/images/bank/meal/plate.webp'),
+        contains('not listed'),
+      ),
     ]);
   });
 
@@ -98,7 +107,10 @@ void main() {
   test('uses the nearest LICENSES.md', () {
     write('assets/images/bank/meal/plate.webp');
     write('assets/images/bank/LICENSES.md', table([]));
-    write('assets/images/bank/meal/LICENSES.md', table([('plate.webp', 'MIT')]));
+    write(
+      'assets/images/bank/meal/LICENSES.md',
+      table([('plate.webp', 'MIT')]),
+    );
 
     expect(checkLicenses(root), isEmpty);
   });
