@@ -1,0 +1,24 @@
+# Flutter/Dart (the rest is added by `flutter create` in task T001)
+.dart_tool/
+.packages
+build/
+coverage/
+.flutter-plugins
+.flutter-plugins-dependencies
+**/failures/
+
+# FVM
+.fvm/flutter_sdk
+
+# Tools
+tool/image_bank/node_modules/
+
+# IDE / OS
+.idea/
+*.iml
+.vscode/*
+!.vscode/settings.json
+.DS_Store
+
+# Claude Code: local settings and credentials (Spec Kit skills are committed)
+.claude/settings.local.json
