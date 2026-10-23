@@ -84,7 +84,7 @@ tooling. **⚠️ No story starts before this phase is done.**
 - [x] T027 Implement `SessionStatus`, `SessionOrigin`, `TimerSession` (with `toJson`/`fromJson`) and `TimerEngine` in `lib/core/timer_engine/` (depends on T025, T026)
 - [x] T028 [P] Implement `clockProvider` in `lib/core/clock/clock_provider.dart` (uses `package:clock`)
 - [x] T029 [P] Write `AnnounceThrottle` tests in `test/unit/core/a11y/announce_throttle_test.dart` (at most 1 announcement per interval; intervals 1 min, 5 min, off) and implement it in `lib/core/a11y/announce_throttle.dart`
-- [ ] T030 [P] Write `mm:ss`/`h:mm:ss` formatting tests in `test/unit/core/domain/duration_format_test.dart` and implement it in `lib/core/domain/duration_format.dart`
+- [x] T030 [P] Write `mm:ss`/`h:mm:ss` formatting tests in `test/unit/core/domain/duration_format_test.dart` and implement it in `lib/core/domain/duration_format.dart`
 
 ### 2c. Persistence
 
