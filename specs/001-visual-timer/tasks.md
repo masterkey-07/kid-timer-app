@@ -42,7 +42,7 @@ Phase 19 = final polish.
 
 **Purpose**: Create the Flutter project, tooling and conventions.
 
-- [ ] T001 Create the Flutter project at the root with `flutter create --org io.github.masterkey07 --project-name visual_time_counter --platforms android,ios,macos,windows,linux,web .` preserving `.specify/`, `.claude/`, `specs/`, `docs/`, `CLAUDE.md`, `README.md`, `LICENSE`
+- [x] T001 Create the Flutter project at the root with `flutter create --org io.github.masterkey07 --project-name visual_time_counter --platforms android,ios,macos,windows,linux,web .` preserving `.specify/`, `.claude/`, `specs/`, `docs/`, `CLAUDE.md`, `README.md`, `LICENSE`
 - [ ] T002 Pin the SDK in `.fvmrc` (stable Flutter 3.47.x) and document the exact version in `README.md` (Development section)
 - [ ] T003 Configure `pubspec.yaml` with the plan.md dependencies (Technical Context), `flutter: generate: true`, assets (`assets/images/bank/`, `assets/sounds/`, `assets/legal/`) and fonts (Atkinson Hyperlegible Next)
 - [ ] T004 [P] Configure `analysis_options.yaml` with `very_good_analysis`, generated-file exclusions and the `public_member_api_docs` rule restricted to `lib/core/**`
