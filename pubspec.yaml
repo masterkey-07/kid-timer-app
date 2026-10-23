@@ -57,3 +57,11 @@ flutter:
         - asset: assets/fonts/AtkinsonHyperlegibleNext/AtkinsonHyperlegibleNext-Regular.ttf
         - asset: assets/fonts/AtkinsonHyperlegibleNext/AtkinsonHyperlegibleNext-Bold.ttf
           weight: 700
+
+patrol:
+  app_name: Kid Timer
+  test_directory: patrol_test
+  android:
+    package_name: io.github.masterkey07.visualtimecounter
+  ios:
+    bundle_id: io.github.masterkey07.visualtimecounter
