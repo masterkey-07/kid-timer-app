@@ -9,7 +9,7 @@ import 'package:visual_time_counter/features/timer/data/session_repository.dart'
 import '../../../../helpers/fixtures.dart';
 import '../../../../helpers/hive_test_utils.dart';
 
-class _MockBox extends Mock implements Box<Map<dynamic, dynamic>> {}
+class _MockBox extends Mock implements Box<Map<dynamic, dynamic>>;
 
 void main() {
   final running = TimerSession(
@@ -119,5 +119,5 @@ void main() {
 }
 
 class FileSystemFull implements Exception {
-  const FileSystemFull();
+  const new();
 }
