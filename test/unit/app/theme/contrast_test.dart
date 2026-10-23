@@ -8,8 +8,11 @@ import '../../../helpers/contrast.dart';
 /// WCAG minimums per theme family (contracts/ui/00 §4, FR-055).
 typedef _Minimums = ({double text, double component});
 
-const _regular = (text: 4.5, component: 3.0);
-const _highContrast = (text: 7.0, component: 4.5);
+const ({double component, double text}) _regular = (text: 4.5, component: 3.0);
+const ({double component, double text}) _highContrast = (
+  text: 7.0,
+  component: 4.5,
+);
 
 void main() {
   final themes = <String, (ThemeData, _Minimums)>{

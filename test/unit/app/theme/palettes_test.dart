@@ -24,7 +24,9 @@ void main() {
     test('blends halfway at a threshold', () {
       expect(
         DialPalettes.colorAt(PaletteId.progressive, 0.5),
-        Color.lerp(const Color(0xFF3BAA5C), const Color(0xFFF2C14E), 0.5),
+        isSameColorAs(
+          Color.lerp(const Color(0xFF3BAA5C), const Color(0xFFF2C14E), 0.5)!,
+        ),
       );
     });
 
@@ -43,7 +45,7 @@ void main() {
     test('calm mode never uses red, even while blending', () {
       for (var step = 0; step <= 100; step++) {
         final color = DialPalettes.colorAt(PaletteId.calm, step / 100);
-        expect(_isRed(color), isFalse, reason: 'at ${step}%: $color');
+        expect(_isRed(color), isFalse, reason: 'at $step%: $color');
       }
     });
 
