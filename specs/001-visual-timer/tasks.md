@@ -50,7 +50,7 @@ Phase 19 = final polish.
 - [x] T006 [P] Create the folder structure for `lib/`, `test/`, `integration_test/`, `patrol_test/`, `tool/`, `assets/`, `docs/` per plan.md (Project Structure), with `.gitkeep` where empty
 - [x] T007 [P] Adjust `.gitignore` for Flutter + FVM (`.fvm/flutter_sdk`), `coverage/`, `build/`, `tool/image_bank/node_modules/`, golden failures (`**/failures/`)
 - [x] T008 [P] Configure Android: `minSdk 26`, `targetSdk 36`, `compileSdk 36`, core library desugaring (required by `flutter_local_notifications`), `applicationId io.github.masterkey07.visualtimecounter` in `android/app/build.gradle.kts`
-- [ ] T009 [P] Configure iOS/macOS: deployment target iOS 16 / macOS 13, bundle id `io.github.masterkey07.visualtimecounter`, display name "Kid Timer" in `ios/Runner/Info.plist` and `macos/Runner/Configs/AppInfo.xcconfig`
+- [x] T009 [P] Configure iOS/macOS: deployment target iOS 16 / macOS 13, bundle id `io.github.masterkey07.visualtimecounter`, display name "Kid Timer" in `ios/Runner/Info.plist` and `macos/Runner/Configs/AppInfo.xcconfig`
 - [ ] T010 [P] Configure Patrol: `patrol` in `pubspec.yaml` (`patrol:` section with `app_name`, `android.package_name`, `ios.bundle_id`), instrumentation in `android/app/build.gradle.kts` and `android/app/src/androidTest/java/.../MainActivityTest.java`, `RunnerUITests` target in `ios/`
 - [ ] T011 [P] Create `test_driver/integration_test.dart` for Web runs via `flutter drive`
 - [x] T012 [P] Download and add the Atkinson Hyperlegible Next font (Regular, Bold) to `assets/fonts/AtkinsonHyperlegibleNext/` with `OFL.txt`

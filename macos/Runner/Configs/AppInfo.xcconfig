@@ -7,8 +7,11 @@
 // The application's name. By default this is also the title of the Flutter window.
 PRODUCT_NAME = visual_time_counter
 
+// The name shown to the user (menu bar, Finder, Dock).
+APP_DISPLAY_NAME = Kid Timer
+
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = io.github.masterkey07.visualTimeCounter
+PRODUCT_BUNDLE_IDENTIFIER = io.github.masterkey07.visualtimecounter
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2026 io.github.masterkey07. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2026 The Kid Timer contributors. Licensed under Apache-2.0.
