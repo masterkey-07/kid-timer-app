@@ -23,10 +23,13 @@ void main() {
       '@appTitle': {'description': 'Name'},
       'minutesLeft': 'Faltam {minutes} min',
       '@minutesLeft': {
-        'placeholders': {'minutes': {}},
+        'placeholders': {'minutes': <String, Object>{}},
       },
     });
-    writeArb('en', {'appTitle': 'Kid Timer', 'minutesLeft': '{minutes} min left'});
+    writeArb('en', {
+      'appTitle': 'Kid Timer',
+      'minutesLeft': '{minutes} min left',
+    });
 
     expect(checkL10n(root), isEmpty);
   });
@@ -60,7 +63,8 @@ void main() {
 
   test('compares the selector of plural messages', () {
     writeArb('pt', {
-      'left': '{count, plural, =1{Falta 1 minuto} other{Faltam {count} minutos}}',
+      'left':
+          '{count, plural, =1{Falta 1 minuto} other{Faltam {count} minutos}}',
     });
     writeArb('en', {
       'left': '{n, plural, =1{1 minute left} other{{n} minutes left}}',
