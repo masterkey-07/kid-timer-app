@@ -8,7 +8,7 @@ void main() {
   runAlarmSchedulerContract(
     'ForegroundOnlyAlarmScheduler',
     () async => (
-      scheduler: ForegroundOnlyAlarmScheduler(),
+      scheduler: const ForegroundOnlyAlarmScheduler(),
       now: DateTime.now,
       pending: () async => <PendingAlarm>[],
     ),
@@ -16,7 +16,7 @@ void main() {
   );
 
   test('reports no scheduling, permissions or launch payload', () async {
-    final scheduler = ForegroundOnlyAlarmScheduler();
+    const scheduler = ForegroundOnlyAlarmScheduler();
 
     expect(await scheduler.capabilities(), AlarmCapabilities.unsupported);
     expect(
