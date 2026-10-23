@@ -54,7 +54,7 @@ Phase 19 = final polish.
 - [ ] T010 [P] Configure Patrol: `patrol` in `pubspec.yaml` (`patrol:` section with `app_name`, `android.package_name`, `ios.bundle_id`), instrumentation in `android/app/build.gradle.kts` and `android/app/src/androidTest/java/.../MainActivityTest.java`, `RunnerUITests` target in `ios/` — **partial**: pubspec + Android done and `ios/RunnerUITests/RunnerUITests.m` added; the Xcode `RunnerUITests` target (linked to the patrol SPM package) still has to be created on a Mac
 - [x] T011 [P] Create `test_driver/integration_test.dart` for Web runs via `flutter drive`
 - [x] T012 [P] Download and add the Atkinson Hyperlegible Next font (Regular, Bold) to `assets/fonts/AtkinsonHyperlegibleNext/` with `OFL.txt`
-- [ ] T013 Create `CONTRIBUTING.md` (Spec Kit flow, DCO, Conventional Commits, how to run tests) and `docs/architecture.md` summarizing layers and ports (link to plan.md)
+- [x] T013 Create `CONTRIBUTING.md` (Spec Kit flow, DCO, Conventional Commits, how to run tests) and `docs/architecture.md` summarizing layers and ports (link to plan.md)
 
 ---
 
