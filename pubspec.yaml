@@ -24,6 +24,7 @@ dependencies:
   image: ^4.12.0
   image_picker: ^1.2.4
   intl: ^0.20.3
+  meta: ^1.19.0
   path_provider: ^2.1.6
   timezone: ^0.11.2
   url_launcher: ^6.3.3

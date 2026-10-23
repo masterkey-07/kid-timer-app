@@ -59,7 +59,7 @@ void main() {
     });
 
     test('increment uses the step of the current value', () {
-      final at = TimerDuration.new;
+      const at = TimerDuration.new;
       expect(
         at(const Duration(minutes: 1, seconds: 50)).increment().value,
         const Duration(minutes: 2),
@@ -71,7 +71,7 @@ void main() {
     });
 
     test('decrement uses the step of the value below', () {
-      final at = TimerDuration.new;
+      const at = TimerDuration.new;
       expect(
         at(const Duration(minutes: 2)).decrement().value,
         const Duration(minutes: 1, seconds: 50),

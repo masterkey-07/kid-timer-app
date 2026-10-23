@@ -6,37 +6,37 @@ void main() {
     test('is the start phase (green) above 50%', () {
       expect(
         PaletteId.progressive.phaseAt(1),
-        PaletteBlend.solid(PalettePhase.start),
+        const PaletteBlend.solid(PalettePhase.start),
       );
       expect(
         PaletteId.progressive.phaseAt(0.52),
-        PaletteBlend.solid(PalettePhase.start),
+        const PaletteBlend.solid(PalettePhase.start),
       );
     });
 
     test('is the middle phase (yellow) between 20% and 50%', () {
       expect(
         PaletteId.progressive.phaseAt(0.48),
-        PaletteBlend.solid(PalettePhase.middle),
+        const PaletteBlend.solid(PalettePhase.middle),
       );
       expect(
         PaletteId.progressive.phaseAt(0.35),
-        PaletteBlend.solid(PalettePhase.middle),
+        const PaletteBlend.solid(PalettePhase.middle),
       );
       expect(
         PaletteId.progressive.phaseAt(0.22),
-        PaletteBlend.solid(PalettePhase.middle),
+        const PaletteBlend.solid(PalettePhase.middle),
       );
     });
 
     test('is the end phase (red) below 20%', () {
       expect(
         PaletteId.progressive.phaseAt(0.18),
-        PaletteBlend.solid(PalettePhase.end),
+        const PaletteBlend.solid(PalettePhase.end),
       );
       expect(
         PaletteId.progressive.phaseAt(0),
-        PaletteBlend.solid(PalettePhase.end),
+        const PaletteBlend.solid(PalettePhase.end),
       );
     });
 
@@ -59,7 +59,7 @@ void main() {
       const epsilon = 1e-6;
       expect(
         PaletteId.progressive.phaseAt(0.51 + epsilon),
-        PaletteBlend.solid(PalettePhase.start),
+        const PaletteBlend.solid(PalettePhase.start),
       );
       expect(PaletteId.progressive.phaseAt(0.51 - epsilon).t, lessThan(0.001));
       expect(
@@ -68,18 +68,18 @@ void main() {
       );
       expect(
         PaletteId.progressive.phaseAt(0.49 - epsilon),
-        PaletteBlend.solid(PalettePhase.middle),
+        const PaletteBlend.solid(PalettePhase.middle),
       );
     });
 
     test('clamps fractions outside [0, 1]', () {
       expect(
         PaletteId.progressive.phaseAt(1.4),
-        PaletteBlend.solid(PalettePhase.start),
+        const PaletteBlend.solid(PalettePhase.start),
       );
       expect(
         PaletteId.progressive.phaseAt(-0.2),
-        PaletteBlend.solid(PalettePhase.end),
+        const PaletteBlend.solid(PalettePhase.end),
       );
     });
   });
@@ -97,7 +97,7 @@ void main() {
     for (final fraction in [1.0, 0.5, 0.2, 0.0]) {
       expect(
         PaletteId.single.phaseAt(fraction),
-        PaletteBlend.solid(PalettePhase.start),
+        const PaletteBlend.solid(PalettePhase.start),
       );
     }
   });

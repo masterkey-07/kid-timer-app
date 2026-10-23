@@ -7,19 +7,19 @@ void main() {
   });
 
   test('accepts up to 2 values from {1, 2, 5, 10} minutes (FR-080)', () {
-    expect(WarningOffsets({5, 1}).minutes, {1, 5});
+    expect(WarningOffsets(const {5, 1}).minutes, {1, 5});
   });
 
   test('rejects more than 2 values', () {
-    expect(() => WarningOffsets({1, 2, 5}), throwsArgumentError);
+    expect(() => WarningOffsets(const {1, 2, 5}), throwsArgumentError);
   });
 
   test('rejects values outside the allowed set', () {
-    expect(() => WarningOffsets({3}), throwsArgumentError);
+    expect(() => WarningOffsets(const {3}), throwsArgumentError);
   });
 
   test('ignores warnings greater than or equal to the duration', () {
-    final offsets = WarningOffsets({1, 5});
+    final offsets = WarningOffsets(const {1, 5});
 
     expect(offsets.effectiveFor(const Duration(minutes: 5)), [
       const Duration(minutes: 1),
@@ -31,15 +31,18 @@ void main() {
   });
 
   test('has value equality', () {
-    expect(WarningOffsets({1, 5}), WarningOffsets({5, 1}));
-    expect(WarningOffsets({1, 5}).hashCode, WarningOffsets({5, 1}).hashCode);
-    expect(WarningOffsets({1}), isNot(WarningOffsets({2})));
+    expect(WarningOffsets(const {1, 5}), WarningOffsets(const {5, 1}));
+    expect(
+      WarningOffsets(const {1, 5}).hashCode,
+      WarningOffsets(const {5, 1}).hashCode,
+    );
+    expect(WarningOffsets(const {1}), isNot(WarningOffsets(const {2})));
   });
 
   test('serializes as a sorted list of minutes', () {
-    expect(WarningOffsets({5, 1}).toJson(), [1, 5]);
-    expect(WarningOffsets.fromJson([5, 1]), WarningOffsets({1, 5}));
-    expect(() => WarningOffsets.fromJson([7]), throwsFormatException);
+    expect(WarningOffsets(const {5, 1}).toJson(), [1, 5]);
+    expect(WarningOffsets.fromJson(const [5, 1]), WarningOffsets(const {1, 5}));
+    expect(() => WarningOffsets.fromJson(const [7]), throwsFormatException);
     expect(() => WarningOffsets.fromJson('5'), throwsFormatException);
   });
 }
