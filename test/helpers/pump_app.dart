@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:visual_time_counter/app/theme/app_theme.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
 /// Reference screen sizes per layout class (testing-strategy §2 rule 7).
@@ -36,7 +37,7 @@ extension PumpApp on WidgetTester {
       ProviderScope(
         overrides: overrides,
         child: MaterialApp(
-          theme: theme,
+          theme: theme ?? AppTheme.light(),
           locale: locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
