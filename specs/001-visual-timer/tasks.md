@@ -46,7 +46,7 @@ Phase 19 = final polish.
 - [x] T002 Pin the SDK in `.fvmrc` (stable Flutter 3.47.x) and document the exact version in `README.md` (Development section)
 - [x] T003 Configure `pubspec.yaml` with the plan.md dependencies (Technical Context), `flutter: generate: true`, assets (`assets/images/bank/`, `assets/sounds/`, `assets/legal/`) and fonts (Atkinson Hyperlegible Next)
 - [x] T004 [P] Configure `analysis_options.yaml` with `very_good_analysis`, generated-file exclusions and the `public_member_api_docs` rule restricted to `lib/core/**`
-- [ ] T005 [P] Configure `l10n.yaml` (template `app_pt.arb`, output `lib/l10n/generated`, `nullable-getter: false`) and create `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb` with `appTitle`
+- [x] T005 [P] Configure `l10n.yaml` (template `app_pt.arb`, output `lib/l10n/generated`, `nullable-getter: false`) and create `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb` with `appTitle`
 - [x] T006 [P] Create the folder structure for `lib/`, `test/`, `integration_test/`, `patrol_test/`, `tool/`, `assets/`, `docs/` per plan.md (Project Structure), with `.gitkeep` where empty
 - [ ] T007 [P] Adjust `.gitignore` for Flutter + FVM (`.fvm/flutter_sdk`), `coverage/`, `build/`, `tool/image_bank/node_modules/`, golden failures (`**/failures/`)
 - [ ] T008 [P] Configure Android: `minSdk 26`, `targetSdk 36`, `compileSdk 36`, core library desugaring (required by `flutter_local_notifications`), `applicationId io.github.masterkey07.visualtimecounter` in `android/app/build.gradle.kts`

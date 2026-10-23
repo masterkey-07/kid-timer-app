@@ -1,0 +1,7 @@
+{
+  "@@locale": "pt",
+  "appTitle": "Kid Timer",
+  "@appTitle": {
+    "description": "Application name shown in the window title and task switcher."
+  }
+}
