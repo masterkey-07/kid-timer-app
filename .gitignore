@@ -1,10 +1,24 @@
-# Flutter/Dart (the rest is added by `flutter create` in task T001)
+# Flutter/Dart (platform folders keep their own .gitignore files)
 .dart_tool/
 .packages
 build/
 coverage/
 .flutter-plugins
 .flutter-plugins-dependencies
+.pub-cache/
+.pub/
+.build/
+.swiftpm/
+migrate_working_dir/
+*.log
+**/doc/api/
+app.*.symbols
+app.*.map.json
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Golden test failures
 **/failures/
 
 # FVM
@@ -17,9 +31,13 @@ tool/image_bank/node_modules/
 # IDE / OS
 .idea/
 *.iml
+*.ipr
+*.iws
 .vscode/*
 !.vscode/settings.json
 .DS_Store
+Thumbs.db
+*.swp
 
 # Claude Code: local settings and credentials (Spec Kit skills are committed)
 .claude/settings.local.json

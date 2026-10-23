@@ -48,7 +48,7 @@ Phase 19 = final polish.
 - [x] T004 [P] Configure `analysis_options.yaml` with `very_good_analysis`, generated-file exclusions and the `public_member_api_docs` rule restricted to `lib/core/**`
 - [x] T005 [P] Configure `l10n.yaml` (template `app_pt.arb`, output `lib/l10n/generated`, `nullable-getter: false`) and create `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb` with `appTitle`
 - [x] T006 [P] Create the folder structure for `lib/`, `test/`, `integration_test/`, `patrol_test/`, `tool/`, `assets/`, `docs/` per plan.md (Project Structure), with `.gitkeep` where empty
-- [ ] T007 [P] Adjust `.gitignore` for Flutter + FVM (`.fvm/flutter_sdk`), `coverage/`, `build/`, `tool/image_bank/node_modules/`, golden failures (`**/failures/`)
+- [x] T007 [P] Adjust `.gitignore` for Flutter + FVM (`.fvm/flutter_sdk`), `coverage/`, `build/`, `tool/image_bank/node_modules/`, golden failures (`**/failures/`)
 - [ ] T008 [P] Configure Android: `minSdk 26`, `targetSdk 36`, `compileSdk 36`, core library desugaring (required by `flutter_local_notifications`), `applicationId io.github.masterkey07.visualtimecounter` in `android/app/build.gradle.kts`
 - [ ] T009 [P] Configure iOS/macOS: deployment target iOS 16 / macOS 13, bundle id `io.github.masterkey07.visualtimecounter`, display name "Kid Timer" in `ios/Runner/Info.plist` and `macos/Runner/Configs/AppInfo.xcconfig`
 - [ ] T010 [P] Configure Patrol: `patrol` in `pubspec.yaml` (`patrol:` section with `app_name`, `android.package_name`, `ios.bundle_id`), instrumentation in `android/app/build.gradle.kts` and `android/app/src/androidTest/java/.../MainActivityTest.java`, `RunnerUITests` target in `ios/`
