@@ -1,4 +1,4 @@
-package io.github.masterkey07.visual_time_counter
+package io.github.masterkey07.visualtimecounter
 
 import io.flutter.embedding.android.FlutterActivity
 
