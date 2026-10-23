@@ -18,8 +18,11 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Golden test failures
+# Golden test failures and host-specific platform goldens (only goldens/ci is versioned)
 **/failures/
+test/**/goldens/linux/
+test/**/goldens/macos/
+test/**/goldens/windows/
 
 # FVM
 .fvm/flutter_sdk

@@ -72,7 +72,7 @@ tooling. **⚠️ No story starts before this phase is done.**
 - [x] T018 Create `.github/workflows/ci.yml`: FVM; `dart format --set-exit-if-changed`; `flutter analyze`; `flutter test --coverage` with `TZ=UTC` and `TZ=America/Sao_Paulo`; `tool/check_coverage.dart`; `tool/license_check.dart`; `tool/l10n_check.dart`; release APK build (`--split-per-abi`) + `tool/privacy_check.dart` + fail if any APK > 25 MB (Constitution VIII); `xvfb-run flutter test integration_test -d linux`; web build with `--no-web-resources-cdn`; desktop build matrix (ubuntu, windows, macos); non-blocking `flutter build web --wasm` job
 - [x] T019 [P] Create `.github/workflows/e2e-android.yml` (API 34 x86_64 emulator with `reactivecircus/android-emulator-runner`, `patrol test -t patrol_test/`, Android integration; triggers: `e2e` label, daily schedule on `main`, `workflow_dispatch`)
 - [x] T020 [P] Create `test/helpers/pump_app.dart` (wraps a widget with `ProviderScope` + overrides, `MaterialApp` with pt/en l10n, theme, screen size per class), `test/helpers/hive_test_utils.dart` (Hive in a temporary directory per test) and `test/helpers/a11y_expectations.dart` (shortcut for the 4 guidelines + 200% font)
-- [ ] T021 [P] Configure `alchemist` in `test/flutter_test_config.dart` (CI goldens with Ahem; app fonts loaded for platform goldens)
+- [x] T021 [P] Configure `alchemist` in `test/flutter_test_config.dart` (CI goldens with Ahem; app fonts loaded for platform goldens)
 
 ### 2b. Domain and time engine (TDD)
 
