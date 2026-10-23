@@ -59,7 +59,10 @@ end_of_record
 
     test('keeps everything else', () {
       expect(isExcluded('lib/core/domain/timer_config.dart'), isFalse);
-      expect(isExcluded('lib/core/platform/alarm/alarm_scheduler.dart'), isFalse);
+      expect(
+        isExcluded('lib/core/platform/alarm/alarm_scheduler.dart'),
+        isFalse,
+      );
       expect(isExcluded('lib/app/main_menu.dart'), isFalse);
       expect(isExcluded('lib/bootstrap.dart'), isFalse);
     });
