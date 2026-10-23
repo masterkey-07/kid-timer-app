@@ -109,7 +109,9 @@ lib/
 │   │                                 # visual_source.dart, palette_id.dart, sound_id.dart,
 │   │                                 # image_effect.dart, json_utils.dart
 │   ├── timer_engine/                 # timer_session.dart, session_status.dart, timer_engine.dart
-│   ├── platform/                     # ports + implementations + providers.dart
+│   ├── platform/                     # ports + implementations + providers.dart; real platform
+│   │                                 # implementations live in `<port>/impl/` (excluded from unit
+│   │                                 # coverage, testing-strategy §2 rule 8; covered by integration)
 │   │   ├── alarm/                    # alarm_scheduler.dart, local_notifications_*.dart,
 │   │   │                             # foreground_only_*.dart, alarmkit_*.dart (v1.x)
 │   │   ├── wakelock/  fullscreen/  audio/  haptics/  image_picker/  system_settings/
