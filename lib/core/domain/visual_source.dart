@@ -19,7 +19,10 @@ sealed class VisualSource {
   }
 
   /// The default source: the progressive palette.
-  static final defaultSource = PaletteSource(paletteId: PaletteId.progressive);
+  static const VisualSource defaultSource = PaletteSource._(
+    PaletteId.progressive,
+    null,
+  );
 
   static const _paletteType = 'palette';
   static const _bankType = 'bank';
