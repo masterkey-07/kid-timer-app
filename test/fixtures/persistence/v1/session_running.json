@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "6f1c2a52-8d1e-4f0b-9a43-0d5c3e2b7a10",
+  "status": "running",
+  "config": {
+    "durationMs": 300000,
+    "scale": "min60",
+    "direction": "clockwise",
+    "visual": { "type": "palette", "paletteId": "progressive", "singleColor": null },
+    "soundId": "chime_soft",
+    "alarmVolume": 0.7,
+    "tickEnabled": false,
+    "tickVolume": 0.3,
+    "vibrate": true,
+    "showDigits": true,
+    "imageEffect": "vanish",
+    "warningsMin": []
+  },
+  "startedAt": "2026-10-23T12:00:00.000Z",
+  "endsAt": "2026-10-23T12:05:00.000Z",
+  "pausedRemainingMs": null,
+  "origin": { "type": "preset", "presetId": "0b7e4f7c-3a9d-4c55-8f0e-5d2a1b6c9e88" },
+  "scheduledNotificationIds": [123456],
+  "finishedAcknowledged": false
+}

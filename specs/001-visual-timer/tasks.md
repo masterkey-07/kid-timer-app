@@ -90,7 +90,7 @@ tooling. **⚠️ No story starts before this phase is done.**
 
 - [x] T031 Write `Migrator` tests in `test/unit/core/persistence/migrator_test.dart` (applies sequential migrations; failure → backup into `<box>_backup` and defaults; a `schemaVersion` higher than supported does not overwrite)
 - [x] T032 Implement `lib/core/persistence/boxes.dart` (box names: `settings`, `presets`, `routines`, `session`, `user_images_meta`, `user_images`), `hive_bootstrap.dart` (opens boxes; `user_images` as `LazyBox<Uint8List>`) and `migrator.dart` (depends on T031)
-- [ ] T033 [P] Write `SessionRepository` tests in `test/unit/features/timer/data/session_repository_test.dart` (save with flush, load, clear, fixture `test/fixtures/persistence/v1/session_running.json`)
+- [x] T033 [P] Write `SessionRepository` tests in `test/unit/features/timer/data/session_repository_test.dart` (save with flush, load, clear, fixture `test/fixtures/persistence/v1/session_running.json`)
 - [ ] T034 Implement `SessionRepository` in `lib/features/timer/data/session_repository.dart` (depends on T032, T033)
 - [ ] T035 [P] Write `AppSettings` and `SettingsRepository` tests in `test/unit/features/settings/settings_repository_test.dart` (data-model defaults; `lastConfig`; onboarding flags; v1 fixture)
 - [ ] T036 Implement `AppSettings` in `lib/features/settings/domain/app_settings.dart` and `SettingsRepository` in `lib/features/settings/data/settings_repository.dart` (depends on T032, T035)
