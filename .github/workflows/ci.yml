@@ -1,0 +1,135 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Constitution VIII: every release APK (per ABI) must stay at or below 25 MB.
+  MAX_APK_BYTES: 25000000
+  LINUX_BUILD_DEPS: >-
+    clang cmake ninja-build pkg-config libgtk-3-dev
+    libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+    gstreamer1.0-plugins-good xvfb
+
+jobs:
+  checks:
+    name: Format, analyze, tests and coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+      - run: flutter pub get
+      - run: dart format --set-exit-if-changed .
+      - run: flutter analyze
+      - name: Tests (America/Sao_Paulo)
+        run: flutter test
+        env:
+          TZ: America/Sao_Paulo
+      - name: Tests with coverage (UTC)
+        run: flutter test --coverage
+        env:
+          TZ: UTC
+      - run: dart run tool/check_coverage.dart
+      - run: dart run tool/license_check.dart
+      - run: dart run tool/l10n_check.dart
+      - name: Upload golden failures
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: golden-failures
+          path: test/**/failures/
+          if-no-files-found: ignore
+
+  android:
+    name: Android release build and privacy check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+      - run: flutter pub get
+      - run: flutter build apk --release --split-per-abi
+      - run: dart run tool/privacy_check.dart
+      - name: APK size per ABI
+        run: |
+          status=0
+          for apk in build/app/outputs/flutter-apk/app-*-release.apk; do
+            size=$(stat -c %s "$apk")
+            echo "$apk: $size bytes"
+            if [ "$size" -gt "$MAX_APK_BYTES" ]; then
+              echo "::error file=$apk::APK is larger than $MAX_APK_BYTES bytes"
+              status=1
+            fi
+          done
+          exit $status
+
+  linux-integration:
+    name: Integration tests (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+      - run: sudo apt-get update && sudo apt-get install -y $LINUX_BUILD_DEPS
+      - run: flutter pub get
+      - name: Integration tests
+        run: |
+          if ! ls integration_test/*_test.dart >/dev/null 2>&1; then
+            echo "No integration tests yet."
+            exit 0
+          fi
+          xvfb-run flutter test integration_test -d linux
+
+  web:
+    name: Web build and privacy check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+      - run: flutter pub get
+      - run: flutter build web --release --no-web-resources-cdn
+      - run: dart run tool/privacy_check.dart
+
+  web-wasm:
+    name: Web build (WebAssembly, non-blocking)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+      - uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+      - run: flutter pub get
+      - run: flutter build web --release --wasm --no-web-resources-cdn
+
+  desktop:
+    name: Desktop build (${{ matrix.platform }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux
+          - os: windows-latest
+            platform: windows
+          - os: macos-latest
+            platform: macos
+    steps:
+      - uses: actions/checkout@v7
+      - uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+      - name: Linux build dependencies
+        if: matrix.platform == 'linux'
+        run: sudo apt-get update && sudo apt-get install -y $LINUX_BUILD_DEPS
+      - run: flutter pub get
+      - run: flutter build ${{ matrix.platform }} --release
