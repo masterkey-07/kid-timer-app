@@ -3,5 +3,17 @@
   "appTitle": "Kid Timer",
   "@appTitle": {
     "description": "Application name shown in the window title and task switcher."
+  },
+  "noticeLearnMore": "Saiba mais",
+  "@noticeLearnMore": {
+    "description": "Link on a platform notice banner that opens the help page."
+  },
+  "noticeWarningLabel": "Aviso",
+  "@noticeWarningLabel": {
+    "description": "Screen reader label of the warning icon on notice banners."
+  },
+  "commonCancel": "Cancelar",
+  "@commonCancel": {
+    "description": "Cancel button of confirmation dialogs."
   }
 }

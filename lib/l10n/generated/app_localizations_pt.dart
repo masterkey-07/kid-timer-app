@@ -11,4 +11,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get appTitle => 'Kid Timer';
+
+  @override
+  String get noticeLearnMore => 'Saiba mais';
+
+  @override
+  String get noticeWarningLabel => 'Aviso';
+
+  @override
+  String get commonCancel => 'Cancelar';
 }

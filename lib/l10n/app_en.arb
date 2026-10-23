@@ -1,4 +1,7 @@
 {
   "@@locale": "en",
-  "appTitle": "Kid Timer"
+  "appTitle": "Kid Timer",
+  "noticeLearnMore": "Learn more",
+  "noticeWarningLabel": "Warning",
+  "commonCancel": "Cancel"
 }

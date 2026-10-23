@@ -11,4 +11,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appTitle => 'Kid Timer';
+
+  @override
+  String get noticeLearnMore => 'Learn more';
+
+  @override
+  String get noticeWarningLabel => 'Warning';
+
+  @override
+  String get commonCancel => 'Cancel';
 }

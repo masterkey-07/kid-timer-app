@@ -103,6 +103,24 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Kid Timer'**
   String get appTitle;
+
+  /// Link on a platform notice banner that opens the help page.
+  ///
+  /// In pt, this message translates to:
+  /// **'Saiba mais'**
+  String get noticeLearnMore;
+
+  /// Screen reader label of the warning icon on notice banners.
+  ///
+  /// In pt, this message translates to:
+  /// **'Aviso'**
+  String get noticeWarningLabel;
+
+  /// Cancel button of confirmation dialogs.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cancelar'**
+  String get commonCancel;
 }
 
 class _AppLocalizationsDelegate

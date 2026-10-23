@@ -77,3 +77,13 @@ abstract final class AppColors {
     onPrimary: Color(0xFF000000),
   );
 }
+
+/// Notice banner colors: a soft amber container with the theme's text
+/// color; high contrast uses the plain surface with a text-colored border.
+abstract final class WarningColors {
+  /// Banner background in the light theme.
+  static const containerLight = Color(0xFFFFF1CC);
+
+  /// Banner background in the dark theme.
+  static const containerDark = Color(0xFF3A3020);
+}

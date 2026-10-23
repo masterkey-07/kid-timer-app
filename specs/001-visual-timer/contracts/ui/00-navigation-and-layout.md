@@ -131,7 +131,7 @@ sits on a scrim of the theme surface color at 0.7 opacity, guaranteeing ≥ 4.5:
 | `ParentalGate`         | `lib/features/parental/presentation/parental_gate.dart`     | Parental gate dialog                    |
 | `HoldToUnlock`         | `lib/features/child_lock/presentation/hold_to_unlock.dart`  | Padlock with ring                       |
 | `PlatformNotice`       | `lib/app/widgets/platform_notice.dart`                      | Notice banners (Web/Linux, permissions) |
-| `ConfirmDialog`        | `lib/app/widgets/confirm_dialog.dart`                       | Destructive confirmations               |
+| `ConfirmDialog`        | `lib/app/widgets/confirm_dialog.dart`                       | Destructive confirmations (keys `confirm.dialog`, `confirm.confirm`, `confirm.cancel`) |
 
 ## 6. Widget keys for tests
 
