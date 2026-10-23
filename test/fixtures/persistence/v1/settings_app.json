@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "themeMode": "dark",
+  "childLockEnabled": false,
+  "a11yAnnounceInterval": "fiveMin",
+  "defaults": {
+    "durationMs": 300000,
+    "scale": "min60",
+    "direction": "clockwise",
+    "visual": { "type": "palette", "paletteId": "calm", "singleColor": null },
+    "soundId": "chime_soft",
+    "alarmVolume": 0.5,
+    "tickEnabled": false,
+    "tickVolume": 0.3,
+    "vibrate": true,
+    "showDigits": true,
+    "imageEffect": "vanish",
+    "warningsMin": []
+  },
+  "lastConfig": {
+    "durationMs": 120000,
+    "scale": "min15",
+    "direction": "counterClockwise",
+    "visual": { "type": "bank", "imageId": "bank:hygiene/toothbrush" },
+    "soundId": "chime_soft",
+    "alarmVolume": 0.5,
+    "tickEnabled": true,
+    "tickVolume": 0.2,
+    "vibrate": false,
+    "showDigits": false,
+    "imageEffect": "vanish",
+    "warningsMin": []
+  },
+  "onboarding": {
+    "exactAlarmExplained": true,
+    "iosSilentWarned": false,
+    "webKeepOpenSeen": true,
+    "examplesSeeded": true,
+    "dialHintDismissed": false
+  }
+}
