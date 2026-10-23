@@ -38,6 +38,15 @@ abstract final class AppTheme {
           // The dial outline: secondary text, or the text color in high
           // contrast (contracts/ui/00 §3.2 and §4).
           outline: highContrast ? colors.text : colors.secondaryText,
+          // Seed-generated containers are tinted enough to drop primary
+          // text below 4.5:1 (#3A6FD8 on #F4F3FA is 4.28:1), so containers
+          // use the surface itself and elevation adds no tint.
+          surfaceTint: Colors.transparent,
+          surfaceContainerLowest: colors.surface,
+          surfaceContainerLow: colors.surface,
+          surfaceContainer: colors.surface,
+          surfaceContainerHigh: colors.surface,
+          surfaceContainerHighest: colors.surface,
         );
 
     final base = ThemeData(
