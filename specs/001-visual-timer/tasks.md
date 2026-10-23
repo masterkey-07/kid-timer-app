@@ -108,7 +108,7 @@ tooling. **⚠️ No story starts before this phase is done.**
 - [x] T045 [P] Implement `WakelockPlusPort` (`lib/core/platform/wakelock/wakelock_plus_port.dart`), `SystemChromeFullscreen`, `WindowManagerFullscreen`, `WebFullscreen` (`lib/core/platform/fullscreen/`), `AudioplayersAudioPort` (`lib/core/platform/audio/audioplayers_audio_port.dart`, one player per channel), `FlutterHapticsPort` (`lib/core/platform/haptics/flutter_haptics_port.dart`), `FlutterAppLifecyclePort` (`lib/core/platform/lifecycle/`)
 - [x] T046 [P] Implement the Android `SystemSettingsPort`: `MethodChannel('vtc/system_settings')` in `lib/core/platform/system_settings/method_channel_system_settings.dart` and `android/app/src/main/kotlin/io/github/masterkey07/visualtimecounter/SystemSettingsChannel.kt` (methods `openExactAlarm`, `openNotifications`, `openBatteryOptimization`), no-op on other platforms
 - [x] T047 Create `lib/core/platform/providers.dart` with Riverpod providers for all ports and per-platform selection (`kIsWeb`, `defaultTargetPlatform`)
-- [ ] T048 Write the integration test `integration_test/alarm_scheduler_contract_test.dart` running `test/contract/alarm_scheduler_contract.dart` against the real implementation on Android (schedule, replace, cancel, `pendingNotificationRequests`)
+- [x] T048 Write the integration test `integration_test/alarm_scheduler_contract_test.dart` running `test/contract/alarm_scheduler_contract.dart` against the real implementation on Android (schedule, replace, cancel, `pendingNotificationRequests`)
 
 ### 2e. App shell: bootstrap, theme, routes, l10n
 
