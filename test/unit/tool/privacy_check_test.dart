@@ -26,14 +26,14 @@ void main() {
     write('macos/Runner/Info.plist', _plist(''));
     write(
       'web/index.html',
-      '<html><!-- see https://docs.flutter.dev -->'
+      '<html><!-- see https://docs.flutter.dev --> '
           '<script src="flutter_bootstrap.js"></script></html>',
     );
     write('web/manifest.json', '{"start_url": "."}');
     write(
       'web/flutter_bootstrap.js',
-      "{{flutter_js}}\n_flutter.loader.load({config: "
-          "{fontFallbackBaseUrl: 'assets/fallback-fonts/'}});\n",
+      '{{flutter_js}}\n'
+          "_flutter.loader.load({config: {fontFallbackBaseUrl: 'fonts/'}});\n",
     );
     write('windows/runner/main.cpp', '#include <windows.h>\n');
     write('linux/runner/my_application.cc', '#include <gtk/gtk.h>\n');
@@ -332,9 +332,9 @@ String _lock(List<String> packages) => [
 ].join('\n');
 
 String _entitlements(String keys) =>
-    '<plist version="1.0"><dict>'
+    '<plist version="1.0"><dict> '
     '<key>com.apple.security.app-sandbox</key><true/>$keys</dict></plist>';
 
 String _plist(String keys) =>
-    '<plist version="1.0"><dict><key>CFBundleName</key>'
+    '<plist version="1.0"><dict><key>CFBundleName</key> '
     '<string>Kid Timer</string>$keys</dict></plist>';

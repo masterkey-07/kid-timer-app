@@ -248,6 +248,12 @@ sector)` + `drawImageRect` of the pre-decoded image (`ui.Image` at the dial's si
   fonts are served from the app's own origin instead of `www.gstatic.com` (Constitution I,
   SC-008); `tool/privacy_check.dart` fails if `build/web/` references `gstatic.com` or any
   other external origin. A `--wasm` compilation check in CI as a non-blocking job (same flag).
+  **Font fallback** (found in T015): the engine downloads fallback fonts for glyphs missing from
+  the bundled fonts from `fonts.gstatic.com` by default, even with `--no-web-resources-cdn`.
+  `web/flutter_bootstrap.js` sets `fontFallbackBaseUrl` to a same-origin path, so a missing
+  glyph renders as a box instead of making an external request; the privacy check enforces it
+  (and accepts the unused CDN default string that `flutter.js` always contains, as long as the
+  build config has `useLocalCanvasKit: true`).
   Hosting on GitHub Pages of `masterkey-07/kid-timer-app` with `--base-href /kid-timer-app/`. No aggressive caching
   service worker in v1.0 (optional installable PWA in v1.x).
 - **Rationale**: Some plugins may not be WASM-compatible (Patrol web is not).
