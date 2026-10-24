@@ -27,5 +27,186 @@
   "notificationTimerEndBody": "Toque para abrir o Kid Timer.",
   "@notificationTimerEndBody": {
     "description": "Body of the system notification shown when a timer ends."
+  },
+  "durationHours": "{count, plural, =1{1 hora} other{{count} horas}}",
+  "@durationHours": {
+    "description": "Spoken hours part of a duration (screen readers).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationMinutes": "{count, plural, =1{1 minuto} other{{count} minutos}}",
+  "@durationMinutes": {
+    "description": "Spoken minutes part of a duration (screen readers).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationSeconds": "{count, plural, =1{1 segundo} other{{count} segundos}}",
+  "@durationSeconds": {
+    "description": "Spoken seconds part of a duration (screen readers).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationJoin": "{first} e {last}",
+  "@durationJoin": {
+    "description": "Joins the last part of a spoken duration, e.g. '4 minutes and 12 seconds'.",
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "last": {
+        "type": "String"
+      }
+    }
+  },
+  "homeDurationLabel": "Duração",
+  "@homeDurationLabel": {
+    "description": "Screen reader label of the editable dial on the home screen."
+  },
+  "homeStartButton": "Iniciar",
+  "@homeStartButton": {
+    "description": "Primary button on the home screen that starts the timer."
+  },
+  "homeStartSemantics": "Iniciar timer de {duration}",
+  "@homeStartSemantics": {
+    "description": "Screen reader label of the start button.",
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "example": "5 minutes"
+      }
+    }
+  },
+  "homeMinus1": "−1 min",
+  "@homeMinus1": {
+    "description": "Quick button that removes one minute."
+  },
+  "homeMinus1Semantics": "Diminuir 1 minuto",
+  "@homeMinus1Semantics": {
+    "description": "Screen reader label of the −1 min button."
+  },
+  "homePlus1": "+1 min",
+  "@homePlus1": {
+    "description": "Quick button that adds one minute."
+  },
+  "homePlus1Semantics": "Adicionar 1 minuto",
+  "@homePlus1Semantics": {
+    "description": "Screen reader label of the +1 min button."
+  },
+  "homePlus5": "+5 min",
+  "@homePlus5": {
+    "description": "Quick button that adds five minutes."
+  },
+  "homePlus5Semantics": "Adicionar 5 minutos",
+  "@homePlus5Semantics": {
+    "description": "Screen reader label of the +5 min button."
+  },
+  "homeMaxReached": "Máximo de 2 horas",
+  "@homeMaxReached": {
+    "description": "Snackbar when a quick button reaches the 2 hour limit."
+  },
+  "homeStartFailed": "Não foi possível salvar o timer. Libere espaço no aparelho e tente de novo.",
+  "@homeStartFailed": {
+    "description": "Snackbar when the session cannot be saved (e.g. storage full), so the timer did not start."
+  },
+  "homeDialHint": "Arraste a borda do mostrador para escolher o tempo",
+  "@homeDialHint": {
+    "description": "One-time hint shown on first use above the dial."
+  },
+  "homeDialHintDismiss": "Entendi",
+  "@homeDialHintDismiss": {
+    "description": "Button that dismisses the first-use dial hint."
+  },
+  "homeReplaceTitle": "Substituir o timer atual?",
+  "@homeReplaceTitle": {
+    "description": "Confirmation title when starting a timer while another one is running (only one timer at a time)."
+  },
+  "homeReplaceMessage": "Só um timer pode rodar por vez. O timer atual será encerrado.",
+  "@homeReplaceMessage": {
+    "description": "Confirmation message when starting a timer while another one is running."
+  },
+  "homeReplaceConfirm": "Substituir",
+  "@homeReplaceConfirm": {
+    "description": "Confirm button that replaces the running timer."
+  },
+  "runRemainingLabel": "Tempo restante",
+  "@runRemainingLabel": {
+    "description": "Screen reader label of the countdown dial."
+  },
+  "runPausedLabel": "Pausado",
+  "@runPausedLabel": {
+    "description": "Screen reader label of the pause icon shown over the dial while paused."
+  },
+  "runPause": "Pausar",
+  "@runPause": {
+    "description": "Countdown control that pauses the timer."
+  },
+  "runPauseSemantics": "Pausar timer",
+  "@runPauseSemantics": {
+    "description": "Screen reader label of the pause control."
+  },
+  "runResume": "Continuar",
+  "@runResume": {
+    "description": "Countdown control that resumes a paused timer."
+  },
+  "runResumeSemantics": "Continuar timer",
+  "@runResumeSemantics": {
+    "description": "Screen reader label of the resume control."
+  },
+  "runRestart": "Reiniciar",
+  "@runRestart": {
+    "description": "Countdown control that starts the same timer over."
+  },
+  "runRestartSemantics": "Reiniciar timer",
+  "@runRestartSemantics": {
+    "description": "Screen reader label of the restart control."
+  },
+  "runRestartConfirmTitle": "Reiniciar o timer?",
+  "@runRestartConfirmTitle": {
+    "description": "Confirmation title when restarting with less than half of the time left."
+  },
+  "runRestartConfirmMessage": "A contagem recomeça do início.",
+  "@runRestartConfirmMessage": {
+    "description": "Confirmation message when restarting the timer."
+  },
+  "runStop": "Parar",
+  "@runStop": {
+    "description": "Countdown control that stops and discards the timer."
+  },
+  "runStopSemantics": "Parar timer",
+  "@runStopSemantics": {
+    "description": "Screen reader label of the stop control."
+  },
+  "runStopConfirmTitle": "Parar o timer?",
+  "@runStopConfirmTitle": {
+    "description": "Confirmation title when stopping the timer."
+  },
+  "runStopConfirmMessage": "A contagem termina e nada vai tocar.",
+  "@runStopConfirmMessage": {
+    "description": "Confirmation message when stopping the timer."
+  },
+  "runActionFailed": "Não foi possível salvar a alteração. Tente de novo.",
+  "@runActionFailed": {
+    "description": "Snackbar when pausing, resuming, restarting or stopping fails to save."
+  },
+  "finishedTitle": "Acabou o tempo!",
+  "@finishedTitle": {
+    "description": "Title of the final (celebration) screen; also announced to screen readers."
+  },
+  "finishedTapToReturn": "Toque na tela para voltar",
+  "@finishedTapToReturn": {
+    "description": "Hint shown on the final screen after 2 seconds."
+  },
+  "finishedSemantics": "Acabou o tempo. Toque para voltar",
+  "@finishedSemantics": {
+    "description": "Screen reader label of the final screen's tap area."
   }
 }

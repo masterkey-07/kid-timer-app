@@ -156,7 +156,7 @@ screen that stays until a tap.
 - [ ] T071 [US1] Implement `HomeScreen` (compact/medium/expanded layouts, keys from contracts/ui/01, first-use hint) in `lib/features/timer/presentation/home_screen.dart` (depends on T067, T069, T070)
 - [ ] T072 [US1] Implement `RunScreen` without child mode (controls always visible; lifecycle → `reconcile`; end with the app open) in `lib/features/timer/presentation/run_screen.dart` (depends on T067, T069)
 - [ ] T073 [US1] Implement `FinishedScreen` (celebration with spin/particles and an opacity variant with reduce motion; sound repeated every 30 s up to 3×; 10 min wakelock) in `lib/features/timer/presentation/finished_screen.dart`
-- [ ] T074 [US1] Add US1 strings (`home*`, `run*`, `finished*`) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
+- [x] T074 [US1] Add US1 strings (`home*`, `run*`, `finished*`) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
 - [ ] T075 [US1] Add the default sound `chime_soft.wav` (CC0) to `assets/sounds/`, the manifest `assets/sounds/manifest.json` and `assets/sounds/LICENSES.md`
 
 **Checkpoint**: US1 working and tested with the app open on every platform.

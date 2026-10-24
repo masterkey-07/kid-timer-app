@@ -139,6 +139,234 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Toque para abrir o Kid Timer.'**
   String get notificationTimerEndBody;
+
+  /// Spoken hours part of a duration (screen readers).
+  ///
+  /// In pt, this message translates to:
+  /// **'{count, plural, =1{1 hora} other{{count} horas}}'**
+  String durationHours(int count);
+
+  /// Spoken minutes part of a duration (screen readers).
+  ///
+  /// In pt, this message translates to:
+  /// **'{count, plural, =1{1 minuto} other{{count} minutos}}'**
+  String durationMinutes(int count);
+
+  /// Spoken seconds part of a duration (screen readers).
+  ///
+  /// In pt, this message translates to:
+  /// **'{count, plural, =1{1 segundo} other{{count} segundos}}'**
+  String durationSeconds(int count);
+
+  /// Joins the last part of a spoken duration, e.g. '4 minutes and 12 seconds'.
+  ///
+  /// In pt, this message translates to:
+  /// **'{first} e {last}'**
+  String durationJoin(String first, String last);
+
+  /// Screen reader label of the editable dial on the home screen.
+  ///
+  /// In pt, this message translates to:
+  /// **'Duração'**
+  String get homeDurationLabel;
+
+  /// Primary button on the home screen that starts the timer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Iniciar'**
+  String get homeStartButton;
+
+  /// Screen reader label of the start button.
+  ///
+  /// In pt, this message translates to:
+  /// **'Iniciar timer de {duration}'**
+  String homeStartSemantics(String duration);
+
+  /// Quick button that removes one minute.
+  ///
+  /// In pt, this message translates to:
+  /// **'−1 min'**
+  String get homeMinus1;
+
+  /// Screen reader label of the −1 min button.
+  ///
+  /// In pt, this message translates to:
+  /// **'Diminuir 1 minuto'**
+  String get homeMinus1Semantics;
+
+  /// Quick button that adds one minute.
+  ///
+  /// In pt, this message translates to:
+  /// **'+1 min'**
+  String get homePlus1;
+
+  /// Screen reader label of the +1 min button.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar 1 minuto'**
+  String get homePlus1Semantics;
+
+  /// Quick button that adds five minutes.
+  ///
+  /// In pt, this message translates to:
+  /// **'+5 min'**
+  String get homePlus5;
+
+  /// Screen reader label of the +5 min button.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar 5 minutos'**
+  String get homePlus5Semantics;
+
+  /// Snackbar when a quick button reaches the 2 hour limit.
+  ///
+  /// In pt, this message translates to:
+  /// **'Máximo de 2 horas'**
+  String get homeMaxReached;
+
+  /// Snackbar when the session cannot be saved (e.g. storage full), so the timer did not start.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível salvar o timer. Libere espaço no aparelho e tente de novo.'**
+  String get homeStartFailed;
+
+  /// One-time hint shown on first use above the dial.
+  ///
+  /// In pt, this message translates to:
+  /// **'Arraste a borda do mostrador para escolher o tempo'**
+  String get homeDialHint;
+
+  /// Button that dismisses the first-use dial hint.
+  ///
+  /// In pt, this message translates to:
+  /// **'Entendi'**
+  String get homeDialHintDismiss;
+
+  /// Confirmation title when starting a timer while another one is running (only one timer at a time).
+  ///
+  /// In pt, this message translates to:
+  /// **'Substituir o timer atual?'**
+  String get homeReplaceTitle;
+
+  /// Confirmation message when starting a timer while another one is running.
+  ///
+  /// In pt, this message translates to:
+  /// **'Só um timer pode rodar por vez. O timer atual será encerrado.'**
+  String get homeReplaceMessage;
+
+  /// Confirm button that replaces the running timer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Substituir'**
+  String get homeReplaceConfirm;
+
+  /// Screen reader label of the countdown dial.
+  ///
+  /// In pt, this message translates to:
+  /// **'Tempo restante'**
+  String get runRemainingLabel;
+
+  /// Screen reader label of the pause icon shown over the dial while paused.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pausado'**
+  String get runPausedLabel;
+
+  /// Countdown control that pauses the timer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pausar'**
+  String get runPause;
+
+  /// Screen reader label of the pause control.
+  ///
+  /// In pt, this message translates to:
+  /// **'Pausar timer'**
+  String get runPauseSemantics;
+
+  /// Countdown control that resumes a paused timer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Continuar'**
+  String get runResume;
+
+  /// Screen reader label of the resume control.
+  ///
+  /// In pt, this message translates to:
+  /// **'Continuar timer'**
+  String get runResumeSemantics;
+
+  /// Countdown control that starts the same timer over.
+  ///
+  /// In pt, this message translates to:
+  /// **'Reiniciar'**
+  String get runRestart;
+
+  /// Screen reader label of the restart control.
+  ///
+  /// In pt, this message translates to:
+  /// **'Reiniciar timer'**
+  String get runRestartSemantics;
+
+  /// Confirmation title when restarting with less than half of the time left.
+  ///
+  /// In pt, this message translates to:
+  /// **'Reiniciar o timer?'**
+  String get runRestartConfirmTitle;
+
+  /// Confirmation message when restarting the timer.
+  ///
+  /// In pt, this message translates to:
+  /// **'A contagem recomeça do início.'**
+  String get runRestartConfirmMessage;
+
+  /// Countdown control that stops and discards the timer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Parar'**
+  String get runStop;
+
+  /// Screen reader label of the stop control.
+  ///
+  /// In pt, this message translates to:
+  /// **'Parar timer'**
+  String get runStopSemantics;
+
+  /// Confirmation title when stopping the timer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Parar o timer?'**
+  String get runStopConfirmTitle;
+
+  /// Confirmation message when stopping the timer.
+  ///
+  /// In pt, this message translates to:
+  /// **'A contagem termina e nada vai tocar.'**
+  String get runStopConfirmMessage;
+
+  /// Snackbar when pausing, resuming, restarting or stopping fails to save.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível salvar a alteração. Tente de novo.'**
+  String get runActionFailed;
+
+  /// Title of the final (celebration) screen; also announced to screen readers.
+  ///
+  /// In pt, this message translates to:
+  /// **'Acabou o tempo!'**
+  String get finishedTitle;
+
+  /// Hint shown on the final screen after 2 seconds.
+  ///
+  /// In pt, this message translates to:
+  /// **'Toque na tela para voltar'**
+  String get finishedTapToReturn;
+
+  /// Screen reader label of the final screen's tap area.
+  ///
+  /// In pt, this message translates to:
+  /// **'Acabou o tempo. Toque para voltar'**
+  String get finishedSemantics;
 }
 
 class _AppLocalizationsDelegate
