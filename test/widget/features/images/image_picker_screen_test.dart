@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:visual_time_counter/core/domain/visual_source.dart';
@@ -36,20 +35,25 @@ void main() {
   }
 
   /// Opens `/images` over home and returns what it pops.
-  Future<Future<VisualSource?>> openPicker(
+  Future<({Future<VisualSource?> popped})> openPicker(
     WidgetTester tester, {
     VisualSource? selected,
     AppPlatform platform = AppPlatform.android,
     ScreenClass screen = ScreenClass.compact,
+    double textScale = 1,
   }) async {
     dependencies.platform = platform;
-    await tester.pumpKidTimerApp(dependencies, screen: screen);
+    await tester.pumpKidTimerApp(
+      dependencies,
+      screen: screen,
+      textScale: textScale,
+    );
     await settle(tester);
     final result = GoRouter.of(
       tester.element(find.byKey(const Key('home.screen'))),
     ).push<VisualSource>('/images', extra: selected);
     await settle(tester);
-    return result;
+    return (popped: result);
   }
 
   Future<void> tapKey(WidgetTester tester, String key) async {
@@ -102,11 +106,11 @@ void main() {
   }
 
   testWidgets('tapping a library image returns it', (tester) async {
-    final result = await openPicker(tester);
+    final (:popped) = await openPicker(tester);
 
     await tapKey(tester, 'images.item.$_brushTeeth');
 
-    expect(await result, const BankImageSource(_brushTeeth));
+    expect(await popped, const BankImageSource(_brushTeeth));
   });
 
   testWidgets('marks the current selection', (tester) async {
@@ -115,24 +119,24 @@ void main() {
 
     expect(
       tester.getSemantics(find.byKey(const Key('images.item.$_brushTeeth'))),
-      containsSemantics(isSelected: true, hasSelectedState: true),
+      isSemantics(isSelected: true, hasSelectedState: true),
     );
     expect(
       tester.getSemantics(find.byKey(const Key('images.item.$_mealtime'))),
-      containsSemantics(isSelected: false, hasSelectedState: true),
+      isSemantics(isSelected: false, hasSelectedState: true),
     );
     semantics.dispose();
   });
 
   testWidgets('"No image" returns the default palette', (tester) async {
-    final result = await openPicker(
+    final (:popped) = await openPicker(
       tester,
       selected: const BankImageSource(_brushTeeth),
     );
 
     await tapKey(tester, 'images.none');
 
-    expect(await result, VisualSource.defaultSource);
+    expect(await popped, VisualSource.defaultSource);
   });
 
   testWidgets('My images without images shows the empty state', (tester) async {
@@ -151,13 +155,13 @@ void main() {
     tester,
   ) async {
     final [image] = await dependencies.seedUserImages(1);
-    final result = await openPicker(tester);
+    final (:popped) = await openPicker(tester);
 
     await tapKey(tester, 'images.tab.mine');
-    expect(find.byKey(Key('images.item.$_brushTeeth')), findsNothing);
+    expect(find.byKey(const Key('images.item.$_brushTeeth')), findsNothing);
     await tapKey(tester, 'images.item.${image.id}');
 
-    expect(await result, UserImageSource(image.id));
+    expect(await popped, UserImageSource(image.id));
   });
 
   testWidgets('shows the browser storage note only on the Web', (tester) async {
@@ -194,14 +198,14 @@ void main() {
     dependencies.pickedPreview = await tester.runAsync(
       () => createTestImage(width: 200, height: 100),
     );
-    final result = await openPicker(tester);
+    final (:popped) = await openPicker(tester);
     dependencies.imagePicker.nextResult = _pickedFile;
 
     await tapKey(tester, 'images.fromDevice');
     expect(find.byKey(const Key('frame.screen')), findsOneWidget);
     await tapKey(tester, 'frame.save');
 
-    expect(await result, const UserImageSource('image-0'));
+    expect(await popped, const UserImageSource('image-0'));
     expect(dependencies.userImagesMeta.containsKey('image-0'), isTrue);
   });
 
@@ -226,6 +230,16 @@ void main() {
     await tapKey(tester, 'images.manage');
 
     expect(find.byKey(const Key('mine.screen')), findsOneWidget);
+  });
+
+  testWidgets('fits at 200% text', (tester) async {
+    await openPicker(
+      tester,
+      textScale: maxTextScale,
+      platform: AppPlatform.web,
+    );
+
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('meets the accessibility guidelines', (tester) async {

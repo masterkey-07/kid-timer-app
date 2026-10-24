@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,11 +28,14 @@ void main() {
   }
 
   /// Opens `/images/frame` for a 200×100 (landscape) picture.
-  Future<Future<VisualSource?>> openFrame(WidgetTester tester) async {
+  Future<({Future<VisualSource?> popped})> openFrame(
+    WidgetTester tester, {
+    double textScale = 1,
+  }) async {
     final preview = await tester.runAsync(
       () => createTestImage(width: 200, height: 100),
     );
-    await tester.pumpKidTimerApp(dependencies);
+    await tester.pumpKidTimerApp(dependencies, textScale: textScale);
     await settle(tester);
     final result =
         GoRouter.of(tester.element(find.byKey(const Key('home.screen'))))
@@ -45,7 +47,7 @@ void main() {
               ),
             );
     await settle(tester);
-    return result;
+    return (popped: result);
   }
 
   Future<void> tapKey(WidgetTester tester, String key) async {
@@ -136,7 +138,7 @@ void main() {
     expect(slider.divisions, 30);
     expect(
       tester.getSemantics(find.byKey(const Key('frame.zoom'))),
-      containsSemantics(value: '150%'),
+      isSemantics(value: '150%'),
     );
     semantics.dispose();
   });
@@ -158,12 +160,12 @@ void main() {
   });
 
   testWidgets('saves with the name and returns the new image', (tester) async {
-    final result = await openFrame(tester);
+    final (:popped) = await openFrame(tester);
 
     await tester.enterText(find.byKey(const Key('frame.name')), 'Lucas');
     await tapKey(tester, 'frame.save');
 
-    expect(await result, const UserImageSource('image-0'));
+    expect(await popped, const UserImageSource('image-0'));
     expect(dependencies.userImagesMeta.get('image-0')!['label'], 'Lucas');
     expect(await dependencies.userImageBytes.get('image-0'), isNotNull);
   });
@@ -173,7 +175,7 @@ void main() {
   ) async {
     final gate = Completer<void>();
     dependencies.imageProcessor.gate = gate;
-    final result = await openFrame(tester);
+    final (:popped) = await openFrame(tester);
 
     await tester.tap(find.byKey(const Key('frame.save')));
     await tester.pump();
@@ -183,7 +185,7 @@ void main() {
 
     gate.complete();
     await settle(tester);
-    expect(await result, const UserImageSource('image-0'));
+    expect(await popped, const UserImageSource('image-0'));
   });
 
   testWidgets('a quick save never shows the overlay', (tester) async {
@@ -211,13 +213,19 @@ void main() {
   });
 
   testWidgets('Cancel discards the picture', (tester) async {
-    final result = await openFrame(tester);
+    final (:popped) = await openFrame(tester);
 
     await tapKey(tester, 'frame.cancel');
 
-    expect(await result, isNull);
+    expect(await popped, isNull);
     expect(dependencies.imageProcessor.frames, isEmpty);
     expect(dependencies.userImagesMeta.isEmpty, isTrue);
+  });
+
+  testWidgets('fits at 200% text', (tester) async {
+    await openFrame(tester, textScale: maxTextScale);
+
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('meets the accessibility guidelines', (tester) async {

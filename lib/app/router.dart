@@ -3,9 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:visual_time_counter/core/domain/visual_source.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
+import 'package:visual_time_counter/features/images/presentation/frame_screen.dart';
+import 'package:visual_time_counter/features/images/presentation/image_picker_screen.dart';
+import 'package:visual_time_counter/features/images/presentation/my_images_screen.dart';
 import 'package:visual_time_counter/features/settings/presentation/battery_help_screen.dart';
 import 'package:visual_time_counter/features/timer/application/active_session.dart';
 import 'package:visual_time_counter/features/timer/presentation/finished_screen.dart';
@@ -24,6 +28,16 @@ abstract final class AppRoutes {
 
   /// The final screen.
   static const finished = '/finished';
+
+  /// Choose an image; `extra` is the current [VisualSource], and the screen
+  /// pops the chosen one.
+  static const images = '/images';
+
+  /// Frame a picked image; `extra` is a [FrameRequest].
+  static const imagesFrame = '/images/frame';
+
+  /// Manage own images.
+  static const imagesMine = '/images/mine';
 
   /// Help: battery, alarms and screen pinning.
   static const batteryHelp = '/settings/battery';
@@ -81,6 +95,27 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.finished,
         builder: (context, state) => const FinishedScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.images,
+        builder: (context, state) => ImagePickerScreen(
+          selected: state.extra is VisualSource
+              ? state.extra! as VisualSource
+              : null,
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.imagesFrame,
+        // Without a picked image (e.g. a reloaded Web page) there is
+        // nothing to frame.
+        redirect: (context, state) =>
+            state.extra is FrameRequest ? null : AppRoutes.images,
+        builder: (context, state) =>
+            FrameScreen(request: state.extra! as FrameRequest),
+      ),
+      GoRoute(
+        path: AppRoutes.imagesMine,
+        builder: (context, state) => const MyImagesScreen(),
       ),
       GoRoute(
         path: AppRoutes.batteryHelp,

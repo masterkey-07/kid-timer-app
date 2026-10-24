@@ -370,5 +370,221 @@
   "imagesFileTypeLabel": "Imagens",
   "@imagesFileTypeLabel": {
     "description": "Name of the image filter in the desktop file dialog."
+  },
+  "imagesTitle": "Escolher imagem",
+  "@imagesTitle": {
+    "description": "Title of the image picker (/images)."
+  },
+  "imagesManage": "Gerenciar",
+  "@imagesManage": {
+    "description": "App bar button that opens My images."
+  },
+  "imagesManageLabel": "Gerenciar minhas imagens",
+  "@imagesManageLabel": {
+    "description": "Screen reader label of the Manage button."
+  },
+  "imagesTabAll": "Todas",
+  "@imagesTabAll": {
+    "description": "Picker tab with every library image."
+  },
+  "imagesCategoryHygiene": "Higiene",
+  "@imagesCategoryHygiene": {
+    "description": "Library category."
+  },
+  "imagesCategoryMeal": "Refeições",
+  "@imagesCategoryMeal": {
+    "description": "Library category."
+  },
+  "imagesCategoryPlay": "Brincar",
+  "@imagesCategoryPlay": {
+    "description": "Library category."
+  },
+  "imagesCategoryRest": "Descanso",
+  "@imagesCategoryRest": {
+    "description": "Library category."
+  },
+  "imagesCategorySchool": "Escola",
+  "@imagesCategorySchool": {
+    "description": "Library category."
+  },
+  "imagesCategoryGoingOut": "Passeio",
+  "@imagesCategoryGoingOut": {
+    "description": "Library category."
+  },
+  "imagesTabMine": "Minhas imagens",
+  "@imagesTabMine": {
+    "description": "Picker tab with the adult's own images."
+  },
+  "imagesTabLabel": "{name}, {count, plural, =1{1 imagem} other{{count} imagens}}",
+  "@imagesTabLabel": {
+    "description": "Screen reader label of a picker tab.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "imagesFromDevice": "Do meu dispositivo",
+  "@imagesFromDevice": {
+    "description": "Button that opens the system image picker."
+  },
+  "imagesFromDeviceLabel": "Escolher uma imagem do meu dispositivo",
+  "@imagesFromDeviceLabel": {
+    "description": "Screen reader label of the From my device button."
+  },
+  "imagesNone": "Sem imagem (usar cores)",
+  "@imagesNone": {
+    "description": "Footer button that removes the image."
+  },
+  "imagesNoneLabel": "Usar cores em vez de uma imagem",
+  "@imagesNoneLabel": {
+    "description": "Screen reader label of the No image button."
+  },
+  "imagesMineEmpty": "Você ainda não adicionou nenhuma imagem",
+  "@imagesMineEmpty": {
+    "description": "Empty state of My images."
+  },
+  "imagesWebStorageNote": "No navegador, suas imagens ficam salvas só neste navegador e somem se você limpar os dados do site.",
+  "@imagesWebStorageNote": {
+    "description": "Web-only note below From my device."
+  },
+  "imagesOpenError": "Não foi possível abrir esta imagem. Tente uma foto JPG ou PNG.",
+  "@imagesOpenError": {
+    "description": "Snackbar for a picked file that is not a usable image."
+  },
+  "imagesLimitTitle": "Limite de imagens",
+  "@imagesLimitTitle": {
+    "description": "Title of the dialog shown at the own image limit."
+  },
+  "imagesLimitReached": "Você já tem {max} imagens. Apague algumas em Minhas imagens para adicionar outras.",
+  "@imagesLimitReached": {
+    "description": "Body of the image limit dialog.",
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "imagesLimitManage": "Abrir Minhas imagens",
+  "@imagesLimitManage": {
+    "description": "Button of the image limit dialog."
+  },
+  "imagesOwnImage": "Minha imagem",
+  "@imagesOwnImage": {
+    "description": "Name of an own image that has no name."
+  },
+  "frameTitle": "Enquadrar",
+  "@frameTitle": {
+    "description": "Title of the framing screen."
+  },
+  "frameSave": "Salvar",
+  "@frameSave": {
+    "description": "Saves the framed image."
+  },
+  "frameCanvasLabel": "Área de enquadramento. Arraste para mover, aperte com dois dedos para ampliar",
+  "@frameCanvasLabel": {
+    "description": "Screen reader label of the framing area."
+  },
+  "frameZoom": "Zoom",
+  "@frameZoom": {
+    "description": "Label of the zoom slider."
+  },
+  "frameZoomValue": "{percent}%",
+  "@frameZoomValue": {
+    "description": "Zoom slider value, as a percentage.",
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "frameZoomIn": "Aumentar zoom",
+  "@frameZoomIn": {
+    "description": "Button next to the zoom slider."
+  },
+  "frameZoomOut": "Diminuir zoom",
+  "@frameZoomOut": {
+    "description": "Button next to the zoom slider."
+  },
+  "frameCenter": "Centralizar",
+  "@frameCenter": {
+    "description": "Resets the framing to centered, no zoom."
+  },
+  "frameName": "Nome (opcional)",
+  "@frameName": {
+    "description": "Optional name of the own image; also its screen reader label."
+  },
+  "framePreparing": "Preparando imagem…",
+  "@framePreparing": {
+    "description": "Overlay while the image is processed."
+  },
+  "frameError": "Não foi possível salvar esta imagem. Tente outra foto.",
+  "@frameError": {
+    "description": "Snackbar when processing or storing the image fails."
+  },
+  "mineTitle": "Minhas imagens",
+  "@mineTitle": {
+    "description": "Title of My images (/images/mine)."
+  },
+  "mineCount": "{count} de {max}",
+  "@mineCount": {
+    "description": "How many own images there are, out of the limit.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "mineDelete": "Apagar",
+  "@mineDelete": {
+    "description": "Deletes an own image."
+  },
+  "mineDeleteLabel": "Apagar {name}",
+  "@mineDeleteLabel": {
+    "description": "Screen reader label of an image's delete button.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "mineDeleteTitle": "Apagar imagem?",
+  "@mineDeleteTitle": {
+    "description": "Title of the delete confirmation."
+  },
+  "mineDeleteConfirm": "A imagem será apagada deste aparelho.",
+  "@mineDeleteConfirm": {
+    "description": "Body of the delete confirmation."
+  },
+  "mineAffectedPresets": "Estes presets vão passar a usar cores: {names}.",
+  "@mineAffectedPresets": {
+    "description": "Added to the delete confirmation when presets use the image.",
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "mineAffectedTimer": "O timer da tela inicial também vai passar a usar cores.",
+  "@mineAffectedTimer": {
+    "description": "Added to the delete confirmation when the home timer or the defaults use the image."
+  },
+  "mineRename": "Renomear",
+  "@mineRename": {
+    "description": "Menu item and dialog action that renames an own image."
+  },
+  "mineRenameTitle": "Renomear imagem",
+  "@mineRenameTitle": {
+    "description": "Title of the rename dialog."
+  },
+  "mineNameField": "Nome",
+  "@mineNameField": {
+    "description": "Label of the name field in the rename dialog."
   }
 }

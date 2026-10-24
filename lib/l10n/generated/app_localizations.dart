@@ -601,6 +601,276 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Imagens'**
   String get imagesFileTypeLabel;
+
+  /// Title of the image picker (/images).
+  ///
+  /// In pt, this message translates to:
+  /// **'Escolher imagem'**
+  String get imagesTitle;
+
+  /// App bar button that opens My images.
+  ///
+  /// In pt, this message translates to:
+  /// **'Gerenciar'**
+  String get imagesManage;
+
+  /// Screen reader label of the Manage button.
+  ///
+  /// In pt, this message translates to:
+  /// **'Gerenciar minhas imagens'**
+  String get imagesManageLabel;
+
+  /// Picker tab with every library image.
+  ///
+  /// In pt, this message translates to:
+  /// **'Todas'**
+  String get imagesTabAll;
+
+  /// Library category.
+  ///
+  /// In pt, this message translates to:
+  /// **'Higiene'**
+  String get imagesCategoryHygiene;
+
+  /// Library category.
+  ///
+  /// In pt, this message translates to:
+  /// **'Refeições'**
+  String get imagesCategoryMeal;
+
+  /// Library category.
+  ///
+  /// In pt, this message translates to:
+  /// **'Brincar'**
+  String get imagesCategoryPlay;
+
+  /// Library category.
+  ///
+  /// In pt, this message translates to:
+  /// **'Descanso'**
+  String get imagesCategoryRest;
+
+  /// Library category.
+  ///
+  /// In pt, this message translates to:
+  /// **'Escola'**
+  String get imagesCategorySchool;
+
+  /// Library category.
+  ///
+  /// In pt, this message translates to:
+  /// **'Passeio'**
+  String get imagesCategoryGoingOut;
+
+  /// Picker tab with the adult's own images.
+  ///
+  /// In pt, this message translates to:
+  /// **'Minhas imagens'**
+  String get imagesTabMine;
+
+  /// Screen reader label of a picker tab.
+  ///
+  /// In pt, this message translates to:
+  /// **'{name}, {count, plural, =1{1 imagem} other{{count} imagens}}'**
+  String imagesTabLabel(String name, int count);
+
+  /// Button that opens the system image picker.
+  ///
+  /// In pt, this message translates to:
+  /// **'Do meu dispositivo'**
+  String get imagesFromDevice;
+
+  /// Screen reader label of the From my device button.
+  ///
+  /// In pt, this message translates to:
+  /// **'Escolher uma imagem do meu dispositivo'**
+  String get imagesFromDeviceLabel;
+
+  /// Footer button that removes the image.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sem imagem (usar cores)'**
+  String get imagesNone;
+
+  /// Screen reader label of the No image button.
+  ///
+  /// In pt, this message translates to:
+  /// **'Usar cores em vez de uma imagem'**
+  String get imagesNoneLabel;
+
+  /// Empty state of My images.
+  ///
+  /// In pt, this message translates to:
+  /// **'Você ainda não adicionou nenhuma imagem'**
+  String get imagesMineEmpty;
+
+  /// Web-only note below From my device.
+  ///
+  /// In pt, this message translates to:
+  /// **'No navegador, suas imagens ficam salvas só neste navegador e somem se você limpar os dados do site.'**
+  String get imagesWebStorageNote;
+
+  /// Snackbar for a picked file that is not a usable image.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível abrir esta imagem. Tente uma foto JPG ou PNG.'**
+  String get imagesOpenError;
+
+  /// Title of the dialog shown at the own image limit.
+  ///
+  /// In pt, this message translates to:
+  /// **'Limite de imagens'**
+  String get imagesLimitTitle;
+
+  /// Body of the image limit dialog.
+  ///
+  /// In pt, this message translates to:
+  /// **'Você já tem {max} imagens. Apague algumas em Minhas imagens para adicionar outras.'**
+  String imagesLimitReached(int max);
+
+  /// Button of the image limit dialog.
+  ///
+  /// In pt, this message translates to:
+  /// **'Abrir Minhas imagens'**
+  String get imagesLimitManage;
+
+  /// Name of an own image that has no name.
+  ///
+  /// In pt, this message translates to:
+  /// **'Minha imagem'**
+  String get imagesOwnImage;
+
+  /// Title of the framing screen.
+  ///
+  /// In pt, this message translates to:
+  /// **'Enquadrar'**
+  String get frameTitle;
+
+  /// Saves the framed image.
+  ///
+  /// In pt, this message translates to:
+  /// **'Salvar'**
+  String get frameSave;
+
+  /// Screen reader label of the framing area.
+  ///
+  /// In pt, this message translates to:
+  /// **'Área de enquadramento. Arraste para mover, aperte com dois dedos para ampliar'**
+  String get frameCanvasLabel;
+
+  /// Label of the zoom slider.
+  ///
+  /// In pt, this message translates to:
+  /// **'Zoom'**
+  String get frameZoom;
+
+  /// Zoom slider value, as a percentage.
+  ///
+  /// In pt, this message translates to:
+  /// **'{percent}%'**
+  String frameZoomValue(int percent);
+
+  /// Button next to the zoom slider.
+  ///
+  /// In pt, this message translates to:
+  /// **'Aumentar zoom'**
+  String get frameZoomIn;
+
+  /// Button next to the zoom slider.
+  ///
+  /// In pt, this message translates to:
+  /// **'Diminuir zoom'**
+  String get frameZoomOut;
+
+  /// Resets the framing to centered, no zoom.
+  ///
+  /// In pt, this message translates to:
+  /// **'Centralizar'**
+  String get frameCenter;
+
+  /// Optional name of the own image; also its screen reader label.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nome (opcional)'**
+  String get frameName;
+
+  /// Overlay while the image is processed.
+  ///
+  /// In pt, this message translates to:
+  /// **'Preparando imagem…'**
+  String get framePreparing;
+
+  /// Snackbar when processing or storing the image fails.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível salvar esta imagem. Tente outra foto.'**
+  String get frameError;
+
+  /// Title of My images (/images/mine).
+  ///
+  /// In pt, this message translates to:
+  /// **'Minhas imagens'**
+  String get mineTitle;
+
+  /// How many own images there are, out of the limit.
+  ///
+  /// In pt, this message translates to:
+  /// **'{count} de {max}'**
+  String mineCount(int count, int max);
+
+  /// Deletes an own image.
+  ///
+  /// In pt, this message translates to:
+  /// **'Apagar'**
+  String get mineDelete;
+
+  /// Screen reader label of an image's delete button.
+  ///
+  /// In pt, this message translates to:
+  /// **'Apagar {name}'**
+  String mineDeleteLabel(String name);
+
+  /// Title of the delete confirmation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Apagar imagem?'**
+  String get mineDeleteTitle;
+
+  /// Body of the delete confirmation.
+  ///
+  /// In pt, this message translates to:
+  /// **'A imagem será apagada deste aparelho.'**
+  String get mineDeleteConfirm;
+
+  /// Added to the delete confirmation when presets use the image.
+  ///
+  /// In pt, this message translates to:
+  /// **'Estes presets vão passar a usar cores: {names}.'**
+  String mineAffectedPresets(String names);
+
+  /// Added to the delete confirmation when the home timer or the defaults use the image.
+  ///
+  /// In pt, this message translates to:
+  /// **'O timer da tela inicial também vai passar a usar cores.'**
+  String get mineAffectedTimer;
+
+  /// Menu item and dialog action that renames an own image.
+  ///
+  /// In pt, this message translates to:
+  /// **'Renomear'**
+  String get mineRename;
+
+  /// Title of the rename dialog.
+  ///
+  /// In pt, this message translates to:
+  /// **'Renomear imagem'**
+  String get mineRenameTitle;
+
+  /// Label of the name field in the rename dialog.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nome'**
+  String get mineNameField;
 }
 
 class _AppLocalizationsDelegate

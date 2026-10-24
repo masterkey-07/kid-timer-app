@@ -313,4 +313,160 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get imagesFileTypeLabel => 'Images';
+
+  @override
+  String get imagesTitle => 'Choose image';
+
+  @override
+  String get imagesManage => 'Manage';
+
+  @override
+  String get imagesManageLabel => 'Manage my images';
+
+  @override
+  String get imagesTabAll => 'All';
+
+  @override
+  String get imagesCategoryHygiene => 'Hygiene';
+
+  @override
+  String get imagesCategoryMeal => 'Meals';
+
+  @override
+  String get imagesCategoryPlay => 'Play';
+
+  @override
+  String get imagesCategoryRest => 'Rest';
+
+  @override
+  String get imagesCategorySchool => 'School';
+
+  @override
+  String get imagesCategoryGoingOut => 'Going out';
+
+  @override
+  String get imagesTabMine => 'My images';
+
+  @override
+  String imagesTabLabel(String name, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count images',
+      one: '1 image',
+    );
+    return '$name, $_temp0';
+  }
+
+  @override
+  String get imagesFromDevice => 'From my device';
+
+  @override
+  String get imagesFromDeviceLabel => 'Choose an image from my device';
+
+  @override
+  String get imagesNone => 'No image (use colors)';
+
+  @override
+  String get imagesNoneLabel => 'Use colors instead of an image';
+
+  @override
+  String get imagesMineEmpty => 'You haven\'t added any images yet';
+
+  @override
+  String get imagesWebStorageNote =>
+      'In the browser, your images are saved only in this browser and disappear if you clear the site\'s data.';
+
+  @override
+  String get imagesOpenError =>
+      'This image couldn\'t be opened. Try a JPG or PNG photo.';
+
+  @override
+  String get imagesLimitTitle => 'Image limit reached';
+
+  @override
+  String imagesLimitReached(int max) {
+    return 'You already have $max images. Delete some in My images to add more.';
+  }
+
+  @override
+  String get imagesLimitManage => 'Open My images';
+
+  @override
+  String get imagesOwnImage => 'My image';
+
+  @override
+  String get frameTitle => 'Frame';
+
+  @override
+  String get frameSave => 'Save';
+
+  @override
+  String get frameCanvasLabel => 'Framing area. Drag to move, pinch to zoom';
+
+  @override
+  String get frameZoom => 'Zoom';
+
+  @override
+  String frameZoomValue(int percent) {
+    return '$percent%';
+  }
+
+  @override
+  String get frameZoomIn => 'Zoom in';
+
+  @override
+  String get frameZoomOut => 'Zoom out';
+
+  @override
+  String get frameCenter => 'Center';
+
+  @override
+  String get frameName => 'Name (optional)';
+
+  @override
+  String get framePreparing => 'Preparing image…';
+
+  @override
+  String get frameError => 'This image couldn\'t be saved. Try another photo.';
+
+  @override
+  String get mineTitle => 'My images';
+
+  @override
+  String mineCount(int count, int max) {
+    return '$count of $max';
+  }
+
+  @override
+  String get mineDelete => 'Delete';
+
+  @override
+  String mineDeleteLabel(String name) {
+    return 'Delete $name';
+  }
+
+  @override
+  String get mineDeleteTitle => 'Delete image?';
+
+  @override
+  String get mineDeleteConfirm => 'The image will be deleted from this device.';
+
+  @override
+  String mineAffectedPresets(String names) {
+    return 'These presets will switch to colors: $names.';
+  }
+
+  @override
+  String get mineAffectedTimer =>
+      'The timer on the home screen will switch to colors too.';
+
+  @override
+  String get mineRename => 'Rename';
+
+  @override
+  String get mineRenameTitle => 'Rename image';
+
+  @override
+  String get mineNameField => 'Name';
 }

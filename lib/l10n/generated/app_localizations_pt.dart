@@ -316,4 +316,162 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get imagesFileTypeLabel => 'Imagens';
+
+  @override
+  String get imagesTitle => 'Escolher imagem';
+
+  @override
+  String get imagesManage => 'Gerenciar';
+
+  @override
+  String get imagesManageLabel => 'Gerenciar minhas imagens';
+
+  @override
+  String get imagesTabAll => 'Todas';
+
+  @override
+  String get imagesCategoryHygiene => 'Higiene';
+
+  @override
+  String get imagesCategoryMeal => 'Refeições';
+
+  @override
+  String get imagesCategoryPlay => 'Brincar';
+
+  @override
+  String get imagesCategoryRest => 'Descanso';
+
+  @override
+  String get imagesCategorySchool => 'Escola';
+
+  @override
+  String get imagesCategoryGoingOut => 'Passeio';
+
+  @override
+  String get imagesTabMine => 'Minhas imagens';
+
+  @override
+  String imagesTabLabel(String name, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count imagens',
+      one: '1 imagem',
+    );
+    return '$name, $_temp0';
+  }
+
+  @override
+  String get imagesFromDevice => 'Do meu dispositivo';
+
+  @override
+  String get imagesFromDeviceLabel => 'Escolher uma imagem do meu dispositivo';
+
+  @override
+  String get imagesNone => 'Sem imagem (usar cores)';
+
+  @override
+  String get imagesNoneLabel => 'Usar cores em vez de uma imagem';
+
+  @override
+  String get imagesMineEmpty => 'Você ainda não adicionou nenhuma imagem';
+
+  @override
+  String get imagesWebStorageNote =>
+      'No navegador, suas imagens ficam salvas só neste navegador e somem se você limpar os dados do site.';
+
+  @override
+  String get imagesOpenError =>
+      'Não foi possível abrir esta imagem. Tente uma foto JPG ou PNG.';
+
+  @override
+  String get imagesLimitTitle => 'Limite de imagens';
+
+  @override
+  String imagesLimitReached(int max) {
+    return 'Você já tem $max imagens. Apague algumas em Minhas imagens para adicionar outras.';
+  }
+
+  @override
+  String get imagesLimitManage => 'Abrir Minhas imagens';
+
+  @override
+  String get imagesOwnImage => 'Minha imagem';
+
+  @override
+  String get frameTitle => 'Enquadrar';
+
+  @override
+  String get frameSave => 'Salvar';
+
+  @override
+  String get frameCanvasLabel =>
+      'Área de enquadramento. Arraste para mover, aperte com dois dedos para ampliar';
+
+  @override
+  String get frameZoom => 'Zoom';
+
+  @override
+  String frameZoomValue(int percent) {
+    return '$percent%';
+  }
+
+  @override
+  String get frameZoomIn => 'Aumentar zoom';
+
+  @override
+  String get frameZoomOut => 'Diminuir zoom';
+
+  @override
+  String get frameCenter => 'Centralizar';
+
+  @override
+  String get frameName => 'Nome (opcional)';
+
+  @override
+  String get framePreparing => 'Preparando imagem…';
+
+  @override
+  String get frameError =>
+      'Não foi possível salvar esta imagem. Tente outra foto.';
+
+  @override
+  String get mineTitle => 'Minhas imagens';
+
+  @override
+  String mineCount(int count, int max) {
+    return '$count de $max';
+  }
+
+  @override
+  String get mineDelete => 'Apagar';
+
+  @override
+  String mineDeleteLabel(String name) {
+    return 'Apagar $name';
+  }
+
+  @override
+  String get mineDeleteTitle => 'Apagar imagem?';
+
+  @override
+  String get mineDeleteConfirm => 'A imagem será apagada deste aparelho.';
+
+  @override
+  String mineAffectedPresets(String names) {
+    return 'Estes presets vão passar a usar cores: $names.';
+  }
+
+  @override
+  String get mineAffectedTimer =>
+      'O timer da tela inicial também vai passar a usar cores.';
+
+  @override
+  String get mineRename => 'Renomear';
+
+  @override
+  String get mineRenameTitle => 'Renomear imagem';
+
+  @override
+  String get mineNameField => 'Nome';
 }

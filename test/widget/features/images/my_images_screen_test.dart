@@ -22,8 +22,8 @@ void main() {
     await tester.pump(_pageTransition);
   }
 
-  Future<void> openMine(WidgetTester tester) async {
-    await tester.pumpKidTimerApp(dependencies);
+  Future<void> openMine(WidgetTester tester, {double textScale = 1}) async {
+    await tester.pumpKidTimerApp(dependencies, textScale: textScale);
     await settle(tester);
     unawaited(
       GoRouter.of(tester.element(find.byKey(const Key('home.screen'))))
@@ -106,6 +106,13 @@ void main() {
     await tapKey(tester, 'mine.renameSave');
 
     expect(dependencies.userImagesMeta.get(image.id)!['label'], 'Park');
+  });
+
+  testWidgets('fits at 200% text', (tester) async {
+    await dependencies.seedUserImages(3);
+    await openMine(tester, textScale: maxTextScale);
+
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('meets the accessibility guidelines', (tester) async {
