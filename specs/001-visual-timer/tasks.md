@@ -119,7 +119,7 @@ tooling. **⚠️ No story starts before this phase is done.**
 - [x] T053 Implement `lib/app/router.dart` (routes from contracts/ui/00 §1, guards and deep links) and `lib/app/app.dart` (`MaterialApp.router`, themes, `localizationsDelegates`, `localeResolutionCallback` with en fallback, global `Shortcuts`/`Actions`) (depends on T052)
 - [x] T054 [P] Write `test/unit/app/locale_resolution_test.dart` (pt-_ → pt-BR, en-_ → en, others → en)
 - [x] T055 [P] Implement the shared components `lib/app/widgets/platform_notice.dart` (key `notice.banner`) and `lib/app/widgets/confirm_dialog.dart` with tests in `test/widget/app/widgets/shared_widgets_test.dart`
-- [ ] T056 Configure the `vtc://` deep link in `android/app/src/main/AndroidManifest.xml` (intent-filter) and `ios/Runner/Info.plist` (`CFBundleURLTypes`)
+- [x] T056 Configure the `vtc://` deep link in `android/app/src/main/AndroidManifest.xml` (intent-filter) and `ios/Runner/Info.plist` (`CFBundleURLTypes`)
 
 **Checkpoint**: Foundation ready. CI green, `lib/core` coverage ≥ 95%, the app opens an empty
 screen at route `/` on every platform (`flutter run -d <each>`). Stories can start.

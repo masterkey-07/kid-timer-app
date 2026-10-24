@@ -38,6 +38,14 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <!-- vtc:// deep links (contracts/ui/00 §2), delivered by notifications and
+                 widgets. Not BROWSABLE: web pages have no reason to start timers. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="vtc" />
+            </intent-filter>
+            <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
         </activity>
         <!-- flutter_local_notifications: fires scheduled alarms and restores them after a
              reboot (BOOT_COMPLETED, QUICKBOOT_POWERON) or an app update (MY_PACKAGE_REPLACED). -->
