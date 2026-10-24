@@ -12,6 +12,7 @@ import 'package:visual_time_counter/core/platform/providers.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
+import 'package:visual_time_counter/features/timer/application/run_controller.dart';
 import 'package:visual_time_counter/features/timer/application/timer_controller.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/background_alarm_banner.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/dial_view.dart';
@@ -67,6 +68,8 @@ class _RunScreenState extends ConsumerState<RunScreen> {
     if (session == null || !session.status.isActive) {
       return const Scaffold(body: SizedBox.expand());
     }
+    // Keeps the screen on, full screen and the single ring while shown.
+    ref.watch(runControllerProvider);
 
     return PopScope(
       canPop: false,

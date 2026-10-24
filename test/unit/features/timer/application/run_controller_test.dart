@@ -190,6 +190,7 @@ void main() {
       await pumpEventQueue();
       expect(isAlarmPending(), isFalse);
 
+      dependencies.now = testNow.add(const Duration(seconds: 20));
       await timer().restart();
       await pumpEventQueue();
       expect(isAlarmPending(), isFalse);

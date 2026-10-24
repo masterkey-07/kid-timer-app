@@ -184,7 +184,7 @@ honest notices where unsupported.
 ### Implementation for User Story 2
 
 - [x] T084 [US2] Implement `StartPreflight` in `lib/features/timer/application/start_preflight.dart` and wire it into `home.start` (depends on T076)
-- [ ] T085 [US2] Implement `RunController` (wakelock, fullscreen, ticking, lifecycle) in `lib/features/timer/application/run_controller.dart` (depends on T078)
+- [x] T085 [US2] Implement `RunController` (wakelock, fullscreen, ticking, lifecycle) in `lib/features/timer/application/run_controller.dart` (depends on T078)
 - [ ] T086 [US2] Wire `reconcile` into bootstrap and `AppLifecyclePort.resumed`; handle `launchPayload`/`notificationTaps` → route in `lib/bootstrap.dart`, `lib/app/router.dart` and `lib/features/timer/application/timer_controller.dart` (depends on T077)
 - [ ] T087 [US2] Enforce the "persist + flush → schedule" order and stable ids (`hash(sessionId) & 0x7fffffff`) in `lib/features/timer/application/timer_controller.dart`
 - [x] T088 [P] [US2] Implement the notice dialogs in `lib/features/timer/presentation/widgets/preflight_dialogs.dart` (keys from contracts/ui/08)

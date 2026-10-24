@@ -65,6 +65,33 @@ int alarmIdFor(String sessionId) {
   return hash & positiveInt31Mask;
 }
 
+/// Schedules the end alarm of the running [session] with [texts].
+///
+/// With the app open the end still rings through
+/// [TimerController.checkTimeUp], and the start preflight told the adult
+/// about background limits, so a failure is only logged.
+Future<void> scheduleEndAlarm(
+  AlarmScheduler alarms,
+  TimerSession session,
+  AppLocalizations texts,
+) async {
+  final result = await alarms.schedule(
+    AlarmRequest(
+      id: alarmIdFor(session.id),
+      groupKey: session.id,
+      fireAtUtc: session.endsAt!,
+      kind: AlarmKind.end,
+      title: texts.notificationTimerEndTitle,
+      body: texts.notificationTimerEndBody(
+        spokenDuration(texts, session.config.duration.value),
+      ),
+      sound: session.config.soundId,
+      payload: timerNotificationPayload,
+    ),
+  );
+  if (result is Failed) debugPrint('End alarm not scheduled: $result');
+}
+
 /// Owns the timer session: drives [TimerEngine], persists every change and
 /// keeps the OS alarm in sync (Constitution III).
 ///
@@ -201,26 +228,11 @@ class TimerController extends Notifier<TimerSession?> {
     if (config.vibrate && haptics.hasVibrator) await haptics.alarmPattern();
   }
 
-  Future<void> _scheduleEndAlarm(TimerSession session) async {
-    final texts = ref.read(timerNotificationTextsProvider);
-    final result = await _alarms.schedule(
-      AlarmRequest(
-        id: alarmIdFor(session.id),
-        groupKey: session.id,
-        fireAtUtc: session.endsAt!,
-        kind: AlarmKind.end,
-        title: texts.notificationTimerEndTitle,
-        body: texts.notificationTimerEndBody(
-          spokenDuration(texts, session.config.duration.value),
-        ),
-        sound: session.config.soundId,
-        payload: timerNotificationPayload,
-      ),
-    );
-    // With the app open the end still rings through checkTimeUp; the
-    // preflight notices (US2) tell the adult about background limits.
-    if (result is Failed) debugPrint('End alarm not scheduled: $result');
-  }
+  Future<void> _scheduleEndAlarm(TimerSession session) => scheduleEndAlarm(
+    _alarms,
+    session,
+    ref.read(timerNotificationTextsProvider),
+  );
 
   Future<void> _cancelAlarms(TimerSession session) async {
     for (final id in session.scheduledNotificationIds) {

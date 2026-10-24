@@ -167,7 +167,10 @@ void main() {
 
       expect(find.byKey(const Key('home.screen')), findsOneWidget);
       expect(dependencies.sessionRepository.load(), isNull);
-      expect(dependencies.alarms.cancelledIds, [7]);
+      // On Android the alarm was already cancelled in front (single ring);
+      // stopping cancels it too and never schedules it again.
+      expect(dependencies.alarms.cancelledIds.last, 7);
+      expect(dependencies.alarms.scheduledRequests, isEmpty);
     });
 
     testWidgets('declining keeps counting', (tester) async {
