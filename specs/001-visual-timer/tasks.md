@@ -76,7 +76,7 @@ tooling. **⚠️ No story starts before this phase is done.**
 
 ### 2b. Domain and time engine (TDD)
 
-- [ ] T022 [P] Write value object tests in `test/unit/core/domain/timer_duration_test.dart` (limits "10 s ≤ value ≤ 2 h" in v1.0, adjustment steps: 10 s below 2 min and 1 min from 2 min on, multiple of 1 s), `dial_scale_test.dart` (fraction clamped to [0,1]), `visual_source_test.dart` (`singleColor` required if `paletteId == single`), `palette_test.dart` (thresholds green > 50%, yellow 20–50%, red < 20%, 2% interpolation; calm mode without red)
+- [x] T022 [P] Write value object tests in `test/unit/core/domain/timer_duration_test.dart` (limits "10 s ≤ value ≤ 2 h" in v1.0, adjustment steps: 10 s below 2 min and 1 min from 2 min on, multiple of 1 s), `dial_scale_test.dart` (fraction clamped to [0,1]), `visual_source_test.dart` (`singleColor` required if `paletteId == single`), `palette_test.dart` (thresholds green > 50%, yellow 20–50%, red < 20%, 2% interpolation; calm mode without red)
 - [x] T023 [P] Implement value objects in `lib/core/domain/timer_duration.dart`, `dial_scale.dart`, `dial_direction.dart`, `visual_source.dart`, `palette_id.dart`, `color_token.dart`, `sound_id.dart`, `image_effect.dart`, `warning_offsets.dart` (depends on T022)
 - [x] T024 Write `TimerConfig` tests (data-model defaults, `copyWith`, equality, `toJson`/`fromJson` per contracts/persistence-schema.md) in `test/unit/core/domain/timer_config_test.dart`
 - [x] T025 Implement `TimerConfig` in `lib/core/domain/timer_config.dart` (alarmVolume and tickVolume 0.0–1.0; defaults: 5 min, min60, clockwise, progressive, `chime_soft`, 0.7, false, 0.3, true, true, vanish, {}) (depends on T024)
