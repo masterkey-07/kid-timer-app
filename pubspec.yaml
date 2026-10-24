@@ -50,6 +50,12 @@ flutter:
 
   assets:
     - assets/images/bank/
+    - assets/images/bank/hygiene/
+    - assets/images/bank/meal/
+    - assets/images/bank/play/
+    - assets/images/bank/rest/
+    - assets/images/bank/school/
+    - assets/images/bank/goingOut/
     - assets/sounds/
     - assets/legal/
 
