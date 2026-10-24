@@ -366,5 +366,9 @@
   "batteryHelpWebBody": "Navegadores e o Linux não deixam apps agendarem alarmes no sistema. O próprio Kid Timer toca o alarme, então ele só toca com a janela ou a aba aberta e o computador ligado.",
   "@batteryHelpWebBody": {
     "description": "Why Web and Linux need the window open."
+  },
+  "imagesFileTypeLabel": "Imagens",
+  "@imagesFileTypeLabel": {
+    "description": "Name of the image filter in the desktop file dialog."
   }
 }

@@ -82,5 +82,6 @@
   "batteryHelpPinningApple": "iPhone and iPad: turn on Settings › Accessibility › Guided Access, then triple-click the side button inside Kid Timer.",
   "batteryHelpPinningDesktop": "Computers: use full screen with the child lock on.",
   "batteryHelpWebTitle": "Why keep the window open",
-  "batteryHelpWebBody": "Browsers and Linux don't let apps schedule alarms with the system. Kid Timer plays the alarm itself, so it only rings while the window or tab is open and the computer is awake."
+  "batteryHelpWebBody": "Browsers and Linux don't let apps schedule alarms with the system. Kid Timer plays the alarm itself, so it only rings while the window or tab is open and the computer is awake.",
+  "imagesFileTypeLabel": "Images"
 }

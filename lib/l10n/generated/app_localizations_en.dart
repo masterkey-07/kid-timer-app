@@ -310,4 +310,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get batteryHelpWebBody =>
       'Browsers and Linux don\'t let apps schedule alarms with the system. Kid Timer plays the alarm itself, so it only rings while the window or tab is open and the computer is awake.';
+
+  @override
+  String get imagesFileTypeLabel => 'Images';
 }

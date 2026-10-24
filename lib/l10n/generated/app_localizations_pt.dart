@@ -313,4 +313,7 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get batteryHelpWebBody =>
       'Navegadores e o Linux não deixam apps agendarem alarmes no sistema. O próprio Kid Timer toca o alarme, então ele só toca com a janela ou a aba aberta e o computador ligado.';
+
+  @override
+  String get imagesFileTypeLabel => 'Imagens';
 }

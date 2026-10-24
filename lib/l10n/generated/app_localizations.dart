@@ -595,6 +595,12 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Navegadores e o Linux não deixam apps agendarem alarmes no sistema. O próprio Kid Timer toca o alarme, então ele só toca com a janela ou a aba aberta e o computador ligado.'**
   String get batteryHelpWebBody;
+
+  /// Name of the image filter in the desktop file dialog.
+  ///
+  /// In pt, this message translates to:
+  /// **'Imagens'**
+  String get imagesFileTypeLabel;
 }
 
 class _AppLocalizationsDelegate

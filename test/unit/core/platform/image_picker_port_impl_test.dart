@@ -10,8 +10,12 @@ void main() {
 
   test('returns the picked file bytes, type and name', () async {
     final port = ImagePickerPortImpl(
-      pickFile: () async =>
-          XFile.fromData(bytes, mimeType: 'image/jpeg', name: 'park.jpg'),
+      pickFile: () async => XFile.fromData(
+        bytes,
+        mimeType: 'image/jpeg',
+        // On IO the name comes from the path.
+        path: '/photos/park.jpg',
+      ),
     );
 
     final picked = await port.pickImage();

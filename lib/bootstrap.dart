@@ -39,6 +39,7 @@ Future<List<Override>> bootstrap() async {
       timerEnd: texts.notificationChannelTimerEnd,
       warning: texts.notificationChannelWarning,
     ),
+    imageFileTypeLabel: texts.imagesFileTypeLabel,
   );
   return [...ports, ...startup.overrides];
 }
