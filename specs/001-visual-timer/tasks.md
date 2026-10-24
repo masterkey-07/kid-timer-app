@@ -177,9 +177,9 @@ honest notices where unsupported.
 - [x] T078 [P] [US2] `RunController` tests in `test/unit/features/timer/application/run_controller_test.dart` (wakelock on when entering and off when leaving; fullscreen; single ring per platform per contracts/ui/02 Behavior 5: Android/Windows cancel the OS alarm on `resumed` and reschedule on `inactive`/`paused`/`hidden`, iOS/macOS foreground presentation off, Web/Linux app sound only)
 - [x] T079 [P] [US2] Notice widget tests in `test/widget/features/timer/notices_test.dart` (dialogs `notice.keepOpen`, `notice.notificationsDenied`, `notice.exactAlarm`, `notice.iosSilent`; `notice.banner` on home and on the unlocked controls, never in child mode)
 - [x] T080 [P] [US2] Integration `integration_test/restart_resumes_running_test.dart`, `integration_test/wakelock_integration_test.dart` (Android and Linux) and `integration_test/persistence_roundtrip_test.dart` (Android, Linux, Web), and `integration_test/alarm_accuracy_test.dart` (Android, Linux: 20 runs of 30 s, `playAlarm` within ≤ 1 s of `endsAt`; testing-strategy §8 SC-002)
-- [ ] T081 [P] [US2] E2E `patrol_test/e2e_us2_alarm_locked_screen_test.dart` (Android/iOS: `$.native.pressHome()` and lock; notification within ≤ 65 s; on Android, assert `postTime − endsAt ≤ 5 s` from `dumpsys notification`)
-- [ ] T082 [P] [US2] E2E `patrol_test/e2e_us2_alarm_closed_app_test.dart` (Android: kill the app; tapping the notification opens `/finished`)
-- [ ] T083 [P] [US2] E2E `patrol_test/e2e_us2_permissions_android_test.dart` (Android 14: deny notifications → dialog → "Open settings")
+- [ ] T081 [P] [US2] E2E `patrol_test/e2e_us2_alarm_locked_screen_test.dart` (Android/iOS: `$.native.pressHome()` and lock; notification within ≤ 65 s; on Android, assert `postTime − endsAt ≤ 5 s` from `dumpsys notification`) — **partial**: test written and analyzed, not yet run on an emulator; Patrol cannot lock the screen (Home instead) and lateness is measured by polling the shade instead of `dumpsys`
+- [ ] T082 [P] [US2] E2E `patrol_test/e2e_us2_alarm_closed_app_test.dart` (Android: kill the app; tapping the notification opens `/finished`) — **partial**: two-phase test driven by `.github/scripts/android_e2e.sh` (`am kill` between phases); not yet run on an emulator
+- [ ] T083 [P] [US2] E2E `patrol_test/e2e_us2_permissions_android_test.dart` (Android 14: deny notifications → dialog → "Open settings") — **partial**: test written and analyzed; not yet run on an emulator
 
 ### Implementation for User Story 2
 
