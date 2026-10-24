@@ -199,7 +199,7 @@ US2 E2E green on the emulator.
 
 ## Phase 5: User Story 3 - Image on the dial: built-in library and own image (Priority: P1)
 
-**Goal**: A library of ≥ 36 images in 6 categories, own images framed without metadata, "My
+**Goal**: A library of ≥ 42 images in 7 categories, own images framed without metadata, "My
 images", image on the dial with a fallback to colors.
 
 **Independent Test**: Library image on the dial; framed device photo; no image → colors.
@@ -208,11 +208,11 @@ images", image on the dial with a fallback to colors.
 
 - [x] T092 [US3] Verify the license of `microsoft/fluentui-emoji` (the `LICENSE` file and its scope over the assets) and record the result in `specs/001-visual-timer/research.md` (R9); if it is not MIT/compatible, use the fallback (Twemoji CC BY 4.0 or Noto Emoji Apache-2.0)
 - [x] T093 [US3] Create the `tool/image_bank/` pipeline (`package.json`, `build.mjs` with `@resvg/resvg-js` + `sharp`, `sources.json` mapping emoji → id/category/pt-en names) that generates `assets/images/bank/<category>/<slug>.webp` at 768×768 with a soft circular background and `assets/images/bank/manifest.json`
-- [ ] T094 [US3] Generate and commit ≥ 36 images (≥ 6 per category: `hygiene`, `meal`, `play`, `rest`, `school`, `goingOut`), `assets/images/bank/manifest.json` and `assets/images/bank/LICENSES.md` (author, license, source per file); human review recorded in `docs/assets-review.md` using the research R9 criteria (per asset: reviewer, date, verdict) and the R9 recognition validation; replace failing images — **partial**: 40 images, manifest, `LICENSES.md` and `docs/assets-review.md` committed; every verdict is `pending` until a human reviews them, and the recognition validation is still to be run
+- [ ] T094 [US3] Generate and commit ≥ 36 images (≥ 6 per category: `hygiene`, `meal`, `play`, `rest`, `school`, `goingOut`), `assets/images/bank/manifest.json` and `assets/images/bank/LICENSES.md` (author, license, source per file); human review recorded in `docs/assets-review.md` using the research R9 criteria (per asset: reviewer, date, verdict) and the R9 recognition validation; replace failing images — **partial**: 40 images committed and approved on 2026-10-24; the recognition validation is still to be run
 
 ### Tests for User Story 3 ⚠️
 
-- [x] T095 [P] [US3] Manifest test in `test/unit/features/images/image_bank_manifest_test.dart` (≥ 36 images; 6 categories with ≥ 6 each; non-empty pt and en names (FR-026); allowed license; file exists; every image has an approved entry in `docs/assets-review.md`)
+- [x] T095 [P] [US3] Manifest test in `test/unit/features/images/image_bank_manifest_test.dart` (≥ 42 images; 7 categories with ≥ 6 each; non-empty pt and en names (FR-026); allowed license; file exists; every image has an approved entry in `docs/assets-review.md`)
 - [x] T096 [P] [US3] `ImageProcessor` tests in `test/unit/features/images/image_processor_test.dart` (JPEG 1024×1024 output; EXIF/GPS absent from the result using the fixture `test/fixtures/images/with_gps.jpg`; center/zoom framing; errors `UnsupportedImageFormat`, `CorruptImage`, `ImageTooLarge` > 100 MP)
 - [x] T097 [P] [US3] `UserImageRepository` tests in `test/unit/features/images/user_image_repository_test.dart` (write bytes → meta; remove meta → bytes; orphans cleaned at bootstrap; limit 50; reference count in presets/`lastConfig`; deleting converts references to the default palette; storage full during writing leaves no partial bytes or meta)
 - [x] T098 [P] [US3] Geometry/painting tests with an image in `test/unit/features/timer/application/dial_image_clip_test.dart` (remaining sector clipped; neutral elapsed) and image goldens in `test/golden/features/timer/dial_image_golden_test.dart`
@@ -232,6 +232,7 @@ images", image on the dial with a fallback to colors.
 - [x] T109 [US3] Wire the image chip into `HomeScreen` (`home.imageChip`, `home.imageClear`) and a one-time notice when the own image was deleted in `lib/features/timer/presentation/home_screen.dart`
 - [x] T110 [US3] Verify in the Android manifest that no `READ_MEDIA_IMAGES`/`READ_EXTERNAL_STORAGE` permission is added (remove them with `tools:node="remove"` if a plugin includes them) in `android/app/src/main/AndroidManifest.xml`
 - [x] T111 [US3] Add US3 strings (`images*`, `frame*`, `mine*`, category labels) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
+- [ ] T111a [US3] Add the `animals` category (FR-020, clarified 2026-10-24): `ImageCategory.animals`, ≥ 6 animal images in `tool/image_bank/sources.json` regenerated into the bank, the `imagesCategoryAnimals` string, the picker tab, the manifest test's category list and human review rows in `docs/assets-review.md`
 
 **Checkpoint**: US1–US3 complete = usable MVP core.
 

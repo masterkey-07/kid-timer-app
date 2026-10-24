@@ -128,10 +128,11 @@ them.
 
 - **Decision**: Microsoft Fluent Emoji (MIT license; **verify the `LICENSE` of the
   `microsoft/fluentui-emoji` repository in the assets task**), "Color" SVG style rasterized
-  offline to 768×768 WebP with a soft circular background. 36+ images in 6 categories, manifest
-  `assets/images/bank/manifest.json` with id, category, pt-BR/en names, author, license and
-  source. Reproducible pipeline in `tool/image_bank/` (Node script with `@resvg/resvg-js` and
-  `sharp`, used only in development; output committed to Git).
+  offline to 768×768 WebP with a soft circular background. 42+ images in 7 categories (six
+  activities plus animals, added 2026-10-24), manifest `assets/images/bank/manifest.json` with
+  id, category, pt-BR/en names, author, license and source. Reproducible pipeline in
+  `tool/image_bank/` (Node script with `@resvg/resvg-js` and `sharp`, used only in development;
+  output committed to Git).
 - **License verification (T092, 2026-10-24)**: confirmed MIT. The repository has a single
   license file, the root `LICENSE` ("MIT License, Copyright (c) Microsoft Corporation",
   unchanged since commit `252e16f`, 2021-08-02), checked at commit `1ffb34c` of `main`; GitHub

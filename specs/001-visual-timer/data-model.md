@@ -145,7 +145,7 @@ Rules:
 | ------------------------- | ------------------- | ---------------------------------------------------------------------------------------------- |
 | id                        | String              | `bank:<cat>/<slug>` or UUID                                                                    |
 | kind                      | `bank` \| `user`    | —                                                                                              |
-| category                  | ImageCategory?      | required for `bank`: `hygiene`, `meal`, `play`, `rest`, `school`, `goingOut` (v1.x: `routine`) |
+| category                  | ImageCategory?      | required for `bank`: `hygiene`, `meal`, `play`, `rest`, `school`, `goingOut`, `animals` (v1.x: `routine`) |
 | labels                    | Map<locale, String> | `bank`: pt and en required; `user`: optional label (≤ 40)                                      |
 | assetPath                 | String?             | `bank`: path to the 768×768 WebP                                                               |
 | bytesKey                  | String?             | `user`: key in the `user_images` `LazyBox`                                                     |

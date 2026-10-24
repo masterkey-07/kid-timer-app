@@ -63,6 +63,12 @@ revise them before implementation.
   A persistent notice "Keep this window open to hear the alarm" appears before starting and on
   the countdown screen (outside the child lock, visible only to the adult when unlocked).
 
+### Session 2026-10-24
+
+- Q: Can the library hold images that are not activities? → A: Yes: a seventh category,
+  animals (dog, cat, rabbit…), for children who like to see a favorite animal on the dial. It
+  follows the same license and review rules; the six activity categories stay as they are.
+
 ## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Visual countdown with a shrinking dial (Priority: P1) — v1.0
@@ -151,7 +157,7 @@ image and see the colored dial.
 **Acceptance Scenarios**:
 
 1. **Given** the home screen, **When** the adult opens "Choose image", **Then** they see the
-   built-in library grouped into 6 categories, working without internet.
+   built-in library grouped into 7 categories, working without internet.
 2. **Given** the picker open, **When** the adult chooses a library image, **Then** it appears on
    the dial immediately, cropped to a circle.
 3. **Given** the picker open, **When** the adult taps "From my device", **Then** the system
@@ -540,8 +546,8 @@ dial phases are distinguishable in a color blindness simulator.
 
 **Images (US3)**
 
-- **FR-020**: The app MUST include a library of at least 36 images in 6 categories (hygiene,
-  meals, play, rest, school, going out), available offline.
+- **FR-020**: The app MUST include a library of at least 42 images in 7 categories (hygiene,
+  meals, play, rest, school, going out, animals), at least 6 per category, available offline.
 - **FR-021**: The app MUST allow choosing an image from the device through the system picker,
   without requesting broad storage or gallery permission.
 - **FR-022**: Before saving an own image, the app MUST allow framing it in a circle (position and

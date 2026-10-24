@@ -15,8 +15,8 @@ from the device.
 ┌──────────────────────────────────────┐
 │ ← Choose image               [Manage]│  Manage → /images/mine
 ├──────────────────────────────────────┤
-│ [All][Hygiene][Meals][Play]          │  scrollable tabs (chips) per category + "Mine"
-│ [Rest][School][Going out]            │
+│ [All][Hygiene][Meals][Play]          │  wrapped tabs (chips) per category + "Mine"
+│ [Rest][School][Going out][Animals]   │
 │ [My images]                          │
 ├──────────────────────────────────────┤
 │ ┌────────────────────────────────┐   │

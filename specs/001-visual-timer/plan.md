@@ -45,7 +45,7 @@ release, no broad storage permissions; APK per ABI ≤ 25 MB; alarm ≤ 1 s in t
 ≤ 5 s in the background; WCAG 2.2 AA; complete pt-BR and en.
 
 **Scale/Scope**: ~13 screens/flows (v1.0: 9), ≤ 100 presets, ≤ 50 own images, ≤ 100 routines of
-up to 20 steps; 36+ bundled images and 8+ sounds.
+up to 20 steps; 42+ bundled images and 8+ sounds.
 
 ## Constitution Check
 
