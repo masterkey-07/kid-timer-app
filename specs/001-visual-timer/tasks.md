@@ -144,7 +144,7 @@ screen that stays until a tap.
 - [x] T062 [P] [US1] Goldens in `test/golden/features/timer/dial_view_golden_test.dart` (dial 0/25/50/100% × progressive/calm × clockwise/counter-clockwise × light/dark) and `test/golden/features/timer/screens_golden_test.dart` (home, run, finished × compact/medium/expanded)
 - [x] T063 [P] [US1] Accessibility tests in `test/widget/features/timer/timer_a11y_test.dart` (guidelines on the 3 screens; 200% font without overflow; pt and en)
 - [x] T064 [P] [US1] Integration test `integration_test/restart_shows_finished_test.dart` (expired unacknowledged session → `/finished` after a restart)
-- [ ] T065 [P] [US1] E2E `patrol_test/e2e_us1_basic_timer_test.dart` (drag to 1 min, start, wait, final screen, tap returns)
+- [ ] T065 [P] [US1] E2E `patrol_test/e2e_us1_basic_timer_test.dart` (drag to 1 min, start, wait, final screen, tap returns) — **partial**: test written and analyzed; not yet run on an Android emulator (none available in the implementing environment)
 
 ### Implementation for User Story 1
 
