@@ -9,9 +9,9 @@ import 'package:visual_time_counter/core/domain/timer_duration.dart';
 /// (FR-001, FR-002).
 ///
 /// Angles follow the canvas convention: radians, y down, positive is
-/// clockwise. Sectors always start at 12 o'clock. While setting up, the
-/// sector covers the duration on the [scale]; while running, the filled
-/// sector grows in [direction] until a full turn at the set duration.
+/// clockwise. Sectors always start at 12 o'clock and grow in [direction]:
+/// while setting up, the sector covers the duration on the [scale]; while
+/// running, the filled sector grows until a full turn at the set duration.
 final class DialGeometry {
   /// Creates the geometry for a dial of [scale] filling in [direction].
   const new({required this.scale, required this.direction});
@@ -33,7 +33,7 @@ final class DialGeometry {
   /// The time span of the full circle while setting up.
   final DialScale scale;
 
-  /// The direction in which the running dial fills.
+  /// The direction in which the sectors grow.
   final DialDirection direction;
 
   /// The longest duration the dial can show.
@@ -45,7 +45,7 @@ final class DialGeometry {
 
   /// The signed sweep of the setup sector for [duration], from [startAngle].
   double sweepAngleOf(Duration duration) =>
-      _openingSign * fractionOf(duration) * _fullTurn;
+      _directionSign * fractionOf(duration) * _fullTurn;
 
   /// The signed sweep of the running dial's filled sector, from
   /// [startAngle]: empty at the start, a full turn when no time remains of
@@ -53,7 +53,7 @@ final class DialGeometry {
   double filledSweepAngleOf(Duration remaining, {required Duration total}) {
     final elapsedShare = (1 - remaining.inMicroseconds / total.inMicroseconds)
         .clamp(0.0, 1.0);
-    return -_openingSign * elapsedShare * _fullTurn;
+    return _directionSign * elapsedShare * _fullTurn;
   }
 
   /// The sector of the dial inscribed in [circle] for a signed [sweepAngle]
@@ -95,17 +95,16 @@ final class DialGeometry {
   }
 
   /// The share of a turn from 12 o'clock to [fromCenter], measured in the
-  /// direction the sector opens, in [0, 1).
+  /// dial's direction, in [0, 1).
   double _fractionAt(Offset fromCenter) {
     final angle = atan2(fromCenter.dy, fromCenter.dx) - startAngle;
-    final turns = _openingSign * angle / _fullTurn;
+    final turns = _directionSign * angle / _fullTurn;
     return turns - turns.floorToDouble();
   }
 
-  /// −1 when the setup sector opens counter-clockwise, +1 when it opens
-  /// clockwise; the running dial fills the other way.
-  int get _openingSign => switch (direction) {
-    DialDirection.clockwise => -1,
-    DialDirection.counterClockwise => 1,
+  /// +1 for a clockwise dial, −1 for a counter-clockwise one.
+  int get _directionSign => switch (direction) {
+    DialDirection.clockwise => 1,
+    DialDirection.counterClockwise => -1,
   };
 }
