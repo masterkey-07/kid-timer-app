@@ -14,6 +14,17 @@ void main() {
       ..writeAsStringSync(jsonEncode({'@@locale': locale, ...messages}));
   }
 
+  void writeManifest(String path, Object manifest) {
+    File('${root.path}/$path')
+      ..createSync(recursive: true)
+      ..writeAsStringSync(jsonEncode(manifest));
+  }
+
+  void writeMatchingArbs() {
+    writeArb('pt', {'appTitle': 'Kid Timer'});
+    writeArb('en', {'appTitle': 'Kid Timer'});
+  }
+
   setUp(() => root = Directory.systemTemp.createTempSync('l10n_'));
   tearDown(() => root.deleteSync(recursive: true));
 
@@ -105,6 +116,90 @@ void main() {
 
       expect(runL10nCheck(root, out), 1);
       expect(out.toString(), contains('x'));
+    });
+  });
+
+  group('asset manifests (Constitution V)', () {
+    const bankPath = 'assets/images/bank/manifest.json';
+
+    test('pass when every names, labels and keywords map has pt and en', () {
+      writeMatchingArbs();
+      writeManifest(bankPath, {
+        'images': [
+          {
+            'id': 'bank:meal/meal',
+            'names': {'pt': 'Refeição', 'en': 'Mealtime'},
+          },
+        ],
+      });
+      writeManifest('assets/images/emoji/manifest.json', {
+        'groups': [
+          {
+            'labels': {'pt': 'Animais e natureza', 'en': 'Animals & nature'},
+            'images': [
+              {
+                'names': {'pt': 'girafa', 'en': 'giraffe'},
+                'keywords': {
+                  'pt': ['girafa', 'pescoço'],
+                  'en': ['giraffe', 'neck'],
+                },
+              },
+            ],
+          },
+        ],
+      });
+
+      expect(checkL10n(root), isEmpty);
+    });
+
+    test('fail for a missing or blank language, with the path', () {
+      writeMatchingArbs();
+      writeManifest(bankPath, {
+        'images': [
+          {
+            'names': {'pt': 'Refeição'},
+          },
+          {
+            'names': {'pt': '  ', 'en': 'Snack'},
+          },
+        ],
+      });
+
+      expect(checkL10n(root), [
+        allOf(contains(bankPath), contains('images[0].names'), contains('en')),
+        allOf(contains(bankPath), contains('images[1].names'), contains('pt')),
+      ]);
+    });
+
+    test('fail for empty keyword lists', () {
+      writeMatchingArbs();
+      writeManifest('assets/images/emoji/manifest.json', {
+        'images': [
+          {
+            'keywords': {
+              'pt': <String>[],
+              'en': ['dog'],
+            },
+          },
+        ],
+      });
+
+      expect(checkL10n(root), [
+        allOf(contains('images[0].keywords'), contains('pt')),
+      ]);
+    });
+
+    test('check the committed sound and image manifests too', () {
+      writeMatchingArbs();
+      writeManifest('assets/sounds/manifest.json', {
+        'sounds': [
+          {
+            'names': {'en': 'Soft chime'},
+          },
+        ],
+      });
+
+      expect(checkL10n(root), [contains('assets/sounds/manifest.json')]);
     });
   });
 }
