@@ -1,8 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:clock/clock.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce/hive_ce.dart';
+import 'package:visual_time_counter/app/app.dart';
 import 'package:visual_time_counter/app/router.dart';
 import 'package:visual_time_counter/core/clock/clock_provider.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
@@ -22,6 +26,7 @@ import 'fakes/fake_image_picker.dart';
 import 'fakes/fake_lifecycle.dart';
 import 'fakes/fake_system_settings.dart';
 import 'fakes/fake_wakelock.dart';
+import 'pump_app.dart';
 
 /// The instant every app-level test starts at.
 final testNow = DateTime.utc(2026, 10, 23, 12);
@@ -94,10 +99,49 @@ class TestAppDependencies {
     externalLinkProvider.overrideWithValue(FakeExternalLink()),
   ];
 
+  /// Makes every later session write fail, as a full disk would.
+  Future<void> breakSessionStorage() => _sessionBox.close();
+
   /// Closes the boxes.
   Future<void> dispose() async {
     await lifecycle.dispose();
-    await _sessionBox.close();
+    if (_sessionBox.isOpen) await _sessionBox.close();
     await _settingsBox.close();
   }
+}
+
+extension PumpKidTimerApp on WidgetTester {
+  /// Pumps the whole app (router included) over [dependencies], in
+  /// [locale] and sized as [screen]. Does not settle: the countdown dial
+  /// repaints on every frame.
+  Future<void> pumpKidTimerApp(
+    TestAppDependencies dependencies, {
+    TimerSession? session,
+    AppSettings settings = AppSettings.initial,
+    ScreenClass screen = ScreenClass.compact,
+    Locale locale = const Locale('en'),
+    double textScale = 1,
+  }) async {
+    view
+      ..physicalSize = screen.size
+      ..devicePixelRatio = 1;
+    addTearDown(view.reset);
+    platformDispatcher
+      ..localesTestValue = [locale]
+      ..textScaleFactorTestValue = textScale;
+    addTearDown(platformDispatcher.clearAllTestValues);
+
+    await pumpWidget(
+      ProviderScope(
+        overrides: dependencies.overrides(session: session, settings: settings),
+        child: const KidTimerApp(),
+      ),
+    );
+    await pump();
+  }
+
+  /// The text shown by the widget with [key].
+  String textOf(String key) => widget<Text>(
+    find.descendant(of: find.byKey(Key(key)), matching: find.byType(Text)),
+  ).data!;
 }
