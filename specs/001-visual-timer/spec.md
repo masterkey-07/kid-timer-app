@@ -94,7 +94,7 @@ fill up and see the final screen stay until a tap.
 
 1. **Given** the app open on the home screen, **When** the adult drags the dial's edge to the
    5 min mark, **Then** the displayed time is 05:00 and the dial sector covers 5 min of the
-   scale.
+   scale, clockwise from 12 o'clock on a clockwise dial.
 2. **Given** a set time, **When** the adult taps +1 min or +5 min, **Then** the time increases
    by that amount without exceeding the allowed maximum.
 3. **Given** a 1 min timer started, **When** 30 s pass, **Then** the filled sector covers
@@ -567,7 +567,8 @@ pick the giraffe and see it on the dial; then search "girafa" and find the same 
 
 - **FR-001**: The app MUST allow setting a duration between 10 s and 2 h (v1.0) by dragging the
   dial's edge, in steps of 1 min (or 10 s below 2 min), and with buttons +1 min, +5 min,
-  −1 min.
+  −1 min. The set sector grows from 12 o'clock in the dial's direction, the same way the
+  running dial fills (FR-002).
 - **FR-002**: During the countdown, the app MUST display a dial whose filled sector is
   proportional to the elapsed time relative to the set duration (empty at the start, a full
   turn at the end), updated continuously. The scale applies only to setting the duration.

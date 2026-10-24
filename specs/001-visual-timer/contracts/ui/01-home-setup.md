@@ -85,8 +85,10 @@ settings and (v1.x) routines.
 
 ## Interaction rules
 
-- Dragging: angle → duration on the current scale, rounded to the step; light haptic (selection)
-  at every whole minute on mobile.
+- Dragging: angle → duration on the current scale, rounded to the step. The setup sector grows
+  from 12 o'clock in the dial's direction (clockwise by default), the same way the running dial
+  fills, so dragging clockwise adds time on a clockwise dial. Light haptic (selection) at every
+  whole minute on mobile.
 - Changing the scale (side panel or settings) keeps the duration if ≤ scale; otherwise clamps it
   to the scale. The scale affects only this setup dial: once running, a full turn is the set
   duration (FR-002).
