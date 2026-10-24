@@ -11,7 +11,8 @@
     "play": { "center": "#FFF4F8", "edge": "#F9CFE0" },
     "rest": { "center": "#F6F4FF", "edge": "#D9D2F7" },
     "school": { "center": "#FFFDEB", "edge": "#F6EBA8" },
-    "goingOut": { "center": "#F1FBF2", "edge": "#C8EBCC" }
+    "goingOut": { "center": "#F1FBF2", "edge": "#C8EBCC" },
+    "animals": { "center": "#FFF6EF", "edge": "#F6D5C1" }
   },
   "images": [
     { "slug": "brush_teeth", "category": "hygiene", "emoji": "Toothbrush", "names": { "pt": "Escovar os dentes", "en": "Brush teeth" } },
@@ -58,6 +59,15 @@
     { "slug": "playground", "category": "goingOut", "emoji": "Playground slide", "names": { "pt": "Parquinho", "en": "Playground" } },
     { "slug": "bike_ride", "category": "goingOut", "emoji": "Bicycle", "names": { "pt": "Andar de bicicleta", "en": "Bike ride" } },
     { "slug": "shopping", "category": "goingOut", "emoji": "Shopping cart", "names": { "pt": "Ir ao mercado", "en": "Go shopping" } },
-    { "slug": "go_home", "category": "goingOut", "emoji": "House", "names": { "pt": "Voltar para casa", "en": "Go home" } }
+    { "slug": "go_home", "category": "goingOut", "emoji": "House", "names": { "pt": "Voltar para casa", "en": "Go home" } },
+
+    { "slug": "dog", "category": "animals", "emoji": "Dog face", "names": { "pt": "Cachorro", "en": "Dog" } },
+    { "slug": "cat", "category": "animals", "emoji": "Cat face", "names": { "pt": "Gato", "en": "Cat" } },
+    { "slug": "rabbit", "category": "animals", "emoji": "Rabbit face", "names": { "pt": "Coelho", "en": "Rabbit" } },
+    { "slug": "panda", "category": "animals", "emoji": "Panda", "names": { "pt": "Panda", "en": "Panda" } },
+    { "slug": "elephant", "category": "animals", "emoji": "Elephant", "names": { "pt": "Elefante", "en": "Elephant" } },
+    { "slug": "turtle", "category": "animals", "emoji": "Turtle", "names": { "pt": "Tartaruga", "en": "Turtle" } },
+    { "slug": "penguin", "category": "animals", "emoji": "Penguin", "names": { "pt": "Pinguim", "en": "Penguin" } },
+    { "slug": "butterfly", "category": "animals", "emoji": "Butterfly", "names": { "pt": "Borboleta", "en": "Butterfly" } }
   ]
 }

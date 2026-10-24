@@ -18,7 +18,10 @@ enum ImageCategory {
   school,
 
   /// Getting ready to go out and outings.
-  goingOut;
+  goingOut,
+
+  /// Animals children like to see on the dial.
+  animals;
 
   /// Decodes the manifest name.
   factory fromJson(Object? json) => enumFromJson(values, json, 'category');

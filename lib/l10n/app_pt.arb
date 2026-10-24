@@ -616,5 +616,9 @@
   "homeImageMissing": "A imagem deste timer foi apagada, então ele vai usar cores.",
   "@homeImageMissing": {
     "description": "One-time snackbar when the chosen own image no longer exists."
+  },
+  "imagesCategoryAnimals": "Animais",
+  "@imagesCategoryAnimals": {
+    "description": "Library category."
   }
 }

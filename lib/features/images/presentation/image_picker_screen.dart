@@ -37,6 +37,7 @@ enum _PickerTab {
   rest(ImageCategory.rest),
   school(ImageCategory.school),
   goingOut(ImageCategory.goingOut),
+  animals(ImageCategory.animals),
   mine(null);
 
   new(this.category);
@@ -51,6 +52,7 @@ enum _PickerTab {
     rest => l10n.imagesCategoryRest,
     school => l10n.imagesCategorySchool,
     goingOut => l10n.imagesCategoryGoingOut,
+    animals => l10n.imagesCategoryAnimals,
     mine => l10n.imagesTabMine,
   };
 }

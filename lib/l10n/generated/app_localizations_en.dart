@@ -489,4 +489,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get homeImageMissing =>
       'This timer\'s image was deleted, so it uses colors.';
+
+  @override
+  String get imagesCategoryAnimals => 'Animals';
 }

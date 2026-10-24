@@ -19,7 +19,7 @@ Source: Fluent Emoji "Color", MIT, license verified for T092 (research R9). Buil
 `tool/image_bank/build.mjs`. To review, open the WebPs, or view them at 64 dp in the app's
 image picker once US3 is in.
 
-Pre-check (2026-10-24, by the implementing agent; not a review): all 40 images come from the
+Pre-check (2026-10-24, by the implementing agent; not a review): all 48 images come from the
 MIT repository at a pinned commit and are listed in `LICENSES.md`; none shows text, logos,
 people or symbols; the notes column flags what a reviewer should look at closely.
 
@@ -65,6 +65,14 @@ people or symbols; the notes column flags what a reviewer should look at closely
 | `bank:goingOut/bike_ride`    | Bike ride       | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
 | `bank:goingOut/shopping`     | Go shopping     | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
 | `bank:goingOut/go_home`      | Go home         | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:animals/dog`           | Dog             | —                            | —          | pending  |                                                        |
+| `bank:animals/cat`           | Cat             | —                            | —          | pending  |                                                        |
+| `bank:animals/rabbit`        | Rabbit          | —                            | —          | pending  |                                                        |
+| `bank:animals/panda`         | Panda           | —                            | —          | pending  |                                                        |
+| `bank:animals/elephant`      | Elephant        | —                            | —          | pending  |                                                        |
+| `bank:animals/turtle`        | Turtle          | —                            | —          | pending  |                                                        |
+| `bank:animals/penguin`       | Penguin         | —                            | —          | pending  |                                                        |
+| `bank:animals/butterfly`     | Butterfly       | —                            | —          | pending  |                                                        |
 
 ## Recognition validation (R9, before v1.0)
 

@@ -133,5 +133,6 @@
   "homeImageChipSemantics": "Image: {name}. Tap to change",
   "homeNoImage": "No image",
   "homeNoImageSemantics": "No image. Tap to choose an image",
-  "homeImageMissing": "This timer's image was deleted, so it uses colors."
+  "homeImageMissing": "This timer's image was deleted, so it uses colors.",
+  "imagesCategoryAnimals": "Animals"
 }

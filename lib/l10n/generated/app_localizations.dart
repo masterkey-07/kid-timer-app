@@ -901,6 +901,12 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'A imagem deste timer foi apagada, então ele vai usar cores.'**
   String get homeImageMissing;
+
+  /// Library category.
+  ///
+  /// In pt, this message translates to:
+  /// **'Animais'**
+  String get imagesCategoryAnimals;
 }
 
 class _AppLocalizationsDelegate

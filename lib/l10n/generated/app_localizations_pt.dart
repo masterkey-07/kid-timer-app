@@ -495,4 +495,7 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get homeImageMissing =>
       'A imagem deste timer foi apagada, então ele vai usar cores.';
+
+  @override
+  String get imagesCategoryAnimals => 'Animais';
 }
