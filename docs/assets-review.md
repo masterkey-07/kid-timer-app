@@ -23,48 +23,48 @@ Pre-check (2026-10-24, by the implementing agent; not a review): all 40 images c
 MIT repository at a pinned commit and are listed in `LICENSES.md`; none shows text, logos,
 people or symbols; the notes column flags what a reviewer should look at closely.
 
-| Asset                        | Label (en)      | Reviewer | Date | Verdict | Notes                                                  |
-| ---------------------------- | --------------- | -------- | ---- | ------- | ------------------------------------------------------ |
-| `bank:hygiene/brush_teeth`   | Brush teeth     | —        | —    | pending |                                                        |
-| `bank:hygiene/bath`          | Take a bath     | —        | —    | pending |                                                        |
-| `bank:hygiene/wash_hands`    | Wash hands      | —        | —    | pending |                                                        |
-| `bank:hygiene/shower`        | Shower          | —        | —    | pending |                                                        |
-| `bank:hygiene/toilet`        | Use the toilet  | —        | —    | pending |                                                        |
-| `bank:hygiene/clean_up`      | Clean up        | —        | —    | pending |                                                        |
-| `bank:meal/meal`             | Mealtime        | —        | —    | pending |                                                        |
-| `bank:meal/breakfast`        | Breakfast       | —        | —    | pending |                                                        |
-| `bank:meal/drink_milk`       | Drink milk      | —        | —    | pending |                                                        |
-| `bank:meal/eat_fruit`        | Eat fruit       | —        | —    | pending |                                                        |
-| `bank:meal/snack`            | Snack           | —        | —    | pending |                                                        |
-| `bank:meal/eat_vegetables`   | Eat vegetables  | —        | —    | pending |                                                        |
-| `bank:meal/dinner`           | Dinner          | —        | —    | pending |                                                        |
-| `bank:play/toys`             | Play with toys  | —        | —    | pending |                                                        |
-| `bank:play/puzzle`           | Puzzle          | —        | —    | pending |                                                        |
-| `bank:play/ball`             | Play ball       | —        | —    | pending |                                                        |
-| `bank:play/painting`         | Painting        | —        | —    | pending |                                                        |
-| `bank:play/drawing`          | Drawing         | —        | —    | pending |                                                        |
-| `bank:play/kite`             | Fly a kite      | —        | —    | pending |                                                        |
-| `bank:play/video_game`       | Video games     | —        | —    | pending | Generic gamepad: check it reads as no console brand    |
-| `bank:rest/sleep`            | Sleep           | —        | —    | pending |                                                        |
-| `bank:rest/nap`              | Nap             | —        | —    | pending | Only face in the library; default yellow, no skin tone |
-| `bank:rest/bedtime`          | Bedtime         | —        | —    | pending |                                                        |
-| `bank:rest/relax`            | Relax           | —        | —    | pending |                                                        |
-| `bank:rest/story_time`       | Story time      | —        | —    | pending |                                                        |
-| `bank:rest/quiet_music`      | Listen to music | —        | —    | pending |                                                        |
-| `bank:school/go_to_school`   | Go to school    | —        | —    | pending |                                                        |
-| `bank:school/school`         | School          | —        | —    | pending | Plain green flag, no national symbol                   |
-| `bank:school/homework`       | Homework        | —        | —    | pending |                                                        |
-| `bank:school/reading`        | Reading         | —        | —    | pending |                                                        |
-| `bank:school/writing`        | Writing         | —        | —    | pending |                                                        |
-| `bank:school/counting`       | Counting        | —        | —    | pending |                                                        |
-| `bank:goingOut/put_on_shoes` | Put on shoes    | —        | —    | pending |                                                        |
-| `bank:goingOut/put_on_coat`  | Put on a coat   | —        | —    | pending |                                                        |
-| `bank:goingOut/car_ride`     | Car ride        | —        | —    | pending |                                                        |
-| `bank:goingOut/bus_ride`     | Bus ride        | —        | —    | pending |                                                        |
-| `bank:goingOut/playground`   | Playground      | —        | —    | pending |                                                        |
-| `bank:goingOut/bike_ride`    | Bike ride       | —        | —    | pending |                                                        |
-| `bank:goingOut/shopping`     | Go shopping     | —        | —    | pending |                                                        |
-| `bank:goingOut/go_home`      | Go home         | —        | —    | pending |                                                        |
+| Asset                        | Label (en)      | Reviewer                     | Date       | Verdict  | Notes                                                  |
+| ---------------------------- | --------------- | ---------------------------- | ---------- | -------- | ------------------------------------------------------ |
+| `bank:hygiene/brush_teeth`   | Brush teeth     | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:hygiene/bath`          | Take a bath     | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:hygiene/wash_hands`    | Wash hands      | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:hygiene/shower`        | Shower          | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:hygiene/toilet`        | Use the toilet  | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:hygiene/clean_up`      | Clean up        | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:meal/meal`             | Mealtime        | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:meal/breakfast`        | Breakfast       | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:meal/drink_milk`       | Drink milk      | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:meal/eat_fruit`        | Eat fruit       | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:meal/snack`            | Snack           | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:meal/eat_vegetables`   | Eat vegetables  | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:meal/dinner`           | Dinner          | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:play/toys`             | Play with toys  | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:play/puzzle`           | Puzzle          | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:play/ball`             | Play ball       | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:play/painting`         | Painting        | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:play/drawing`          | Drawing         | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:play/kite`             | Fly a kite      | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:play/video_game`       | Video games     | Victor Jorge Carvalho Chaves | 2026-10-24 | approved | Generic gamepad: check it reads as no console brand    |
+| `bank:rest/sleep`            | Sleep           | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:rest/nap`              | Nap             | Victor Jorge Carvalho Chaves | 2026-10-24 | approved | Only face in the library; default yellow, no skin tone |
+| `bank:rest/bedtime`          | Bedtime         | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:rest/relax`            | Relax           | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:rest/story_time`       | Story time      | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:rest/quiet_music`      | Listen to music | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:school/go_to_school`   | Go to school    | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:school/school`         | School          | Victor Jorge Carvalho Chaves | 2026-10-24 | approved | Plain green flag, no national symbol                   |
+| `bank:school/homework`       | Homework        | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:school/reading`        | Reading         | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:school/writing`        | Writing         | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:school/counting`       | Counting        | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:goingOut/put_on_shoes` | Put on shoes    | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:goingOut/put_on_coat`  | Put on a coat   | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:goingOut/car_ride`     | Car ride        | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:goingOut/bus_ride`     | Bus ride        | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:goingOut/playground`   | Playground      | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:goingOut/bike_ride`    | Bike ride       | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:goingOut/shopping`     | Go shopping     | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:goingOut/go_home`      | Go home         | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
 
 ## Recognition validation (R9, before v1.0)
 
