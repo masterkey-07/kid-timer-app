@@ -1,13 +1,13 @@
 import 'package:visual_time_counter/core/domain/json_utils.dart';
 
-/// How an image on the dial changes as time passes (FR-081; only [vanish] in
+/// How an image on the dial changes as time passes (FR-081; only [reveal] in
 /// v1.0).
 enum ImageEffect {
-  /// The image shrinks with the remaining sector (default).
-  vanish,
-
-  /// The image appears as time passes (v1.x).
+  /// The image fills in the elapsed sector (default).
   reveal,
+
+  /// The image shrinks with the remaining sector (v1.x).
+  vanish,
 
   /// The image gets progressively sharper (v1.x).
   mosaic,

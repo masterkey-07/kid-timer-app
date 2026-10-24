@@ -159,7 +159,7 @@ screen that stays until a tap.
 - [x] T074 [US1] Add US1 strings (`home*`, `run*`, `finished*`) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
 - [x] T075 [US1] Add the default sound `chime_soft.wav` (CC0) to `assets/sounds/`, the manifest `assets/sounds/manifest.json` and `assets/sounds/LICENSES.md`
 
-- [ ] T227 [US1] Fill the running dial in instead of shrinking it, relative to the set duration (FR-002, FR-025 as revised on 2026-10-24): the elapsed sector grows from 12 o'clock with the image or color over the neutral disc, a full turn is the set duration whatever the scale, and the markers follow the duration's minutes; `ImageEffect.reveal` becomes the default. Update `dial_geometry_test`, `dial_image_clip_test` and the dial goldens
+- [x] T227 [US1] Fill the running dial in instead of shrinking it, relative to the set duration (FR-002, FR-025 as revised on 2026-10-24): the elapsed sector grows from 12 o'clock with the image or color over the neutral disc, a full turn is the set duration whatever the scale, and the markers follow the duration's minutes; `ImageEffect.reveal` becomes the default. Update `dial_geometry_test`, `dial_image_clip_test` and the dial goldens
 
 **Checkpoint**: US1 working and tested with the app open on every platform.
 

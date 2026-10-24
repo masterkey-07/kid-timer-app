@@ -11,10 +11,11 @@ final class DialFrame {
   /// Creates a frame.
   const new({required this.sweepAngle, required this.sectorColor});
 
-  /// The signed sweep from 12 o'clock (see [DialGeometry.sweepAngleOf]).
+  /// The signed sweep from 12 o'clock (see [DialGeometry.sweepAngleOf] and
+  /// [DialGeometry.filledSweepAngleOf]).
   final double sweepAngle;
 
-  /// The remaining sector's color.
+  /// The sector's color.
   final Color sectorColor;
 
   @override
@@ -32,7 +33,7 @@ final class DialFrame {
 final class DialStyle {
   /// Creates a style.
   const new({
-    required this.elapsedColor,
+    required this.emptyColor,
     required this.outlineColor,
     required this.outlineWidth,
     required this.markerColor,
@@ -40,8 +41,8 @@ final class DialStyle {
     this.sectorOutlineColor,
   });
 
-  /// The neutral elapsed area.
-  final Color elapsedColor;
+  /// The neutral disc behind the sector.
+  final Color emptyColor;
 
   /// The dial's outline (contracts/ui/00 §3.2).
   final Color outlineColor;
@@ -62,7 +63,7 @@ final class DialStyle {
   @override
   bool operator ==(Object other) =>
       other is DialStyle &&
-      other.elapsedColor == elapsedColor &&
+      other.emptyColor == emptyColor &&
       other.outlineColor == outlineColor &&
       other.outlineWidth == outlineWidth &&
       other.markerColor == markerColor &&
@@ -71,7 +72,7 @@ final class DialStyle {
 
   @override
   int get hashCode => Object.hash(
-    elapsedColor,
+    emptyColor,
     outlineColor,
     outlineWidth,
     markerColor,
@@ -80,9 +81,8 @@ final class DialStyle {
   );
 }
 
-/// Paints the dial: the neutral elapsed disc, the remaining sector from
-/// 12 o'clock (in color, or [image] clipped to it), the minute markers and
-/// the outline.
+/// Paints the dial: the neutral disc, the sector from 12 o'clock (in color,
+/// or [image] clipped to it), the minute markers and the outline.
 ///
 /// It repaints whenever [frame] notifies, without rebuilding any widget; the
 /// markers are recorded once per size and style into a cached picture.
@@ -101,7 +101,7 @@ class DialPainter extends CustomPainter {
   /// on every paint.
   final DialMarkerCache? markers;
 
-  /// The image filling the remaining sector, decoded at about the dial's
+  /// The image filling the sector, decoded at about the dial's
   /// size; null paints [DialFrame.sectorColor] instead.
   final ui.Image? image;
 
@@ -119,7 +119,7 @@ class DialPainter extends CustomPainter {
     final circle = Rect.fromCircle(center: center, radius: radius);
     final current = frame.value;
 
-    canvas.drawCircle(center, radius, Paint()..color = style.elapsedColor);
+    canvas.drawCircle(center, radius, Paint()..color = style.emptyColor);
     if (current.sweepAngle != 0) {
       _paintSector(canvas, circle, current);
       final sectorOutline = style.sectorOutlineColor;
@@ -166,7 +166,7 @@ class DialPainter extends CustomPainter {
     }
     canvas
       ..save()
-      ..clipPath(DialGeometry.remainingSectorPath(circle, current.sweepAngle))
+      ..clipPath(DialGeometry.sectorPath(circle, current.sweepAngle))
       ..drawImageRect(
         image,
         Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),

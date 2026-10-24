@@ -19,7 +19,8 @@ import 'package:visual_time_counter/features/timer/presentation/widgets/dial_vie
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
 final _now = DateTime.utc(2026, 10, 24, 12);
-const _fullScale = Duration(minutes: 60);
+// Shorter than the default 60 min scale: a full turn is still the duration.
+const _duration = Duration(minutes: 10);
 const _remainingShares = [0.0, 0.25, 0.5, 1.0];
 const _dialSize = 160.0;
 
@@ -41,13 +42,13 @@ TimerSession _sessionWith({
 }) => TimerSession(
   id: 'golden',
   config: TimerConfig(
-    duration: TimerDuration(_fullScale),
+    duration: TimerDuration(_duration),
     direction: direction,
     visual: visual,
   ),
   status: SessionStatus.running,
   startedAt: _now,
-  endsAt: _now.add(_fullScale * share),
+  endsAt: _now.add(_duration * share),
 );
 
 Widget _dial(TimerSession session, ThemeData theme) => Theme(
@@ -101,7 +102,9 @@ Future<void> main() async {
               for (final direction in DialDirection.values)
                 for (final share in _remainingShares)
                   GoldenTestScenario(
-                    name: 'image ${direction.name} ${(share * 100).round()}%',
+                    name:
+                        'image ${direction.name} '
+                        '${(share * 100).round()}% left',
                     child: _dial(
                       _sessionWith(
                         share: share,
@@ -113,7 +116,7 @@ Future<void> main() async {
                   ),
               for (final share in _remainingShares)
                 GoldenTestScenario(
-                  name: 'missing image ${(share * 100).round()}%',
+                  name: 'missing image ${(share * 100).round()}% left',
                   child: _dial(
                     _sessionWith(
                       share: share,

@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:visual_time_counter/app/theme/palettes.dart';
 import 'package:visual_time_counter/core/clock/clock_provider.dart';
-import 'package:visual_time_counter/core/domain/dial_scale.dart';
 import 'package:visual_time_counter/core/domain/palette_id.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
 import 'package:visual_time_counter/core/domain/timer_duration.dart';
@@ -23,7 +22,7 @@ import 'package:visual_time_counter/features/timer/presentation/widgets/dial_pai
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
 /// The visual dial (contracts/ui/00 §5): editable on the home screen,
-/// counting down on the run screen. It fills the largest square that fits.
+/// filling up on the run screen. It fills the largest square that fits.
 class DialView extends StatelessWidget {
   /// A dial the adult drags, or adjusts with the keyboard or a screen
   /// reader, to set [config]'s duration (FR-001).
@@ -33,7 +32,8 @@ class DialView extends StatelessWidget {
     super.key,
   }) : session = null;
 
-  /// A dial that shrinks with [session]'s remaining time (FR-002).
+  /// A dial that fills up as [session]'s time passes, a full turn being its
+  /// set duration (FR-002).
   const new countdown({required TimerSession this.session, super.key})
     : config = null,
       onChanged = null;
@@ -53,27 +53,27 @@ class DialView extends StatelessWidget {
       : _CountdownDial(session: session!);
 }
 
-/// One marker per minute, at most 60 around the dial.
+/// One marker per minute of the full turn, at most 60 around the dial.
 const _maxMarkers = 60;
 
-int _markerCountFor(DialScale scale) {
-  final minutes = scale.span.inMinutes;
+int _markerCountFor(Duration fullTurn) {
+  final minutes = fullTurn.inMinutes;
   return minutes > _maxMarkers ? _maxMarkers : minutes;
 }
 
-DialStyle _styleFor(BuildContext context, DialScale scale) {
+DialStyle _styleFor(BuildContext context, Duration fullTurn) {
   final theme = Theme.of(context);
   final highContrast = MediaQuery.highContrastOf(context);
   final outline = theme.colorScheme.outline;
   return DialStyle(
-    elapsedColor: DialPalettes.elapsed(
+    emptyColor: DialPalettes.empty(
       theme.brightness,
       highContrast: highContrast,
     ),
     outlineColor: outline,
     outlineWidth: highContrast ? 3 : 2,
     markerColor: outline,
-    markerCount: _markerCountFor(scale),
+    markerCount: _markerCountFor(fullTurn),
     sectorOutlineColor: highContrast ? theme.colorScheme.onSurface : null,
   );
 }
@@ -307,7 +307,7 @@ class _EditableDialState extends ConsumerState<_EditableDial> {
                 onPanEnd: (_) => _isDragging = false,
                 child: _DialCanvas(
                   frame: _frame,
-                  style: _styleFor(context, widget.config.scale),
+                  style: _styleFor(context, widget.config.scale.span),
                   visual: widget.config.visual,
                 ),
               ),
@@ -369,16 +369,17 @@ class _CountdownDialState extends ConsumerState<_CountdownDial>
 
   DialFrame _frameAt(Duration remaining) {
     final config = widget.session.config;
+    final total = config.duration.value;
     return DialFrame(
-      sweepAngle: _geometry.sweepAngleOf(remaining),
+      sweepAngle: _geometry.filledSweepAngleOf(remaining, total: total),
       sectorColor: _sectorColor(
         config,
-        remaining.inMicroseconds / config.duration.value.inMicroseconds,
+        remaining.inMicroseconds / total.inMicroseconds,
       ),
     );
   }
 
-  /// Every frame the sector moves smoothly; with reduce motion it moves once
+  /// Every frame the sector grows smoothly; with reduce motion it moves once
   /// per second. The semantics value follows each whole second.
   void _tick() {
     final remaining = _remaining;
@@ -404,7 +405,7 @@ class _CountdownDialState extends ConsumerState<_CountdownDial>
           children: [
             _DialCanvas(
               frame: _frame,
-              style: _styleFor(context, widget.session.config.scale),
+              style: _styleFor(context, widget.session.config.duration.value),
               visual: widget.session.config.visual,
             ),
             if (isPaused) const _PausedBadge(),

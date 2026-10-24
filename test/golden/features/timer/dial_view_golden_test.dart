@@ -16,11 +16,12 @@ import 'package:visual_time_counter/features/timer/presentation/widgets/dial_vie
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
 final _now = DateTime.utc(2026, 10, 23, 12);
-const _fullScale = Duration(minutes: 60);
+// Shorter than the default 60 min scale: a full turn is still the duration.
+const _duration = Duration(minutes: 10);
 const _remainingShares = [0.0, 0.25, 0.5, 1.0];
 const _dialSize = 160.0;
 
-/// A running 60 min timer on the 60 min scale with [share] of it left.
+/// A running 10 min timer on the 60 min scale with [share] of it left.
 TimerSession _sessionWith({
   required double share,
   required PaletteId palette,
@@ -28,13 +29,13 @@ TimerSession _sessionWith({
 }) => TimerSession(
   id: 'golden',
   config: TimerConfig(
-    duration: TimerDuration(_fullScale),
+    duration: TimerDuration(_duration),
     direction: direction,
     visual: PaletteSource(paletteId: palette),
   ),
   status: SessionStatus.running,
   startedAt: _now,
-  endsAt: _now.add(_fullScale * share),
+  endsAt: _now.add(_duration * share),
 );
 
 Widget _dial(TimerSession session, ThemeData theme) => Theme(
@@ -73,7 +74,7 @@ Future<void> main() async {
                     GoldenTestScenario(
                       name:
                           '${palette.name} ${direction.name} '
-                          '${(share * 100).round()}%',
+                          '${(share * 100).round()}% left',
                       child: _dial(
                         _sessionWith(
                           share: share,

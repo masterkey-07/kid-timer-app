@@ -9,11 +9,11 @@ import 'package:visual_time_counter/core/domain/timer_duration.dart';
 /// (FR-001, FR-002).
 ///
 /// Angles follow the canvas convention: radians, y down, positive is
-/// clockwise. The sector always starts at 12 o'clock; a clockwise dial opens
-/// it counter-clockwise so that, as time passes, its free edge moves
-/// clockwise back to 12 (like a physical visual timer).
+/// clockwise. Sectors always start at 12 o'clock. While setting up, the
+/// sector covers the duration on the [scale]; while running, the filled
+/// sector grows in [direction] until a full turn at the set duration.
 final class DialGeometry {
-  /// Creates the geometry for a dial of [scale] shrinking in [direction].
+  /// Creates the geometry for a dial of [scale] filling in [direction].
   const new({required this.scale, required this.direction});
 
   /// 12 o'clock.
@@ -30,27 +30,36 @@ final class DialGeometry {
   /// A drag that jumps more than this share of a turn crossed 12 o'clock.
   static const _wrapThreshold = 0.5;
 
-  /// The time span of the full circle.
+  /// The time span of the full circle while setting up.
   final DialScale scale;
 
-  /// The direction in which the sector shrinks.
+  /// The direction in which the running dial fills.
   final DialDirection direction;
 
   /// The longest duration the dial can show.
   Duration get maxDuration =>
       scale.span < TimerDuration.max ? scale.span : TimerDuration.max;
 
-  /// The share of the circle covered by [remaining], in [0, 1].
-  double fractionOf(Duration remaining) => scale.fractionOf(remaining);
+  /// The share of the setup circle covered by [duration], in [0, 1].
+  double fractionOf(Duration duration) => scale.fractionOf(duration);
 
-  /// The signed sweep of the sector for [remaining], from [startAngle].
-  double sweepAngleOf(Duration remaining) =>
-      _openingSign * fractionOf(remaining) * _fullTurn;
+  /// The signed sweep of the setup sector for [duration], from [startAngle].
+  double sweepAngleOf(Duration duration) =>
+      _openingSign * fractionOf(duration) * _fullTurn;
 
-  /// The remaining sector of the dial inscribed in [circle] for a signed
-  /// [sweepAngle] (see [sweepAngleOf]): the whole disc at a full turn, empty
-  /// at zero. An image on the dial is clipped to it (FR-025).
-  static Path remainingSectorPath(Rect circle, double sweepAngle) {
+  /// The signed sweep of the running dial's filled sector, from
+  /// [startAngle]: empty at the start, a full turn when no time remains of
+  /// [total], whatever the [scale] (FR-002).
+  double filledSweepAngleOf(Duration remaining, {required Duration total}) {
+    final elapsedShare = (1 - remaining.inMicroseconds / total.inMicroseconds)
+        .clamp(0.0, 1.0);
+    return -_openingSign * elapsedShare * _fullTurn;
+  }
+
+  /// The sector of the dial inscribed in [circle] for a signed [sweepAngle]
+  /// (see [sweepAngleOf] and [filledSweepAngleOf]): the whole disc at a full
+  /// turn, empty at zero. An image on the dial is clipped to it (FR-025).
+  static Path sectorPath(Rect circle, double sweepAngle) {
     if (sweepAngle == 0) return Path();
     if (sweepAngle.abs() >= _fullTurn) return Path()..addOval(circle);
     return Path()
@@ -93,7 +102,8 @@ final class DialGeometry {
     return turns - turns.floorToDouble();
   }
 
-  /// −1 when the sector opens counter-clockwise, +1 when it opens clockwise.
+  /// −1 when the setup sector opens counter-clockwise, +1 when it opens
+  /// clockwise; the running dial fills the other way.
   int get _openingSign => switch (direction) {
     DialDirection.clockwise => -1,
     DialDirection.counterClockwise => 1,

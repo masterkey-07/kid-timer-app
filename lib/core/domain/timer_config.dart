@@ -25,7 +25,7 @@ final class TimerConfig {
     double tickVolume = _defaultTickVolume,
     bool vibrate = true,
     bool showDigits = true,
-    ImageEffect imageEffect = ImageEffect.vanish,
+    ImageEffect imageEffect = ImageEffect.reveal,
     WarningOffsets warnings = WarningOffsets.none,
   }) {
     _checkVolume(alarmVolume, 'alarmVolume');
@@ -90,7 +90,7 @@ final class TimerConfig {
     tickVolume: _defaultTickVolume,
     vibrate: true,
     showDigits: true,
-    imageEffect: ImageEffect.vanish,
+    imageEffect: ImageEffect.reveal,
     warnings: WarningOffsets.none,
   );
 

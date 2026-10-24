@@ -29,11 +29,11 @@ abstract final class DialPalettes {
     ColorToken.gray: Color(0xFF9AA0A6),
   };
 
-  static const _elapsedGray = Color(0xFF9AA0A6);
-  static const _elapsedLightAlpha = 0.18;
-  static const _elapsedDarkAlpha = 0.28;
-  static const _elapsedHighContrastLight = Color(0xFFE3E5E8);
-  static const _elapsedHighContrastDark = Color(0xFF2A2D33);
+  static const _emptyGray = Color(0xFF9AA0A6);
+  static const _emptyLightAlpha = 0.18;
+  static const _emptyDarkAlpha = 0.28;
+  static const _emptyHighContrastLight = Color(0xFFE3E5E8);
+  static const _emptyHighContrastDark = Color(0xFF2A2D33);
 
   /// The remaining-sector color of [palette] at [remainingFraction];
   /// [singleColor] is required for [PaletteId.single].
@@ -54,15 +54,15 @@ abstract final class DialPalettes {
   /// The color of a single-palette [token].
   static Color tokenColor(ColorToken token) => _tokens[token]!;
 
-  /// The elapsed-sector color; opaque when the system asks for more
+  /// The color of the dial's empty part; opaque when the system asks for more
   /// contrast (also covering "reduce transparency").
-  static Color elapsed(Brightness brightness, {required bool highContrast}) {
+  static Color empty(Brightness brightness, {required bool highContrast}) {
     final isLight = brightness == Brightness.light;
     if (highContrast) {
-      return isLight ? _elapsedHighContrastLight : _elapsedHighContrastDark;
+      return isLight ? _emptyHighContrastLight : _emptyHighContrastDark;
     }
-    return _elapsedGray.withValues(
-      alpha: isLight ? _elapsedLightAlpha : _elapsedDarkAlpha,
+    return _emptyGray.withValues(
+      alpha: isLight ? _emptyLightAlpha : _emptyDarkAlpha,
     );
   }
 }

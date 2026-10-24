@@ -14,7 +14,7 @@
     "tickVolume": 0.3,
     "vibrate": true,
     "showDigits": true,
-    "imageEffect": "vanish",
+    "imageEffect": "reveal",
     "warningsMin": []
   },
   "lastConfig": {
@@ -28,7 +28,7 @@
     "tickVolume": 0.2,
     "vibrate": false,
     "showDigits": false,
-    "imageEffect": "vanish",
+    "imageEffect": "reveal",
     "warningsMin": []
   },
   "onboarding": {
