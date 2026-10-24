@@ -37,8 +37,20 @@ Category, F-Droid). Collecting nothing removes legal and ethical risk and is ver
   more than 3 flashes per second (WCAG 2.3.1). A calm mode (no red) MUST exist.
 - Every bundled asset (images, sounds, icons) MUST be appropriate for children aged 3 to 12 and
   reviewed by a human before merge.
+- For the extended emoji library (the complete Microsoft Fluent Emoji set, bundled offline), the
+  human review MAY be done per group instead of per asset, provided that:
+  - a committed, versioned denylist removes, before any review, everything showing weapons,
+    violence or injury, alcohol, smoking, drugs or medical needles, gambling, religious symbols,
+    political or national symbols and flags, scary or horror figures, bodily functions, and
+    sexual or romantic innuendo;
+  - the reviewer sees every remaining image of the group on a contact sheet;
+  - the verdict per group (reviewer, date, image count, contact sheet) is recorded in
+    `docs/assets-review.md`, and every image the reviewer rejects is added to the denylist.
+- Images showing people MUST offer the five skin-tone variants wherever the source provides them.
 
 Rationale: the product exists to reduce anxiety around transitions, not to capture attention.
+Reviewing about 1,300 emoji one by one is impractical; the denylist and full contact sheets keep
+a human eye on every image that ships.
 
 ### III. Time Reliability (NON-NEGOTIABLE)
 
@@ -189,4 +201,4 @@ Rationale: freedom to use and distribute through every store, including F-Droid.
   violations are only accepted when justified in "Complexity Tracking".
 - PR reviews MUST verify compliance. Runtime guidance for agents lives in `CLAUDE.md`.
 
-**Version**: 1.1.0 | **Ratified**: 2026-10-23 | **Last Amended**: 2026-10-23
+**Version**: 1.2.0 | **Ratified**: 2026-10-23 | **Last Amended**: 2026-10-24
