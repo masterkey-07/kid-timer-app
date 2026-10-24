@@ -48,7 +48,7 @@ implementation (specification PR review).
 
 ## Dependencies & Assumptions
 
-- [x] CHK023 Does the assumption that the image library covers the 6 categories with images recognizable by young children have a validation criterion (e.g., a test with children/therapists)? [Assumption, Spec §FR-020]
+- [x] CHK023 Does the assumption that the image library covers the 7 categories (6 activities plus animals) with images recognizable by young children have a validation criterion (e.g., a test with children/therapists)? [Assumption, Spec §FR-020]
 
 ## Notes
 

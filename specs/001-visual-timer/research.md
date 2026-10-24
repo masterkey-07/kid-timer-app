@@ -151,8 +151,8 @@ them.
 - **Recognition validation**: before v1.0, each library image is shown alone at 96 dp to at
   least 3 children aged 3–6 (with consent from their guardians, no data recorded beyond the
   tally) or, if unavailable, to at least 2 teachers/therapists who judge it for that age; an
-  image passes if ≥ 2/3 of the children name the activity (or all professionals agree). Failing
-  images are replaced. Results go to `docs/assets-review.md` (T094, T164).
+  image passes if ≥ 2/3 of the children name the activity, or the animal for the animals
+  category (or all professionals agree). Failing images are replaced. Results go to `docs/assets-review.md` (T094, T164).
 - **Alternatives considered**: ARASAAC (CC BY-NC-SA, forbidden), OpenMoji (CC BY-SA,
   forbidden), Twemoji (CC BY 4.0, flatter and less expressive style; kept as fallback), Noto
   Emoji (Apache-2.0, fallback), original illustrations (cost; future contributions welcome).

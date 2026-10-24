@@ -143,9 +143,9 @@ the final screen.
 
 ### User Story 3 - Image on the dial: built-in library and own image (Priority: P1) — v1.0
 
-The adult chooses an image for the timer from the app's built-in library (organized by activity)
-or a photo from the device. The image fills the dial and "disappears" as time passes. Without an
-image, the dial uses colors.
+The adult chooses an image for the timer from the app's built-in library (organized by activity,
+plus animals) or a photo from the device. The image fills the dial and "disappears" as time
+passes. Without an image, the dial uses colors.
 
 **Why this priority**: Mandatory v1.0 requirement; images make the activity concrete for young
 children and non-readers.
@@ -227,7 +227,8 @@ reopen it and start the preset with one tap.
 3. **Given** the list, **When** the adult edits, duplicates, reorders or deletes a preset,
    **Then** the change persists after closing and reopening the app.
 4. **Given** the first use of the app, **When** the preset list opens, **Then** there are 6
-   example presets (one per library category), which can be deleted.
+   example presets (one per activity category of the library; none for animals), which can be
+   deleted.
 5. **Given** an empty name or one longer than 40 characters, **When** the adult tries to save,
    **Then** the app explains the rule and does not save.
 6. **Given** 100 saved presets, **When** the adult tries to create another, **Then** the app
@@ -575,7 +576,8 @@ dial phases are distinguishable in a color blindness simulator.
 - **FR-040**: The adult MUST be able to create, edit, duplicate, reorder and delete presets with
   a name (1 to 40 characters), duration, image or color, sound and scale.
 - **FR-041**: Starting a preset MUST take at most two taps from the home screen.
-- **FR-042**: The app MUST include 6 example presets on first use; limit of 100 presets.
+- **FR-042**: The app MUST include 6 example presets on first use, one per activity category of
+  the library (not animals); limit of 100 presets.
 
 **Appearance and sound (US6)**
 

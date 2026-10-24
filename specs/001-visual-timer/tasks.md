@@ -283,7 +283,7 @@ controls.
 ### Implementation for User Story 5
 
 - [ ] T127 [P] [US5] Implement `Preset` in `lib/features/presets/domain/preset.dart` (depends on T121)
-- [ ] T128 [US5] Implement `PresetRepository` + seeds (6 examples, one per library category, with names localized at seeding time) in `lib/features/presets/data/preset_repository.dart` and `preset_seeds.dart` (depends on T122, T127, T094)
+- [ ] T128 [US5] Implement `PresetRepository` + seeds (6 examples, one per activity category of the library — not animals — with names localized at seeding time) in `lib/features/presets/data/preset_repository.dart` and `preset_seeds.dart` (depends on T122, T127, T094)
 - [ ] T129 [US5] Implement `PresetsController` in `lib/features/presets/application/presets_controller.dart`
 - [ ] T130 [US5] Implement `PresetsScreen` and `PresetEditorScreen` in `lib/features/presets/presentation/` with the keys from contracts/ui/05 (depends on T129)
 - [ ] T131 [US5] Wire the preset strip into `HomeScreen` (`home.presetStrip`, `home.preset.<id>`, `home.savePreset`) and the `preset(id)` origin in the session in `lib/features/timer/presentation/home_screen.dart` and `lib/features/timer/application/timer_controller.dart`
@@ -531,7 +531,7 @@ corresponding tests per level are in [testing-strategy.md](./testing-strategy.md
 | FR-016      | T040, T076, T083, T084, T088                   |
 | FR-017      | T043                                           |
 | FR-018      | T046, T090                                     |
-| FR-020      | T092, T093, T094, T095, T103                   |
+| FR-020      | T092, T093, T094, T095, T103, T111a            |
 | FR-021      | T101, T106, T110                               |
 | FR-022      | T096, T099, T108                               |
 | FR-023      | T096, T104                                     |
