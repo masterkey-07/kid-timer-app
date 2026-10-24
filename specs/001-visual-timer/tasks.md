@@ -153,9 +153,9 @@ screen that stays until a tap.
 - [x] T068 [P] [US1] Implement `DialPainter` (`CustomPainter`: remaining arc with interpolated color, neutral elapsed sector, minute markers in a cached `Picture`, direction) in `lib/features/timer/presentation/widgets/dial_painter.dart`
 - [x] T069 [US1] Implement `DialView` (editable mode with gestures/keyboard/slider semantics and countdown mode with `Ticker` + `RepaintBoundary`; 1 repaint/s with reduce motion) in `lib/features/timer/presentation/widgets/dial_view.dart` (depends on T066, T068)
 - [x] T070 [P] [US1] Implement `DigitsLabel` and `DurationQuickButtons` in `lib/features/timer/presentation/widgets/digits_label.dart` and `duration_quick_buttons.dart`
-- [ ] T071 [US1] Implement `HomeScreen` (compact/medium/expanded layouts, keys from contracts/ui/01, first-use hint) in `lib/features/timer/presentation/home_screen.dart` (depends on T067, T069, T070)
-- [ ] T072 [US1] Implement `RunScreen` without child mode (controls always visible; lifecycle → `reconcile`; end with the app open) in `lib/features/timer/presentation/run_screen.dart` (depends on T067, T069)
-- [ ] T073 [US1] Implement `FinishedScreen` (celebration with spin/particles and an opacity variant with reduce motion; sound repeated every 30 s up to 3×; 10 min wakelock) in `lib/features/timer/presentation/finished_screen.dart`
+- [x] T071 [US1] Implement `HomeScreen` (compact/medium/expanded layouts, keys from contracts/ui/01, first-use hint) in `lib/features/timer/presentation/home_screen.dart` (depends on T067, T069, T070)
+- [x] T072 [US1] Implement `RunScreen` without child mode (controls always visible; lifecycle → `reconcile`; end with the app open) in `lib/features/timer/presentation/run_screen.dart` (depends on T067, T069)
+- [x] T073 [US1] Implement `FinishedScreen` (celebration with spin/particles and an opacity variant with reduce motion; sound repeated every 30 s up to 3×; 10 min wakelock) in `lib/features/timer/presentation/finished_screen.dart`
 - [x] T074 [US1] Add US1 strings (`home*`, `run*`, `finished*`) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
 - [ ] T075 [US1] Add the default sound `chime_soft.wav` (CC0) to `assets/sounds/`, the manifest `assets/sounds/manifest.json` and `assets/sounds/LICENSES.md`
 

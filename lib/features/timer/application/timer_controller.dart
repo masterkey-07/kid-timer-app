@@ -159,6 +159,13 @@ class TimerController extends Notifier<TimerSession?> {
     await _ring(reconciled.config);
   }
 
+  /// Removes the session's notifications from the tray (contracts/ui/03:
+  /// on entering the final screen).
+  Future<void> dismissNotifications() async {
+    final session = state;
+    if (session != null) await _cancelAlarms(session);
+  }
+
   /// Acknowledges the final screen: silences the alarm and clears the
   /// session.
   Future<void> acknowledge() async {

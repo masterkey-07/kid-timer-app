@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
 import 'package:visual_time_counter/features/timer/application/active_session.dart';
+import 'package:visual_time_counter/features/timer/presentation/finished_screen.dart';
+import 'package:visual_time_counter/features/timer/presentation/home_screen.dart';
+import 'package:visual_time_counter/features/timer/presentation/run_screen.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
 /// Route paths (contracts/ui/00 §1); the other routes arrive with their
@@ -42,16 +45,16 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.home,
         builder: (context, state) => _DeepLinkNotice(
           notice: state.uri.queryParameters[_noticeParameter],
-          child: const _PendingScreen(name: 'home'),
+          child: const HomeScreen(),
         ),
       ),
       GoRoute(
         path: AppRoutes.run,
-        builder: (context, state) => const _PendingScreen(name: 'run'),
+        builder: (context, state) => const RunScreen(),
       ),
       GoRoute(
         path: AppRoutes.finished,
-        builder: (context, state) => const _PendingScreen(name: 'finished'),
+        builder: (context, state) => const FinishedScreen(),
       ),
     ],
   );
@@ -161,16 +164,4 @@ class _DeepLinkNoticeState extends State<_DeepLinkNotice> {
 
   @override
   Widget build(BuildContext context) => widget.child;
-}
-
-/// An empty screen standing in for a route whose story is not built yet;
-/// its key is `<name>.screen`.
-class _PendingScreen extends StatelessWidget {
-  const new({required this.name});
-
-  final String name;
-
-  @override
-  Widget build(BuildContext context) =>
-      Scaffold(key: Key('$name.screen'), body: const SizedBox.expand());
 }

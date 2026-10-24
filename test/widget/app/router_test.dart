@@ -34,6 +34,12 @@ void main() {
   setUp(() async => dependencies = await TestAppDependencies.create());
   tearDown(() => dependencies.dispose());
 
+  /// The countdown dial repaints every frame, so pumpAndSettle never ends.
+  Future<void> settle(WidgetTester tester) async {
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+  }
+
   Future<void> pumpApp(WidgetTester tester, {TimerSession? session}) async {
     await tester.pumpWidget(
       ProviderScope(
@@ -44,7 +50,7 @@ void main() {
         child: const KidTimerApp(),
       ),
     );
-    await tester.pumpAndSettle();
+    await settle(tester);
   }
 
   Future<void> openDeepLink(WidgetTester tester, String link) async {
@@ -55,7 +61,7 @@ void main() {
       ),
       (_) {},
     );
-    await tester.pumpAndSettle();
+    await settle(tester);
   }
 
   group('guards on opening the app', () {

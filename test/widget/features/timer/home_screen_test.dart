@@ -203,6 +203,7 @@ void main() {
         decreasedValue: '4 minutes',
         hasIncreaseAction: true,
         hasDecreaseAction: true,
+        hasFocusAction: true,
       ),
     );
 
