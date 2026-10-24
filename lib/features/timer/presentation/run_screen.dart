@@ -11,7 +11,9 @@ import 'package:visual_time_counter/core/clock/clock_provider.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
+import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/timer/application/timer_controller.dart';
+import 'package:visual_time_counter/features/timer/presentation/widgets/background_alarm_banner.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/dial_view.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/digits_label.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
@@ -96,9 +98,16 @@ class _RunScreenState extends ConsumerState<RunScreen> {
       key: const Key('run.dial'),
       session: session,
     );
+    final childLockEnabled = ref.watch(
+      appSettingsProvider.select((settings) => settings.childLockEnabled),
+    );
     final details = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        // Never in child mode (contracts/ui/08 §8.2); the child lock (US4)
+        // shows it on the unlocked controls.
+        if (!childLockEnabled)
+          const BackgroundAlarmBanner(padding: EdgeInsets.only(bottom: 12)),
         if (session.config.showDigits)
           CountdownDigits(key: const Key('run.digits'), session: session),
         _RunControls(

@@ -183,11 +183,11 @@ honest notices where unsupported.
 
 ### Implementation for User Story 2
 
-- [ ] T084 [US2] Implement `StartPreflight` in `lib/features/timer/application/start_preflight.dart` and wire it into `home.start` (depends on T076)
+- [x] T084 [US2] Implement `StartPreflight` in `lib/features/timer/application/start_preflight.dart` and wire it into `home.start` (depends on T076)
 - [ ] T085 [US2] Implement `RunController` (wakelock, fullscreen, ticking, lifecycle) in `lib/features/timer/application/run_controller.dart` (depends on T078)
 - [ ] T086 [US2] Wire `reconcile` into bootstrap and `AppLifecyclePort.resumed`; handle `launchPayload`/`notificationTaps` → route in `lib/bootstrap.dart`, `lib/app/router.dart` and `lib/features/timer/application/timer_controller.dart` (depends on T077)
 - [ ] T087 [US2] Enforce the "persist + flush → schedule" order and stable ids (`hash(sessionId) & 0x7fffffff`) in `lib/features/timer/application/timer_controller.dart`
-- [ ] T088 [P] [US2] Implement the notice dialogs in `lib/features/timer/presentation/widgets/preflight_dialogs.dart` (keys from contracts/ui/08)
+- [x] T088 [P] [US2] Implement the notice dialogs in `lib/features/timer/presentation/widgets/preflight_dialogs.dart` (keys from contracts/ui/08)
 - [ ] T089 [P] [US2] Copy sounds for notifications: `android/app/src/main/res/raw/*.wav` and iOS/macOS bundle resources (`ios/Runner/Sounds/`, `macos/Runner/Sounds/`), with the script `tool/sounds/sync_notification_sounds.dart`
 - [ ] T090 [US2] Implement `BatteryHelpScreen` (`/settings/battery`, anchors `#alarms`, `#battery`, `#pinning`, `#web`; Android buttons via `SystemSettingsPort`) in `lib/features/settings/presentation/battery_help_screen.dart` with a test in `test/widget/features/settings/battery_help_screen_test.dart`
 - [x] T091 [US2] Add US2 strings (`notice*`, `batteryHelp*`, notification titles/bodies) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`

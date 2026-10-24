@@ -20,6 +20,28 @@ abstract final class AppRoutes {
 
   /// The final screen.
   static const finished = '/finished';
+
+  /// Help: battery, alarms and screen pinning.
+  static const batteryHelp = '/settings/battery';
+
+  /// [batteryHelp] scrolled to [section].
+  static String batteryHelpAt(BatteryHelpSection section) =>
+      '$batteryHelp#${section.name}';
+}
+
+/// The anchors of the battery help page (contracts/ui/06 §6.2).
+enum BatteryHelpSection {
+  /// Exact alarms and notifications.
+  alarms,
+
+  /// Battery optimization per vendor.
+  battery,
+
+  /// Screen pinning and Guided Access.
+  pinning,
+
+  /// Why Web and Linux need the window open.
+  web,
 }
 
 /// Whether a preset with the given id exists; bootstrap provides it from

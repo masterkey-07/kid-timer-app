@@ -8,11 +8,14 @@ import 'package:visual_time_counter/app/widgets/confirm_dialog.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/timer/application/setup_config_controller.dart';
+import 'package:visual_time_counter/features/timer/application/start_preflight.dart';
 import 'package:visual_time_counter/features/timer/application/timer_controller.dart';
 import 'package:visual_time_counter/features/timer/presentation/spoken_duration.dart';
+import 'package:visual_time_counter/features/timer/presentation/widgets/background_alarm_banner.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/dial_view.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/digits_label.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/duration_quick_buttons.dart';
+import 'package:visual_time_counter/features/timer/presentation/widgets/preflight_dialogs.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
 /// Home: the adult sets up the timer and starts it (contracts/ui/01).
@@ -63,7 +66,13 @@ class HomeScreen extends ConsumerWidget {
   Widget _layout(Size size, {required Widget dial, required Widget controls}) {
     final layout = ScreenLayout.of(size);
     final margin = layout.margin;
-    const hint = _DialHint();
+    const notices = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        BackgroundAlarmBanner(padding: EdgeInsets.only(bottom: 16)),
+        _DialHint(),
+      ],
+    );
 
     if (layout.isSideBySide) {
       final panelWidth = layout.sidePanelWidth(size);
@@ -82,7 +91,7 @@ class HomeScreen extends ConsumerWidget {
             width: panelWidth,
             child: SingleChildScrollView(
               padding: EdgeInsets.all(margin),
-              child: Column(children: [hint, controls]),
+              child: Column(children: [notices, controls]),
             ),
           ),
           SizedBox(width: margin),
@@ -94,7 +103,7 @@ class HomeScreen extends ConsumerWidget {
       padding: EdgeInsets.all(margin),
       child: Column(
         children: [
-          hint,
+          notices,
           SizedBox.square(
             dimension: size.shortestSide * _dialShare,
             child: dial,
@@ -110,6 +119,8 @@ class HomeScreen extends ConsumerWidget {
     final controller = ref.read(timerControllerProvider.notifier);
     final config = ref.read(setupConfigProvider);
 
+    await ref.read(startPreflightProvider).run(DialogPreflightPrompts(context));
+    if (!context.mounted) return;
     var result = await controller.start(config);
     if (result == TimerActionResult.needsConfirmation) {
       if (!context.mounted) return;
