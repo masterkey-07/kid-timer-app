@@ -135,7 +135,10 @@ sits on a scrim of the theme surface color at 0.7 opacity, guaranteeing ≥ 4.5:
 
 ## 6. Widget keys for tests
 
-Every testable action gets a `Key('<screen>.<element>')`, e.g. `Key('home.start')`. The keys
+Every testable action gets a `Key('<screen>.<element>')`, e.g. `Key('home.start')`. Each routed
+screen's `Scaffold` has `Key('<screen>.screen')` (e.g. `home.screen`, `run.screen`,
+`finished.screen`), used by the route and guard tests; the deep link snackbar is
+`deepLink.presetNotFound`. The keys
 listed in each contract are the public API of the widget, integration and E2E tests; renaming a
 key requires updating the tests in the same PR.
 

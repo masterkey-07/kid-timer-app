@@ -121,6 +121,12 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Cancelar'**
   String get commonCancel;
+
+  /// Snackbar when a vtc://preset/<id>/start link names a preset that no longer exists.
+  ///
+  /// In pt, this message translates to:
+  /// **'Predefinição não encontrada'**
+  String get deepLinkPresetNotFound;
 }
 
 class _AppLocalizationsDelegate

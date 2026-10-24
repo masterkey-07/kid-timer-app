@@ -1,0 +1,176 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:visual_time_counter/core/timer_engine/session_status.dart';
+import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
+import 'package:visual_time_counter/features/timer/application/active_session.dart';
+import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
+
+/// Route paths (contracts/ui/00 §1); the other routes arrive with their
+/// stories.
+abstract final class AppRoutes {
+  /// Home: set up a timer.
+  static const home = '/';
+
+  /// The countdown.
+  static const run = '/run';
+
+  /// The final screen.
+  static const finished = '/finished';
+}
+
+/// Whether a preset with the given id exists; bootstrap provides it from
+/// the presets box.
+final presetExistsProvider = Provider<bool Function(String presetId)>(
+  (ref) => throw StateError(
+    'presetExistsProvider must be overridden in bootstrap or in tests',
+  ),
+);
+
+/// The app router.
+final routerProvider = Provider<GoRouter>((ref) {
+  final router = GoRouter(
+    initialLocation: initialLocationFor(ref.read(activeSessionProvider)),
+    redirect: (context, state) => redirectFor(
+      state.uri,
+      session: ref.read(activeSessionProvider),
+      presetExists: ref.read(presetExistsProvider),
+    ),
+    onException: (context, state, router) => router.go(AppRoutes.home),
+    routes: [
+      GoRoute(
+        path: AppRoutes.home,
+        builder: (context, state) => _DeepLinkNotice(
+          notice: state.uri.queryParameters[_noticeParameter],
+          child: const _PendingScreen(name: 'home'),
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.run,
+        builder: (context, state) => const _PendingScreen(name: 'run'),
+      ),
+      GoRoute(
+        path: AppRoutes.finished,
+        builder: (context, state) => const _PendingScreen(name: 'finished'),
+      ),
+    ],
+  );
+  ref.onDispose(router.dispose);
+  return router;
+});
+
+const _deepLinkScheme = 'vtc';
+const _noticeParameter = 'notice';
+const _presetNotFoundNotice = 'presetNotFound';
+const _startPresetParameter = 'startPreset';
+
+/// Where the app opens for the restored [session] (contracts/ui/00 §1
+/// guards).
+String initialLocationFor(TimerSession? session) {
+  if (_isActive(session)) return AppRoutes.run;
+  if (_awaitsAcknowledgement(session)) return AppRoutes.finished;
+  return AppRoutes.home;
+}
+
+/// The redirect for [uri]: maps `vtc://` deep links and keeps `/run` and
+/// `/finished` consistent with [session]. Returns null to stay on [uri].
+String? redirectFor(
+  Uri uri, {
+  required TimerSession? session,
+  required bool Function(String presetId) presetExists,
+}) {
+  if (uri.scheme == _deepLinkScheme) {
+    return _deepLinkLocation(uri, session: session, presetExists: presetExists);
+  }
+  if (uri.path == AppRoutes.run && !_isActive(session)) return AppRoutes.home;
+  if (uri.path == AppRoutes.finished && !_awaitsAcknowledgement(session)) {
+    return AppRoutes.home;
+  }
+  return null;
+}
+
+/// `vtc://run` opens the countdown (or the final screen once time is up);
+/// `vtc://preset/<id>/start` asks home to start the preset (US5) or shows
+/// "Preset not found".
+String _deepLinkLocation(
+  Uri uri, {
+  required TimerSession? session,
+  required bool Function(String presetId) presetExists,
+}) {
+  final segments = uri.pathSegments;
+  switch (uri.host) {
+    case 'run':
+      return initialLocationFor(session);
+    case 'preset' when segments.length == 2 && segments[1] == 'start':
+      final presetId = segments.first;
+      return presetExists(presetId)
+          ? '${AppRoutes.home}?$_startPresetParameter=$presetId'
+          : '${AppRoutes.home}?$_noticeParameter=$_presetNotFoundNotice';
+    default:
+      return AppRoutes.home;
+  }
+}
+
+bool _isActive(TimerSession? session) => session?.status.isActive ?? false;
+
+bool _awaitsAcknowledgement(TimerSession? session) =>
+    session != null &&
+    session.status == SessionStatus.finished &&
+    !session.finishedAcknowledged;
+
+/// Shows a snackbar for a deep link that could not be followed.
+class _DeepLinkNotice extends StatefulWidget {
+  const new({required this.notice, required this.child});
+
+  final String? notice;
+  final Widget child;
+
+  @override
+  State<_DeepLinkNotice> createState() => _DeepLinkNoticeState();
+}
+
+class _DeepLinkNoticeState extends State<_DeepLinkNotice> {
+  @override
+  void initState() {
+    super.initState();
+    _scheduleNotice();
+  }
+
+  /// Home keeps its state when only the query changes (`/` → `/?notice=…`).
+  @override
+  void didUpdateWidget(_DeepLinkNotice oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.notice != oldWidget.notice) _scheduleNotice();
+  }
+
+  void _scheduleNotice() {
+    if (widget.notice == _presetNotFoundNotice) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _showNotice());
+    }
+  }
+
+  void _showNotice() {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        key: const Key('deepLink.presetNotFound'),
+        content: Text(AppLocalizations.of(context).deepLinkPresetNotFound),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
+}
+
+/// An empty screen standing in for a route whose story is not built yet;
+/// its key is `<name>.screen`.
+class _PendingScreen extends StatelessWidget {
+  const new({required this.name});
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context) =>
+      Scaffold(key: Key('$name.screen'), body: const SizedBox.expand());
+}

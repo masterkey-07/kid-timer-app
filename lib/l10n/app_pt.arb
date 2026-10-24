@@ -15,5 +15,9 @@
   "commonCancel": "Cancelar",
   "@commonCancel": {
     "description": "Cancel button of confirmation dialogs."
+  },
+  "deepLinkPresetNotFound": "Predefinição não encontrada",
+  "@deepLinkPresetNotFound": {
+    "description": "Snackbar when a vtc://preset/<id>/start link names a preset that no longer exists."
   }
 }

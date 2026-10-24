@@ -3,5 +3,6 @@
   "appTitle": "Kid Timer",
   "noticeLearnMore": "Learn more",
   "noticeWarningLabel": "Warning",
-  "commonCancel": "Cancel"
+  "commonCancel": "Cancel",
+  "deepLinkPresetNotFound": "Preset not found"
 }

@@ -20,4 +20,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get commonCancel => 'Cancelar';
+
+  @override
+  String get deepLinkPresetNotFound => 'Predefinição não encontrada';
 }
