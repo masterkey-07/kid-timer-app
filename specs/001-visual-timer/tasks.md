@@ -225,7 +225,7 @@ images", image on the dial with a fallback to colors.
 - [x] T102 [P] [US3] Implement `ImageAsset`, `ImageCategory`, `FrameSpec` in `lib/features/images/domain/`
 - [x] T103 [P] [US3] Implement `BankManifestLoader` in `lib/features/images/data/bank_manifest_loader.dart` (reads the manifest, label per language) (depends on T095)
 - [x] T104 [US3] Implement `ImageProcessorImpl` (`image` package, `compute`) in `lib/features/images/data/image_processor_impl.dart` (depends on T096)
-- [ ] T105 [US3] Implement `UserImageRepository` in `lib/features/images/data/user_image_repository.dart` and orphan cleanup in `bootstrap()` (depends on T097)
+- [x] T105 [US3] Implement `UserImageRepository` in `lib/features/images/data/user_image_repository.dart` and orphan cleanup in `bootstrap()` (depends on T097)
 - [ ] T106 [P] [US3] Implement the real `ImagePickerPort` in `lib/core/platform/image_picker/image_picker_port_impl.dart` (`image_picker` + `file_selector` on desktop)
 - [ ] T107 [US3] Implement an `ImageCache` of `ui.Image`s decoded at the dial's size in `lib/features/images/application/decoded_image_cache.dart` and extend `DialPainter` for `BankImageSource`/`UserImageSource` with a fallback to color on failure (depends on T098)
 - [ ] T108 [US3] Implement `ImagePickerScreen` (`/images`), `FrameScreen` (`/images/frame`), `MyImagesScreen` (`/images/mine`) and `ImageThumb` in `lib/features/images/presentation/` with the keys from contracts/ui/04 (depends on T103–T107)

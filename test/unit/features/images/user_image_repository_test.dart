@@ -30,6 +30,11 @@ const _storageFull = FileSystemException('No space left on device');
 void main() {
   useTemporaryHive();
 
+  setUpAll(() {
+    registerFallbackValue(Uint8List(0));
+    registerFallbackValue(<dynamic, dynamic>{});
+  });
+
   late Box<Map<dynamic, dynamic>> meta;
   late LazyBox<Uint8List> bytes;
   late Box<Map<dynamic, dynamic>> presets;
@@ -98,7 +103,8 @@ void main() {
 
     test('leaves nothing behind when the bytes cannot be written', () async {
       final failingBytes = _MockBytesBox();
-      when(() => failingBytes.put(any(), any())).thenThrow(_storageFull);
+      when(() => failingBytes.put(any<Object?>(), any()))
+          .thenThrow(_storageFull);
 
       await expectLater(
         repository(bytesBox: failingBytes).add(_jpeg),
@@ -112,7 +118,8 @@ void main() {
       () async {
         final failingMeta = _MockMetaBox();
         when(() => failingMeta.length).thenReturn(0);
-        when(() => failingMeta.put(any(), any())).thenThrow(_storageFull);
+        when(() => failingMeta.put(any<Object?>(), any()))
+            .thenThrow(_storageFull);
 
         await expectLater(
           repository(metaBox: failingMeta).add(_jpeg),
@@ -265,7 +272,6 @@ void main() {
     });
 
     test('drops unreadable metadata documents', () async {
-      final images = repository();
       await bytes.put('broken', _jpeg.jpegBytes);
       await meta.put('broken', {'schemaVersion': 1, 'id': 'broken'});
 

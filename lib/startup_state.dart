@@ -7,6 +7,7 @@ import 'package:visual_time_counter/core/clock/clock_provider.dart';
 import 'package:visual_time_counter/core/persistence/hive_bootstrap.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_engine.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
+import 'package:visual_time_counter/features/images/data/user_image_repository.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/settings/data/settings_repository.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
@@ -55,7 +56,7 @@ final class StartupState {
 
 /// Loads the session and settings from [boxes], reconciling a session whose
 /// end passed while the app was closed (plan: Boot → load → reconcile →
-/// route guard).
+/// route guard), and removes own images a crash left half written.
 Future<StartupState> loadStartupState({
   required PersistenceBoxes boxes,
   required Clock clock,
@@ -72,6 +73,10 @@ Future<StartupState> loadStartupState({
     issues,
   );
   final settings = _restoreSettings(settingsRepository, issues);
+  await UserImageRepository.removeOrphans(
+    meta: boxes.userImagesMeta,
+    bytes: boxes.userImages,
+  );
 
   return StartupState(
     session: session,
@@ -84,6 +89,13 @@ Future<StartupState> loadStartupState({
       restoredSessionProvider.overrideWithValue(session),
       restoredSettingsProvider.overrideWithValue(settings),
       presetExistsProvider.overrideWithValue(boxes.presets.containsKey),
+      userImageStorageProvider.overrideWithValue(
+        UserImageStorage(
+          meta: boxes.userImagesMeta,
+          bytes: boxes.userImages,
+          presets: boxes.presets,
+        ),
+      ),
       startupIssuesProvider.overrideWithValue(Set.unmodifiable(issues)),
     ],
   );
