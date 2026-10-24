@@ -69,7 +69,7 @@ tooling. **⚠️ No story starts before this phase is done.**
 - [x] T015 [P] Implement `tool/privacy_check.dart` (fails if the merged release manifest `build/app/intermediates/merged_manifests/release/**/AndroidManifest.xml` contains `android.permission.INTERNET` or broad storage permissions; if `pubspec.lock` contains `firebase_*`, `google_mobile_ads`, `*analytics*`, `sentry*`, `*crashlytics*`; if `lib/` imports `package:http`, `package:dio`, `HttpClient` or `WebSocket`; if macOS entitlements allow `network.client`/`network.server`; if iOS/macOS `Info.plist` has `NSAppTransportSecurity` exceptions; if `web/index.html`/`web/manifest.json` reference external URLs or CDNs; if `build/web/` references `gstatic.com` or any other external origin (CanvasKit CDN, research R20); if `windows/runner/` or `linux/` sources call WinHTTP/WinINet/libcurl/libsoup — research R22) with a test in `test/unit/tool/privacy_check_test.dart`
 - [x] T016 [P] Implement `tool/license_check.dart` (every file in `assets/images/**`, `assets/sounds/**`, `assets/fonts/**` listed in the folder's `LICENSES.md`; allowed licenses: CC0-1.0, CC-BY-4.0, MIT, Apache-2.0, OFL-1.1) with a test in `test/unit/tool/license_check_test.dart`
 - [x] T017 [P] Implement `tool/l10n_check.dart` (same set of keys and placeholders in `app_pt.arb` and `app_en.arb`) with a test in `test/unit/tool/l10n_check_test.dart`
-- [x] T018 Create `.github/workflows/ci.yml`: FVM; `dart format --set-exit-if-changed`; `flutter analyze`; `flutter test --coverage` with `TZ=UTC` and `TZ=America/Sao_Paulo`; `tool/check_coverage.dart`; `tool/license_check.dart`; `tool/l10n_check.dart`; release APK build (`--split-per-abi`) + `tool/privacy_check.dart` + fail if any APK > 25 MB (Constitution VIII; raised to 50 MB in v1.3.0); `xvfb-run flutter test integration_test -d linux`; web build with `--no-web-resources-cdn`; desktop build matrix (ubuntu, windows, macos); non-blocking `flutter build web --wasm` job
+- [x] T018 Create `.github/workflows/ci.yml`: FVM; `dart format --set-exit-if-changed`; `flutter analyze`; `flutter test --coverage` with `TZ=UTC` and `TZ=America/Sao_Paulo`; `tool/check_coverage.dart`; `tool/license_check.dart`; `tool/l10n_check.dart`; release APK build (`--split-per-abi`) + `tool/privacy_check.dart` + fail if any APK > 50 MB (Constitution VIII, v1.3.0); `xvfb-run flutter test integration_test -d linux`; web build with `--no-web-resources-cdn`; desktop build matrix (ubuntu, windows, macos); non-blocking `flutter build web --wasm` job
 - [x] T019 [P] Create `.github/workflows/e2e-android.yml` (API 34 x86_64 emulator with `reactivecircus/android-emulator-runner`, `patrol test -t patrol_test/`, Android integration; triggers: `e2e` label, daily schedule on `main`, `workflow_dispatch`)
 - [x] T020 [P] Create `test/helpers/pump_app.dart` (wraps a widget with `ProviderScope` + overrides, `MaterialApp` with pt/en l10n, theme, screen size per class), `test/helpers/hive_test_utils.dart` (Hive in a temporary directory per test) and `test/helpers/a11y_expectations.dart` (shortcut for the 4 guidelines + 200% font)
 - [x] T021 [P] Configure `alchemist` in `test/flutter_test_config.dart` (CI goldens with Ahem; app fonts loaded for platform goldens)
@@ -466,7 +466,7 @@ per-step notifications.
 
 ### Tests for User Story 13 ⚠️
 
-- [ ] T197 [P] [US13] Codec tests in `test/unit/features/transfer/export_codec_test.dart` (format from contracts/export-format.md; validations 1–7; id remapping; " (2)" suffixes; exported images are the stored bytes; an imported JPEG fixture with EXIF/GPS is stored re-encoded without metadata; exceeding any limit rejects the whole file with `LimitExceeded`)
+- [ ] T197 [P] [US13] Codec tests in `test/unit/features/transfer/export_codec_test.dart` (format from contracts/export-format.md; validations 1–7; id remapping; " (2)" suffixes; exported images are the stored bytes; an imported JPEG fixture with EXIF/GPS is stored re-encoded without metadata; presets with `bank:` and `emoji:` library ids, including a tone variant, round-trip unchanged (FR-125); exceeding any limit rejects the whole file with `LimitExceeded`)
 - [ ] T198 [P] [US13] Atomicity tests in `test/unit/features/transfer/import_atomicity_test.dart` (a failure injected midway restores state; replace mode)
 - [ ] T199 [P] [US13] Widget tests in `test/widget/features/transfer/transfer_screen_test.dart`; integration `integration_test/transfer_roundtrip_test.dart`; E2E `patrol_test/e2e_us13_export_android_test.dart`
 
@@ -504,7 +504,7 @@ it.
 
 ### Assets (story prerequisite)
 
-- [ ] T213 [US15] Create the `tool/emoji_library/` pipeline (Node, sharing the rendering of `tool/image_bank/build.mjs` through a common module): read the Fluent metadata and Color SVGs at the R9 commit, Unicode `emoji-test.txt` 16.0 for group/subgroup, CLDR `annotations` and `annotationsDerived` (pt, en) for names and keywords, `groups.json` (pt/en labels and order of groups and subgroups) and `denylist.json`; write `assets/images/emoji/<group>/<slug>[_<tone>].webp` (512×512, quality 80, transparent), `assets/images/emoji/manifest.json`, `assets/images/emoji/LICENSES.md` (Fluent MIT + CLDR Unicode-3.0) and one contact sheet per group in `docs/assets-review/emoji/<group>.png`; deterministic; fails above 25 MB in total (FR-127); skips groups without an approved row in `docs/assets-review.md` unless `--sheets-only`
+- [ ] T213 [US15] Create the `tool/emoji_library/` pipeline (Node, sharing the rendering of `tool/image_bank/build.mjs` through a common module): read the Fluent metadata and Color SVGs at the R9 commit, Unicode `emoji-test.txt` 16.0 for group/subgroup, CLDR `annotations` and `annotationsDerived` (pt, en) for names and keywords, `groups.json` (pt/en labels and order of groups and subgroups) and `denylist.json`; write `assets/images/emoji/<group>/<slug>[_<tone>].webp` (snake_case group keys, R23) (512×512, quality 80, transparent), `assets/images/emoji/manifest.json`, `assets/images/emoji/LICENSES.md` (Fluent MIT + CLDR Unicode-3.0) and one contact sheet per group in `docs/assets-review/emoji/<group>.png`; deterministic; fails above 25 MB in total (FR-127); skips groups without an approved row in `docs/assets-review.md` unless `--sheets-only`
 - [ ] T214 [US15] Write `tool/emoji_library/denylist.json` covering every Constitution II class (weapons, violence or injury, alcohol, smoking, drugs or needles, gambling, religious, political and national symbols and flags, scary figures, bodily functions, innuendo), each entry by group, subgroup or emoji with its class; Node tests in `tool/emoji_library/test/*.test.mjs` (denylist applied before sheets and manifest, CLDR parsing, tone variants, size budget) run in CI with `node --test`
 - [ ] T215 [US15] Generate the contact sheets, record a pending row per group in `docs/assets-review.md` (reviewer, date, image count, sheet), and after the human review add rejected images to the denylist and commit the approved groups' images and manifest
 
@@ -519,11 +519,11 @@ it.
 ### Implementation for User Story 15
 
 - [ ] T221 [P] [US15] Implement `EmojiAsset`, `EmojiGroup`, `EmojiSubgroup` and `SkinTone` in `lib/features/images/domain/emoji_asset.dart`
-- [ ] T222 [US15] Implement `EmojiManifestLoader` in `lib/features/images/data/emoji_manifest_loader.dart` and `EmojiLibrary` (index, sections, accent-insensitive search) in `lib/features/images/application/emoji_library.dart` (depends on T216, T217)
+- [ ] T222 [US15] Implement `EmojiManifestLoader` in `lib/features/images/data/emoji_manifest_loader.dart` and `EmojiLibrary` (index, sections, accent-insensitive search) in `lib/features/images/application/emoji_library.dart`, loading the manifest only when "All emoji" first opens and parsing it in a background isolate (depends on T216, T217)
 - [ ] T223 [US15] Resolve `emoji:` ids in `DecodedImageCache` and `ImageChip` (asset path and name from `EmojiLibrary`), so extended images work wherever library images do (FR-125)
 - [ ] T224 [US15] Implement `EmojiGroupsScreen` (`/images/emoji`), `EmojiGroupScreen` (`/images/emoji/:group`) and the tone sheet in `lib/features/images/presentation/`, the `images.allEmoji` entry in `ImagePickerScreen` and the routes, with the keys of contract 12 (depends on T218, T222)
 - [ ] T225 [US15] Add the US15 strings (`emoji*`, tone names) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
-- [ ] T226 [US15] Add the emoji library to `tool/license_check.dart`'s roots and CI (`node --test`, the 25 MB budget) and to `docs/contributing-assets.md` (how to extend the denylist and review a group)
+- [ ] T226 [US15] Verify that `tool/license_check.dart` (root `assets/images`) and `tool/l10n_check.dart` (asset manifests) cover the emoji library, and add to CI (`node --test`, the 25 MB budget) and to `docs/contributing-assets.md` (how to extend the denylist and review a group)
 
 **Checkpoint**: SC-013 validated; every shipped group reviewed.
 
@@ -532,7 +532,7 @@ it.
 ## Phase 19: Release v1.x
 
 - [ ] T207 Update `docs/release-checklist.md` with routines, warnings, widgets, AlarmKit, export, extended emoji library
-- [ ] T208 Run validation of US8–US15 (quickstart §5) and the checklist; record in `docs/releases/v1.x.md`; update `CHANGELOG.md` and create tags `v1.1.0`… for the incremental deliveries
+- [ ] T208 Run validation of US8–US15 (quickstart §5), the SC-013 usability protocol of testing-strategy §8 (5 adults) and the checklist; record in `docs/releases/v1.x.md`; update `CHANGELOG.md` and create tags `v1.1.0`… for the incremental deliveries
 
 ---
 
@@ -613,7 +613,7 @@ corresponding tests per level are in [testing-strategy.md](./testing-strategy.md
 | FR-122      | T213, T217, T218, T222                         |
 | FR-123      | T213, T216, T217                               |
 | FR-124      | T213, T217, T218, T220, T224                   |
-| FR-125      | T220, T223                                     |
+| FR-125      | T197, T220, T223                               |
 | FR-126      | T214, T215, T216                               |
 | FR-127      | T213, T216, T226                               |
 | SC-001      | T164                                           |
@@ -628,7 +628,7 @@ corresponding tests per level are in [testing-strategy.md](./testing-strategy.md
 | SC-010      | T164                                           |
 | SC-011      | T170, T208                                     |
 | SC-012      | T199, T208                                     |
-| SC-013      | T220, T208                                     |
+| SC-013      | T208, T220                                     |
 
 ---
 

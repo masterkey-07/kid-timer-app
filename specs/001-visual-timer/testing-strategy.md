@@ -176,6 +176,14 @@ app commit and date.
 - Timing: from the home screen being visible to the `home.start` tap (SC-001) or to the photo
   appearing on the dial (SC-005), from a screen recording. Pass: median ≤ 15 s / ≤ 30 s.
 
+**SC-013 (finding an extended emoji, v1.x)**
+
+- Participants and rules as for SC-001 / SC-005, on a build with the extended library.
+- Task, read once: "Put a giraffe on the dial" (then, in a second round with a new animal or
+  object named by the facilitator, e.g., "a pineapple"); participants may browse or search.
+- Timing: from the image picker being visible to the image appearing on the dial, from a screen
+  recording. Pass: median ≤ 20 s in each round.
+
 **SC-002 (alarm accuracy)**
 
 - Foreground (≤ 1 s): debug-instrumented build logs `endsAt` and the instant `AudioPort.playAlarm`

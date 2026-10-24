@@ -315,13 +315,17 @@ sector)` + `drawImageRect` of the pre-decoded image (`ui.Image` at the dial's si
   `emoji:<slug>`, group, subgroup, pt/en name and keywords, skin-tone variants (each its own
   file, `<slug>_<tone>.webp`) and the source.
 - **Groups and subgroups**: the Unicode `emoji-test.txt` (16.0) assigns each emoji a group and
-  subgroup (e.g., Animals & Nature › animal-mammal); `tool/emoji_library/groups.json` gives
+  subgroup (e.g., Animals & Nature › animal-mammal), whose keys become snake_case (group
+  `animals_nature`, subgroup `animal_mammal`) for folders, ids and test keys; `tool/emoji_library/groups.json` gives
   each group and subgroup a pt/en label and an order, so the manifest carries the labels (like
   the curated manifest carries image names). Fluent's own `group` field is the fallback.
 - **Names and keywords**: Unicode CLDR annotations (`annotations/pt.xml`, `en.xml` and the
   derived files for sequences), Unicode License v3, a permissive MIT-style license for data;
   names are text in the manifest, not art, and the license is recorded in the library's
-  `LICENSES.md`. Search normalizes case and strips accents (FR-122).
+  `LICENSES.md`. Keeping the names in the manifest rather than the ARB files is the asset
+  metadata exception of Constitution V (v1.4.0); `tool/l10n_check.dart` requires pt and en for
+  every names, labels and keywords map. The app reads the manifest only when "All emoji" first
+  opens, in a background isolate, so it never weighs on the 2 s cold start. Search normalizes case and strips accents (FR-122).
 - **Denylist**: `tool/emoji_library/denylist.json`, versioned, with entries by group, subgroup
   or emoji, each with the Constitution II class it falls under (e.g., subgroup `flag` →
   flags; `pistol` → weapons; `wine glass` → alcohol). It is applied before contact sheets are

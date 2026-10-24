@@ -2,6 +2,9 @@
 
 **Routes**: `/images/emoji`, `/images/emoji/:group` | **Story**: US15 | **Release**: v1.x
 
+The curated library (contract 04, including its "Animals" tab) stays what the picker shows
+first; the extended library is for anything beyond it, so the same animal may appear in both.
+
 Both screens are opened from "Choose image" (contract 04) and pop the chosen image's
 `BankImageSource` (id `emoji:<slug>` or `emoji:<slug>/<tone>`) back to it, which pops it to the
 caller.
@@ -87,7 +90,8 @@ group shows its first images within 300 ms (FR-121).
 `emojiTitle`, `emojiOpen` (the entry in `/images`), `emojiSearchHint`, `emojiSearchLabel`,
 `emojiSearchClear`, `emojiGroupLabel`, `emojiNoResults`, `emojiTonesLabel`, `emojiToneDefault`,
 `emojiToneLight`, `emojiToneMediumLight`, `emojiToneMedium`, `emojiToneMediumDark`,
-`emojiToneDark`. Group, subgroup and image names come from the manifest in pt-BR and en.
+`emojiToneDark`. Group, subgroup and image names come from the manifest in pt-BR and en
+(Constitution V asset metadata exception, checked by `tool/l10n_check.dart`).
 
 ## Planned tests
 

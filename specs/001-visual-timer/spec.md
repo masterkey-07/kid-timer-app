@@ -551,6 +551,9 @@ pick the giraffe and see it on the dial; then search "girafa" and find the same 
 - System font at 200% on a compact screen: controls wrap onto several lines, without clipping.
 - Data saved in an earlier format: migrated automatically; if migration fails, the original data
   is preserved and the app uses defaults with a notice.
+- An extended emoji (US15) no longer shipped, because its group failed a later review or it
+  joined the denylist: the dial uses colors, and the home image chip says so once, as for a
+  deleted own image.
 
 ## Requirements _(mandatory)_
 
@@ -699,13 +702,15 @@ pick the giraffe and see it on the dial; then search "girafa" and find the same 
   an extended library available offline beside the curated library (FR-020), with no network
   access (Constitution I).
 - **FR-121**: The extended library MUST be browsed in two steps: a list of groups (name, image
-  count, four previews), then the group's images in sections by subgroup. Opening a group MUST
-  show its first images within 300 ms on the reference device and only decode the images on
-  screen.
+  count, four previews), then the group's images in sections by subgroup. Its manifest MUST be
+  read only when "All emoji" first opens, off the UI thread, so app start (≤ 2 s,
+  Constitution VIII) is unaffected. Opening a group MUST show its first images within 300 ms on
+  the reference device and only decode the images on screen.
 - **FR-122**: The adult MUST be able to search the whole extended library by name or keyword in
   pt-BR and en, ignoring case and accents.
 - **FR-123**: Every extended image MUST have a localized name and keywords in pt-BR and en, from
-  the Unicode CLDR annotations (FR-026).
+  the Unicode CLDR annotations (FR-026), kept in the library's manifest as Constitution V allows
+  for asset metadata and checked by `tool/l10n_check.dart`.
 - **FR-124**: Images that have skin-tone variants MUST appear in the neutral version and offer
   the five tones on the image; the chosen variant is stored with the visual source.
 - **FR-125**: Extended images MUST be usable wherever a library image is (dial, presets,
