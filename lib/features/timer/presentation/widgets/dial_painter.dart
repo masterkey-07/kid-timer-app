@@ -81,13 +81,14 @@ final class DialStyle {
 }
 
 /// Paints the dial: the neutral elapsed disc, the remaining sector from
-/// 12 o'clock, the minute markers and the outline.
+/// 12 o'clock (in color, or [image] clipped to it), the minute markers and
+/// the outline.
 ///
 /// It repaints whenever [frame] notifies, without rebuilding any widget; the
 /// markers are recorded once per size and style into a cached picture.
 class DialPainter extends CustomPainter {
   /// Creates the painter.
-  new({required this.frame, required this.style, this.markers})
+  new({required this.frame, required this.style, this.markers, this.image})
     : super(repaint: frame);
 
   /// The sweep and color of the current frame.
@@ -99,6 +100,10 @@ class DialPainter extends CustomPainter {
   /// Where the recorded markers are kept between frames; null records them
   /// on every paint.
   final DialMarkerCache? markers;
+
+  /// The image filling the remaining sector, decoded at about the dial's
+  /// size; null paints [DialFrame.sectorColor] instead.
+  final ui.Image? image;
 
   static const _majorMarkerEvery = 5;
   static const _minorMarkerLength = 0.05;
@@ -116,13 +121,7 @@ class DialPainter extends CustomPainter {
 
     canvas.drawCircle(center, radius, Paint()..color = style.elapsedColor);
     if (current.sweepAngle != 0) {
-      canvas.drawArc(
-        circle,
-        DialGeometry.startAngle,
-        current.sweepAngle,
-        true,
-        Paint()..color = current.sectorColor,
-      );
+      _paintSector(canvas, circle, current);
       final sectorOutline = style.sectorOutlineColor;
       if (sectorOutline != null) {
         canvas.drawArc(
@@ -153,9 +152,35 @@ class DialPainter extends CustomPainter {
       );
   }
 
+  void _paintSector(Canvas canvas, Rect circle, DialFrame current) {
+    final image = this.image;
+    if (image == null) {
+      canvas.drawArc(
+        circle,
+        DialGeometry.startAngle,
+        current.sweepAngle,
+        true,
+        Paint()..color = current.sectorColor,
+      );
+      return;
+    }
+    canvas
+      ..save()
+      ..clipPath(DialGeometry.remainingSectorPath(circle, current.sweepAngle))
+      ..drawImageRect(
+        image,
+        Offset.zero & Size(image.width.toDouble(), image.height.toDouble()),
+        circle,
+        Paint()..filterQuality = FilterQuality.medium,
+      )
+      ..restore();
+  }
+
   @override
   bool shouldRepaint(DialPainter oldDelegate) =>
-      oldDelegate.frame != frame || oldDelegate.style != style;
+      oldDelegate.frame != frame ||
+      oldDelegate.style != style ||
+      oldDelegate.image != image;
 
   static ui.Picture _recordMarkers(Size size, DialStyle style) {
     final recorder = ui.PictureRecorder();

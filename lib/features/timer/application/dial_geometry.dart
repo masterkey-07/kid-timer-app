@@ -47,6 +47,18 @@ final class DialGeometry {
   double sweepAngleOf(Duration remaining) =>
       _openingSign * fractionOf(remaining) * _fullTurn;
 
+  /// The remaining sector of the dial inscribed in [circle] for a signed
+  /// [sweepAngle] (see [sweepAngleOf]): the whole disc at a full turn, empty
+  /// at zero. An image on the dial is clipped to it (FR-025).
+  static Path remainingSectorPath(Rect circle, double sweepAngle) {
+    if (sweepAngle == 0) return Path();
+    if (sweepAngle.abs() >= _fullTurn) return Path()..addOval(circle);
+    return Path()
+      ..moveTo(circle.center.dx, circle.center.dy)
+      ..arcTo(circle, startAngle, sweepAngle, false)
+      ..close();
+  }
+
   /// The duration at [fromCenter] (a point relative to the dial's center),
   /// rounded to the adjustment step and kept within the limits.
   ///

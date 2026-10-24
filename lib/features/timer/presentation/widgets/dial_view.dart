@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:ui' as ui;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -13,6 +16,7 @@ import 'package:visual_time_counter/core/domain/visual_source.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
+import 'package:visual_time_counter/features/images/application/decoded_image_cache.dart';
 import 'package:visual_time_counter/features/timer/application/dial_geometry.dart';
 import 'package:visual_time_counter/features/timer/presentation/spoken_duration.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/dial_painter.dart';
@@ -75,8 +79,8 @@ DialStyle _styleFor(BuildContext context, DialScale scale) {
 }
 
 /// The sector color for [config] at [remainingFraction] of the duration.
-/// Image sources (US3) fall back to the default palette until images
-/// arrive.
+/// Image sources use the default palette while their image loads or when
+/// it cannot be shown (data-model VisualSource).
 Color _sectorColor(TimerConfig config, double remainingFraction) {
   return switch (config.visual) {
     PaletteSource(:final paletteId, :final singleColor) => DialPalettes.colorAt(
@@ -92,36 +96,86 @@ Color _sectorColor(TimerConfig config, double remainingFraction) {
 }
 
 /// The painted dial, isolated in its own layer so a repaint never spreads
-/// to the rest of the screen.
-class _DialCanvas extends StatefulWidget {
-  const new({required this.frame, required this.style});
+/// to the rest of the screen. An image [visual] is decoded at the dial's
+/// pixel size; until it is ready (or if it fails) the dial shows colors.
+class _DialCanvas extends ConsumerStatefulWidget {
+  const new({required this.frame, required this.style, required this.visual});
 
   final ValueListenable<DialFrame> frame;
   final DialStyle style;
+  final VisualSource visual;
 
   @override
-  State<_DialCanvas> createState() => _DialCanvasState();
+  ConsumerState<_DialCanvas> createState() => _DialCanvasState();
 }
 
-class _DialCanvasState extends State<_DialCanvas> {
+class _DialCanvasState extends ConsumerState<_DialCanvas> {
   final _markers = DialMarkerCache();
+
+  /// Owned clone of the decoded image, or null to paint colors.
+  ui.Image? _image;
+  VisualSource? _requestedSource;
+  int _requestedBucket = 0;
 
   @override
   void dispose() {
+    _image?.dispose();
     _markers.dispose();
     super.dispose();
   }
 
+  /// Asks the cache for [VisualSource] images at [targetSize] pixels, once
+  /// per source and size bucket.
+  void _requestImage(double targetSize) {
+    final source = widget.visual;
+    final bucket = DecodedImageCache.bucketFor(targetSize);
+    final isSameSource = source == _requestedSource;
+    if (isSameSource && bucket <= _requestedBucket) return;
+    _requestedSource = source;
+    _requestedBucket = bucket;
+
+    final cache = ref.read(decodedImageCacheProvider);
+    final cached = cache.peek(source, targetSize: targetSize);
+    if (cached != null || source is PaletteSource || !isSameSource) {
+      _replaceImage(cached);
+    }
+    if (cached != null || source is PaletteSource) return;
+
+    unawaited(
+      cache.resolve(source, targetSize: targetSize).then((image) {
+        if (!mounted || widget.visual != source) {
+          image?.dispose();
+          return;
+        }
+        setState(() => _replaceImage(image));
+      }),
+    );
+  }
+
+  void _replaceImage(ui.Image? image) {
+    _image?.dispose();
+    _image = image;
+  }
+
   @override
-  Widget build(BuildContext context) => RepaintBoundary(
-    child: CustomPaint(
-      painter: DialPainter(
-        frame: widget.frame,
-        style: widget.style,
-        markers: _markers,
-      ),
-      child: const SizedBox.expand(),
-    ),
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, constraints) {
+      _requestImage(
+        constraints.biggest.shortestSide *
+            MediaQuery.devicePixelRatioOf(context),
+      );
+      return RepaintBoundary(
+        child: CustomPaint(
+          painter: DialPainter(
+            frame: widget.frame,
+            style: widget.style,
+            markers: _markers,
+            image: _image,
+          ),
+          child: const SizedBox.expand(),
+        ),
+      );
+    },
   );
 }
 
@@ -254,6 +308,7 @@ class _EditableDialState extends ConsumerState<_EditableDial> {
                 child: _DialCanvas(
                   frame: _frame,
                   style: _styleFor(context, widget.config.scale),
+                  visual: widget.config.visual,
                 ),
               ),
             );
@@ -350,6 +405,7 @@ class _CountdownDialState extends ConsumerState<_CountdownDial>
             _DialCanvas(
               frame: _frame,
               style: _styleFor(context, widget.session.config.scale),
+              visual: widget.session.config.visual,
             ),
             if (isPaused) const _PausedBadge(),
           ],

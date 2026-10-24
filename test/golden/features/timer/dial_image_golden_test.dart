@@ -68,15 +68,17 @@ Future<void> main() async {
   final themes = {'light': AppTheme.light(), 'dark': AppTheme.dark()};
   final cache = DecodedImageCache(loadBytes: _loadFromAssets);
 
-  // Decodes outside the fake clock, so the dial finds the images cached.
-  Future<void> pumpWithDecodedImages(WidgetTester tester) async {
-    await tester.runAsync(() async {
-      await cache.resolve(_bankImage, targetSize: DecodedImageCache.maxSize);
-      await cache.resolve(_missingImage, targetSize: DecodedImageCache.maxSize);
-    });
-    await tester.pump();
-  }
-
+  // Decoded before any dial is built (outside the widget tester's fake
+  // clock, where decoding never completes), so every dial finds them cached.
+  setUpAll(() async {
+    for (final source in [_bankImage, _missingImage]) {
+      final image = await cache.resolve(
+        source,
+        targetSize: DecodedImageCache.maxSize,
+      );
+      image?.dispose();
+    }
+  });
   tearDownAll(cache.dispose);
 
   for (final MapEntry(key: themeName, value: theme) in themes.entries) {
@@ -84,7 +86,7 @@ Future<void> main() async {
       'dial with an image at 0/25/50/100% and the color fallback '
       '($themeName)',
       fileName: 'dial_image_$themeName',
-      pumpBeforeTest: pumpWithDecodedImages,
+      pumpBeforeTest: pumpOnce,
       builder: () => ProviderScope(
         overrides: [
           clockProvider.overrideWithValue(Clock.fixed(_now)),
