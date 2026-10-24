@@ -101,7 +101,10 @@ Rationale: time, alarms and persisted state are areas where regressions are sile
 - Palettes MUST be validated for color vision deficiency (protanopia, deuteranopia,
   tritanopia).
 - All visible text MUST come from localization files (`.arb`); pt-BR and en are mandatory and
-  MUST be 100% translated in every release.
+  MUST be 100% translated in every release. The one exception is bundled asset metadata (the
+  names, keywords, groups and subgroups of library images and the names of sounds), which MAY
+  live in the asset folder's `manifest.json`, with pt-BR and en both required for every entry
+  and verified in CI by `tool/l10n_check.dart`.
 
 Rationale: the audience includes children with ADHD, autism and visual or motor impairments.
 
@@ -202,4 +205,4 @@ Rationale: freedom to use and distribute through every store, including F-Droid.
   violations are only accepted when justified in "Complexity Tracking".
 - PR reviews MUST verify compliance. Runtime guidance for agents lives in `CLAUDE.md`.
 
-**Version**: 1.3.0 | **Ratified**: 2026-10-23 | **Last Amended**: 2026-10-24
+**Version**: 1.4.0 | **Ratified**: 2026-10-23 | **Last Amended**: 2026-10-24
