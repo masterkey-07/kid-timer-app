@@ -24,9 +24,15 @@
   "@notificationTimerEndTitle": {
     "description": "Title of the system notification shown when a timer ends with the app in the background."
   },
-  "notificationTimerEndBody": "Toque para abrir o Kid Timer.",
+  "notificationTimerEndBody": "Timer: {duration}",
   "@notificationTimerEndBody": {
-    "description": "Body of the system notification shown when a timer ends."
+    "description": "Body of the system notification shown when a timer ends; names the timer by its duration until presets (US5) give it a name.",
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "example": "5 minutes"
+      }
+    }
   },
   "durationHours": "{count, plural, =1{1 hora} other{{count} horas}}",
   "@durationHours": {
@@ -208,5 +214,157 @@
   "finishedSemantics": "Acabou o tempo. Toque para voltar",
   "@finishedSemantics": {
     "description": "Screen reader label of the final screen's tap area."
+  },
+  "noticeKeepOpenTitle": "Mantenha esta janela aberta",
+  "@noticeKeepOpenTitle": {
+    "description": "Title of the one-time start dialog on platforms without background alarms (Web, Linux)."
+  },
+  "noticeKeepOpenBody": "Aqui o alarme só toca com o Kid Timer aberto. Não feche a janela nem a aba até o tempo acabar.",
+  "@noticeKeepOpenBody": {
+    "description": "Body of the keep-the-window-open dialog."
+  },
+  "noticeKeepOpenOk": "Entendi",
+  "@noticeKeepOpenOk": {
+    "description": "Button that closes the keep-the-window-open dialog."
+  },
+  "noticeNotificationsDeniedTitle": "As notificações estão desligadas",
+  "@noticeNotificationsDeniedTitle": {
+    "description": "Title of the start dialog when notifications are denied."
+  },
+  "noticeNotificationsDeniedBody": "Sem notificações, o alarme só toca com o app aberto.",
+  "@noticeNotificationsDeniedBody": {
+    "description": "Body of the notifications-denied dialog."
+  },
+  "noticeOpenSettings": "Abrir configurações",
+  "@noticeOpenSettings": {
+    "description": "Button that opens the app notification settings."
+  },
+  "noticeContinueAnyway": "Continuar mesmo assim",
+  "@noticeContinueAnyway": {
+    "description": "Button that starts the timer without notifications."
+  },
+  "noticeExactAlarmTitle": "Tocar na hora certa",
+  "@noticeExactAlarmTitle": {
+    "description": "Title of the one-time exact alarm explanation (Android 12–13)."
+  },
+  "noticeExactAlarmBody": "Para tocar exatamente no fim, mesmo com a tela apagada, o Kid Timer precisa da permissão \"Alarmes e lembretes\". Sem ela, o alarme pode tocar alguns minutos depois quando o app estiver fechado.",
+  "@noticeExactAlarmBody": {
+    "description": "Body of the exact alarm explanation."
+  },
+  "noticeAllow": "Permitir",
+  "@noticeAllow": {
+    "description": "Button that opens the Alarms & reminders setting."
+  },
+  "noticeNotNow": "Agora não",
+  "@noticeNotNow": {
+    "description": "Button that starts with reduced alarm accuracy."
+  },
+  "noticeIosSilentBody": "No modo silencioso, o alarme não toca com o app fechado. Mantenha o som ligado.",
+  "@noticeIosSilentBody": {
+    "description": "One-time iOS notice before the first timer."
+  },
+  "noticeIosSilentOk": "Entendi",
+  "@noticeIosSilentOk": {
+    "description": "Button that closes the iOS silent mode notice."
+  },
+  "noticeVolumeZero": "O volume está no zero. Aumente para ouvir o alarme.",
+  "@noticeVolumeZero": {
+    "description": "Brief notice when the timer starts with the system volume at zero."
+  },
+  "noticeBannerNoBackgroundAlarm": "O alarme só toca com o app aberto.",
+  "@noticeBannerNoBackgroundAlarm": {
+    "description": "Banner when the platform or the permissions give no background alarm."
+  },
+  "noticeBannerReducedAccuracy": "Com o app fechado, o alarme pode tocar alguns minutos depois.",
+  "@noticeBannerReducedAccuracy": {
+    "description": "Banner when only inexact alarms are allowed."
+  },
+  "notificationChannelTimerEnd": "Fim do timer",
+  "@notificationChannelTimerEnd": {
+    "description": "Android notification channel for the end of a timer."
+  },
+  "notificationChannelWarning": "Avisos",
+  "@notificationChannelWarning": {
+    "description": "Android notification channel for warnings before the end."
+  },
+  "batteryHelpTitle": "Bateria, alarmes e fixação",
+  "@batteryHelpTitle": {
+    "description": "Title of the help page about battery, alarms and screen pinning."
+  },
+  "batteryHelpAlarmsTitle": "Alarmes na hora certa",
+  "@batteryHelpAlarmsTitle": {
+    "description": "Help section about alarm permissions."
+  },
+  "batteryHelpAlarmsBody": "O Kid Timer pede ao sistema para tocar no fim do timer, mesmo com o app fechado ou a tela bloqueada. Para isso ele precisa da permissão de notificações e, no Android, da permissão \"Alarmes e lembretes\".",
+  "@batteryHelpAlarmsBody": {
+    "description": "Why the app needs alarm and notification permissions."
+  },
+  "batteryHelpAlarmsApple": "No iPhone, iPad e Mac: Ajustes → Notificações → Kid Timer → ative Permitir Notificações e Sensível ao Tempo.",
+  "@batteryHelpAlarmsApple": {
+    "description": "Instructions for Apple platforms."
+  },
+  "batteryHelpOpenExactAlarm": "Abrir alarmes e lembretes",
+  "@batteryHelpOpenExactAlarm": {
+    "description": "Android button that opens the exact alarm setting."
+  },
+  "batteryHelpOpenNotifications": "Abrir configurações de notificação",
+  "@batteryHelpOpenNotifications": {
+    "description": "Android button that opens the app notification settings."
+  },
+  "batteryHelpBatteryTitle": "Otimização de bateria",
+  "@batteryHelpBatteryTitle": {
+    "description": "Help section about battery optimization."
+  },
+  "batteryHelpBatteryBody": "Alguns celulares fecham apps em segundo plano para poupar bateria, o que pode atrasar o alarme. Deixe o Kid Timer rodar sem restrições:",
+  "@batteryHelpBatteryBody": {
+    "description": "Intro to the per-vendor battery steps."
+  },
+  "batteryHelpBatterySamsung": "Samsung: Configurações → Aplicativos → Kid Timer → Bateria → Sem restrições.",
+  "@batteryHelpBatterySamsung": {
+    "description": "Battery steps for Samsung."
+  },
+  "batteryHelpBatteryXiaomi": "Xiaomi, Redmi, POCO: Configurações → Apps → Gerenciar apps → Kid Timer → Economia de bateria → Sem restrições, e ative a Inicialização automática.",
+  "@batteryHelpBatteryXiaomi": {
+    "description": "Battery steps for Xiaomi, Redmi and POCO."
+  },
+  "batteryHelpBatteryMotorola": "Motorola: Configurações → Apps → Kid Timer → Uso da bateria pelo app → Sem restrições.",
+  "@batteryHelpBatteryMotorola": {
+    "description": "Battery steps for Motorola."
+  },
+  "batteryHelpBatteryHuawei": "Huawei: Configurações → Bateria → Inicialização de apps → Kid Timer → Gerenciar manualmente, com Inicialização automática e Executar em segundo plano ativados.",
+  "@batteryHelpBatteryHuawei": {
+    "description": "Battery steps for Huawei."
+  },
+  "batteryHelpBatteryOthers": "Outros: Configurações → Apps → Kid Timer → Bateria → Sem restrições (ou Não otimizar).",
+  "@batteryHelpBatteryOthers": {
+    "description": "Battery steps for other vendors."
+  },
+  "batteryHelpOpenBatteryOptimization": "Abrir otimização de bateria",
+  "@batteryHelpOpenBatteryOptimization": {
+    "description": "Android button that opens the battery optimization settings."
+  },
+  "batteryHelpPinningTitle": "Manter a criança no app",
+  "@batteryHelpPinningTitle": {
+    "description": "Help section about screen pinning."
+  },
+  "batteryHelpPinningAndroid": "Android: ative Configurações → Segurança → Fixar app e depois fixe o Kid Timer na tela de apps recentes.",
+  "@batteryHelpPinningAndroid": {
+    "description": "Screen pinning on Android."
+  },
+  "batteryHelpPinningApple": "iPhone e iPad: ative Ajustes → Acessibilidade → Acesso Guiado e depois clique três vezes no botão lateral dentro do Kid Timer.",
+  "@batteryHelpPinningApple": {
+    "description": "Guided Access on iOS and iPadOS."
+  },
+  "batteryHelpPinningDesktop": "Computadores: use a tela cheia com o bloqueio infantil ativado.",
+  "@batteryHelpPinningDesktop": {
+    "description": "Keeping the child in the app on desktop."
+  },
+  "batteryHelpWebTitle": "Por que manter a janela aberta",
+  "@batteryHelpWebTitle": {
+    "description": "Help section about Web and Linux."
+  },
+  "batteryHelpWebBody": "Navegadores e o Linux não deixam apps agendarem alarmes no sistema. O próprio Kid Timer toca o alarme, então ele só toca com a janela ou a aba aberta e o computador ligado.",
+  "@batteryHelpWebBody": {
+    "description": "Why Web and Linux need the window open."
   }
 }

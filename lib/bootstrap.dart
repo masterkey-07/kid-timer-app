@@ -5,9 +5,11 @@ import 'package:flutter_riverpod/misc.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:timezone/data/latest_10y.dart' as time_zones;
+import 'package:visual_time_counter/app/locale_resolution.dart';
 import 'package:visual_time_counter/core/persistence/hive_bootstrap.dart';
 import 'package:visual_time_counter/core/platform/impl/platform_ports.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
+import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 import 'package:visual_time_counter/startup_state.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -27,7 +29,17 @@ Future<List<Override>> bootstrap() async {
 
   final boxes = await openPersistence(clock: clock);
   final startup = await loadStartupState(boxes: boxes, clock: clock);
-  final ports = await createPlatformPortOverrides(platform, clock: clock);
+  final texts = lookupAppLocalizations(
+    resolveAppLocale(WidgetsBinding.instance.platformDispatcher.locales),
+  );
+  final ports = await createPlatformPortOverrides(
+    platform,
+    clock: clock,
+    alarmChannelNames: (
+      timerEnd: texts.notificationChannelTimerEnd,
+      warning: texts.notificationChannelWarning,
+    ),
+  );
   return [...ports, ...startup.overrides];
 }
 

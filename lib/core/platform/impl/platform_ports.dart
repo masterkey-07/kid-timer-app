@@ -19,15 +19,23 @@ import 'package:visual_time_counter/core/platform/wakelock/impl/wakelock_plus_po
 ///
 /// The image picker and external link ports are added by the stories that
 /// use them (US3, US7).
+///
+/// [alarmChannelNames] are the localized Android notification channel
+/// names.
 Future<List<Override>> createPlatformPortOverrides(
   AppPlatform platform, {
   required Clock clock,
+  required AlarmChannelNames alarmChannelNames,
 }) async {
   final choice = choosePorts(platform);
   return [
     appPlatformProvider.overrideWithValue(platform),
     alarmSchedulerProvider.overrideWithValue(
-      await _createAlarmScheduler(choice.alarm, clock: clock),
+      await _createAlarmScheduler(
+        choice.alarm,
+        clock: clock,
+        channelNames: alarmChannelNames,
+      ),
     ),
     wakeLockProvider.overrideWithValue(const WakelockPlusPort()),
     fullscreenProvider.overrideWithValue(_createFullscreen(choice.fullscreen)),
@@ -45,12 +53,16 @@ Future<List<Override>> createPlatformPortOverrides(
 Future<AlarmScheduler> _createAlarmScheduler(
   AlarmChoice choice, {
   required Clock clock,
+  required AlarmChannelNames channelNames,
 }) async {
   switch (choice) {
     case AlarmChoice.foregroundOnly:
       return const ForegroundOnlyAlarmScheduler();
     case AlarmChoice.localNotifications:
-      final scheduler = LocalNotificationsAlarmScheduler(clock: clock);
+      final scheduler = LocalNotificationsAlarmScheduler(
+        clock: clock,
+        channelNames: channelNames,
+      );
       await scheduler.initialize();
       return scheduler;
   }

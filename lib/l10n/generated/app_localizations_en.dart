@@ -28,7 +28,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notificationTimerEndTitle => 'Time\'s up!';
 
   @override
-  String get notificationTimerEndBody => 'Tap to open Kid Timer.';
+  String notificationTimerEndBody(String duration) {
+    return 'Timer: $duration';
+  }
 
   @override
   String durationHours(int count) {
@@ -175,4 +177,137 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get finishedSemantics => 'Time\'s up. Tap to go back';
+
+  @override
+  String get noticeKeepOpenTitle => 'Keep this window open';
+
+  @override
+  String get noticeKeepOpenBody =>
+      'Here the alarm only rings while Kid Timer is open. Don\'t close the window or the tab until the time is up.';
+
+  @override
+  String get noticeKeepOpenOk => 'Got it';
+
+  @override
+  String get noticeNotificationsDeniedTitle => 'Notifications are off';
+
+  @override
+  String get noticeNotificationsDeniedBody =>
+      'Without notifications, the alarm only rings with the app open.';
+
+  @override
+  String get noticeOpenSettings => 'Open settings';
+
+  @override
+  String get noticeContinueAnyway => 'Continue anyway';
+
+  @override
+  String get noticeExactAlarmTitle => 'Ring right on time';
+
+  @override
+  String get noticeExactAlarmBody =>
+      'To ring exactly at the end, even with the screen off, Kid Timer needs the \"Alarms & reminders\" permission. Without it, the alarm may ring a few minutes late when the app is closed.';
+
+  @override
+  String get noticeAllow => 'Allow';
+
+  @override
+  String get noticeNotNow => 'Not now';
+
+  @override
+  String get noticeIosSilentBody =>
+      'In silent mode, the alarm doesn\'t ring with the app closed. Keep the sound on.';
+
+  @override
+  String get noticeIosSilentOk => 'Got it';
+
+  @override
+  String get noticeVolumeZero =>
+      'The volume is at zero. Turn it up to hear the alarm.';
+
+  @override
+  String get noticeBannerNoBackgroundAlarm =>
+      'The alarm only rings with the app open.';
+
+  @override
+  String get noticeBannerReducedAccuracy =>
+      'With the app closed, the alarm may ring a few minutes late.';
+
+  @override
+  String get notificationChannelTimerEnd => 'Timer end';
+
+  @override
+  String get notificationChannelWarning => 'Warnings';
+
+  @override
+  String get batteryHelpTitle => 'Battery, alarms and pinning';
+
+  @override
+  String get batteryHelpAlarmsTitle => 'Alarms on time';
+
+  @override
+  String get batteryHelpAlarmsBody =>
+      'Kid Timer asks the system to ring at the end of the timer, even with the app closed or the screen locked. For that it needs permission to show notifications and, on Android, the \"Alarms & reminders\" permission.';
+
+  @override
+  String get batteryHelpAlarmsApple =>
+      'On iPhone, iPad and Mac: Settings → Notifications → Kid Timer → turn on Allow Notifications and Time Sensitive.';
+
+  @override
+  String get batteryHelpOpenExactAlarm => 'Open alarms & reminders';
+
+  @override
+  String get batteryHelpOpenNotifications => 'Open notification settings';
+
+  @override
+  String get batteryHelpBatteryTitle => 'Battery optimization';
+
+  @override
+  String get batteryHelpBatteryBody =>
+      'Some phones close apps in the background to save battery, which can delay the alarm. Let Kid Timer run without restrictions:';
+
+  @override
+  String get batteryHelpBatterySamsung =>
+      'Samsung: Settings → Apps → Kid Timer → Battery → Unrestricted.';
+
+  @override
+  String get batteryHelpBatteryXiaomi =>
+      'Xiaomi, Redmi, POCO: Settings → Apps → Manage apps → Kid Timer → Battery saver → No restrictions, and turn on Autostart.';
+
+  @override
+  String get batteryHelpBatteryMotorola =>
+      'Motorola: Settings → Apps → Kid Timer → App battery usage → Unrestricted.';
+
+  @override
+  String get batteryHelpBatteryHuawei =>
+      'Huawei: Settings → Battery → App launch → Kid Timer → Manage manually, with Auto-launch and Run in background on.';
+
+  @override
+  String get batteryHelpBatteryOthers =>
+      'Others: Settings → Apps → Kid Timer → Battery → Unrestricted (or Don\'t optimize).';
+
+  @override
+  String get batteryHelpOpenBatteryOptimization => 'Open battery optimization';
+
+  @override
+  String get batteryHelpPinningTitle => 'Keep the child in the app';
+
+  @override
+  String get batteryHelpPinningAndroid =>
+      'Android: turn on Settings → Security → App pinning, then pin Kid Timer from the recent apps screen.';
+
+  @override
+  String get batteryHelpPinningApple =>
+      'iPhone and iPad: turn on Settings → Accessibility → Guided Access, then triple-click the side button inside Kid Timer.';
+
+  @override
+  String get batteryHelpPinningDesktop =>
+      'Computers: use full screen with the child lock on.';
+
+  @override
+  String get batteryHelpWebTitle => 'Why keep the window open';
+
+  @override
+  String get batteryHelpWebBody =>
+      'Browsers and Linux don\'t let apps schedule alarms with the system. Kid Timer plays the alarm itself, so it only rings while the window or tab is open and the computer is awake.';
 }

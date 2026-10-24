@@ -28,7 +28,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get notificationTimerEndTitle => 'Acabou o tempo!';
 
   @override
-  String get notificationTimerEndBody => 'Toque para abrir o Kid Timer.';
+  String notificationTimerEndBody(String duration) {
+    return 'Timer: $duration';
+  }
 
   @override
   String durationHours(int count) {
@@ -175,4 +177,140 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get finishedSemantics => 'Acabou o tempo. Toque para voltar';
+
+  @override
+  String get noticeKeepOpenTitle => 'Mantenha esta janela aberta';
+
+  @override
+  String get noticeKeepOpenBody =>
+      'Aqui o alarme só toca com o Kid Timer aberto. Não feche a janela nem a aba até o tempo acabar.';
+
+  @override
+  String get noticeKeepOpenOk => 'Entendi';
+
+  @override
+  String get noticeNotificationsDeniedTitle =>
+      'As notificações estão desligadas';
+
+  @override
+  String get noticeNotificationsDeniedBody =>
+      'Sem notificações, o alarme só toca com o app aberto.';
+
+  @override
+  String get noticeOpenSettings => 'Abrir configurações';
+
+  @override
+  String get noticeContinueAnyway => 'Continuar mesmo assim';
+
+  @override
+  String get noticeExactAlarmTitle => 'Tocar na hora certa';
+
+  @override
+  String get noticeExactAlarmBody =>
+      'Para tocar exatamente no fim, mesmo com a tela apagada, o Kid Timer precisa da permissão \"Alarmes e lembretes\". Sem ela, o alarme pode tocar alguns minutos depois quando o app estiver fechado.';
+
+  @override
+  String get noticeAllow => 'Permitir';
+
+  @override
+  String get noticeNotNow => 'Agora não';
+
+  @override
+  String get noticeIosSilentBody =>
+      'No modo silencioso, o alarme não toca com o app fechado. Mantenha o som ligado.';
+
+  @override
+  String get noticeIosSilentOk => 'Entendi';
+
+  @override
+  String get noticeVolumeZero =>
+      'O volume está no zero. Aumente para ouvir o alarme.';
+
+  @override
+  String get noticeBannerNoBackgroundAlarm =>
+      'O alarme só toca com o app aberto.';
+
+  @override
+  String get noticeBannerReducedAccuracy =>
+      'Com o app fechado, o alarme pode tocar alguns minutos depois.';
+
+  @override
+  String get notificationChannelTimerEnd => 'Fim do timer';
+
+  @override
+  String get notificationChannelWarning => 'Avisos';
+
+  @override
+  String get batteryHelpTitle => 'Bateria, alarmes e fixação';
+
+  @override
+  String get batteryHelpAlarmsTitle => 'Alarmes na hora certa';
+
+  @override
+  String get batteryHelpAlarmsBody =>
+      'O Kid Timer pede ao sistema para tocar no fim do timer, mesmo com o app fechado ou a tela bloqueada. Para isso ele precisa da permissão de notificações e, no Android, da permissão \"Alarmes e lembretes\".';
+
+  @override
+  String get batteryHelpAlarmsApple =>
+      'No iPhone, iPad e Mac: Ajustes → Notificações → Kid Timer → ative Permitir Notificações e Sensível ao Tempo.';
+
+  @override
+  String get batteryHelpOpenExactAlarm => 'Abrir alarmes e lembretes';
+
+  @override
+  String get batteryHelpOpenNotifications =>
+      'Abrir configurações de notificação';
+
+  @override
+  String get batteryHelpBatteryTitle => 'Otimização de bateria';
+
+  @override
+  String get batteryHelpBatteryBody =>
+      'Alguns celulares fecham apps em segundo plano para poupar bateria, o que pode atrasar o alarme. Deixe o Kid Timer rodar sem restrições:';
+
+  @override
+  String get batteryHelpBatterySamsung =>
+      'Samsung: Configurações → Aplicativos → Kid Timer → Bateria → Sem restrições.';
+
+  @override
+  String get batteryHelpBatteryXiaomi =>
+      'Xiaomi, Redmi, POCO: Configurações → Apps → Gerenciar apps → Kid Timer → Economia de bateria → Sem restrições, e ative a Inicialização automática.';
+
+  @override
+  String get batteryHelpBatteryMotorola =>
+      'Motorola: Configurações → Apps → Kid Timer → Uso da bateria pelo app → Sem restrições.';
+
+  @override
+  String get batteryHelpBatteryHuawei =>
+      'Huawei: Configurações → Bateria → Inicialização de apps → Kid Timer → Gerenciar manualmente, com Inicialização automática e Executar em segundo plano ativados.';
+
+  @override
+  String get batteryHelpBatteryOthers =>
+      'Outros: Configurações → Apps → Kid Timer → Bateria → Sem restrições (ou Não otimizar).';
+
+  @override
+  String get batteryHelpOpenBatteryOptimization =>
+      'Abrir otimização de bateria';
+
+  @override
+  String get batteryHelpPinningTitle => 'Manter a criança no app';
+
+  @override
+  String get batteryHelpPinningAndroid =>
+      'Android: ative Configurações → Segurança → Fixar app e depois fixe o Kid Timer na tela de apps recentes.';
+
+  @override
+  String get batteryHelpPinningApple =>
+      'iPhone e iPad: ative Ajustes → Acessibilidade → Acesso Guiado e depois clique três vezes no botão lateral dentro do Kid Timer.';
+
+  @override
+  String get batteryHelpPinningDesktop =>
+      'Computadores: use a tela cheia com o bloqueio infantil ativado.';
+
+  @override
+  String get batteryHelpWebTitle => 'Por que manter a janela aberta';
+
+  @override
+  String get batteryHelpWebBody =>
+      'Navegadores e o Linux não deixam apps agendarem alarmes no sistema. O próprio Kid Timer toca o alarme, então ele só toca com a janela ou a aba aberta e o computador ligado.';
 }

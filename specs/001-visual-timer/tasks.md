@@ -190,7 +190,7 @@ honest notices where unsupported.
 - [ ] T088 [P] [US2] Implement the notice dialogs in `lib/features/timer/presentation/widgets/preflight_dialogs.dart` (keys from contracts/ui/08)
 - [ ] T089 [P] [US2] Copy sounds for notifications: `android/app/src/main/res/raw/*.wav` and iOS/macOS bundle resources (`ios/Runner/Sounds/`, `macos/Runner/Sounds/`), with the script `tool/sounds/sync_notification_sounds.dart`
 - [ ] T090 [US2] Implement `BatteryHelpScreen` (`/settings/battery`, anchors `#alarms`, `#battery`, `#pinning`, `#web`; Android buttons via `SystemSettingsPort`) in `lib/features/settings/presentation/battery_help_screen.dart` with a test in `test/widget/features/settings/battery_help_screen_test.dart`
-- [ ] T091 [US2] Add US2 strings (`notice*`, `batteryHelp*`, notification titles/bodies) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
+- [x] T091 [US2] Add US2 strings (`notice*`, `batteryHelp*`, notification titles/bodies) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
 
 **Checkpoint**: Reliable alarm on Android/iOS/macOS (+Windows per T042); Web/Linux with a notice.
 US2 E2E green on the emulator.

@@ -134,11 +134,11 @@ abstract class AppLocalizations {
   /// **'Acabou o tempo!'**
   String get notificationTimerEndTitle;
 
-  /// Body of the system notification shown when a timer ends.
+  /// Body of the system notification shown when a timer ends; names the timer by its duration until presets (US5) give it a name.
   ///
   /// In pt, this message translates to:
-  /// **'Toque para abrir o Kid Timer.'**
-  String get notificationTimerEndBody;
+  /// **'Timer: {duration}'**
+  String notificationTimerEndBody(String duration);
 
   /// Spoken hours part of a duration (screen readers).
   ///
@@ -367,6 +367,234 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Acabou o tempo. Toque para voltar'**
   String get finishedSemantics;
+
+  /// Title of the one-time start dialog on platforms without background alarms (Web, Linux).
+  ///
+  /// In pt, this message translates to:
+  /// **'Mantenha esta janela aberta'**
+  String get noticeKeepOpenTitle;
+
+  /// Body of the keep-the-window-open dialog.
+  ///
+  /// In pt, this message translates to:
+  /// **'Aqui o alarme só toca com o Kid Timer aberto. Não feche a janela nem a aba até o tempo acabar.'**
+  String get noticeKeepOpenBody;
+
+  /// Button that closes the keep-the-window-open dialog.
+  ///
+  /// In pt, this message translates to:
+  /// **'Entendi'**
+  String get noticeKeepOpenOk;
+
+  /// Title of the start dialog when notifications are denied.
+  ///
+  /// In pt, this message translates to:
+  /// **'As notificações estão desligadas'**
+  String get noticeNotificationsDeniedTitle;
+
+  /// Body of the notifications-denied dialog.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sem notificações, o alarme só toca com o app aberto.'**
+  String get noticeNotificationsDeniedBody;
+
+  /// Button that opens the app notification settings.
+  ///
+  /// In pt, this message translates to:
+  /// **'Abrir configurações'**
+  String get noticeOpenSettings;
+
+  /// Button that starts the timer without notifications.
+  ///
+  /// In pt, this message translates to:
+  /// **'Continuar mesmo assim'**
+  String get noticeContinueAnyway;
+
+  /// Title of the one-time exact alarm explanation (Android 12–13).
+  ///
+  /// In pt, this message translates to:
+  /// **'Tocar na hora certa'**
+  String get noticeExactAlarmTitle;
+
+  /// Body of the exact alarm explanation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Para tocar exatamente no fim, mesmo com a tela apagada, o Kid Timer precisa da permissão \"Alarmes e lembretes\". Sem ela, o alarme pode tocar alguns minutos depois quando o app estiver fechado.'**
+  String get noticeExactAlarmBody;
+
+  /// Button that opens the Alarms & reminders setting.
+  ///
+  /// In pt, this message translates to:
+  /// **'Permitir'**
+  String get noticeAllow;
+
+  /// Button that starts with reduced alarm accuracy.
+  ///
+  /// In pt, this message translates to:
+  /// **'Agora não'**
+  String get noticeNotNow;
+
+  /// One-time iOS notice before the first timer.
+  ///
+  /// In pt, this message translates to:
+  /// **'No modo silencioso, o alarme não toca com o app fechado. Mantenha o som ligado.'**
+  String get noticeIosSilentBody;
+
+  /// Button that closes the iOS silent mode notice.
+  ///
+  /// In pt, this message translates to:
+  /// **'Entendi'**
+  String get noticeIosSilentOk;
+
+  /// Brief notice when the timer starts with the system volume at zero.
+  ///
+  /// In pt, this message translates to:
+  /// **'O volume está no zero. Aumente para ouvir o alarme.'**
+  String get noticeVolumeZero;
+
+  /// Banner when the platform or the permissions give no background alarm.
+  ///
+  /// In pt, this message translates to:
+  /// **'O alarme só toca com o app aberto.'**
+  String get noticeBannerNoBackgroundAlarm;
+
+  /// Banner when only inexact alarms are allowed.
+  ///
+  /// In pt, this message translates to:
+  /// **'Com o app fechado, o alarme pode tocar alguns minutos depois.'**
+  String get noticeBannerReducedAccuracy;
+
+  /// Android notification channel for the end of a timer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Fim do timer'**
+  String get notificationChannelTimerEnd;
+
+  /// Android notification channel for warnings before the end.
+  ///
+  /// In pt, this message translates to:
+  /// **'Avisos'**
+  String get notificationChannelWarning;
+
+  /// Title of the help page about battery, alarms and screen pinning.
+  ///
+  /// In pt, this message translates to:
+  /// **'Bateria, alarmes e fixação'**
+  String get batteryHelpTitle;
+
+  /// Help section about alarm permissions.
+  ///
+  /// In pt, this message translates to:
+  /// **'Alarmes na hora certa'**
+  String get batteryHelpAlarmsTitle;
+
+  /// Why the app needs alarm and notification permissions.
+  ///
+  /// In pt, this message translates to:
+  /// **'O Kid Timer pede ao sistema para tocar no fim do timer, mesmo com o app fechado ou a tela bloqueada. Para isso ele precisa da permissão de notificações e, no Android, da permissão \"Alarmes e lembretes\".'**
+  String get batteryHelpAlarmsBody;
+
+  /// Instructions for Apple platforms.
+  ///
+  /// In pt, this message translates to:
+  /// **'No iPhone, iPad e Mac: Ajustes → Notificações → Kid Timer → ative Permitir Notificações e Sensível ao Tempo.'**
+  String get batteryHelpAlarmsApple;
+
+  /// Android button that opens the exact alarm setting.
+  ///
+  /// In pt, this message translates to:
+  /// **'Abrir alarmes e lembretes'**
+  String get batteryHelpOpenExactAlarm;
+
+  /// Android button that opens the app notification settings.
+  ///
+  /// In pt, this message translates to:
+  /// **'Abrir configurações de notificação'**
+  String get batteryHelpOpenNotifications;
+
+  /// Help section about battery optimization.
+  ///
+  /// In pt, this message translates to:
+  /// **'Otimização de bateria'**
+  String get batteryHelpBatteryTitle;
+
+  /// Intro to the per-vendor battery steps.
+  ///
+  /// In pt, this message translates to:
+  /// **'Alguns celulares fecham apps em segundo plano para poupar bateria, o que pode atrasar o alarme. Deixe o Kid Timer rodar sem restrições:'**
+  String get batteryHelpBatteryBody;
+
+  /// Battery steps for Samsung.
+  ///
+  /// In pt, this message translates to:
+  /// **'Samsung: Configurações → Aplicativos → Kid Timer → Bateria → Sem restrições.'**
+  String get batteryHelpBatterySamsung;
+
+  /// Battery steps for Xiaomi, Redmi and POCO.
+  ///
+  /// In pt, this message translates to:
+  /// **'Xiaomi, Redmi, POCO: Configurações → Apps → Gerenciar apps → Kid Timer → Economia de bateria → Sem restrições, e ative a Inicialização automática.'**
+  String get batteryHelpBatteryXiaomi;
+
+  /// Battery steps for Motorola.
+  ///
+  /// In pt, this message translates to:
+  /// **'Motorola: Configurações → Apps → Kid Timer → Uso da bateria pelo app → Sem restrições.'**
+  String get batteryHelpBatteryMotorola;
+
+  /// Battery steps for Huawei.
+  ///
+  /// In pt, this message translates to:
+  /// **'Huawei: Configurações → Bateria → Inicialização de apps → Kid Timer → Gerenciar manualmente, com Inicialização automática e Executar em segundo plano ativados.'**
+  String get batteryHelpBatteryHuawei;
+
+  /// Battery steps for other vendors.
+  ///
+  /// In pt, this message translates to:
+  /// **'Outros: Configurações → Apps → Kid Timer → Bateria → Sem restrições (ou Não otimizar).'**
+  String get batteryHelpBatteryOthers;
+
+  /// Android button that opens the battery optimization settings.
+  ///
+  /// In pt, this message translates to:
+  /// **'Abrir otimização de bateria'**
+  String get batteryHelpOpenBatteryOptimization;
+
+  /// Help section about screen pinning.
+  ///
+  /// In pt, this message translates to:
+  /// **'Manter a criança no app'**
+  String get batteryHelpPinningTitle;
+
+  /// Screen pinning on Android.
+  ///
+  /// In pt, this message translates to:
+  /// **'Android: ative Configurações → Segurança → Fixar app e depois fixe o Kid Timer na tela de apps recentes.'**
+  String get batteryHelpPinningAndroid;
+
+  /// Guided Access on iOS and iPadOS.
+  ///
+  /// In pt, this message translates to:
+  /// **'iPhone e iPad: ative Ajustes → Acessibilidade → Acesso Guiado e depois clique três vezes no botão lateral dentro do Kid Timer.'**
+  String get batteryHelpPinningApple;
+
+  /// Keeping the child in the app on desktop.
+  ///
+  /// In pt, this message translates to:
+  /// **'Computadores: use a tela cheia com o bloqueio infantil ativado.'**
+  String get batteryHelpPinningDesktop;
+
+  /// Help section about Web and Linux.
+  ///
+  /// In pt, this message translates to:
+  /// **'Por que manter a janela aberta'**
+  String get batteryHelpWebTitle;
+
+  /// Why Web and Linux need the window open.
+  ///
+  /// In pt, this message translates to:
+  /// **'Navegadores e o Linux não deixam apps agendarem alarmes no sistema. O próprio Kid Timer toca o alarme, então ele só toca com a janela ou a aba aberta e o computador ligado.'**
+  String get batteryHelpWebBody;
 }
 
 class _AppLocalizationsDelegate

@@ -185,6 +185,16 @@ void main() {
       expect(h.session!.scheduledNotificationIds, [request.id]);
     });
 
+    test('the notification names the timer (contracts/ui/08 §8.3)', () async {
+      final h = harness();
+
+      await h.controller.start(_fiveMinutes);
+
+      final request = h.scheduler.scheduledRequests.single;
+      expect(request.title, "Time's up!");
+      expect(request.body, 'Timer: 5 minutes');
+    });
+
     test('keeps the origin it is given', () async {
       final h = harness();
 

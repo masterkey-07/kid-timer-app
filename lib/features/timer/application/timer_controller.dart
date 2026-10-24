@@ -13,6 +13,7 @@ import 'package:visual_time_counter/core/timer_engine/timer_engine.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
 import 'package:visual_time_counter/features/timer/application/active_session.dart';
 import 'package:visual_time_counter/features/timer/data/session_repository.dart';
+import 'package:visual_time_counter/features/timer/presentation/spoken_duration.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
 /// Creates the id of each new session (a UUID); tests override it.
@@ -209,7 +210,9 @@ class TimerController extends Notifier<TimerSession?> {
         fireAtUtc: session.endsAt!,
         kind: AlarmKind.end,
         title: texts.notificationTimerEndTitle,
-        body: texts.notificationTimerEndBody,
+        body: texts.notificationTimerEndBody(
+          spokenDuration(texts, session.config.duration.value),
+        ),
         sound: session.config.soundId,
         payload: timerNotificationPayload,
       ),
