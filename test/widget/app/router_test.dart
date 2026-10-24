@@ -125,6 +125,30 @@ void main() {
     });
   });
 
+  group('notifications', () {
+    testWidgets('a notification tap follows its deep link', (tester) async {
+      await pumpApp(tester, session: _session(SessionStatus.running));
+      // Leave the countdown for home, where a tap must bring it back.
+      await openDeepLink(tester, 'vtc://preset/missing/start');
+      expect(find.byKey(const Key('home.screen')), findsOneWidget);
+
+      dependencies.alarms.simulateTap('vtc://run');
+      await settle(tester);
+
+      expect(find.byKey(const Key('run.screen')), findsOneWidget);
+    });
+
+    testWidgets('the notification that launched the app is followed', (
+      tester,
+    ) async {
+      dependencies.alarms.launchPayloadValue = 'vtc://preset/missing/start';
+
+      await pumpApp(tester);
+
+      expect(find.byKey(const Key('deepLink.presetNotFound')), findsOneWidget);
+    });
+  });
+
   group('redirectFor', () {
     bool presetExists(String id) => id == _knownPreset;
 
