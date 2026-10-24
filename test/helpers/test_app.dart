@@ -10,6 +10,7 @@ import 'package:visual_time_counter/app/app.dart';
 import 'package:visual_time_counter/app/router.dart';
 import 'package:visual_time_counter/core/clock/clock_provider.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
+import 'package:visual_time_counter/core/platform/wakelock/wakelock_port.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/settings/data/settings_repository.dart';
@@ -36,15 +37,16 @@ var _boxCount = 0;
 /// Fakes for every port, in-memory storage and a controllable clock: what
 /// bootstrap provides in the real app.
 class TestAppDependencies {
-  new _(this._sessionBox, this._settingsBox) {
-    clock = Clock(() => now);
-    alarms = FakeAlarmScheduler(clock: clock);
+  new _(this._sessionBox, this._settingsBox, Clock? clock) {
+    this.clock = clock ?? Clock(() => now);
+    alarms = FakeAlarmScheduler(clock: this.clock);
     sessionRepository = SessionRepository(_sessionBox);
     settingsRepository = SettingsRepository(_settingsBox);
   }
 
-  /// Opens empty in-memory boxes.
-  static Future<TestAppDependencies> create() async {
+  /// Opens empty in-memory boxes. With [clock] (e.g. the real one) [now]
+  /// is ignored.
+  static Future<TestAppDependencies> create({Clock? clock}) async {
     final id = _boxCount++;
     return TestAppDependencies._(
       await Hive.openBox<Map<dynamic, dynamic>>(
@@ -55,6 +57,7 @@ class TestAppDependencies {
         'test_settings_$id',
         bytes: Uint8List(0),
       ),
+      clock,
     );
   }
 
@@ -68,9 +71,14 @@ class TestAppDependencies {
   late final FakeAlarmScheduler alarms;
   late final SessionRepository sessionRepository;
   late final SettingsRepository settingsRepository;
-  final audio = FakeAudio();
+
+  /// The audio fake; a test may swap it before building the overrides.
+  FakeAudio audio = FakeAudio();
   final haptics = FakeHaptics();
   final wakeLock = FakeWakeLock();
+
+  /// A real wakelock to use instead of [wakeLock] (integration tests).
+  WakeLockPort? wakeLockOverride;
   final fullscreen = FakeFullscreen();
   final lifecycle = FakeLifecycle();
   final systemSettings = FakeSystemSettings();
@@ -101,7 +109,7 @@ class TestAppDependencies {
     alarmSchedulerProvider.overrideWithValue(alarms),
     audioProvider.overrideWithValue(audio),
     hapticsProvider.overrideWithValue(haptics),
-    wakeLockProvider.overrideWithValue(wakeLock),
+    wakeLockProvider.overrideWithValue(wakeLockOverride ?? wakeLock),
     fullscreenProvider.overrideWithValue(fullscreen),
     appLifecycleProvider.overrideWithValue(lifecycle),
     imagePickerProvider.overrideWithValue(FakeImagePicker()),
