@@ -54,12 +54,45 @@ const _cellSpacing = 8.0;
 
 /// A circular thumbnail with its label below (text never sits on an
 /// image, contracts/ui/00 §3.2) and, when [isSelected], a ring and a ✓.
-class ImageThumb extends ConsumerWidget {
+class ImageThumb extends StatelessWidget {
   /// Creates the thumbnail of [image].
   const new({required this.image, this.isSelected = false, super.key});
 
   /// Thumbnail diameter.
   static const size = 96.0;
+
+  /// The image shown.
+  final ImageAsset image;
+
+  /// Whether it is the current choice.
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      ImageCircle(image: image, size: size, isSelected: isSelected),
+      const SizedBox(height: _labelGap),
+      Text(
+        imageLabel(context, image),
+        maxLines: _labelLines,
+        overflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.bodyLarge,
+      ),
+    ],
+  );
+}
+
+/// [image] cropped to a circle of [size], decoded at that size.
+class ImageCircle extends ConsumerWidget {
+  /// Creates the circle.
+  const new({
+    required this.image,
+    required this.size,
+    this.isSelected = false,
+    super.key,
+  });
 
   static const _ringWidth = 4.0;
   static const _checkSize = 24.0;
@@ -67,7 +100,10 @@ class ImageThumb extends ConsumerWidget {
   /// The image shown.
   final ImageAsset image;
 
-  /// Whether it is the current choice.
+  /// The diameter.
+  final double size;
+
+  /// Whether to ring it and show a ✓.
   final bool isSelected;
 
   @override
@@ -94,52 +130,39 @@ class ImageThumb extends ConsumerWidget {
       },
     };
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox.square(
-          dimension: size,
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: DecoratedBox(
-                  position: DecorationPosition.foreground,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: isSelected ? colors.primary : colors.outline,
-                      width: isSelected ? _ringWidth : 1,
-                    ),
-                  ),
-                  child: ClipOval(child: picture),
+    return SizedBox.square(
+      dimension: size,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: DecoratedBox(
+              position: DecorationPosition.foreground,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: isSelected ? colors.primary : colors.outline,
+                  width: isSelected ? _ringWidth : 1,
                 ),
               ),
-              if (isSelected)
-                Positioned(
-                  right: 0,
-                  bottom: 0,
-                  child: CircleAvatar(
-                    radius: _checkSize / 2,
-                    backgroundColor: colors.primary,
-                    child: Icon(
-                      Icons.check_rounded,
-                      size: _checkSize * 0.75,
-                      color: colors.onPrimary,
-                    ),
-                  ),
-                ),
-            ],
+              child: ClipOval(child: picture),
+            ),
           ),
-        ),
-        const SizedBox(height: _labelGap),
-        Text(
-          imageLabel(context, image),
-          maxLines: _labelLines,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-      ],
+          if (isSelected)
+            Positioned(
+              right: 0,
+              bottom: 0,
+              child: CircleAvatar(
+                radius: _checkSize / 2,
+                backgroundColor: colors.primary,
+                child: Icon(
+                  Icons.check_rounded,
+                  size: _checkSize * 0.75,
+                  color: colors.onPrimary,
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 

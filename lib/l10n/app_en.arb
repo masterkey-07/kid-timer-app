@@ -128,5 +128,10 @@
   "mineAffectedTimer": "The timer on the home screen will switch to colors too.",
   "mineRename": "Rename",
   "mineRenameTitle": "Rename image",
-  "mineNameField": "Name"
+  "mineNameField": "Name",
+  "homeImageChip": "Image: {name}",
+  "homeImageChipSemantics": "Image: {name}. Tap to change",
+  "homeNoImage": "No image",
+  "homeNoImageSemantics": "No image. Tap to choose an image",
+  "homeImageMissing": "This timer's image was deleted, so it uses colors."
 }

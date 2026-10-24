@@ -586,5 +586,35 @@
   "mineNameField": "Nome",
   "@mineNameField": {
     "description": "Label of the name field in the rename dialog."
+  },
+  "homeImageChip": "Imagem: {name}",
+  "@homeImageChip": {
+    "description": "Home chip naming the dial's image.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "homeImageChipSemantics": "Imagem: {name}. Toque para trocar",
+  "@homeImageChipSemantics": {
+    "description": "Screen reader label of the home image chip.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "homeNoImage": "Sem imagem",
+  "@homeNoImage": {
+    "description": "Home chip when the dial uses colors."
+  },
+  "homeNoImageSemantics": "Sem imagem. Toque para escolher uma imagem",
+  "@homeNoImageSemantics": {
+    "description": "Screen reader label of the home image chip without an image."
+  },
+  "homeImageMissing": "A imagem deste timer foi apagada, então ele vai usar cores.",
+  "@homeImageMissing": {
+    "description": "One-time snackbar when the chosen own image no longer exists."
   }
 }

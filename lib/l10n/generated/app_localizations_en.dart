@@ -469,4 +469,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mineNameField => 'Name';
+
+  @override
+  String homeImageChip(String name) {
+    return 'Image: $name';
+  }
+
+  @override
+  String homeImageChipSemantics(String name) {
+    return 'Image: $name. Tap to change';
+  }
+
+  @override
+  String get homeNoImage => 'No image';
+
+  @override
+  String get homeNoImageSemantics => 'No image. Tap to choose an image';
+
+  @override
+  String get homeImageMissing =>
+      'This timer\'s image was deleted, so it uses colors.';
 }

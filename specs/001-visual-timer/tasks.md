@@ -229,7 +229,7 @@ images", image on the dial with a fallback to colors.
 - [x] T106 [P] [US3] Implement the real `ImagePickerPort` in `lib/core/platform/image_picker/image_picker_port_impl.dart` (`image_picker` + `file_selector` on desktop)
 - [x] T107 [US3] Implement an `ImageCache` of `ui.Image`s decoded at the dial's size in `lib/features/images/application/decoded_image_cache.dart` and extend `DialPainter` for `BankImageSource`/`UserImageSource` with a fallback to color on failure (depends on T098)
 - [x] T108 [US3] Implement `ImagePickerScreen` (`/images`), `FrameScreen` (`/images/frame`), `MyImagesScreen` (`/images/mine`) and `ImageThumb` in `lib/features/images/presentation/` with the keys from contracts/ui/04 (depends on T103–T107)
-- [ ] T109 [US3] Wire the image chip into `HomeScreen` (`home.imageChip`, `home.imageClear`) and a one-time notice when the own image was deleted in `lib/features/timer/presentation/home_screen.dart`
+- [x] T109 [US3] Wire the image chip into `HomeScreen` (`home.imageChip`, `home.imageClear`) and a one-time notice when the own image was deleted in `lib/features/timer/presentation/home_screen.dart`
 - [ ] T110 [US3] Verify in the Android manifest that no `READ_MEDIA_IMAGES`/`READ_EXTERNAL_STORAGE` permission is added (remove them with `tools:node="remove"` if a plugin includes them) in `android/app/src/main/AndroidManifest.xml`
 - [ ] T111 [US3] Add US3 strings (`images*`, `frame*`, `mine*`, category labels) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
 

@@ -15,6 +15,7 @@ import 'package:visual_time_counter/features/timer/presentation/widgets/backgrou
 import 'package:visual_time_counter/features/timer/presentation/widgets/dial_view.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/digits_label.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/duration_quick_buttons.dart';
+import 'package:visual_time_counter/features/timer/presentation/widgets/image_chip.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/preflight_dialogs.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
@@ -151,7 +152,7 @@ class HomeScreen extends ConsumerWidget {
   }
 }
 
-/// Digits, quick buttons and the start button.
+/// Digits, quick buttons, the image chip and the start button.
 class _SetupControls extends ConsumerWidget {
   const new({required this.config, required this.onStart});
 
@@ -175,7 +176,9 @@ class _SetupControls extends ConsumerWidget {
           onChanged: ref.read(setupConfigProvider.notifier).setDuration,
           onMaxReached: () => _showMaxReached(context),
         ),
-        const SizedBox(height: _gap * 2),
+        const SizedBox(height: _gap),
+        const ImageChip(),
+        const SizedBox(height: _gap),
         SizedBox(
           width: double.infinity,
           child: FilledButton.icon(

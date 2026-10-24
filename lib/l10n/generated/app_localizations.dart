@@ -871,6 +871,36 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Nome'**
   String get mineNameField;
+
+  /// Home chip naming the dial's image.
+  ///
+  /// In pt, this message translates to:
+  /// **'Imagem: {name}'**
+  String homeImageChip(String name);
+
+  /// Screen reader label of the home image chip.
+  ///
+  /// In pt, this message translates to:
+  /// **'Imagem: {name}. Toque para trocar'**
+  String homeImageChipSemantics(String name);
+
+  /// Home chip when the dial uses colors.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sem imagem'**
+  String get homeNoImage;
+
+  /// Screen reader label of the home image chip without an image.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sem imagem. Toque para escolher uma imagem'**
+  String get homeNoImageSemantics;
+
+  /// One-time snackbar when the chosen own image no longer exists.
+  ///
+  /// In pt, this message translates to:
+  /// **'A imagem deste timer foi apagada, então ele vai usar cores.'**
+  String get homeImageMissing;
 }
 
 class _AppLocalizationsDelegate

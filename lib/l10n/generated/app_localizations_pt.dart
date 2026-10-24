@@ -474,4 +474,25 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get mineNameField => 'Nome';
+
+  @override
+  String homeImageChip(String name) {
+    return 'Imagem: $name';
+  }
+
+  @override
+  String homeImageChipSemantics(String name) {
+    return 'Imagem: $name. Toque para trocar';
+  }
+
+  @override
+  String get homeNoImage => 'Sem imagem';
+
+  @override
+  String get homeNoImageSemantics =>
+      'Sem imagem. Toque para escolher uma imagem';
+
+  @override
+  String get homeImageMissing =>
+      'A imagem deste timer foi apagada, então ele vai usar cores.';
 }
