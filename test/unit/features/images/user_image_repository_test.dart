@@ -254,7 +254,10 @@ void main() {
       await bytes.delete(withoutBytes.id);
       await bytes.put('bytes-only', _jpeg.jpegBytes);
 
-      final removed = await images.removeOrphans();
+      final removed = await UserImageRepository.removeOrphans(
+        meta: meta,
+        bytes: bytes,
+      );
 
       expect(removed, 2);
       expect(images.list().map((image) => image.id), [kept.id]);
@@ -266,7 +269,10 @@ void main() {
       await bytes.put('broken', _jpeg.jpegBytes);
       await meta.put('broken', {'schemaVersion': 1, 'id': 'broken'});
 
-      expect(await images.removeOrphans(), 1);
+      expect(
+        await UserImageRepository.removeOrphans(meta: meta, bytes: bytes),
+        1,
+      );
       expect(meta.isEmpty, isTrue);
       expect(bytes.isEmpty, isTrue);
     });

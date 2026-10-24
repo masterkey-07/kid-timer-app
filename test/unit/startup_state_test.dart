@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,6 +11,7 @@ import 'package:visual_time_counter/core/persistence/boxes.dart';
 import 'package:visual_time_counter/core/persistence/hive_bootstrap.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
+import 'package:visual_time_counter/features/images/data/user_image_repository.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/settings/data/settings_repository.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
@@ -33,6 +36,26 @@ void main() {
   );
 
   Future<PersistenceBoxes> open() => openPersistence(clock: clock);
+
+  test(
+    'removes own image bytes and metadata left without each other',
+    () async {
+      final boxes = await open();
+      await boxes.userImages.put('bytes-only', Uint8List.fromList([1, 2]));
+      await boxes.userImagesMeta.put('meta-only', {'schemaVersion': 1});
+
+      final state = await loadStartupState(boxes: boxes, clock: clock);
+
+      expect(boxes.userImages.isEmpty, isTrue);
+      expect(boxes.userImagesMeta.isEmpty, isTrue);
+      final container = ProviderContainer(overrides: state.overrides);
+      addTearDown(container.dispose);
+      expect(
+        container.read(userImageStorageProvider).meta,
+        boxes.userImagesMeta,
+      );
+    },
+  );
 
   test('first launch: no session, initial settings, no issues', () async {
     final state = await loadStartupState(boxes: await open(), clock: clock);
