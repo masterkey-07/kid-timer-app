@@ -142,7 +142,7 @@ screen that stays until a tap.
 - [x] T060 [P] [US1] Countdown widget tests in `test/widget/features/timer/run_screen_test.dart` (with `childLockEnabled=false`: pause/resume/restart with confirmation < 50%/stop with confirmation; digits hidden if `showDigits=false`; repaint isolated in a `RepaintBoundary`)
 - [x] T061 [P] [US1] Final screen widget tests in `test/widget/features/timer/finished_screen_test.dart` (800 ms guard; tap acknowledges and returns to `/`; Enter/Space/Esc; "Time's up" announcement; stays after 10 simulated minutes)
 - [ ] T062 [P] [US1] Goldens in `test/golden/features/timer/dial_view_golden_test.dart` (dial 0/25/50/100% × progressive/calm × clockwise/counter-clockwise × light/dark) and `test/golden/features/timer/screens_golden_test.dart` (home, run, finished × compact/medium/expanded)
-- [ ] T063 [P] [US1] Accessibility tests in `test/widget/features/timer/timer_a11y_test.dart` (guidelines on the 3 screens; 200% font without overflow; pt and en)
+- [x] T063 [P] [US1] Accessibility tests in `test/widget/features/timer/timer_a11y_test.dart` (guidelines on the 3 screens; 200% font without overflow; pt and en)
 - [ ] T064 [P] [US1] Integration test `integration_test/restart_shows_finished_test.dart` (expired unacknowledged session → `/finished` after a restart)
 - [ ] T065 [P] [US1] E2E `patrol_test/e2e_us1_basic_timer_test.dart` (drag to 1 min, start, wait, final screen, tap returns)
 
