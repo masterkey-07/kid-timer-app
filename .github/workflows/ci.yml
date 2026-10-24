@@ -14,8 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # Constitution VIII: every release APK (per ABI) must stay at or below 25 MB.
-  MAX_APK_BYTES: 25000000
+  # Constitution VIII: every release APK (per ABI) must stay at or below 50 MB.
+  MAX_APK_BYTES: 50000000
   LINUX_BUILD_DEPS: >-
     clang cmake ninja-build pkg-config libgtk-3-dev
     libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev

@@ -136,7 +136,8 @@ Rationale: an open source project must be easy to understand and contribute to.
   set); `dart format` mandatory; no `// ignore` without a justifying comment.
 - The dial animation MUST hold 60 fps (120 fps on capable screens) without jank on a low-end
   reference device (Android with 3 GB RAM and a 4-core CPU), measured in profile mode.
-- Cold start ≤ 2 s to the first useful frame on the reference device; APK per ABI ≤ 25 MB.
+- Cold start ≤ 2 s to the first useful frame on the reference device; APK per ABI ≤ 50 MB, of
+  which the extended emoji library (Principle II) takes at most 25 MB.
 - Power: with the screen on and the timer running, the app MUST NOT repaint more than needed
   (dial repaint isolated with `RepaintBoundary`).
 - Public APIs in `lib/core` MUST have `///` documentation.
@@ -201,4 +202,4 @@ Rationale: freedom to use and distribute through every store, including F-Droid.
   violations are only accepted when justified in "Complexity Tracking".
 - PR reviews MUST verify compliance. Runtime guidance for agents lives in `CLAUDE.md`.
 
-**Version**: 1.2.0 | **Ratified**: 2026-10-23 | **Last Amended**: 2026-10-24
+**Version**: 1.3.0 | **Ratified**: 2026-10-23 | **Last Amended**: 2026-10-24
