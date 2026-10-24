@@ -272,6 +272,9 @@ final class ManualOrigin extends SessionOrigin {
 
   @override
   int get hashCode => _type.hashCode;
+
+  @override
+  String toString() => 'ManualOrigin()';
 }
 
 /// Started from a preset.
@@ -293,6 +296,9 @@ final class PresetOrigin extends SessionOrigin {
 
   @override
   int get hashCode => Object.hash(_type, presetId);
+
+  @override
+  String toString() => 'PresetOrigin($presetId)';
 }
 
 /// A step of a routine run (v1.x).
@@ -323,4 +329,7 @@ final class RoutineOrigin extends SessionOrigin {
 
   @override
   int get hashCode => Object.hash(_type, runId, stepIndex);
+
+  @override
+  String toString() => 'RoutineOrigin($runId, step $stepIndex)';
 }
