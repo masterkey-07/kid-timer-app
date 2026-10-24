@@ -26,7 +26,7 @@ const _schemaExample = <String, Object?>{
   'tickVolume': 0.3,
   'vibrate': true,
   'showDigits': true,
-  'imageEffect': 'vanish',
+  'imageEffect': 'reveal',
   'warningsMin': <int>[],
 };
 
@@ -45,7 +45,7 @@ void main() {
       expect(config.tickVolume, 0.3);
       expect(config.vibrate, isTrue);
       expect(config.showDigits, isTrue);
-      expect(config.imageEffect, ImageEffect.vanish);
+      expect(config.imageEffect, ImageEffect.reveal);
       expect(config.warnings, WarningOffsets.none);
     });
 
@@ -78,7 +78,7 @@ void main() {
         tickVolume: 0.1,
         vibrate: false,
         showDigits: false,
-        imageEffect: ImageEffect.reveal,
+        imageEffect: ImageEffect.mosaic,
         warnings: WarningOffsets(const {1}),
       );
 
@@ -92,7 +92,7 @@ void main() {
       expect(changed.tickVolume, 0.1);
       expect(changed.vibrate, isFalse);
       expect(changed.showDigits, isFalse);
-      expect(changed.imageEffect, ImageEffect.reveal);
+      expect(changed.imageEffect, ImageEffect.mosaic);
       expect(changed.warnings, WarningOffsets(const {1}));
     });
 

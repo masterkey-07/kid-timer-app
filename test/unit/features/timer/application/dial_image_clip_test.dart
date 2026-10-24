@@ -12,78 +12,78 @@ const _circle = Rect.fromLTWH(0, 0, 100, 100);
 
 const _imageColor = Color(0xFFFF0000);
 const _sectorColor = Color(0xFF00FF00);
-const _elapsedColor = Color(0xFF0000FF);
+const _emptyColor = Color(0xFF0000FF);
 
-// For a clockwise dial, 25% left opens a quarter counter-clockwise from
-// 12 o'clock: the top-left quadrant.
-const _remainingPoint = Offset(30, 30);
-const _elapsedPoint = Offset(70, 70);
+// For a clockwise dial, 25% elapsed fills a quarter clockwise from
+// 12 o'clock: the top-right quadrant.
+const _filledPoint = Offset(70, 30);
+const _emptyPoint = Offset(30, 70);
 
 void main() {
-  group('remainingSectorPath', () {
-    test('covers the opened quarter only', () {
-      final path = DialGeometry.remainingSectorPath(_circle, -pi / 2);
+  group('sectorPath', () {
+    test('covers the swept quarter only', () {
+      final path = DialGeometry.sectorPath(_circle, pi / 2);
 
-      expect(path.contains(_remainingPoint), isTrue);
-      expect(path.contains(_elapsedPoint), isFalse);
-      expect(path.contains(const Offset(70, 30)), isFalse);
-      expect(path.contains(const Offset(30, 70)), isFalse);
+      expect(path.contains(_filledPoint), isTrue);
+      expect(path.contains(_emptyPoint), isFalse);
+      expect(path.contains(const Offset(30, 30)), isFalse);
+      expect(path.contains(const Offset(70, 70)), isFalse);
     });
 
-    test('opens the other way for a positive sweep', () {
-      final path = DialGeometry.remainingSectorPath(_circle, pi / 2);
+    test('goes the other way for a negative sweep', () {
+      final path = DialGeometry.sectorPath(_circle, -pi / 2);
 
-      expect(path.contains(const Offset(70, 30)), isTrue);
-      expect(path.contains(_remainingPoint), isFalse);
+      expect(path.contains(const Offset(30, 30)), isTrue);
+      expect(path.contains(_filledPoint), isFalse);
     });
 
     test('is the whole disc for a full turn, but not its corners', () {
-      final path = DialGeometry.remainingSectorPath(_circle, -2 * pi);
+      final path = DialGeometry.sectorPath(_circle, 2 * pi);
 
       for (final point in const [
-        _remainingPoint,
-        _elapsedPoint,
-        Offset(70, 30),
-        Offset(30, 70),
+        _filledPoint,
+        _emptyPoint,
+        Offset(30, 30),
+        Offset(70, 70),
       ]) {
         expect(path.contains(point), isTrue, reason: '$point');
       }
       expect(path.contains(const Offset(2, 2)), isFalse);
     });
 
-    test('is empty when nothing is left', () {
-      final path = DialGeometry.remainingSectorPath(_circle, 0);
+    test('is empty for a zero sweep', () {
+      final path = DialGeometry.sectorPath(_circle, 0);
 
       expect(path.getBounds().isEmpty, isTrue);
     });
   });
 
   group('DialPainter with an image (FR-025)', () {
-    testWidgets('shows the image in the remaining sector only', (tester) async {
+    testWidgets('shows the image in the filled sector only', (tester) async {
       final pixels = await tester.runAsync(
-        () => _paint(sweepAngle: -pi / 2, withImage: true),
+        () => _paint(sweepAngle: pi / 2, withImage: true),
       );
 
-      expect(pixels!.at(_remainingPoint), _imageColor);
-      expect(pixels.at(_elapsedPoint), _elapsedColor);
+      expect(pixels!.at(_filledPoint), _imageColor);
+      expect(pixels.at(_emptyPoint), _emptyColor);
     });
 
     testWidgets('keeps the image inside the circle at 100%', (tester) async {
       final pixels = await tester.runAsync(
-        () => _paint(sweepAngle: -2 * pi, withImage: true),
+        () => _paint(sweepAngle: 2 * pi, withImage: true),
       );
 
-      expect(pixels!.at(_elapsedPoint), _imageColor);
+      expect(pixels!.at(_emptyPoint), _imageColor);
       expect(pixels.at(const Offset(1, 1)).a, 0);
     });
 
     testWidgets('paints the sector color without an image', (tester) async {
       final pixels = await tester.runAsync(
-        () => _paint(sweepAngle: -pi / 2, withImage: false),
+        () => _paint(sweepAngle: pi / 2, withImage: false),
       );
 
-      expect(pixels!.at(_remainingPoint), _sectorColor);
-      expect(pixels.at(_elapsedPoint), _elapsedColor);
+      expect(pixels!.at(_filledPoint), _sectorColor);
+      expect(pixels.at(_emptyPoint), _emptyColor);
     });
   });
 }
@@ -98,7 +98,7 @@ Future<_Pixels> _paint({
       DialFrame(sweepAngle: sweepAngle, sectorColor: _sectorColor),
     ),
     style: const DialStyle(
-      elapsedColor: _elapsedColor,
+      emptyColor: _emptyColor,
       outlineColor: Color(0x00000000),
       outlineWidth: 0,
       markerColor: Color(0x00000000),

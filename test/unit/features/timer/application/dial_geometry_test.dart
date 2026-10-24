@@ -21,8 +21,8 @@ DialGeometry _geometry({
 }) => DialGeometry(scale: scale, direction: direction);
 
 void main() {
-  group('remaining fraction (FR-002)', () {
-    test('is the remaining time over the scale', () {
+  group('setup fraction (FR-001)', () {
+    test('is the duration over the scale', () {
       expect(_geometry().fractionOf(const Duration(minutes: 15)), 0.25);
       expect(
         _geometry(scale: DialScale.min15)
@@ -68,6 +68,71 @@ void main() {
         closeTo(2 * pi, 1e-9),
       );
       expect(geometry.sweepAngleOf(Duration.zero), 0);
+    });
+  });
+
+  group('filled sweep while running (FR-002)', () {
+    const tenMinutes = Duration(minutes: 10);
+
+    test('is empty at the start', () {
+      expect(_geometry().filledSweepAngleOf(tenMinutes, total: tenMinutes), 0);
+    });
+
+    test('is relative to the set duration, not to the scale', () {
+      for (final scale in [DialScale.min15, DialScale.min60]) {
+        expect(
+          _geometry(scale: scale)
+              .filledSweepAngleOf(const Duration(minutes: 5), total: tenMinutes)
+              .abs(),
+          closeTo(pi, 1e-9),
+          reason: '$scale',
+        );
+      }
+    });
+
+    test('is a full turn when time is up', () {
+      expect(
+        _geometry().filledSweepAngleOf(Duration.zero, total: tenMinutes).abs(),
+        closeTo(2 * pi, 1e-9),
+      );
+    });
+
+    test('grows clockwise for a clockwise dial', () {
+      expect(
+        _geometry().filledSweepAngleOf(
+          const Duration(minutes: 7, seconds: 30),
+          total: tenMinutes,
+        ),
+        closeTo(pi / 2, 1e-9),
+      );
+    });
+
+    test('grows counter-clockwise for a counter-clockwise dial', () {
+      expect(
+        _geometry(direction: DialDirection.counterClockwise).filledSweepAngleOf(
+          const Duration(minutes: 7, seconds: 30),
+          total: tenMinutes,
+        ),
+        closeTo(-pi / 2, 1e-9),
+      );
+    });
+
+    test('is clamped between empty and full', () {
+      final geometry = _geometry();
+
+      expect(
+        geometry.filledSweepAngleOf(
+          const Duration(minutes: 12),
+          total: tenMinutes,
+        ),
+        0,
+      );
+      expect(
+        geometry
+            .filledSweepAngleOf(const Duration(seconds: -5), total: tenMinutes)
+            .abs(),
+        closeTo(2 * pi, 1e-9),
+      );
     });
   });
 

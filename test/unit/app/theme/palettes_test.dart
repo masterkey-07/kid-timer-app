@@ -80,25 +80,25 @@ void main() {
     expect(colors, hasLength(8));
   });
 
-  group('elapsed sector', () {
+  group('empty part of the dial', () {
     test('is translucent gray in the regular themes', () {
       expect(
-        DialPalettes.elapsed(Brightness.light, highContrast: false),
+        DialPalettes.empty(Brightness.light, highContrast: false),
         const Color(0xFF9AA0A6).withValues(alpha: 0.18),
       );
       expect(
-        DialPalettes.elapsed(Brightness.dark, highContrast: false),
+        DialPalettes.empty(Brightness.dark, highContrast: false),
         const Color(0xFF9AA0A6).withValues(alpha: 0.28),
       );
     });
 
     test('is opaque with increased contrast', () {
       expect(
-        DialPalettes.elapsed(Brightness.light, highContrast: true),
+        DialPalettes.empty(Brightness.light, highContrast: true),
         const Color(0xFFE3E5E8),
       );
       expect(
-        DialPalettes.elapsed(Brightness.dark, highContrast: true),
+        DialPalettes.empty(Brightness.dark, highContrast: true),
         const Color(0xFF2A2D33),
       );
     });
