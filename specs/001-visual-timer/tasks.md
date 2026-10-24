@@ -232,7 +232,7 @@ images", image on the dial with a fallback to colors.
 - [x] T109 [US3] Wire the image chip into `HomeScreen` (`home.imageChip`, `home.imageClear`) and a one-time notice when the own image was deleted in `lib/features/timer/presentation/home_screen.dart`
 - [x] T110 [US3] Verify in the Android manifest that no `READ_MEDIA_IMAGES`/`READ_EXTERNAL_STORAGE` permission is added (remove them with `tools:node="remove"` if a plugin includes them) in `android/app/src/main/AndroidManifest.xml`
 - [x] T111 [US3] Add US3 strings (`images*`, `frame*`, `mine*`, category labels) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
-- [ ] T111a [US3] Add the `animals` category (FR-020, clarified 2026-10-24): `ImageCategory.animals`, ≥ 6 animal images in `tool/image_bank/sources.json` regenerated into the bank, the `imagesCategoryAnimals` string, the picker tab, the manifest test's category list and human review rows in `docs/assets-review.md` — **partial**: 8 animals (dog, cat, rabbit, panda, elephant, turtle, penguin, butterfly) built and wired in; their review rows are `pending`
+- [x] T111a [US3] Add the `animals` category (FR-020, clarified 2026-10-24): `ImageCategory.animals`, ≥ 6 animal images in `tool/image_bank/sources.json` regenerated into the bank, the `imagesCategoryAnimals` string, the picker tab, the manifest test's category list and human review rows in `docs/assets-review.md`
 
 **Checkpoint**: US1–US3 complete = usable MVP core.
 

@@ -65,14 +65,14 @@ people or symbols; the notes column flags what a reviewer should look at closely
 | `bank:goingOut/bike_ride`    | Bike ride       | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
 | `bank:goingOut/shopping`     | Go shopping     | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
 | `bank:goingOut/go_home`      | Go home         | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
-| `bank:animals/dog`           | Dog             | —                            | —          | pending  |                                                        |
-| `bank:animals/cat`           | Cat             | —                            | —          | pending  |                                                        |
-| `bank:animals/rabbit`        | Rabbit          | —                            | —          | pending  |                                                        |
-| `bank:animals/panda`         | Panda           | —                            | —          | pending  |                                                        |
-| `bank:animals/elephant`      | Elephant        | —                            | —          | pending  |                                                        |
-| `bank:animals/turtle`        | Turtle          | —                            | —          | pending  |                                                        |
-| `bank:animals/penguin`       | Penguin         | —                            | —          | pending  |                                                        |
-| `bank:animals/butterfly`     | Butterfly       | —                            | —          | pending  |                                                        |
+| `bank:animals/dog`           | Dog             | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:animals/cat`           | Cat             | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:animals/rabbit`        | Rabbit          | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:animals/panda`         | Panda           | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:animals/elephant`      | Elephant        | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:animals/turtle`        | Turtle          | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:animals/penguin`       | Penguin         | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
+| `bank:animals/butterfly`     | Butterfly       | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
 
 ## Recognition validation (R9, before v1.0)
 
