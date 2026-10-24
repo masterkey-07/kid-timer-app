@@ -6,6 +6,7 @@ import 'package:visual_time_counter/core/platform/alarm/alarm_scheduler.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
+import 'package:visual_time_counter/features/timer/application/background_alarm_notice.dart';
 import 'package:visual_time_counter/features/timer/application/start_preflight.dart';
 
 import '../../../../helpers/test_app.dart';
@@ -240,7 +241,12 @@ void main() {
       '"Allow" opens the setting and re-checks when the app returns',
       () async {
         final checker = preflight();
-        final queriesBefore = dependencies.alarms.capabilitiesQueries;
+        final container = containers.last
+          ..listen(backgroundAlarmNoticeProvider, (_, _) {});
+        expect(
+          await container.read(backgroundAlarmNoticeProvider.future),
+          BackgroundAlarmNotice.reducedAccuracy,
+        );
         var isDone = false;
 
         final run = checker
@@ -251,11 +257,16 @@ void main() {
         expect(dependencies.alarms.calls, ['openExactAlarmSettings']);
         expect(isDone, isFalse, reason: 'waits for the adult to come back');
 
+        dependencies.alarms.capabilitiesValue = _allGranted;
         dependencies.lifecycle.emit(AppLifecycleState.resumed);
         await run;
 
         expect(isDone, isTrue);
-        expect(dependencies.alarms.capabilitiesQueries, queriesBefore + 2);
+        expect(
+          await container.read(backgroundAlarmNoticeProvider.future),
+          isNull,
+          reason: 'the banner re-checks the capabilities',
+        );
       },
     );
 
