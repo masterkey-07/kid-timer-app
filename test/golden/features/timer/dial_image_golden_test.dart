@@ -31,7 +31,7 @@ Future<Uint8List?> _loadFromAssets(VisualSource source) async {
   if (source is! BankImageSource) return null;
   final path = source.imageId.replaceFirst('bank:', '');
   final file = File('assets/images/bank/$path.webp');
-  return file.existsSync() ? file.readAsBytes() : null;
+  return file.existsSync() ? await file.readAsBytes() : null;
 }
 
 TimerSession _sessionWith({

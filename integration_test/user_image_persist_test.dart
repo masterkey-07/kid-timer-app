@@ -53,7 +53,7 @@ void main() {
         ..b = 90;
     }
     final processed = (await tester.runAsync(
-      () => ImageProcessorImpl().process(
+      () => const ImageProcessorImpl().process(
         img.encodeJpg(photo),
         FrameSpec.centered,
       ),
@@ -71,7 +71,7 @@ void main() {
     final boxes = await openPersistence(clock: clock);
     final repository = repositoryOver(boxes);
     final processed = (await tester.runAsync(
-      () => ImageProcessorImpl().process(
+      () => const ImageProcessorImpl().process(
         img.encodePng(img.Image(width: 64, height: 64)),
         FrameSpec.centered,
       ),

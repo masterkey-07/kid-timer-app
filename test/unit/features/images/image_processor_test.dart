@@ -9,7 +9,7 @@ import 'package:visual_time_counter/features/images/domain/frame_spec.dart';
 import 'package:visual_time_counter/features/images/domain/image_processor.dart';
 
 const _outputSize = 1024;
-const _maxOutputBytes = 400 * 1024;
+const int _maxOutputBytes = 400 * 1024;
 const _gpsFixture = 'test/fixtures/images/with_gps.jpg';
 const _fixtureCameraMake = 'KidTimerFixtureCam';
 
@@ -19,7 +19,7 @@ final _green = img.ColorRgb8(0, 255, 0);
 final _yellow = img.ColorRgb8(255, 255, 0);
 
 void main() {
-  final processor = ImageProcessorImpl();
+  const processor = ImageProcessorImpl();
 
   group('output', () {
     test('is a 1024×1024 JPEG (FR-023)', () async {
@@ -97,7 +97,7 @@ void main() {
       final output = await _framed(
         processor,
         landscape,
-        FrameSpec(centerX: 0.25, centerY: 0.5),
+        FrameSpec(centerX: 0.25),
       );
 
       expect(_isNear(output.getPixel(100, 512), _red), isTrue);

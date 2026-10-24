@@ -12,7 +12,7 @@ class FakeImageProcessor implements ImageProcessor {
   /// When set, processing waits until it completes.
   Completer<void>? gate;
 
-  Object? nextError;
+  Exception? nextError;
 
   ProcessedImage result = ProcessedImage(
     jpegBytes: Uint8List.fromList(const [0xFF, 0xD8, 0xFF, 0xD9]),

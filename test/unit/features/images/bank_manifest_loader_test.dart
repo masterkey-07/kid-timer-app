@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:visual_time_counter/features/images/data/bank_manifest_loader.dart';
 import 'package:visual_time_counter/features/images/domain/image_category.dart';
 
-const _entry = {
+const Map<String, Object> _entry = {
   'id': 'bank:hygiene/brush_teeth',
   'category': 'hygiene',
   'file': 'hygiene/brush_teeth.webp',
