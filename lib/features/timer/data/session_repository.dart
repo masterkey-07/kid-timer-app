@@ -1,6 +1,14 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:visual_time_counter/core/persistence/migrator.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
+
+/// The session repository; bootstrap provides it over the opened box.
+final sessionRepositoryProvider = Provider<SessionRepository>(
+  (ref) => throw StateError(
+    'sessionRepositoryProvider must be overridden in bootstrap',
+  ),
+);
 
 /// Stores the active timer session in the `session` box under `"timer"`.
 ///

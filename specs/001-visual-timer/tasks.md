@@ -112,7 +112,7 @@ tooling. **⚠️ No story starts before this phase is done.**
 
 ### 2e. App shell: bootstrap, theme, routes, l10n
 
-- [ ] T049 Implement `lib/bootstrap.dart` (initializes `timezone`, Hive, migrations, loads session and settings, creates the `ProviderContainer` with platform overrides) and `lib/main.dart`
+- [x] T049 Implement `lib/bootstrap.dart` (initializes `timezone`, Hive, migrations, loads session and settings, creates the `ProviderContainer` with platform overrides) and `lib/main.dart`
 - [x] T050 [P] Implement tokens and themes in `lib/app/theme/tokens.dart`, `palettes.dart` (progressive palette `#3BAA5C`/`#F2C14E`/`#E05A47`, calm `#8FB8E8`/`#B9A7E0`/`#F3C3A3`, elapsed `#9AA0A6` 0.18 light/0.28 dark, 8 `ColorToken`s), `typography.dart` (Atkinson, tabular digits), `app_theme.dart` (light/dark, each with a high-contrast variant selected by `MediaQuery.highContrastOf` — FR-055) per contracts/ui/00 §4
 - [x] T051 [P] Write a contrast test in `test/unit/app/theme/contrast_test.dart` (text ≥ 4.5:1 and components ≥ 3:1 in both themes; text and icons ≥ 7:1 and components ≥ 4.5:1 in both high-contrast variants)
 - [x] T052 Write route and guard tests in `test/widget/app/router_test.dart` (running session → `/run`; unacknowledged finished → `/finished`; deep links `vtc://preset/<id>/start`, `vtc://run`; unknown id → `/` with a snackbar)
