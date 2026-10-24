@@ -42,8 +42,7 @@ void main() {
       await dependencies.sessionRepository.save(session);
       container = ProviderContainer(
         overrides: dependencies.overrides(session: session),
-      );
-      container.listen(timerControllerProvider, (_, _) {});
+      )..listen(timerControllerProvider, (_, _) {});
     }
 
     TimerSession? current() => container.read(timerControllerProvider);
@@ -122,7 +121,7 @@ void main() {
 
     final start = DateTime.utc(2026, 10, 23, 8);
 
-    Future<StartupState> launchAt(DateTime now) async => loadStartupState(
+    Future<StartupState> launchAt(DateTime now) async => await loadStartupState(
       boxes: await openPersistence(clock: Clock.fixed(now)),
       clock: Clock.fixed(now),
     );

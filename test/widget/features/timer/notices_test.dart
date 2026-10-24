@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
@@ -251,11 +249,8 @@ void main() {
     testWidgets('the countdown never shows it in child mode', (tester) async {
       dependencies.alarms.capabilitiesValue = AlarmCapabilities.unsupported;
       dependencies.platform = AppPlatform.web;
-      await tester.pumpKidTimerApp(
-        dependencies,
-        session: _running(),
-        settings: const AppSettings(childLockEnabled: true),
-      );
+      // The child lock is on by default.
+      await tester.pumpKidTimerApp(dependencies, session: _running());
       await settle(tester);
 
       expect(byKey('run.screen'), findsOneWidget);

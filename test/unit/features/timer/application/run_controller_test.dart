@@ -15,7 +15,7 @@ import '../../../../helpers/test_app.dart';
 
 const _sessionId = 'run-controller-1';
 
-final _alarmId = alarmIdFor(_sessionId);
+final int _alarmId = alarmIdFor(_sessionId);
 
 TimerSession _running({bool tickEnabled = false}) => TimerSession(
   id: _sessionId,
@@ -55,8 +55,7 @@ void main() {
     }
     container = ProviderContainer(
       overrides: dependencies.overrides(session: running, settings: settings),
-    );
-    container.listen(timerControllerProvider, (_, _) {});
+    )..listen(timerControllerProvider, (_, _) {});
     screen = container.listen(runControllerProvider, (_, _) {});
     await pumpEventQueue();
   }
@@ -86,7 +85,8 @@ void main() {
     });
 
     test('enters full screen only with the child lock on (FR-030)', () async {
-      await enterRun(settings: const AppSettings(childLockEnabled: true));
+      // The child lock is on by default.
+      await enterRun(settings: AppSettings.initial);
       expect(dependencies.fullscreen.isFullscreen, isTrue);
 
       await leaveRun();
