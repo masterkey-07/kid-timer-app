@@ -36,6 +36,9 @@ class FakeAlarmScheduler implements AlarmScheduler {
   /// Every cancelled id, in order.
   final List<int> cancelledIds = [];
 
+  /// How many times [capabilities] was queried.
+  int capabilitiesQueries = 0;
+
   /// Names of the permission/settings calls, in order.
   final List<String> calls = [];
 
@@ -43,7 +46,10 @@ class FakeAlarmScheduler implements AlarmScheduler {
   void simulateTap(String payload) => _taps.add(payload);
 
   @override
-  Future<AlarmCapabilities> capabilities() async => capabilitiesValue;
+  Future<AlarmCapabilities> capabilities() async {
+    capabilitiesQueries++;
+    return capabilitiesValue;
+  }
 
   @override
   Future<PermissionState> requestNotificationPermission() async {

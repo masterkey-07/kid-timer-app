@@ -73,6 +73,10 @@ class TestAppDependencies {
   final wakeLock = FakeWakeLock();
   final fullscreen = FakeFullscreen();
   final lifecycle = FakeLifecycle();
+  final systemSettings = FakeSystemSettings();
+
+  /// The platform the app believes it runs on; tests may change it.
+  AppPlatform platform = AppPlatform.android;
 
   /// The overrides for a `ProviderScope` restoring [session] and
   /// [settings].
@@ -93,7 +97,7 @@ class TestAppDependencies {
   /// The fake platform ports alone, for tests that use the real storage
   /// and startup path.
   List<Override> portOverrides() => [
-    appPlatformProvider.overrideWithValue(AppPlatform.android),
+    appPlatformProvider.overrideWithValue(platform),
     alarmSchedulerProvider.overrideWithValue(alarms),
     audioProvider.overrideWithValue(audio),
     hapticsProvider.overrideWithValue(haptics),
@@ -101,18 +105,21 @@ class TestAppDependencies {
     fullscreenProvider.overrideWithValue(fullscreen),
     appLifecycleProvider.overrideWithValue(lifecycle),
     imagePickerProvider.overrideWithValue(FakeImagePicker()),
-    systemSettingsProvider.overrideWithValue(FakeSystemSettings()),
+    systemSettingsProvider.overrideWithValue(systemSettings),
     externalLinkProvider.overrideWithValue(FakeExternalLink()),
   ];
 
   /// Makes every later session write fail, as a full disk would.
   Future<void> breakSessionStorage() => _sessionBox.close();
 
+  /// Makes every later settings write fail, as a full disk would.
+  Future<void> breakSettingsStorage() => _settingsBox.close();
+
   /// Closes the boxes.
   Future<void> dispose() async {
     await lifecycle.dispose();
     if (_sessionBox.isOpen) await _sessionBox.close();
-    await _settingsBox.close();
+    if (_settingsBox.isOpen) await _settingsBox.close();
   }
 }
 

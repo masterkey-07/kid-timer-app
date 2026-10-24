@@ -172,7 +172,7 @@ honest notices where unsupported.
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T076 [P] [US2] `StartPreflight` tests in `test/unit/features/timer/application/start_preflight_test.dart` (the contracts/ui/08 §8.1 tree for every `AlarmCapabilities` combination; flags `webKeepOpenSeen`, `iosSilentWarned`, `exactAlarmExplained`; system volume 0 → 4 s notice banner without blocking)
+- [x] T076 [P] [US2] `StartPreflight` tests in `test/unit/features/timer/application/start_preflight_test.dart` (the contracts/ui/08 §8.1 tree for every `AlarmCapabilities` combination; flags `webKeepOpenSeen`, `iosSilentWarned`, `exactAlarmExplained`; system volume 0 → 4 s notice banner without blocking)
 - [ ] T077 [P] [US2] Reconcile/restore tests in `test/unit/features/timer/application/reconcile_test.dart` (resume before the end continues with the real remaining time; after the end → finished; app reopened hours later shows finished once)
 - [ ] T078 [P] [US2] `RunController` tests in `test/unit/features/timer/application/run_controller_test.dart` (wakelock on when entering and off when leaving; fullscreen; single ring per platform per contracts/ui/02 Behavior 5: Android/Windows cancel the OS alarm on `resumed` and reschedule on `inactive`/`paused`/`hidden`, iOS/macOS foreground presentation off, Web/Linux app sound only)
 - [ ] T079 [P] [US2] Notice widget tests in `test/widget/features/timer/notices_test.dart` (dialogs `notice.keepOpen`, `notice.notificationsDenied`, `notice.exactAlarm`, `notice.iosSilent`; `notice.banner` on home and on the unlocked controls, never in child mode)
