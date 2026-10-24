@@ -127,6 +127,18 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Predefinição não encontrada'**
   String get deepLinkPresetNotFound;
+
+  /// Title of the system notification shown when a timer ends with the app in the background.
+  ///
+  /// In pt, this message translates to:
+  /// **'Acabou o tempo!'**
+  String get notificationTimerEndTitle;
+
+  /// Body of the system notification shown when a timer ends.
+  ///
+  /// In pt, this message translates to:
+  /// **'Toque para abrir o Kid Timer.'**
+  String get notificationTimerEndBody;
 }
 
 class _AppLocalizationsDelegate

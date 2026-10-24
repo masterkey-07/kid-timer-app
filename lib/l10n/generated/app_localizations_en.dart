@@ -23,4 +23,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deepLinkPresetNotFound => 'Preset not found';
+
+  @override
+  String get notificationTimerEndTitle => 'Time\'s up!';
+
+  @override
+  String get notificationTimerEndBody => 'Tap to open Kid Timer.';
 }

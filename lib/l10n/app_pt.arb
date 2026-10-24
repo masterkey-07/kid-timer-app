@@ -19,5 +19,13 @@
   "deepLinkPresetNotFound": "Predefinição não encontrada",
   "@deepLinkPresetNotFound": {
     "description": "Snackbar when a vtc://preset/<id>/start link names a preset that no longer exists."
+  },
+  "notificationTimerEndTitle": "Acabou o tempo!",
+  "@notificationTimerEndTitle": {
+    "description": "Title of the system notification shown when a timer ends with the app in the background."
+  },
+  "notificationTimerEndBody": "Toque para abrir o Kid Timer.",
+  "@notificationTimerEndBody": {
+    "description": "Body of the system notification shown when a timer ends."
   }
 }

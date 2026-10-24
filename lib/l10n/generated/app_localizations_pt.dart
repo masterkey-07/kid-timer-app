@@ -23,4 +23,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get deepLinkPresetNotFound => 'Predefinição não encontrada';
+
+  @override
+  String get notificationTimerEndTitle => 'Acabou o tempo!';
+
+  @override
+  String get notificationTimerEndBody => 'Toque para abrir o Kid Timer.';
 }

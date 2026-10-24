@@ -4,5 +4,7 @@
   "noticeLearnMore": "Learn more",
   "noticeWarningLabel": "Warning",
   "commonCancel": "Cancel",
-  "deepLinkPresetNotFound": "Preset not found"
+  "deepLinkPresetNotFound": "Preset not found",
+  "notificationTimerEndTitle": "Time's up!",
+  "notificationTimerEndBody": "Tap to open Kid Timer."
 }
