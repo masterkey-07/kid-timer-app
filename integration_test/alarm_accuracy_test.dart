@@ -37,6 +37,8 @@ void main() {
   }, timeout: const Timeout(Duration(minutes: 15)));
 }
 
+const _ringSettleStep = Duration(milliseconds: 10);
+
 /// Starts a 30 s timer and returns how long after `endsAt` the alarm
 /// played.
 Future<Duration> _measureOneRun() async {
@@ -54,6 +56,10 @@ Future<Duration> _measureOneRun() async {
     final endsAt = container.read(timerControllerProvider)!.endsAt!;
 
     final playedAt = await audio.firstAlarm;
+    // The ring goes on to vibrate; disposing before that would cut it off.
+    while (!dependencies.haptics.calls.contains('alarmPattern')) {
+      await Future<void>.delayed(_ringSettleStep);
+    }
     return playedAt.difference(endsAt);
   } finally {
     container.dispose();
