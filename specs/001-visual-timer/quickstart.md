@@ -65,7 +65,7 @@ test/golden` (review the image diff in the PR).
 | US5             | Save a preset → restart the app → start with 2 taps      | The preset's timer                                           |
 | US6             | Calm mode + ticking off                                  | No red, no ticking                                           |
 | US7             | TalkBack/VoiceOver; English language; ⓘ → parental gate  | Everything announced/translated; parent area                 |
-| US8–US14 (v1.x) | See the acceptance scenarios in the [spec](./spec.md)    | —                                                            |
+| US8–US15 (v1.x) | See the acceptance scenarios in the [spec](./spec.md)    | —                                                            |
 
 ## 6. Release builds (summary)
 

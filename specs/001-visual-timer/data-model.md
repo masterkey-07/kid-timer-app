@@ -41,7 +41,7 @@ Enum: `clockwise` (default), `counterClockwise`.
 | Variant           | Fields                                         | Rules                                                                              |
 | ----------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------- |
 | `PaletteSource`   | paletteId: PaletteId, singleColor: ColorToken? | `singleColor` required if `paletteId == single`.                                   |
-| `BankImageSource` | imageId: String                                | Must exist in the library manifest.                                                |
+| `BankImageSource` | imageId: String                                | Must exist in the library manifest or, for `emoji:` ids (v1.x), the extended one.  |
 | `UserImageSource` | imageId: String (UUID)                         | Must exist in `user_images`; if deleted → fallback to the default `PaletteSource`. |
 
 ### PaletteId
@@ -141,18 +141,36 @@ Rules:
 
 ### ImageAsset
 
-| Field                     | Type                | Rules                                                                                          |
-| ------------------------- | ------------------- | ---------------------------------------------------------------------------------------------- |
-| id                        | String              | `bank:<cat>/<slug>` or UUID                                                                    |
-| kind                      | `bank` \| `user`    | —                                                                                              |
+| Field                     | Type                | Rules                                                                                                     |
+| ------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------- |
+| id                        | String              | `bank:<cat>/<slug>` or UUID                                                                               |
+| kind                      | `bank` \| `user`    | —                                                                                                         |
 | category                  | ImageCategory?      | required for `bank`: `hygiene`, `meal`, `play`, `rest`, `school`, `goingOut`, `animals` (v1.x: `routine`) |
-| labels                    | Map<locale, String> | `bank`: pt and en required; `user`: optional label (≤ 40)                                      |
-| assetPath                 | String?             | `bank`: path to the 768×768 WebP                                                               |
-| bytesKey                  | String?             | `user`: key in the `user_images` `LazyBox`                                                     |
-| createdAt                 | DateTime?           | `user`                                                                                         |
-| license / author / source | String              | `bank`: required (manifest)                                                                    |
+| labels                    | Map<locale, String> | `bank`: pt and en required; `user`: optional label (≤ 40)                                                 |
+| assetPath                 | String?             | `bank`: path to the 768×768 WebP                                                                          |
+| bytesKey                  | String?             | `user`: key in the `user_images` `LazyBox`                                                                |
+| createdAt                 | DateTime?           | `user`                                                                                                    |
+| license / author / source | String              | `bank`: required (manifest)                                                                               |
 
 Own-image rules: JPEG 1024×1024, ≤ 400 KB, no metadata; maximum 50.
+
+### EmojiAsset (v1.x, US15)
+
+An image of the extended library, described by `assets/images/emoji/manifest.json`
+(research R23). Used on the dial through `BankImageSource` with its id.
+
+| Field                     | Type                | Rules                                                                   |
+| ------------------------- | ------------------- | ----------------------------------------------------------------------- |
+| id                        | String              | `emoji:<slug>`; a tone variant is `emoji:<slug>/<tone>`                 |
+| group                     | String              | Unicode group key (e.g., `animals_nature`), from an approved group only |
+| subgroup                  | String              | Unicode subgroup key (e.g., `animal_mammal`)                            |
+| labels                    | Map<locale, String> | pt and en required (CLDR annotations)                                   |
+| keywords                  | Map<locale, List>   | pt and en, used by the search                                           |
+| assetPath                 | String              | the 512×512 WebP                                                        |
+| tones                     | Map<SkinTone, path> | empty, or exactly the five tones                                        |
+| license / author / source | String              | MIT / Microsoft Corporation / the SVG at the R9 commit                  |
+
+`SkinTone`: `light`, `mediumLight`, `medium`, `mediumDark`, `dark`.
 
 ### Preset
 

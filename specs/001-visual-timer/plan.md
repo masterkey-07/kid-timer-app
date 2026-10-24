@@ -41,11 +41,13 @@ Linux x64 (GTK 3), Web (current Chrome, Edge, Firefox, Safari).
 reference device; cold start ≤ 2 s; own-image processing ≤ 1.5 s.
 
 **Constraints**: 100% offline, zero network/telemetry, no `INTERNET` permission in the Android
-release, no broad storage permissions; APK per ABI ≤ 25 MB; alarm ≤ 1 s in the foreground and
-≤ 5 s in the background; WCAG 2.2 AA; complete pt-BR and en.
+release, no broad storage permissions; APK per ABI ≤ 50 MB, of which ≤ 25 MB the extended emoji
+library; alarm ≤ 1 s in the foreground and ≤ 5 s in the background; WCAG 2.2 AA; complete pt-BR
+and en.
 
 **Scale/Scope**: ~13 screens/flows (v1.0: 9), ≤ 100 presets, ≤ 50 own images, ≤ 100 routines of
-up to 20 steps; 42+ bundled images and 8+ sounds.
+up to 20 steps; 42+ curated images, about 2,750 extended emoji files (v1.x, US15) and 8+
+sounds.
 
 ## Constitution Check
 
@@ -54,14 +56,14 @@ _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 | Principle                              | How the plan complies                                                                                                                                                                                 | Status                                  |
 | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
 | I. Privacy by Design                   | No network, no third-party SDKs that collect data; Android release without `INTERNET`; images processed and stored locally without EXIF; export only by adult action; `tool/privacy_check.dart` in CI | ✅                                      |
-| II. Child Safety and Well-being        | Child mode absorbs touches with a 3 s unlock; parental gate for ways out; gentle sounds; calm mode; reviewed assets; no ads/purchases                                                                 | ✅                                      |
+| II. Child Safety and Well-being        | Child mode absorbs touches with a 3 s unlock; parental gate for ways out; gentle sounds; calm mode; reviewed assets (extended emoji: denylist + per-group review, R23); no ads/purchases              | ✅                                      |
 | III. Time Reliability                  | Pure `TimerEngine` with `Clock`; `endsAt` in UTC; persistence before scheduling; reconcile on resume/boot; OS alarm; notices where unsupported                                                        | ✅                                      |
 | IV. Test-First                         | Test tasks before each implementation; unit/widget/golden/integration/E2E suites per story; coverage thresholds in CI ([testing-strategy.md](./testing-strategy.md))                                  | ✅                                      |
 | V. Accessibility                       | Dial semantics as a slider, throttled announcements, full keyboard support, 200% font, reduce motion, system high contrast in v1.0 (FR-055), Atkinson Hyperlegible, guidelines in widget tests        | ✅                                      |
 | VI. Parity and Honest Degradation      | Ports with per-platform implementations and `capabilities()`; `PlatformNotice` and preflight; compact/medium/expanded layouts                                                                         | ✅                                      |
 | VII. Clean Architecture and Simplicity | Layered feature-first; Flutter-free domain; Riverpod without codegen; single persistence (hive_ce)                                                                                                    | ✅ (extra dependencies justified below) |
 | VIII. Quality and Performance          | `very_good_analysis`, `RepaintBoundary`, cached static layer, targets measured by performance tests                                                                                                   | ✅                                      |
-| IX. Free Software                      | Apache-2.0; Fluent Emoji assets (MIT), CC0 sounds, OFL font; `tool/license_check.dart`; no third-party trademarks                                                                                     | ✅                                      |
+| IX. Free Software                      | Apache-2.0; Fluent Emoji assets (MIT), CLDR names (Unicode-3.0 data), CC0 sounds, OFL font; `tool/license_check.dart`; no third-party trademarks                                                      | ✅                                      |
 
 **Post-design re-check (Phase 1)**: the UI, port, persistence and export contracts introduced no
 violations. Packages outside the Constitution's approved list are justified in Complexity
@@ -128,12 +130,14 @@ lib/
 │   │       └── widgets/              # dial_view.dart, dial_painter.dart, digits_label.dart,
 │   │                                 # duration_quick_buttons.dart, sound_picker_sheet.dart
 │   ├── images/
-│   │   ├── domain/                   # image_asset.dart, image_category.dart, frame_spec.dart
+│   │   ├── domain/                   # image_asset.dart, image_category.dart, frame_spec.dart,
+│   │   │                             # emoji_asset.dart (v1.x)
 │   │   ├── data/                     # bank_manifest_loader.dart, user_image_repository.dart,
-│   │   │                             # image_processor_impl.dart
+│   │   │                             # image_processor_impl.dart, emoji_manifest_loader.dart (v1.x)
 │   │   ├── application/              # image_picker_controller.dart, my_images_controller.dart
 │   │   └── presentation/             # image_picker_screen.dart, frame_screen.dart,
-│   │                                 # my_images_screen.dart, widgets/image_thumb.dart
+│   │                                 # my_images_screen.dart, widgets/image_thumb.dart,
+│   │                                 # emoji_groups_screen.dart, emoji_group_screen.dart (v1.x)
 │   ├── presets/                      # domain/preset.dart, data/preset_repository.dart,
 │   │                                 # application/presets_controller.dart,
 │   │                                 # presentation/presets_screen.dart, preset_editor_screen.dart
@@ -154,6 +158,7 @@ lib/
 assets/
 ├── fonts/AtkinsonHyperlegibleNext/   # + OFL.txt
 ├── images/bank/<category>/*.webp     # + manifest.json + LICENSES.md
+├── images/emoji/<group>/*.webp       # v1.x extended library (R23) + manifest.json + LICENSES.md
 ├── sounds/*.wav                      # + manifest.json + LICENSES.md
 └── legal/privacy_pt.md, privacy_en.md
 
@@ -169,9 +174,11 @@ patrol_test/
 test_driver/integration_test.dart
 tool/            # check_coverage.dart, privacy_check.dart, license_check.dart, l10n_check.dart,
                  # image_bank/ (Node: build.mjs, package.json),
+                 # emoji_library/ (Node, v1.x: build.mjs, groups.json, denylist.json),
                  # sounds/ (check_sounds.dart, sync_notification_sounds.dart, README.md)
 docs/            # release-checklist.md, architecture.md, contributing-assets.md,
-                 # assets-review.md (human review of every asset), releases/<version>.md
+                 # assets-review.md (human review of every asset), assets-review/emoji/
+                 # (contact sheets per group), releases/<version>.md
 android/ ios/ macos/ windows/ linux/ web/
 .github/workflows/  # ci.yml, e2e-android.yml, release.yml
 fastlane/metadata/android/{pt-BR,en-US}/
@@ -210,14 +217,14 @@ widgets/AlarmKit (v1.x).
 > Packages outside the Constitution's approved list (Technical Constraints) and decisions that
 > require justification.
 
-| Item                                    | Why Needed                                                             | Simpler Alternative Rejected Because                                                                               |
-| --------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `url_launcher`                          | Open source code/issues from the parent area (after the parental gate) | Copying the URL to the clipboard is worse UX; the package makes no network calls                                   |
-| `uuid`                                  | Stable local ids for presets, images, sessions                         | Generating with our own `Random` reimplements something trivial and well tested                                    |
+| Item                                    | Why Needed                                                                                         | Simpler Alternative Rejected Because                                                                                                                |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `url_launcher`                          | Open source code/issues from the parent area (after the parental gate)                             | Copying the URL to the clipboard is worse UX; the package makes no network calls                                                                    |
+| `uuid`                                  | Stable local ids for presets, images, sessions                                                     | Generating with our own `Random` reimplements something trivial and well tested                                                                     |
 | `meta`                                  | `@immutable` on pure-Dart domain value types (required by `very_good_analysis` for `==` overrides) | The domain cannot import Flutter's re-export; `meta` is the Dart team's annotation package, already pinned by the Flutter SDK, with no runtime code |
-| `web`                                   | Fullscreen API on the Web (`WebFullscreen`, research R5) | The Dart team's browser bindings, already a transitive dependency; `dart:html` is deprecated and not WASM-compatible |
-| `hive_ce_flutter`                       | Initialize Hive in the right directory in Flutter                      | Manual `path_provider` + `Hive.init` duplicates what the package offers                                            |
-| `share_plus` (v1.x)                     | Export a file on Android/iOS through the system sheet                  | `file_selector` cannot save on mobile; an own MethodChannel for 2 OSes is more code                                |
-| `flutter_alarmkit` (v1.x)               | Alarm that breaks through silent mode on iOS 26+ (FR-091)              | An own Swift implementation remains the fallback if the plugin falls short (R17)                                   |
-| Own MethodChannel `vtc/system_settings` | Open 3 Android settings screens                                        | `app_settings` would add a dependency with partial coverage                                                        |
-| Node script in `tool/image_bank/`       | Rasterize the library's SVGs into WebP reproducibly                    | Rasterizing at runtime would require `flutter_svg` and CPU cost; the tool is dev-only and does not ship in the app |
+| `web`                                   | Fullscreen API on the Web (`WebFullscreen`, research R5)                                           | The Dart team's browser bindings, already a transitive dependency; `dart:html` is deprecated and not WASM-compatible                                |
+| `hive_ce_flutter`                       | Initialize Hive in the right directory in Flutter                                                  | Manual `path_provider` + `Hive.init` duplicates what the package offers                                                                             |
+| `share_plus` (v1.x)                     | Export a file on Android/iOS through the system sheet                                              | `file_selector` cannot save on mobile; an own MethodChannel for 2 OSes is more code                                                                 |
+| `flutter_alarmkit` (v1.x)               | Alarm that breaks through silent mode on iOS 26+ (FR-091)                                          | An own Swift implementation remains the fallback if the plugin falls short (R17)                                                                    |
+| Own MethodChannel `vtc/system_settings` | Open 3 Android settings screens                                                                    | `app_settings` would add a dependency with partial coverage                                                                                         |
+| Node script in `tool/image_bank/`       | Rasterize the library's SVGs into WebP reproducibly                                                | Rasterizing at runtime would require `flutter_svg` and CPU cost; the tool is dev-only and does not ship in the app                                  |

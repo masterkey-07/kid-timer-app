@@ -301,3 +301,45 @@ sector)` + `drawImageRect` of the pre-decoded image (`ui.Image` at the dial's si
   repository link in metadata) or a font/script CDN; `windows/runner/` or `linux/` sources
   call networking APIs (`WinHTTP`, `WinINet`, `libcurl`, `libsoup`).
 - **Rationale**: Constitution, Quality Gates.
+
+## R23. Extended emoji library (US15)
+
+- **Decision**: Bundle the whole Fluent Emoji "Color" set at the R9 commit, minus a denylist, as
+  512×512 WebP files at quality 80 in `assets/images/emoji/<group>/`, built by a second pipeline
+  in `tool/emoji_library/` that reuses the R9 rendering (resvg + sharp, transparent background,
+  no circle: the dial and the thumbnails crop it). About 1,350 images plus five skin-tone
+  variants for about 280 of them make about 2,750 files; measured on the curated images (which
+  carry a gradient), 512 px at quality 80 averages 9.7 KB, about 26 MB, and the transparent
+  backgrounds should come in lower. The pipeline fails when the total exceeds the FR-127 budget
+  of 25 MB. One manifest, `assets/images/emoji/manifest.json`, lists per image: id
+  `emoji:<slug>`, group, subgroup, pt/en name and keywords, skin-tone variants (each its own
+  file, `<slug>_<tone>.webp`) and the source.
+- **Groups and subgroups**: the Unicode `emoji-test.txt` (16.0) assigns each emoji a group and
+  subgroup (e.g., Animals & Nature › animal-mammal); `tool/emoji_library/groups.json` gives
+  each group and subgroup a pt/en label and an order, so the manifest carries the labels (like
+  the curated manifest carries image names). Fluent's own `group` field is the fallback.
+- **Names and keywords**: Unicode CLDR annotations (`annotations/pt.xml`, `en.xml` and the
+  derived files for sequences), Unicode License v3, a permissive MIT-style license for data;
+  names are text in the manifest, not art, and the license is recorded in the library's
+  `LICENSES.md`. Search normalizes case and strips accents (FR-122).
+- **Denylist**: `tool/emoji_library/denylist.json`, versioned, with entries by group, subgroup
+  or emoji, each with the Constitution II class it falls under (e.g., subgroup `flag` →
+  flags; `pistol` → weapons; `wine glass` → alcohol). It is applied before contact sheets are
+  made. Contact sheets (one PNG per group, every remaining image with its name) go to
+  `docs/assets-review/emoji/<group>.png`; the review rows per group go to
+  `docs/assets-review.md`. A group without an approved row is left out of the manifest.
+- **Skin tones**: 310 sources have five tone variants. The grid shows the neutral (yellow)
+  default; a long press or the tone button opens the five tones. Each variant is a separate id
+  (`emoji:<slug>/<tone>`), so a `BankImageSource` keeps working without a schema change.
+- **Visual source**: extended images use `BankImageSource` with `emoji:` ids; the decoded image
+  cache and the dial already handle any library asset path. The persistence schema is
+  unchanged (the id is opaque).
+- **Rationale**: Offline bundling keeps Constitution I; 512 px stays acceptably sharp on a
+  phone dial (decoded at most 1024 px, R10) while the size stays within budget; per-group review with full contact sheets meets Constitution
+  II v1.2.0.
+- **Alternatives considered**: downloading on demand (needs network, rejected by the adult and
+  by Constitution I); 768 px like the curated library (about 45 MB with tone variants); 384 px
+  (soft on a phone dial); tone variants only in the curated library (Constitution II asks for
+  the tones wherever the source has them); bundling the SVGs and
+  rendering at runtime (needs an SVG package, against R9); one asset folder per subgroup (over
+  100 pubspec entries).

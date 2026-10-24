@@ -34,7 +34,7 @@ On conflict: constitution > spec > plan/contracts > tasks > code.
   analyze.
 - **No code has been written yet.** Next step: `/speckit-implement` starting at Phase 1 (T001)
   of `tasks.md`.
-- Scope: v1.0 = US1–US7 (Phases 1–10); v1.x = US8–US14 (Phases 11–18).
+- Scope: v1.0 = US1–US7 (Phases 1–10); v1.x = US8–US15 (Phases 11–19).
 
 ## Available Spec Kit skills (`.claude/skills/`)
 

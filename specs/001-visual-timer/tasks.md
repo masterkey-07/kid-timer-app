@@ -14,13 +14,13 @@ description: "Task list to implement Kid Timer (v1.0 and v1.x)"
 widget/golden, integration and End-to-End. In every story, test tasks come first and MUST fail
 before the implementation (`test:` commit before `feat:`).
 
-**Organization**: Tasks grouped by story (US1–US14). v1.0 = Phases 1–10; v1.x = Phases 11–18;
-Phase 19 = final polish.
+**Organization**: Tasks grouped by story (US1–US15). v1.0 = Phases 1–10; v1.x = Phases 11–19;
+Phase 20 = final polish.
 
 ## Format: `[ID] [P?] [Story] Description`
 
 - **[P]**: can run in parallel (different files, no dependency on an unfinished task)
-- **[Story]**: spec story (US1…US14)
+- **[Story]**: spec story (US1…US15)
 - Paths relative to the repository root (single Flutter project, see plan.md)
 - Test conventions: `test/unit/…`, `test/widget/…`, `test/golden/…`, `test/contract/…`,
   `integration_test/…`, `patrol_test/…`
@@ -69,7 +69,7 @@ tooling. **⚠️ No story starts before this phase is done.**
 - [x] T015 [P] Implement `tool/privacy_check.dart` (fails if the merged release manifest `build/app/intermediates/merged_manifests/release/**/AndroidManifest.xml` contains `android.permission.INTERNET` or broad storage permissions; if `pubspec.lock` contains `firebase_*`, `google_mobile_ads`, `*analytics*`, `sentry*`, `*crashlytics*`; if `lib/` imports `package:http`, `package:dio`, `HttpClient` or `WebSocket`; if macOS entitlements allow `network.client`/`network.server`; if iOS/macOS `Info.plist` has `NSAppTransportSecurity` exceptions; if `web/index.html`/`web/manifest.json` reference external URLs or CDNs; if `build/web/` references `gstatic.com` or any other external origin (CanvasKit CDN, research R20); if `windows/runner/` or `linux/` sources call WinHTTP/WinINet/libcurl/libsoup — research R22) with a test in `test/unit/tool/privacy_check_test.dart`
 - [x] T016 [P] Implement `tool/license_check.dart` (every file in `assets/images/**`, `assets/sounds/**`, `assets/fonts/**` listed in the folder's `LICENSES.md`; allowed licenses: CC0-1.0, CC-BY-4.0, MIT, Apache-2.0, OFL-1.1) with a test in `test/unit/tool/license_check_test.dart`
 - [x] T017 [P] Implement `tool/l10n_check.dart` (same set of keys and placeholders in `app_pt.arb` and `app_en.arb`) with a test in `test/unit/tool/l10n_check_test.dart`
-- [x] T018 Create `.github/workflows/ci.yml`: FVM; `dart format --set-exit-if-changed`; `flutter analyze`; `flutter test --coverage` with `TZ=UTC` and `TZ=America/Sao_Paulo`; `tool/check_coverage.dart`; `tool/license_check.dart`; `tool/l10n_check.dart`; release APK build (`--split-per-abi`) + `tool/privacy_check.dart` + fail if any APK > 25 MB (Constitution VIII); `xvfb-run flutter test integration_test -d linux`; web build with `--no-web-resources-cdn`; desktop build matrix (ubuntu, windows, macos); non-blocking `flutter build web --wasm` job
+- [x] T018 Create `.github/workflows/ci.yml`: FVM; `dart format --set-exit-if-changed`; `flutter analyze`; `flutter test --coverage` with `TZ=UTC` and `TZ=America/Sao_Paulo`; `tool/check_coverage.dart`; `tool/license_check.dart`; `tool/l10n_check.dart`; release APK build (`--split-per-abi`) + `tool/privacy_check.dart` + fail if any APK > 25 MB (Constitution VIII; raised to 50 MB in v1.3.0); `xvfb-run flutter test integration_test -d linux`; web build with `--no-web-resources-cdn`; desktop build matrix (ubuntu, windows, macos); non-blocking `flutter build web --wasm` job
 - [x] T019 [P] Create `.github/workflows/e2e-android.yml` (API 34 x86_64 emulator with `reactivecircus/android-emulator-runner`, `patrol test -t patrol_test/`, Android integration; triggers: `e2e` label, daily schedule on `main`, `workflow_dispatch`)
 - [x] T020 [P] Create `test/helpers/pump_app.dart` (wraps a widget with `ProviderScope` + overrides, `MaterialApp` with pt/en l10n, theme, screen size per class), `test/helpers/hive_test_utils.dart` (Hive in a temporary directory per test) and `test/helpers/a11y_expectations.dart` (shortcut for the 4 guidelines + 200% font)
 - [x] T021 [P] Configure `alchemist` in `test/flutter_test_config.dart` (CI goldens with Ahem; app fonts loaded for platform goldens)
@@ -361,7 +361,7 @@ parent area with privacy and licenses.
 
 - [ ] T158 [P] Performance tests `integration_test/perf_dial_animation_test.dart` (profile; 10 s `traceAction`; ≥ 99% frames < 16 ms; result saved as an artifact) and `integration_test/perf_startup_test.dart` (≤ 2 s)
 - [ ] T159 [P] Write `docs/release-checklist.md` (devices, alarm locked/killed per vendor, reboot, iOS silent, screen readers (incl. turning one on mid-countdown), projector and moving the full-screen window between monitors, APK and IPA privacy check; the testing-strategy §8 protocols for SC-002 background, SC-003 manual and SC-008)
-- [ ] T160 [P] Create `.github/workflows/release.yml` (tag `v*`: APK per ABI, AAB, Web on GitHub Pages with `--base-href /kid-timer-app/ --no-web-resources-cdn`, a check that every APK per ABI is ≤ 25 MB, Linux AppImage, Windows zip/MSIX, macOS dmg; artifacts on the GitHub Release; iOS via fastlane when secrets exist)
+- [ ] T160 [P] Create `.github/workflows/release.yml` (tag `v*`: APK per ABI, AAB, Web on GitHub Pages with `--base-href /kid-timer-app/ --no-web-resources-cdn`, a check that every APK per ABI is ≤ 50 MB, Linux AppImage, Windows zip/MSIX, macOS dmg; artifacts on the GitHub Release; iOS via fastlane when secrets exist)
 - [ ] T161 [P] Create store metadata in `fastlane/metadata/android/pt-BR/` and `en-US/` (title, short/full descriptions, screenshots, changelog), F-Droid compatible
 - [ ] T162 [P] Create the app icon and splash (original art, license recorded, human review in `docs/assets-review.md`) in `assets/branding/` and generate per-platform icons
 - [ ] T163 Prepare store declarations in `docs/store-declarations.md` (Google Play: target audience, Data Safety "no data collected", `USE_EXACT_ALARM` justification; Apple: privacy nutrition label "Data Not Collected", decision on the Kids Category; IARC)
@@ -494,14 +494,49 @@ per-step notifications.
 
 ---
 
-## Phase 18: Release v1.x
+## Phase 18: User Story 15 - Extended emoji library: browse by group (Priority: P3) — v1.x
 
-- [ ] T207 Update `docs/release-checklist.md` with routines, warnings, widgets, AlarmKit, export
-- [ ] T208 Run validation of US8–US14 (quickstart §5) and the checklist; record in `docs/releases/v1.x.md`; update `CHANGELOG.md` and create tags `v1.1.0`… for the incremental deliveries
+**Goal**: The whole Fluent Emoji set, minus the denylist, bundled offline and browsed by group,
+then by subgroup sections, with search and skin tones (research R23, contract 12).
+
+**Independent Test**: All emoji → Animals & nature → giraffe on the dial; search "girafa" finds
+it.
+
+### Assets (story prerequisite)
+
+- [ ] T213 [US15] Create the `tool/emoji_library/` pipeline (Node, sharing the rendering of `tool/image_bank/build.mjs` through a common module): read the Fluent metadata and Color SVGs at the R9 commit, Unicode `emoji-test.txt` 16.0 for group/subgroup, CLDR `annotations` and `annotationsDerived` (pt, en) for names and keywords, `groups.json` (pt/en labels and order of groups and subgroups) and `denylist.json`; write `assets/images/emoji/<group>/<slug>[_<tone>].webp` (512×512, quality 80, transparent), `assets/images/emoji/manifest.json`, `assets/images/emoji/LICENSES.md` (Fluent MIT + CLDR Unicode-3.0) and one contact sheet per group in `docs/assets-review/emoji/<group>.png`; deterministic; fails above 25 MB in total (FR-127); skips groups without an approved row in `docs/assets-review.md` unless `--sheets-only`
+- [ ] T214 [US15] Write `tool/emoji_library/denylist.json` covering every Constitution II class (weapons, violence or injury, alcohol, smoking, drugs or needles, gambling, religious, political and national symbols and flags, scary figures, bodily functions, innuendo), each entry by group, subgroup or emoji with its class; Node tests in `tool/emoji_library/test/*.test.mjs` (denylist applied before sheets and manifest, CLDR parsing, tone variants, size budget) run in CI with `node --test`
+- [ ] T215 [US15] Generate the contact sheets, record a pending row per group in `docs/assets-review.md` (reviewer, date, image count, sheet), and after the human review add rejected images to the denylist and commit the approved groups' images and manifest
+
+### Tests for User Story 15 ⚠️
+
+- [ ] T216 [P] [US15] Manifest test in `test/unit/features/images/emoji_manifest_test.dart` (only approved groups; no denylisted id; non-empty pt/en names and keywords; files exist; zero or exactly five tones; unique `emoji:` ids; total ≤ 25 MB; pubspec bundles every group folder; license MIT)
+- [ ] T217 [P] [US15] `EmojiLibrary` tests in `test/unit/features/images/emoji_library_test.dart` (groups in order with counts and four previews; subgroup sections in order; search in pt and en ignoring case and accents; tone variant ids; lookup of unknown ids)
+- [ ] T218 [P] [US15] Widget tests in `test/widget/features/images/emoji_groups_screen_test.dart` and `emoji_group_screen_test.dart` (cards with counts; opening a group; sections; only on-screen tiles built; search results and empty state; tone sheet by long press and button; selection ring on a tone variant; 2/3/4 and 3/5/7 columns; unknown group redirects; a11y guidelines; 200% text) and the `images.allEmoji` entry in `image_picker_screen_test.dart`
+- [ ] T219 [P] [US15] Goldens in `test/golden/features/images/emoji_library_golden_test.dart` (groups and one group, light/dark) and integration `integration_test/emoji_group_open_test.dart` (Android, Linux: first images of the largest group within 300 ms, FR-121)
+- [ ] T220 [P] [US15] E2E `patrol_test/e2e_us15_emoji_library_test.dart` (Android, airplane mode: All emoji → Animals & nature → giraffe → on the dial; search "girafa"; a waving hand in a medium tone saved and shown)
+
+### Implementation for User Story 15
+
+- [ ] T221 [P] [US15] Implement `EmojiAsset`, `EmojiGroup`, `EmojiSubgroup` and `SkinTone` in `lib/features/images/domain/emoji_asset.dart`
+- [ ] T222 [US15] Implement `EmojiManifestLoader` in `lib/features/images/data/emoji_manifest_loader.dart` and `EmojiLibrary` (index, sections, accent-insensitive search) in `lib/features/images/application/emoji_library.dart` (depends on T216, T217)
+- [ ] T223 [US15] Resolve `emoji:` ids in `DecodedImageCache` and `ImageChip` (asset path and name from `EmojiLibrary`), so extended images work wherever library images do (FR-125)
+- [ ] T224 [US15] Implement `EmojiGroupsScreen` (`/images/emoji`), `EmojiGroupScreen` (`/images/emoji/:group`) and the tone sheet in `lib/features/images/presentation/`, the `images.allEmoji` entry in `ImagePickerScreen` and the routes, with the keys of contract 12 (depends on T218, T222)
+- [ ] T225 [US15] Add the US15 strings (`emoji*`, tone names) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
+- [ ] T226 [US15] Add the emoji library to `tool/license_check.dart`'s roots and CI (`node --test`, the 25 MB budget) and to `docs/contributing-assets.md` (how to extend the denylist and review a group)
+
+**Checkpoint**: SC-013 validated; every shipped group reviewed.
 
 ---
 
-## Phase 19: Polish & Cross-Cutting Concerns
+## Phase 19: Release v1.x
+
+- [ ] T207 Update `docs/release-checklist.md` with routines, warnings, widgets, AlarmKit, export, extended emoji library
+- [ ] T208 Run validation of US8–US15 (quickstart §5) and the checklist; record in `docs/releases/v1.x.md`; update `CHANGELOG.md` and create tags `v1.1.0`… for the incremental deliveries
+
+---
+
+## Phase 20: Polish & Cross-Cutting Concerns
 
 - [ ] T209 [P] Update `README.md` (screenshots, platforms, installation, privacy, how to contribute) and `docs/architecture.md`
 - [ ] T210 [P] Review coverage and add missing tests to reach the thresholds across `lib/` (report `coverage/lcov.info`, tests in `test/`)
@@ -573,6 +608,14 @@ corresponding tests per level are in [testing-strategy.md](./testing-strategy.md
 | FR-101      | T198, T201                                     |
 | FR-110      | T203, T204, T205                               |
 | FR-111      | T206                                           |
+| FR-120      | T213, T215, T216, T220                         |
+| FR-121      | T217, T218, T219, T222, T224                   |
+| FR-122      | T213, T217, T218, T222                         |
+| FR-123      | T213, T216, T217                               |
+| FR-124      | T213, T217, T218, T220, T224                   |
+| FR-125      | T220, T223                                     |
+| FR-126      | T214, T215, T216                               |
+| FR-127      | T213, T216, T226                               |
 | SC-001      | T164                                           |
 | SC-002      | T081, T082, T164                               |
 | SC-003      | T113, T115                                     |
@@ -585,6 +628,7 @@ corresponding tests per level are in [testing-strategy.md](./testing-strategy.md
 | SC-010      | T164                                           |
 | SC-011      | T170, T208                                     |
 | SC-012      | T199, T208                                     |
+| SC-013      | T220, T208                                     |
 
 ---
 
@@ -597,11 +641,12 @@ Phase 1 Setup ─▶ Phase 2 Foundational ─▶ US1 ─▶ US2 ─▶ US3 ─�
                                                             ├─▶ US5 ─┼─▶ US7 ─▶ Phase 10 (v1.0)
                                                             └─▶ US6 ─┘
 Phase 10 ─▶ US8 ─▶ US9 ─┐
-          ├─▶ US10      ├─▶ Phase 18 (v1.x) ─▶ Phase 19
+          ├─▶ US10      ├─▶ Phase 19 (v1.x) ─▶ Phase 20
           ├─▶ US11      │
           ├─▶ US12 ─────┤   (US12 needs US5 favorites)
           ├─▶ US13 ─────┤   (US13 needs US5 and US8)
-          └─▶ US14 ─────┘
+          ├─▶ US14 ─────┤
+          └─▶ US15 ─────┘   (US15 needs US3)
 ```
 
 ### User Story Dependencies
@@ -618,6 +663,7 @@ Phase 10 ─▶ US8 ─▶ US9 ─┐
 - **US10, US11, US14**: depend on US1/US3/US6.
 - **US12**: depends on US5 (favorites) and US2 (alarm).
 - **US13**: depends on US5 and US8.
+- **US15**: depends on US3 (library, picker, dial images); T215 waits for the human review.
 
 ### Within Each User Story
 
@@ -632,7 +678,7 @@ Phase 10 ─▶ US8 ─▶ US9 ─┐
   (T045/T046), theme (T050/T051) in parallel.
 - After US1: US3 and US4 can proceed in parallel; then US5 and US6.
 - Within each story, all [P] test tasks in parallel.
-- v1.x: US10, US11 and US14 in parallel after v1.0.
+- v1.x: US10, US11, US14 and US15 in parallel after v1.0.
 
 ---
 
@@ -674,7 +720,7 @@ Task: "Implement the real ImagePickerPort in lib/core/platform/image_picker/imag
 ### Incremental Delivery (v1.x)
 
 Each P3 story becomes a minor version: v1.1 (US8 + US9), v1.2 (US10 + US11), v1.3 (US12), v1.4
-(US13), v1.5 (US14). Each one goes through the release checklist.
+(US13), v1.5 (US14), v1.6 (US15). Each one goes through the release checklist.
 
 ### Execution by an agent (another session)
 

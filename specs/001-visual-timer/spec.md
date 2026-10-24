@@ -68,6 +68,11 @@ revise them before implementation.
 - Q: Can the library hold images that are not activities? → A: Yes: a seventh category,
   animals (dog, cat, rabbit…), for children who like to see a favorite animal on the dial. It
   follows the same license and review rules; the six activity categories stay as they are.
+- Q: Should the whole Fluent Emoji set be available, not only a curated selection? → A: Yes, as
+  an extended library (US15), bundled in the app so it works offline with no network
+  (Constitution I). A committed denylist removes content unsuitable for children before a
+  per-group human review (Constitution II, v1.2.0). People appear in the neutral yellow, with
+  the five skin tones offered on the image.
 
 ## User Scenarios & Testing _(mandatory)_
 
@@ -475,6 +480,42 @@ dial phases are distinguishable in a color blindness simulator.
 
 ---
 
+### User Story 15 - Extended emoji library: browse by group (Priority: P3) — v1.x
+
+Beyond the curated library, the adult can use any image of the Fluent Emoji set (about 1,300
+after removing what is unsuitable for children). To keep so many images manageable, the adult
+first sees the groups (Animals & nature, Food & drink, Activities…) with a few previews and a
+count, opens one, and finds its images arranged in labeled sections; a search by name finds a
+specific image in either language. Everything is in the app: nothing is downloaded.
+
+**Why this priority**: Gives children far more choice (their favorite animal, food or toy)
+without overwhelming the adult; the curated library already covers the core routines.
+
+**Independent Test**: From "Choose image", open "All emoji", open the "Animals & nature" group,
+pick the giraffe and see it on the dial; then search "girafa" and find the same image.
+
+**Acceptance Scenarios**:
+
+1. **Given** the image picker, **When** the adult opens "All emoji", **Then** they see one card
+   per group with its name, image count and four preview images, and no image of any group is
+   loaded until the group is opened.
+2. **Given** a group opened, **When** it appears, **Then** its images are shown in sections by
+   subgroup (e.g., "Mammals", "Birds") with the section names visible, and scrolling stays smooth.
+3. **Given** an image chosen in a group, **When** the adult taps it, **Then** the picker closes
+   and the image fills the dial as with any library image.
+4. **Given** the search field in "All emoji", **When** the adult types a name or keyword in
+   Portuguese or English (e.g., "girafa", "giraffe"), **Then** the matching images of every group
+   are shown, and an empty result says so.
+5. **Given** an image of a person or a hand, **When** the adult long-presses it or taps its tone
+   button, **Then** the five skin tones are offered, and the chosen tone is the one shown on the
+   dial and saved in presets.
+6. **Given** any image the denylist removes (weapons, alcohol, religious or political symbols,
+   flags, scary figures…), **When** the adult browses or searches, **Then** it never appears.
+7. **Given** the app with no network connection at all, **When** the adult browses the extended
+   library, **Then** every group and image is available.
+
+---
+
 ### Edge Cases
 
 - Zero duration or below 10 s: the start button is disabled with an explanation.
@@ -652,6 +693,28 @@ dial phases are distinguishable in a color blindness simulator.
   deuteranopia and tritanopia.
 - **FR-111**: The project MUST accept community translations through an open platform.
 
+**Extended emoji library (US15)**
+
+- **FR-120**: The app MUST bundle the complete Microsoft Fluent Emoji set, minus the denylist, as
+  an extended library available offline beside the curated library (FR-020), with no network
+  access (Constitution I).
+- **FR-121**: The extended library MUST be browsed in two steps: a list of groups (name, image
+  count, four previews), then the group's images in sections by subgroup. Opening a group MUST
+  show its first images within 300 ms on the reference device and only decode the images on
+  screen.
+- **FR-122**: The adult MUST be able to search the whole extended library by name or keyword in
+  pt-BR and en, ignoring case and accents.
+- **FR-123**: Every extended image MUST have a localized name and keywords in pt-BR and en, from
+  the Unicode CLDR annotations (FR-026).
+- **FR-124**: Images that have skin-tone variants MUST appear in the neutral version and offer
+  the five tones on the image; the chosen variant is stored with the visual source.
+- **FR-125**: Extended images MUST be usable wherever a library image is (dial, presets,
+  routines, export), and the curated library MUST remain what the picker shows first.
+- **FR-126**: A committed denylist MUST remove unsuitable images before review, and a group MUST
+  ship only after an approved per-group human review recorded in `docs/assets-review.md`
+  (Constitution II); images the reviewer rejects join the denylist.
+- **FR-127**: The extended library MUST add at most 25 MB to the installed app.
+
 ### Platform support
 
 Per Constitution VI. ✅ supported · ◐ degraded, with the difference shown in the UI · ✕ not
@@ -673,6 +736,7 @@ available (the UI hides the feature or explains it). Technical detail per port i
 | Home screen widget (FR-090, v1.x)            | ✅                      | ✅                          | ✕              | ✕                 | ✕                  | ✕                       |
 | System alarm in silent mode (FR-091, v1.x)   | ✕                       | ✅ iOS 26+                  | ✕              | ✕                 | ✕                  | ✕                       |
 | Export/import (FR-100, v1.x)                 | ✅ share sheet          | ✅ share sheet              | ✅ save dialog | ✅ save dialog    | ✅ save dialog     | ✅ download             |
+| Extended emoji library (FR-120, v1.x)        | ✅                      | ✅                          | ✅             | ✅                | ✅                 | ✅                      |
 
 ### Key Entities _(include if feature involves data)_
 
@@ -682,6 +746,8 @@ available (the UI hides the feature or explains it). Technical detail per port i
   instant, expected end instant, paused time, config used, origin (manual, preset, routine).
 - **ImageAsset**: library image (id, category, localized names, license, author) or own image
   (id, creation date, framing).
+- **EmojiAsset** (v1.x): extended library image (id, group, subgroup, localized names and
+  keywords, skin-tone variants, license, source).
 - **Preset**: id, name, order, TimerConfig, favorite (widget, v1.x).
 - **Routine** (v1.x): id, name, advance mode, ordered list of **RoutineStep** (name, duration,
   visual source).
@@ -718,6 +784,8 @@ Measurement protocols for SC-001 to SC-005, SC-008 and SC-010 are defined in
 - **SC-011** (v1.x): A 5-step routine is created within 2 min by an adult on first use.
 - **SC-012** (v1.x): Exporting and importing 20 presets with images between two devices takes
   less than 1 min and preserves 100% of the data.
+- **SC-013** (v1.x): An adult finds and applies a named emoji (e.g., "giraffe") from the
+  extended library within 20 s, by browsing or by search, on first use.
 
 ## Assumptions
 

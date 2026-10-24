@@ -37,17 +37,18 @@ primary color and a ✓.
 
 ### Components and keys
 
-| Element        | Key                     | Semantics                               | Behavior                                                                        |
-| -------------- | ----------------------- | --------------------------------------- | ------------------------------------------------------------------------------- |
-| Category tab   | `images.tab.<category>` | "Category Hygiene, 6 images"            | Filters the grid                                                                |
-| From my device | `images.fromDevice`     | "Choose an image from my device"        | Opens the system picker (FR-021); with 50 images, limit dialog → `/images/mine` |
-| Thumbnail      | `images.item.<id>`      | the image's localized label; `selected` | Tap selects and returns (`pop(result)`)                                         |
-| No image       | `images.none`           | "Use colors instead of an image"        | `pop(PaletteSource)`                                                            |
-| Manage         | `images.manage`         | "Manage my images"                      | `/images/mine`                                                                  |
-| Grid           | `images.grid`           | —                                       | 3/5/7 columns per size class                                                    |
-| Empty "Mine"   | `images.mineEmpty`      | "You haven't added any images yet"      | Holds its own "From my device" button (`images.mineEmpty.fromDevice`)           |
-| Web note       | `images.webNote`        | the note text                           | Web only, below "From my device"                                                |
-| Open error     | `images.openError`      | the snackbar text                       | Snackbar for an invalid, unsupported or corrupted file                          |
+| Element          | Key                     | Semantics                               | Behavior                                                                        |
+| ---------------- | ----------------------- | --------------------------------------- | ------------------------------------------------------------------------------- |
+| Category tab     | `images.tab.<category>` | "Category Hygiene, 6 images"            | Filters the grid                                                                |
+| From my device   | `images.fromDevice`     | "Choose an image from my device"        | Opens the system picker (FR-021); with 50 images, limit dialog → `/images/mine` |
+| Thumbnail        | `images.item.<id>`      | the image's localized label; `selected` | Tap selects and returns (`pop(result)`)                                         |
+| No image         | `images.none`           | "Use colors instead of an image"        | `pop(PaletteSource)`                                                            |
+| Manage           | `images.manage`         | "Manage my images"                      | `/images/mine`                                                                  |
+| All emoji (v1.x) | `images.allEmoji`       | "Browse all emoji"                      | Below the tabs; opens `/images/emoji` (contract 12) and returns what it pops    |
+| Grid             | `images.grid`           | —                                       | 3/5/7 columns per size class                                                    |
+| Empty "Mine"     | `images.mineEmpty`      | "You haven't added any images yet"      | Holds its own "From my device" button (`images.mineEmpty.fromDevice`)           |
+| Web note         | `images.webNote`        | the note text                           | Web only, below "From my device"                                                |
+| Open error       | `images.openError`      | the snackbar text                       | Snackbar for an invalid, unsupported or corrupted file                          |
 
 ### States
 
