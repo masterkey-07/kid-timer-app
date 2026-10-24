@@ -7,10 +7,10 @@ import 'package:visual_time_counter/features/timer/application/dial_geometry.dar
 
 const _radius = 100.0;
 
-/// The point on the ring a [fraction] of a turn away from 12 o'clock, in the
-/// direction the sector opens for [direction] (screen coordinates, y down).
+/// The point on the ring a [fraction] of a turn away from 12 o'clock in
+/// [direction] (screen coordinates, y down).
 Offset _pointAt(double fraction, DialDirection direction) {
-  final sign = direction == DialDirection.clockwise ? -1 : 1;
+  final sign = direction == DialDirection.clockwise ? 1 : -1;
   final angle = DialGeometry.startAngle + sign * fraction * 2 * pi;
   return Offset(cos(angle), sin(angle)) * _radius;
 }
@@ -44,19 +44,18 @@ void main() {
       expect(DialGeometry.startAngle, -pi / 2);
     });
 
-    test('opens counter-clockwise for a clockwise dial, so it shrinks '
-        'clockwise', () {
+    test('grows clockwise for a clockwise dial, like the running fill', () {
       expect(
         _geometry().sweepAngleOf(const Duration(minutes: 15)),
-        closeTo(-pi / 2, 1e-9),
+        closeTo(pi / 2, 1e-9),
       );
     });
 
-    test('opens clockwise for a counter-clockwise dial', () {
+    test('grows counter-clockwise for a counter-clockwise dial', () {
       expect(
         _geometry(direction: DialDirection.counterClockwise)
             .sweepAngleOf(const Duration(minutes: 15)),
-        closeTo(pi / 2, 1e-9),
+        closeTo(-pi / 2, 1e-9),
       );
     });
 
@@ -156,23 +155,23 @@ void main() {
       });
     }
 
-    test("a clockwise dial reads 15 min at 9 o'clock and 45 min at 3", () {
+    test("a clockwise dial reads 15 min at 3 o'clock and 45 min at 9", () {
       final geometry = _geometry();
 
       expect(
-        geometry.durationAt(const Offset(-_radius, 0)).value,
+        geometry.durationAt(const Offset(_radius, 0)).value,
         const Duration(minutes: 15),
       );
       expect(
-        geometry.durationAt(const Offset(_radius, 0)).value,
+        geometry.durationAt(const Offset(-_radius, 0)).value,
         const Duration(minutes: 45),
       );
     });
 
-    test("a counter-clockwise dial reads 15 min at 3 o'clock", () {
+    test("a counter-clockwise dial reads 15 min at 9 o'clock", () {
       expect(
         _geometry(direction: DialDirection.counterClockwise)
-            .durationAt(const Offset(_radius, 0))
+            .durationAt(const Offset(-_radius, 0))
             .value,
         const Duration(minutes: 15),
       );

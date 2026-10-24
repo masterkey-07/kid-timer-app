@@ -117,13 +117,13 @@ void main() {
     testWidgets('sets the duration from the edge position', (tester) async {
       await pumpHome(tester);
 
-      // 12 o'clock → 9 o'clock: a quarter of the 60 min scale.
+      // 12 o'clock → 3 o'clock: a quarter of the 60 min scale.
       await dragAlongRing(tester, const [
         Offset(0, -1),
-        Offset(-0.38, -0.92),
-        Offset(-0.71, -0.71),
-        Offset(-0.92, -0.38),
-        Offset(-1, 0),
+        Offset(0.38, -0.92),
+        Offset(0.71, -0.71),
+        Offset(0.92, -0.38),
+        Offset(1, 0),
       ]);
 
       expect(tester.textOf('home.digits'), '15:00');
@@ -132,7 +132,7 @@ void main() {
     testWidgets('ticks the haptics on whole minutes', (tester) async {
       await pumpHome(tester);
 
-      await dragAlongRing(tester, const [Offset(0, -1), Offset(-0.71, -0.71)]);
+      await dragAlongRing(tester, const [Offset(0, -1), Offset(0.71, -0.71)]);
 
       expect(dependencies.haptics.calls, contains('selectionTick'));
     });
