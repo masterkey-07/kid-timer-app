@@ -5,14 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
 import 'package:visual_time_counter/core/domain/timer_duration.dart';
+import 'package:visual_time_counter/core/domain/visual_source.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
 
 import '../../../helpers/pump_app.dart';
 import '../../../helpers/test_app.dart';
-
-AppSettings _withDuration(Duration duration) =>
-    AppSettings(lastConfig: TimerConfig(duration: TimerDuration(duration)));
 
 const _dial = Key('home.dial');
 const _start = Key('home.start');
@@ -26,11 +24,17 @@ void main() {
   Future<void> pumpHome(
     WidgetTester tester, {
     Duration duration = const Duration(minutes: 5),
+    VisualSource visual = VisualSource.defaultSource,
     ScreenClass screen = ScreenClass.compact,
   }) async {
     await tester.pumpKidTimerApp(
       dependencies,
-      settings: _withDuration(duration),
+      settings: AppSettings(
+        lastConfig: TimerConfig(
+          duration: TimerDuration(duration),
+          visual: visual,
+        ),
+      ),
       screen: screen,
     );
     await tester.pumpAndSettle();
@@ -276,5 +280,75 @@ void main() {
       dependencies.settingsRepository.load().lastConfig.duration.value,
       const Duration(minutes: 6),
     );
+  });
+
+  group('image chip (US3)', () {
+    const brushTeeth = 'bank:hygiene/brush_teeth';
+
+    Future<void> chooseLibraryImage(WidgetTester tester) async {
+      await tester.tap(find.byKey(const Key('home.imageChip')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('images.item.$brushTeeth')));
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('shows "No image" for colors, without a clear button', (
+      tester,
+    ) async {
+      await pumpHome(tester);
+
+      expect(tester.textOf('home.imageChip'), 'No image');
+      expect(find.byKey(const Key('home.imageClear')), findsNothing);
+    });
+
+    testWidgets('choosing a library image names it on the chip', (
+      tester,
+    ) async {
+      await pumpHome(tester);
+
+      await chooseLibraryImage(tester);
+
+      expect(find.byKey(const Key('home.screen')), findsOneWidget);
+      expect(tester.textOf('home.imageChip'), 'Image: Brush teeth');
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(
+        dependencies.settingsRepository.load().lastConfig.visual,
+        const BankImageSource(brushTeeth),
+      );
+    });
+
+    testWidgets('clearing the image goes back to colors (FR-025)', (
+      tester,
+    ) async {
+      await pumpHome(tester, visual: const BankImageSource(brushTeeth));
+
+      await tester.tap(find.byKey(const Key('home.imageClear')));
+      await tester.pumpAndSettle();
+
+      expect(tester.textOf('home.imageChip'), 'No image');
+      expect(find.byKey(const Key('home.imageClear')), findsNothing);
+    });
+
+    testWidgets('names an own image by its label', (tester) async {
+      final [image] = await dependencies.seedUserImages(1);
+
+      await pumpHome(tester, visual: UserImageSource(image.id));
+
+      expect(tester.textOf('home.imageChip'), 'Image: Image 0');
+    });
+
+    testWidgets('a deleted own image falls back to colors, with a notice', (
+      tester,
+    ) async {
+      await pumpHome(tester, visual: const UserImageSource('deleted'));
+
+      expect(find.byKey(const Key('home.imageMissing')), findsOneWidget);
+      expect(tester.textOf('home.imageChip'), 'No image');
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(
+        dependencies.settingsRepository.load().lastConfig.visual,
+        VisualSource.defaultSource,
+      );
+    });
   });
 }
