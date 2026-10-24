@@ -217,7 +217,7 @@ images", image on the dial with a fallback to colors.
 - [x] T097 [P] [US3] `UserImageRepository` tests in `test/unit/features/images/user_image_repository_test.dart` (write bytes → meta; remove meta → bytes; orphans cleaned at bootstrap; limit 50; reference count in presets/`lastConfig`; deleting converts references to the default palette; storage full during writing leaves no partial bytes or meta)
 - [x] T098 [P] [US3] Geometry/painting tests with an image in `test/unit/features/timer/application/dial_image_clip_test.dart` (remaining sector clipped; neutral elapsed) and image goldens in `test/golden/features/timer/dial_image_golden_test.dart`
 - [x] T099 [P] [US3] Widget tests in `test/widget/features/images/image_picker_screen_test.dart` (tabs, 3/5/7-column grid, selection, "No image", empty "My images" state, Web note, invalid file error), `frame_screen_test.dart` (drag, pinch, keyboard, 1.0–4.0 slider, save with overlay), `my_images_screen_test.dart` ("12 of 50" counter, delete with the list of affected presets)
-- [ ] T100 [P] [US3] Integration `integration_test/user_image_persist_test.dart` (Android, Linux, Web: save, restart, bytes intact)
+- [ ] T100 [P] [US3] Integration `integration_test/user_image_persist_test.dart` (Android, Linux, Web: save, restart, bytes intact) — **partial**: passes on Linux; not yet run on Android or the Web
 - [ ] T101 [P] [US3] E2E `patrol_test/e2e_us3_bank_image_test.dart` and `patrol_test/e2e_us3_own_image_test.dart` (system picker without a permission dialog; photo seeded via `adb push`/simulator; frame; see it on the dial) — **partial**: tests written; not yet run on an emulator
 
 ### Implementation for User Story 3
