@@ -44,6 +44,10 @@ primary color and a ✓.
 | Thumbnail      | `images.item.<id>`      | the image's localized label; `selected` | Tap selects and returns (`pop(result)`)                                         |
 | No image       | `images.none`           | "Use colors instead of an image"        | `pop(PaletteSource)`                                                            |
 | Manage         | `images.manage`         | "Manage my images"                      | `/images/mine`                                                                  |
+| Grid           | `images.grid`           | —                                       | 3/5/7 columns per size class                                                    |
+| Empty "Mine"   | `images.mineEmpty`      | "You haven't added any images yet"      | Holds its own "From my device" button (`images.mineEmpty.fromDevice`)           |
+| Web note       | `images.webNote`        | the note text                           | Web only, below "From my device"                                                |
+| Open error     | `images.openError`      | the snackbar text                       | Snackbar for an invalid, unsupported or corrupted file                          |
 
 ### States
 
@@ -87,8 +91,8 @@ primary color and a ✓.
 | Save         | `frame.save`   | Processes (decode, crop, 1024×1024, JPEG 85, no metadata — FR-023) with a progress indicator; success → `pop(UserImageSource)` |
 | Cancel       | `frame.cancel` | Discards without saving                                                                                                        |
 
-Processing > 300 ms shows a "Preparing image…" overlay; errors: storage full, decoding failure →
-friendly message, nothing saved (atomic).
+Processing > 300 ms shows a "Preparing image…" overlay (`frame.preparing`); errors: storage full, decoding failure →
+friendly message in a snackbar (`frame.error`), nothing saved (atomic).
 
 ## 4.3 My images (`/images/mine`)
 
@@ -103,9 +107,11 @@ friendly message, nothing saved (atomic).
 
 | Element | Key                | Behavior                                                                                                          |
 | ------- | ------------------ | ----------------------------------------------------------------------------------------------------------------- |
-| Item    | `mine.item.<id>`   | Long press/menu: rename, delete                                                                                   |
+| Item    | `mine.item.<id>`   | Long press opens its menu: rename, delete                                                                         |
 | Delete  | `mine.delete.<id>` | `ConfirmDialog` listing affected presets/routines (FR-024); confirm → removes bytes + references switch to colors |
 | Counter | `mine.count`       | "12 of 50"                                                                                                        |
+| Grid    | `mine.grid`        | Same columns as `/images`; empty state `mine.empty`                                                               |
+| Rename  | `mine.rename.<id>` | In the item's menu; dialog with `mine.renameField` (≤ 40 characters) and `mine.renameSave`                        |
 
 ## Strings
 
