@@ -30,6 +30,7 @@ test/**/goldens/windows/
 
 # Tools
 tool/image_bank/node_modules/
+tool/image_bank/.cache/
 
 # IDE / OS
 .idea/

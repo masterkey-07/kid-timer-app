@@ -1,0 +1,63 @@
+{
+  "fluentEmoji": {
+    "repository": "microsoft/fluentui-emoji",
+    "commit": "1ffb34c752ecf5d402f04cfb4b392c77f57c54bc",
+    "author": "Microsoft Corporation",
+    "license": "MIT"
+  },
+  "categories": {
+    "hygiene": { "center": "#F2FAFF", "edge": "#C9E8FA" },
+    "meal": { "center": "#FFF8EE", "edge": "#FCDDB8" },
+    "play": { "center": "#FFF4F8", "edge": "#F9CFE0" },
+    "rest": { "center": "#F6F4FF", "edge": "#D9D2F7" },
+    "school": { "center": "#FFFDEB", "edge": "#F6EBA8" },
+    "goingOut": { "center": "#F1FBF2", "edge": "#C8EBCC" }
+  },
+  "images": [
+    { "slug": "brush_teeth", "category": "hygiene", "emoji": "Toothbrush", "names": { "pt": "Escovar os dentes", "en": "Brush teeth" } },
+    { "slug": "bath", "category": "hygiene", "emoji": "Bathtub", "names": { "pt": "Tomar banho", "en": "Take a bath" } },
+    { "slug": "wash_hands", "category": "hygiene", "emoji": "Soap", "names": { "pt": "Lavar as mãos", "en": "Wash hands" } },
+    { "slug": "shower", "category": "hygiene", "emoji": "Shower", "names": { "pt": "Chuveiro", "en": "Shower" } },
+    { "slug": "toilet", "category": "hygiene", "emoji": "Toilet", "names": { "pt": "Ir ao banheiro", "en": "Use the toilet" } },
+    { "slug": "clean_up", "category": "hygiene", "emoji": "Sponge", "names": { "pt": "Limpar", "en": "Clean up" } },
+
+    { "slug": "meal", "category": "meal", "emoji": "Fork and knife with plate", "names": { "pt": "Refeição", "en": "Mealtime" } },
+    { "slug": "breakfast", "category": "meal", "emoji": "Bowl with spoon", "names": { "pt": "Café da manhã", "en": "Breakfast" } },
+    { "slug": "drink_milk", "category": "meal", "emoji": "Glass of milk", "names": { "pt": "Tomar leite", "en": "Drink milk" } },
+    { "slug": "eat_fruit", "category": "meal", "emoji": "Red apple", "names": { "pt": "Comer fruta", "en": "Eat fruit" } },
+    { "slug": "snack", "category": "meal", "emoji": "Sandwich", "names": { "pt": "Lanche", "en": "Snack" } },
+    { "slug": "eat_vegetables", "category": "meal", "emoji": "Carrot", "names": { "pt": "Comer legumes", "en": "Eat vegetables" } },
+    { "slug": "dinner", "category": "meal", "emoji": "Spaghetti", "names": { "pt": "Jantar", "en": "Dinner" } },
+
+    { "slug": "toys", "category": "play", "emoji": "Teddy bear", "names": { "pt": "Brincar", "en": "Play with toys" } },
+    { "slug": "puzzle", "category": "play", "emoji": "Puzzle piece", "names": { "pt": "Quebra-cabeça", "en": "Puzzle" } },
+    { "slug": "ball", "category": "play", "emoji": "Soccer ball", "names": { "pt": "Jogar bola", "en": "Play ball" } },
+    { "slug": "painting", "category": "play", "emoji": "Artist palette", "names": { "pt": "Pintar", "en": "Painting" } },
+    { "slug": "drawing", "category": "play", "emoji": "Crayon", "names": { "pt": "Desenhar", "en": "Drawing" } },
+    { "slug": "kite", "category": "play", "emoji": "Kite", "names": { "pt": "Soltar pipa", "en": "Fly a kite" } },
+    { "slug": "video_game", "category": "play", "emoji": "Video game", "names": { "pt": "Videogame", "en": "Video games" } },
+
+    { "slug": "sleep", "category": "rest", "emoji": "Bed", "names": { "pt": "Dormir", "en": "Sleep" } },
+    { "slug": "nap", "category": "rest", "emoji": "Sleeping face", "names": { "pt": "Soneca", "en": "Nap" } },
+    { "slug": "bedtime", "category": "rest", "emoji": "Crescent moon", "names": { "pt": "Hora de dormir", "en": "Bedtime" } },
+    { "slug": "relax", "category": "rest", "emoji": "Couch and lamp", "names": { "pt": "Descansar", "en": "Relax" } },
+    { "slug": "story_time", "category": "rest", "emoji": "Open book", "names": { "pt": "Hora da história", "en": "Story time" } },
+    { "slug": "quiet_music", "category": "rest", "emoji": "Headphone", "names": { "pt": "Ouvir música", "en": "Listen to music" } },
+
+    { "slug": "go_to_school", "category": "school", "emoji": "Backpack", "names": { "pt": "Ir para a escola", "en": "Go to school" } },
+    { "slug": "school", "category": "school", "emoji": "School", "names": { "pt": "Escola", "en": "School" } },
+    { "slug": "homework", "category": "school", "emoji": "Pencil", "names": { "pt": "Lição de casa", "en": "Homework" } },
+    { "slug": "reading", "category": "school", "emoji": "Books", "names": { "pt": "Ler", "en": "Reading" } },
+    { "slug": "writing", "category": "school", "emoji": "Notebook", "names": { "pt": "Escrever", "en": "Writing" } },
+    { "slug": "counting", "category": "school", "emoji": "Abacus", "names": { "pt": "Contar", "en": "Counting" } },
+
+    { "slug": "put_on_shoes", "category": "goingOut", "emoji": "Running shoe", "names": { "pt": "Calçar os sapatos", "en": "Put on shoes" } },
+    { "slug": "put_on_coat", "category": "goingOut", "emoji": "Coat", "names": { "pt": "Vestir o casaco", "en": "Put on a coat" } },
+    { "slug": "car_ride", "category": "goingOut", "emoji": "Automobile", "names": { "pt": "Andar de carro", "en": "Car ride" } },
+    { "slug": "bus_ride", "category": "goingOut", "emoji": "Bus", "names": { "pt": "Andar de ônibus", "en": "Bus ride" } },
+    { "slug": "playground", "category": "goingOut", "emoji": "Playground slide", "names": { "pt": "Parquinho", "en": "Playground" } },
+    { "slug": "bike_ride", "category": "goingOut", "emoji": "Bicycle", "names": { "pt": "Andar de bicicleta", "en": "Bike ride" } },
+    { "slug": "shopping", "category": "goingOut", "emoji": "Shopping cart", "names": { "pt": "Ir ao mercado", "en": "Go shopping" } },
+    { "slug": "go_home", "category": "goingOut", "emoji": "House", "names": { "pt": "Voltar para casa", "en": "Go home" } }
+  ]
+}

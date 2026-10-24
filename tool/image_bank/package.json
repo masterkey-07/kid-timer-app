@@ -1,0 +1,17 @@
+{
+  "name": "kid-timer-image-bank",
+  "private": true,
+  "description": "Builds assets/images/bank from Fluent Emoji (development only, never shipped).",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "2.6.2",
+    "sharp": "0.35.5"
+  }
+}
