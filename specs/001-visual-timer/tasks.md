@@ -151,7 +151,7 @@ screen that stays until a tap.
 - [x] T066 [US1] Implement `DialGeometry` in `lib/features/timer/application/dial_geometry.dart` (depends on T057)
 - [x] T067 [US1] Implement `TimerController` (Riverpod Notifier) in `lib/features/timer/application/timer_controller.dart` using `TimerEngine`, `SessionRepository`, `AlarmScheduler`, `AudioPort`, `HapticsPort`, `SettingsRepository` (depends on T058, T066)
 - [x] T068 [P] [US1] Implement `DialPainter` (`CustomPainter`: remaining arc with interpolated color, neutral elapsed sector, minute markers in a cached `Picture`, direction) in `lib/features/timer/presentation/widgets/dial_painter.dart`
-- [ ] T069 [US1] Implement `DialView` (editable mode with gestures/keyboard/slider semantics and countdown mode with `Ticker` + `RepaintBoundary`; 1 repaint/s with reduce motion) in `lib/features/timer/presentation/widgets/dial_view.dart` (depends on T066, T068)
+- [x] T069 [US1] Implement `DialView` (editable mode with gestures/keyboard/slider semantics and countdown mode with `Ticker` + `RepaintBoundary`; 1 repaint/s with reduce motion) in `lib/features/timer/presentation/widgets/dial_view.dart` (depends on T066, T068)
 - [ ] T070 [P] [US1] Implement `DigitsLabel` and `DurationQuickButtons` in `lib/features/timer/presentation/widgets/digits_label.dart` and `duration_quick_buttons.dart`
 - [ ] T071 [US1] Implement `HomeScreen` (compact/medium/expanded layouts, keys from contracts/ui/01, first-use hint) in `lib/features/timer/presentation/home_screen.dart` (depends on T067, T069, T070)
 - [ ] T072 [US1] Implement `RunScreen` without child mode (controls always visible; lifecycle → `reconcile`; end with the app open) in `lib/features/timer/presentation/run_screen.dart` (depends on T067, T069)
