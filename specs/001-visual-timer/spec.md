@@ -14,7 +14,7 @@ using one's own image from the device; with no image selected, the dial uses col
 ## Overview
 
 An adult (parent, caregiver, teacher or therapist) sets a time; the child sees a dial that
-shrinks as time passes. The dial shows an image (from the built-in library or from the device)
+fills up as time passes and is complete when time is up. The dial shows an image (from the built-in library or from the device)
 or, without an image, a color. When time is up, a celebration screen appears and stays until
 someone taps. The alarm rings even with the app closed. There are no ads, accounts, internet or
 data collection.
@@ -40,18 +40,20 @@ data collection.
 Decisions taken with the options recommended by `/speckit-clarify`; the product owner may
 revise them before implementation.
 
-- Q: How does the image appear on the dial during the countdown? → A: The remaining part of the
-  dial is filled with the image cropped to a circle; the elapsed part shows a translucent
-  neutral tone. The image "disappears" as time passes. Without an image, the remaining sector
-  uses the configured color or palette.
+- Q: How does the image appear on the dial during the countdown? → A: The dial starts empty
+  (translucent neutral tone) and the elapsed part fills in with the image cropped to a circle,
+  so the image "appears" as time passes and is whole at the end. A full turn is always the set
+  duration, whatever the scale (the scale only drives the setup drag). Without an image, the
+  elapsed sector uses the configured color or palette. (Revised by the product owner on
+  2026-10-24; it replaced "the image disappears with the remaining sector".)
 - Q: Which gesture unlocks the controls during the countdown? → A: Press and hold a discreet
   padlock icon in the top corner for 3 s; a progress ring shows the hold time. On a keyboard,
   hold the Esc key for 3 s.
 - Q: What is the parental gate challenge? → A: A multiplication of two numbers from 3 to 9
   written out in words (e.g., "seven times eight"), answered on a numeric keypad; 3 wrong
   answers in a row lock it for 30 s.
-- Q: What duration range is allowed? → A: v1.0: 10 s to 2 h. v1.x: up to 12 h using multiple
-  dials.
+- Q: What duration range is allowed? → A: v1.0: 10 s to 2 h. v1.x: up to 12 h (on a single
+  dial, since a full turn is the set duration).
 - Q: What is the minimum size of the v1.0 image library? → A: At least 36 images in 6 activity
   categories (hygiene, meals, play, rest, school, going out), all with compatible licenses and
   appropriate for children.
@@ -76,17 +78,17 @@ revise them before implementation.
 
 ## User Scenarios & Testing _(mandatory)_
 
-### User Story 1 - Visual countdown with a shrinking dial (Priority: P1) — v1.0
+### User Story 1 - Visual countdown with a filling dial (Priority: P1) — v1.0
 
 The adult chooses a duration by dragging the dial or tapping quick buttons, starts the timer and
-the child watches the dial shrink to zero. At the end, a celebration screen with sound and
+the child watches the dial fill up until it is complete. At the end, a celebration screen with sound and
 vibration appears and only goes away when someone taps. The adult can pause, resume, restart or
 cancel.
 
 **Why this priority**: It is the core of the product; nothing else has value without it.
 
 **Independent Test**: Open the app, set 2 minutes by dragging the dial, start, watch the dial
-shrink to zero and see the final screen stay until a tap.
+fill up and see the final screen stay until a tap.
 
 **Acceptance Scenarios**:
 
@@ -95,8 +97,8 @@ shrink to zero and see the final screen stay until a tap.
    scale.
 2. **Given** a set time, **When** the adult taps +1 min or +5 min, **Then** the time increases
    by that amount without exceeding the allowed maximum.
-3. **Given** a 1 min timer started, **When** 30 s pass, **Then** the remaining sector
-   corresponds to 30 s (1 s tolerance) and, if digits are on, shows 00:30.
+3. **Given** a 1 min timer started, **When** 30 s pass, **Then** the filled sector covers
+   half of the dial (1 s tolerance) and, if digits are on, shows 00:30.
 4. **Given** a running timer, **When** the adult pauses and resumes after 20 s, **Then** the
    remaining time equals the time at the moment of pausing.
 5. **Given** a timer reaching zero with the app open, **When** time is up, **Then** the chosen
@@ -149,14 +151,14 @@ the final screen.
 ### User Story 3 - Image on the dial: built-in library and own image (Priority: P1) — v1.0
 
 The adult chooses an image for the timer from the app's built-in library (organized by activity,
-plus animals) or a photo from the device. The image fills the dial and "disappears" as time
-passes. Without an image, the dial uses colors.
+plus animals) or a photo from the device. The image fills in the dial as time passes and is
+whole at the end. Without an image, the dial uses colors.
 
 **Why this priority**: Mandatory v1.0 requirement; images make the activity concrete for young
 children and non-readers.
 
 **Independent Test**: Pick the "brush teeth" image from the library, start 1 min and watch the
-image disappear with the dial; then pick a device photo, frame it and repeat; finally remove the
+image fill in the dial; then pick a device photo, frame it and repeat; finally remove the
 image and see the colored dial.
 
 **Acceptance Scenarios**:
@@ -261,9 +263,10 @@ no red and no ticking.
 2. **Given** calm mode, **When** the timer runs, **Then** no red or alert color is used and
    transitions are in pastel tones.
 3. **Given** a single color chosen, **When** the timer runs, **Then** the dial keeps that color.
-4. **Given** a 60 min scale, **When** the adult sets 15 min, **Then** the dial covers a quarter
-   of the circle; with a 15 min scale, the same 15 min cover the whole circle.
-5. **Given** counter-clockwise direction, **When** the timer runs, **Then** the dial shrinks in
+4. **Given** a 60 min scale, **When** the adult sets 15 min, **Then** the setup dial covers a
+   quarter of the circle; with a 15 min scale, the same 15 min cover the whole circle. In both
+   cases the running dial starts empty and a full turn is the 15 min.
+5. **Given** counter-clockwise direction, **When** the timer runs, **Then** the dial fills in
    the direction opposite to the default.
 6. **Given** the sound list, **When** the adult taps a sound, **Then** they hear a preview at the
    configured volume.
@@ -369,8 +372,8 @@ the alarm at 3 min, also with the app closed.
 
 ### User Story 10 - Image reveal effects (Priority: P3) — v1.x
 
-Besides "the image disappears", the adult can choose effects: "the image appears" (reveal),
-mosaic and puzzle.
+Besides "the image appears" (reveal, the default), the adult can choose effects: "the image
+disappears" (vanish), mosaic and puzzle.
 
 **Why this priority**: Increases motivation; not essential.
 
@@ -379,8 +382,8 @@ full image at the end.
 
 **Acceptance Scenarios**:
 
-1. **Given** the "reveal" effect, **When** the timer runs, **Then** the elapsed sector shows the
-   image and the remaining sector shows the neutral tone.
+1. **Given** the "vanish" effect, **When** the timer runs, **Then** the remaining sector shows
+   the image and the elapsed sector shows the neutral tone.
 2. **Given** the "mosaic" effect, **When** the timer runs, **Then** the image becomes
    progressively sharper in at least 10 steps.
 3. **Given** the "puzzle" effect with 9 pieces, **When** the timer runs, **Then** one piece
@@ -390,23 +393,24 @@ full image at the end.
 
 ---
 
-### User Story 11 - Long timers with multiple dials (Priority: P3) — v1.x
+### User Story 11 - Long timers (Priority: P3) — v1.x
 
-For durations above the maximum scale, the app shows one dial per hour (or per scale), up to
-12 h.
+The adult can set durations above 2 h, up to 12 h. The dial stays a single dial: a full turn is
+the whole duration (FR-002).
 
 **Why this priority**: Useful in classrooms and on trips; less frequent use.
 
-**Independent Test**: Set 2 h 30 min and see two full dials and one half-scale dial.
+**Independent Test**: Set 2 h 30 min with the quick buttons, start, and see the dial a quarter
+full after 37 min 30 s.
 
 **Acceptance Scenarios**:
 
-1. **Given** a 60 min scale and a 2 h 30 min duration, **When** the timer starts, **Then** 3
-   dials appear and they empty one at a time, from right to left.
+1. **Given** a 2 h 30 min duration, **When** half of it has passed, **Then** the single dial is
+   half full.
 2. **Given** a 12 h duration, **When** the adult tries to increase it, **Then** the app does not
    allow it.
-3. **Given** a compact screen, **When** there are more than 4 dials, **Then** they fit in a grid
-   without scrolling.
+3. **Given** the 120 min scale, **When** the adult drags the dial, **Then** the drag stops at
+   2 h and longer durations are set with the quick buttons.
 
 ---
 
@@ -564,8 +568,9 @@ pick the giraffe and see it on the dial; then search "girafa" and find the same 
 - **FR-001**: The app MUST allow setting a duration between 10 s and 2 h (v1.0) by dragging the
   dial's edge, in steps of 1 min (or 10 s below 2 min), and with buttons +1 min, +5 min,
   −1 min.
-- **FR-002**: The app MUST display a dial whose remaining sector is proportional to the
-  remaining time relative to the chosen scale, updated continuously.
+- **FR-002**: During the countdown, the app MUST display a dial whose filled sector is
+  proportional to the elapsed time relative to the set duration (empty at the start, a full
+  turn at the end), updated continuously. The scale applies only to setting the duration.
 - **FR-003**: The app MUST offer start, pause, resume, restart and cancel.
 - **FR-004**: The app MUST display, when enabled, the remaining time as mm:ss (or h:mm:ss).
 - **FR-005**: When time is up, the app MUST show the celebration screen, play the chosen sound
@@ -601,9 +606,9 @@ pick the giraffe and see it on the dial; then search "girafa" and find the same 
   metadata removed and be stored only in the app's storage.
 - **FR-024**: The app MUST allow listing and deleting own images ("My images"), with a limit of
   50, warning about affected presets/routines.
-- **FR-025**: With an image selected, the dial's remaining sector MUST show the image and the
-  elapsed sector MUST show a translucent neutral tone; without an image, it MUST use the color
-  palette.
+- **FR-025**: With an image selected, the dial's elapsed (filled) sector MUST show the image
+  and the remaining sector MUST show a translucent neutral tone; without an image, the filled
+  sector MUST use the color palette.
 - **FR-026**: Each library image MUST have a localized accessible name (pt-BR and en).
 
 **Child mode (US4)**
@@ -664,14 +669,14 @@ pick the giraffe and see it on the dial; then search "girafa" and find the same 
 - **FR-075**: The image library MUST gain activity pictograms for routines, under the same
   license rules as FR-020.
 
-**Warnings, effects, dials (US9–US11)**
+**Warnings, effects, long timers (US9–US11)**
 
 - **FR-080**: The adult MUST be able to enable up to 2 warnings, chosen from 1, 2, 5 and 10 min
   before the end, with
   soft sound and vibration, also with the app closed on the FR-011 platforms.
-- **FR-081**: The app MUST offer image effects: vanish (default), reveal, mosaic and puzzle (4,
+- **FR-081**: The app MUST offer image effects: reveal (default), vanish, mosaic and puzzle (4,
   9 or 16 pieces).
-- **FR-082**: The app MUST allow durations up to 12 h, displaying one dial per scale.
+- **FR-082**: The app MUST allow durations up to 12 h on a single dial (FR-002).
 
 **Widgets and system-level alarm (US12)**
 

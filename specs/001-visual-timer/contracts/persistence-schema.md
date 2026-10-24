@@ -33,7 +33,7 @@ are opened in `bootstrap()` before `runApp`.
   "tickVolume": 0.3,
   "vibrate": true,
   "showDigits": true,
-  "imageEffect": "vanish",
+  "imageEffect": "reveal",
   "warningsMin": []
 }
 ```

@@ -29,8 +29,8 @@ Adjustment steps: below 2 min, 10 s; from 2 min on, 1 min (FR-001).
 ### DialScale
 
 Enum: `min5`, `min10`, `min15`, `min30`, `min60`, `min120`. Default: `min60`.
-Dial fraction = `remaining / scale`, clamped to [0, 1]. v1.x: with duration > scale, the number
-of dials = `ceil(duration / scale)`.
+The scale only maps the setup drag: setup fraction = `duration / scale`, clamped to [0, 1].
+While running, the filled fraction = `1 − remaining / duration` (FR-002), whatever the scale.
 
 ### DialDirection
 
@@ -60,7 +60,7 @@ Enum/string of bundled sounds (≥ 8) + `none`. Manifest in `assets/sounds/manif
 
 ### ImageEffect (v1.x)
 
-Enum: `vanish` (v1.0 default), `reveal`, `mosaic`, `puzzle4`, `puzzle9`, `puzzle16`.
+Enum: `reveal` (v1.0 default), `vanish`, `mosaic`, `puzzle4`, `puzzle9`, `puzzle16`.
 
 ### WarningOffsets (v1.x)
 

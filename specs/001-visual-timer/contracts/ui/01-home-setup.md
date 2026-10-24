@@ -88,7 +88,8 @@ settings and (v1.x) routines.
 - Dragging: angle → duration on the current scale, rounded to the step; light haptic (selection)
   at every whole minute on mobile.
 - Changing the scale (side panel or settings) keeps the duration if ≤ scale; otherwise clamps it
-  to the scale (v1.0) or creates extra dials (v1.x US11).
+  to the scale. The scale affects only this setup dial: once running, a full turn is the set
+  duration (FR-002).
 - `lastConfig` is saved on every change (300 ms debounce).
 
 ## Main strings (ARB)

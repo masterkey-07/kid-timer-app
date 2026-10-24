@@ -126,9 +126,9 @@ screen at route `/` on every platform (`flutter run -d <each>`). Stories can sta
 
 ---
 
-## Phase 3: User Story 1 - Visual countdown with a shrinking dial (Priority: P1) 🎯 MVP
+## Phase 3: User Story 1 - Visual countdown with a filling dial (Priority: P1) 🎯 MVP
 
-**Goal**: Set a duration, start, watch the dial shrink, pause/resume/cancel and see the final
+**Goal**: Set a duration, start, watch the dial fill up, pause/resume/cancel and see the final
 screen that stays until a tap.
 
 **Independent Test**: Drag the dial to 2 min, start, follow it to zero, final screen until a tap
@@ -158,6 +158,8 @@ screen that stays until a tap.
 - [x] T073 [US1] Implement `FinishedScreen` (celebration with spin/particles and an opacity variant with reduce motion; sound repeated every 30 s up to 3×; 10 min wakelock) in `lib/features/timer/presentation/finished_screen.dart`
 - [x] T074 [US1] Add US1 strings (`home*`, `run*`, `finished*`) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
 - [x] T075 [US1] Add the default sound `chime_soft.wav` (CC0) to `assets/sounds/`, the manifest `assets/sounds/manifest.json` and `assets/sounds/LICENSES.md`
+
+- [ ] T227 [US1] Fill the running dial in instead of shrinking it, relative to the set duration (FR-002, FR-025 as revised on 2026-10-24): the elapsed sector grows from 12 o'clock with the image or color over the neutral disc, a full turn is the set duration whatever the scale, and the markers follow the duration's minutes; `ImageEffect.reveal` becomes the default. Update `dial_geometry_test`, `dial_image_clip_test` and the dial goldens
 
 **Checkpoint**: US1 working and tested with the app open on every platform.
 
@@ -421,26 +423,26 @@ per-step notifications.
 
 ### Tests for User Story 10 ⚠️
 
-- [ ] T182 [P] [US10] Tests in `test/unit/features/timer/application/image_effect_test.dart` (reveal inverts sectors; mosaic ≥ 10 steps; puzzle 4/9/16 pieces, one piece every 1/n of the time, pseudo-random order stable per `sessionId`)
+- [ ] T182 [P] [US10] Tests in `test/unit/features/timer/application/image_effect_test.dart` (vanish inverts sectors; mosaic ≥ 10 steps; puzzle 4/9/16 pieces, one piece every 1/n of the time, pseudo-random order stable per `sessionId`)
 - [ ] T183 [P] [US10] Goldens in `test/golden/features/timer/effect_goldens_test.dart` (each effect at 0/33/66/100%; reduce motion), E2E `patrol_test/e2e_us10_effects_test.dart` (Android: preset with the puzzle effect → start 30 s → app in background and back → the dial shows the effect at the real progress) and integration `integration_test/effect_persist_test.dart` (Android, Linux: `imageEffect` survives a restart in presets and in the running session)
 
 ### Implementation for User Story 10
 
-- [ ] T184 [US10] Implement effects in `lib/features/timer/presentation/widgets/effects/` (`reveal_painter.dart`, `mosaic_painter.dart`, `puzzle_painter.dart`) and the selection in `DialView`
+- [ ] T184 [US10] Implement effects in `lib/features/timer/presentation/widgets/effects/` (`vanish_painter.dart`, `mosaic_painter.dart`, `puzzle_painter.dart`) and the selection in `DialView`
 - [ ] T185 [US10] `imageEffect` selector in the preset editor/home in `lib/features/presets/presentation/preset_editor_screen.dart` and `lib/features/timer/presentation/home_screen.dart`; strings in `lib/l10n/*.arb`
 
 ---
 
-## Phase 14: User Story 11 - Long timers with multiple dials (Priority: P3) — v1.x
+## Phase 14: User Story 11 - Long timers (Priority: P3) — v1.x
 
 ### Tests for User Story 11 ⚠️
 
-- [ ] T186 [P] [US11] Tests in `test/unit/features/timer/application/multi_dial_layout_test.dart` (dials = ceil(duration/scale); empty from right to left; maximum 12 h) and goldens in `test/golden/features/timer/multi_dial_golden_test.dart` (grid without scrolling on compact), E2E `patrol_test/e2e_us11_long_timer_test.dart` (Android: 2 h 30 min → start → kill the app → reopen shows 3 dials with the real remaining time; the end alarm is pending in `dumpsys alarm`) and integration `integration_test/long_timer_restart_test.dart` (Android, Linux: a 12 h session survives a restart)
+- [ ] T186 [P] [US11] Tests in `test/unit/core/domain/timer_duration_test.dart` (maximum 12 h; quick buttons go past the drag's 2 h) and `test/unit/features/timer/application/dial_geometry_test.dart` (a 2 h 30 min timer half elapsed fills half the dial), E2E `patrol_test/e2e_us11_long_timer_test.dart` (Android: 2 h 30 min → start → kill the app → reopen shows the dial filled to the real elapsed share; the end alarm is pending in `dumpsys alarm`) and integration `integration_test/long_timer_restart_test.dart` (Android, Linux: a 12 h session survives a restart)
 
 ### Implementation for User Story 11
 
 - [ ] T187 [US11] Raise the `TimerDuration` limit to 12 h (`FR-082`) in `lib/core/domain/timer_duration.dart` with migration/compatibility, and adjust existing validations and tests
-- [ ] T188 [US11] Implement `MultiDialView` in `lib/features/timer/presentation/widgets/multi_dial_view.dart` and wire it into home/run; strings in `lib/l10n/*.arb`
+- [ ] T188 [US11] Let the quick buttons in `lib/features/timer/presentation/widgets/duration_quick_buttons.dart` go past the scale up to 12 h while the drag stays within the scale
 
 ---
 
@@ -551,7 +553,7 @@ corresponding tests per level are in [testing-strategy.md](./testing-strategy.md
 | Requirement | Tasks                                          |
 | ----------- | ---------------------------------------------- |
 | FR-001      | T022, T023, T057, T059, T066, T071             |
-| FR-002      | T057, T062, T068, T069                         |
+| FR-002      | T057, T062, T068, T069, T227                   |
 | FR-003      | T026, T027, T058, T060, T067, T072             |
 | FR-004      | T030, T070                                     |
 | FR-005      | T058, T061, T073                               |
@@ -571,7 +573,7 @@ corresponding tests per level are in [testing-strategy.md](./testing-strategy.md
 | FR-022      | T096, T099, T108                               |
 | FR-023      | T096, T104                                     |
 | FR-024      | T097, T099, T105, T108, T132                   |
-| FR-025      | T098, T107, T109                               |
+| FR-025      | T098, T107, T109, T227                         |
 | FR-026      | T094, T095, T103                               |
 | FR-030      | T113, T117, T118                               |
 | FR-031      | T112, T116, T117                               |

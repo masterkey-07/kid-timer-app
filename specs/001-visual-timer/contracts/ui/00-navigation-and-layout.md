@@ -108,7 +108,7 @@ sits on a scrim of the theme surface color at 0.7 opacity, guaranteeing ≥ 4.5:
   2 dp outline in the text color so phases do not rely on color alone.
 - **Progressive dial palette**: green `#3BAA5C`, yellow `#F2C14E`, red `#E05A47`.
 - **Calm mode**: blue `#8FB8E8` → lilac `#B9A7E0` → peach `#F3C3A3`.
-- **Elapsed**: neutral `#9AA0A6` at 0.18 opacity (light) / 0.28 (dark). With the system's
+- **Empty (not yet filled)**: neutral `#9AA0A6` at 0.18 opacity (light) / 0.28 (dark). With the system's
   increase-contrast setting on (`MediaQuery.highContrastOf`), an opaque tone is used instead:
   `#E3E5E8` (light) / `#2A2D33` (dark); the padlock is then drawn at full opacity. This also
   covers users of "reduce transparency" (not exposed by Flutter; see spec Assumptions).

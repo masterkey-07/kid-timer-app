@@ -8,7 +8,7 @@
 
 A single Flutter app for Android, iOS/iPadOS, Windows, macOS, Linux and Web: the adult sets up a
 timer (duration, an image from the built-in library or from the device, or colors) and the
-child watches a dial shrink until the celebration screen. The central technical approach is a
+child watches a dial fill up until the celebration screen. The central technical approach is a
 **pure-Dart time engine based on absolute instants** (`endsAt − now`) with an **alarm scheduled
 with the operating system** via `flutter_local_notifications`, local persistence with `hive_ce`,
 a dial drawn by a `CustomPainter` and every platform dependency behind testable ports. v1.0

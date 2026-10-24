@@ -14,9 +14,9 @@ Show the child time passing, without distractions and without any way to change 
 │ 🔒                                    │  HoldToUnlock: 40 dp icon, 0.35 opacity
 │                                      │
 │          ╭────────────────╮          │
-│        ╭─┤ remaining      ├─╮        │  DialView: image cropped to the remaining sector;
-│        │ │ sector (image/ │ │        │  elapsed sector translucent neutral
-│        ╰─┤ color)         ├─╯        │
+│        ╭─┤ filled         ├─╮        │  DialView: starts empty (translucent neutral) and
+│        │ │ sector (image/ │ │        │  the elapsed sector fills in with the image/color;
+│        ╰─┤ color)         ├─╯        │  a full turn = the set duration
 │          ╰────────────────╯          │
 │                04:12                 │  DigitsLabel if showDigits=true
 │                                      │
@@ -83,7 +83,7 @@ Show the child time passing, without distractions and without any way to change 
 7. Landscape/portrait, resizing and moving the window to another monitor: the dial recomputes
    its size without restarting; on desktop, full screen follows the window to the new monitor.
 8. v1.x US9: intermediate warning → single dial pulse (scale 1.0→1.04→1.0, 400 ms) + soft sound.
-   US10: image effect per `imageEffect`. US11: dial grid.
+   US10: image effect per `imageEffect`. US11: a single dial up to 12 h.
 
 ## Special states
 

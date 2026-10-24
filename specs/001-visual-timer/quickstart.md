@@ -57,7 +57,7 @@ test/golden` (review the image diff in the PR).
 
 | Story           | How to validate                                          | Expected result                                              |
 | --------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
-| US1             | Drag the dial to 1 min → Start                           | Dial shrinks; final screen stays until a tap                 |
+| US1             | Drag the dial to 1 min → Start                           | Dial fills up; final screen stays until a tap                 |
 | US2             | Start 1 min → lock the screen (Android/iOS)              | Alarm within ≤ 65 s; reopening shows the final screen        |
 | US2 (Web/Linux) | Start                                                    | "Keep this window open" notice                               |
 | US3             | Library image "Brush teeth" → 1 min; then a device photo | Image disappears with the dial; no gallery permission prompt |
