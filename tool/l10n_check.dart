@@ -1,5 +1,6 @@
 // Fails when app_pt.arb and app_en.arb do not have the same message keys and
-// placeholders (Constitution V: pt-BR and en 100% translated).
+// placeholders, or when an asset manifest's localized names lack pt or en
+// (Constitution V: pt-BR and en 100% translated).
 //
 // Usage: dart run tool/l10n_check.dart [project root]
 import 'dart:convert';
@@ -10,6 +11,12 @@ const _exitViolations = 1;
 
 const _arbDir = 'lib/l10n';
 const _locales = ['pt', 'en'];
+const _assetsDir = 'assets';
+const _manifestFileName = 'manifest.json';
+
+/// Manifest fields that hold one localized text (or keyword list) per
+/// language.
+const _localizedFields = {'names', 'labels', 'keywords'};
 
 /// `{name}` or `{name, plural|select, …}`; a `{` right after a word character
 /// or `=` opens an ICU branch (`other{…}`, `=1{…}`), not a placeholder.
@@ -34,8 +41,14 @@ int runL10nCheck(Directory root, StringSink out) {
   return _exitViolations;
 }
 
-/// Returns one message per key or placeholder mismatch between the ARB files.
-List<String> checkL10n(Directory root) {
+/// Returns one message per key or placeholder mismatch between the ARB files
+/// and per incomplete localized field in the asset manifests.
+List<String> checkL10n(Directory root) => [
+  ..._checkArbFiles(root),
+  ..._checkAssetManifests(root),
+];
+
+List<String> _checkArbFiles(Directory root) {
   final violations = <String>[];
   final messagesByFile = <String, Map<String, String>>{};
 
@@ -96,3 +109,57 @@ Set<String> _placeholdersOf(String message) =>
 
 String _describe(Set<String> placeholders) =>
     '{${(placeholders.toList()..sort()).join(', ')}}';
+
+Iterable<String> _checkAssetManifests(Directory root) sync* {
+  final assets = Directory('${root.path}/$_assetsDir');
+  if (!assets.existsSync()) return;
+
+  final manifests =
+      assets
+          .listSync(recursive: true)
+          .whereType<File>()
+          .where((file) => file.uri.pathSegments.last == _manifestFileName)
+          .toList()
+        ..sort((a, b) => a.path.compareTo(b.path));
+  for (final manifest in manifests) {
+    final path = manifest.path
+        .substring(root.path.length + 1)
+        .replaceAll(r'\', '/');
+    yield* _incompleteFields(
+      jsonDecode(manifest.readAsStringSync()),
+      jsonPath: '',
+    ).map((problem) => '$path: $problem');
+  }
+}
+
+/// Walks [node] and reports each localized field missing a language.
+Iterable<String> _incompleteFields(
+  Object? node, {
+  required String jsonPath,
+}) sync* {
+  switch (node) {
+    case final List<Object?> list:
+      for (final (index, item) in list.indexed) {
+        yield* _incompleteFields(item, jsonPath: '$jsonPath[$index]');
+      }
+    case final Map<String, Object?> map:
+      for (final MapEntry(:key, :value) in map.entries) {
+        final childPath = jsonPath.isEmpty ? key : '$jsonPath.$key';
+        if (_localizedFields.contains(key) && value is Map<String, Object?>) {
+          for (final locale in _locales) {
+            if (!_hasText(value[locale])) {
+              yield '$childPath has no "$locale" text';
+            }
+          }
+        } else {
+          yield* _incompleteFields(value, jsonPath: childPath);
+        }
+      }
+  }
+}
+
+bool _hasText(Object? value) => switch (value) {
+  final String text => text.trim().isNotEmpty,
+  final List<Object?> words => words.isNotEmpty,
+  _ => false,
+};
