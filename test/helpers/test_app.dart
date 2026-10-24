@@ -87,6 +87,12 @@ class TestAppDependencies {
     restoredSessionProvider.overrideWithValue(session),
     restoredSettingsProvider.overrideWithValue(settings),
     presetExistsProvider.overrideWithValue(presetExists ?? (_) => false),
+    ...portOverrides(),
+  ];
+
+  /// The fake platform ports alone, for tests that use the real storage
+  /// and startup path.
+  List<Override> portOverrides() => [
     appPlatformProvider.overrideWithValue(AppPlatform.android),
     alarmSchedulerProvider.overrideWithValue(alarms),
     audioProvider.overrideWithValue(audio),

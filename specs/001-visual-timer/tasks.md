@@ -143,7 +143,7 @@ screen that stays until a tap.
 - [x] T061 [P] [US1] Final screen widget tests in `test/widget/features/timer/finished_screen_test.dart` (800 ms guard; tap acknowledges and returns to `/`; Enter/Space/Esc; "Time's up" announcement; stays after 10 simulated minutes)
 - [x] T062 [P] [US1] Goldens in `test/golden/features/timer/dial_view_golden_test.dart` (dial 0/25/50/100% × progressive/calm × clockwise/counter-clockwise × light/dark) and `test/golden/features/timer/screens_golden_test.dart` (home, run, finished × compact/medium/expanded)
 - [x] T063 [P] [US1] Accessibility tests in `test/widget/features/timer/timer_a11y_test.dart` (guidelines on the 3 screens; 200% font without overflow; pt and en)
-- [ ] T064 [P] [US1] Integration test `integration_test/restart_shows_finished_test.dart` (expired unacknowledged session → `/finished` after a restart)
+- [x] T064 [P] [US1] Integration test `integration_test/restart_shows_finished_test.dart` (expired unacknowledged session → `/finished` after a restart)
 - [ ] T065 [P] [US1] E2E `patrol_test/e2e_us1_basic_timer_test.dart` (drag to 1 min, start, wait, final screen, tap returns)
 
 ### Implementation for User Story 1
