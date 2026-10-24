@@ -222,7 +222,7 @@ images", image on the dial with a fallback to colors.
 
 ### Implementation for User Story 3
 
-- [ ] T102 [P] [US3] Implement `ImageAsset`, `ImageCategory`, `FrameSpec` in `lib/features/images/domain/`
+- [x] T102 [P] [US3] Implement `ImageAsset`, `ImageCategory`, `FrameSpec` in `lib/features/images/domain/`
 - [ ] T103 [P] [US3] Implement `BankManifestLoader` in `lib/features/images/data/bank_manifest_loader.dart` (reads the manifest, label per language) (depends on T095)
 - [ ] T104 [US3] Implement `ImageProcessorImpl` (`image` package, `compute`) in `lib/features/images/data/image_processor_impl.dart` (depends on T096)
 - [ ] T105 [US3] Implement `UserImageRepository` in `lib/features/images/data/user_image_repository.dart` and orphan cleanup in `bootstrap()` (depends on T097)
