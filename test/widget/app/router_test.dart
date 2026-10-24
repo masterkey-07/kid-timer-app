@@ -7,17 +7,18 @@ import 'package:visual_time_counter/app/router.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
-import 'package:visual_time_counter/features/timer/application/active_session.dart';
+
+import '../../helpers/test_app.dart';
 
 TimerSession _session(SessionStatus status, {bool acknowledged = false}) =>
     TimerSession(
       id: 's1',
       config: TimerConfig.defaults,
       status: status,
-      startedAt: DateTime.utc(2026, 10, 23, 12),
+      startedAt: testNow,
       endsAt:
           status == SessionStatus.running || status == SessionStatus.finished
-          ? DateTime.utc(2026, 10, 23, 12, 5)
+          ? testNow.add(const Duration(minutes: 5))
           : null,
       pausedRemaining: status == SessionStatus.paused
           ? const Duration(minutes: 3)
@@ -28,13 +29,18 @@ TimerSession _session(SessionStatus status, {bool acknowledged = false}) =>
 const _knownPreset = 'preset-1';
 
 void main() {
+  late TestAppDependencies dependencies;
+
+  setUp(() async => dependencies = await TestAppDependencies.create());
+  tearDown(() => dependencies.dispose());
+
   Future<void> pumpApp(WidgetTester tester, {TimerSession? session}) async {
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [
-          restoredSessionProvider.overrideWithValue(session),
-          presetExistsProvider.overrideWithValue((id) => id == _knownPreset),
-        ],
+        overrides: dependencies.overrides(
+          session: session,
+          presetExists: (id) => id == _knownPreset,
+        ),
         child: const KidTimerApp(),
       ),
     );

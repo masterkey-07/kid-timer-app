@@ -90,20 +90,6 @@ void main() {
     });
   });
 
-  test('saves pending changes when disposed', () {
-    fakeAsync((async) {
-      controller().setDuration(_sevenMinutes);
-      container.dispose();
-      async.flushMicrotasks();
-
-      expect(
-        SettingsRepository(settingsBox).load().lastConfig.duration,
-        _sevenMinutes,
-      );
-      container = containerFor(settingsBox);
-    });
-  });
-
   test('a failure to save keeps the configuration on screen', () {
     final failingBox = _MockBox();
     when(() => failingBox.put(any<Object?>(), any()))

@@ -1,0 +1,103 @@
+import 'dart:typed_data';
+
+import 'package:clock/clock.dart';
+import 'package:flutter_riverpod/misc.dart';
+import 'package:hive_ce/hive_ce.dart';
+import 'package:visual_time_counter/app/router.dart';
+import 'package:visual_time_counter/core/clock/clock_provider.dart';
+import 'package:visual_time_counter/core/platform/providers.dart';
+import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
+import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
+import 'package:visual_time_counter/features/settings/data/settings_repository.dart';
+import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
+import 'package:visual_time_counter/features/timer/application/active_session.dart';
+import 'package:visual_time_counter/features/timer/data/session_repository.dart';
+
+import 'fakes/fake_alarm_scheduler.dart';
+import 'fakes/fake_audio.dart';
+import 'fakes/fake_external_link.dart';
+import 'fakes/fake_fullscreen.dart';
+import 'fakes/fake_haptics.dart';
+import 'fakes/fake_image_picker.dart';
+import 'fakes/fake_lifecycle.dart';
+import 'fakes/fake_system_settings.dart';
+import 'fakes/fake_wakelock.dart';
+
+/// The instant every app-level test starts at.
+final testNow = DateTime.utc(2026, 10, 23, 12);
+
+var _boxCount = 0;
+
+/// Fakes for every port, in-memory storage and a controllable clock: what
+/// bootstrap provides in the real app.
+class TestAppDependencies {
+  new _(this._sessionBox, this._settingsBox) {
+    clock = Clock(() => now);
+    alarms = FakeAlarmScheduler(clock: clock);
+    sessionRepository = SessionRepository(_sessionBox);
+    settingsRepository = SettingsRepository(_settingsBox);
+  }
+
+  /// Opens empty in-memory boxes.
+  static Future<TestAppDependencies> create() async {
+    final id = _boxCount++;
+    return TestAppDependencies._(
+      await Hive.openBox<Map<dynamic, dynamic>>(
+        'test_session_$id',
+        bytes: Uint8List(0),
+      ),
+      await Hive.openBox<Map<dynamic, dynamic>>(
+        'test_settings_$id',
+        bytes: Uint8List(0),
+      ),
+    );
+  }
+
+  final Box<Map<dynamic, dynamic>> _sessionBox;
+  final Box<Map<dynamic, dynamic>> _settingsBox;
+
+  /// What the clock reads; tests move it forward.
+  DateTime now = testNow;
+
+  late final Clock clock;
+  late final FakeAlarmScheduler alarms;
+  late final SessionRepository sessionRepository;
+  late final SettingsRepository settingsRepository;
+  final audio = FakeAudio();
+  final haptics = FakeHaptics();
+  final wakeLock = FakeWakeLock();
+  final fullscreen = FakeFullscreen();
+  final lifecycle = FakeLifecycle();
+
+  /// The overrides for a `ProviderScope` restoring [session] and
+  /// [settings].
+  List<Override> overrides({
+    TimerSession? session,
+    AppSettings settings = AppSettings.initial,
+    bool Function(String presetId)? presetExists,
+  }) => [
+    clockProvider.overrideWithValue(clock),
+    sessionRepositoryProvider.overrideWithValue(sessionRepository),
+    settingsRepositoryProvider.overrideWithValue(settingsRepository),
+    restoredSessionProvider.overrideWithValue(session),
+    restoredSettingsProvider.overrideWithValue(settings),
+    presetExistsProvider.overrideWithValue(presetExists ?? (_) => false),
+    appPlatformProvider.overrideWithValue(AppPlatform.android),
+    alarmSchedulerProvider.overrideWithValue(alarms),
+    audioProvider.overrideWithValue(audio),
+    hapticsProvider.overrideWithValue(haptics),
+    wakeLockProvider.overrideWithValue(wakeLock),
+    fullscreenProvider.overrideWithValue(fullscreen),
+    appLifecycleProvider.overrideWithValue(lifecycle),
+    imagePickerProvider.overrideWithValue(FakeImagePicker()),
+    systemSettingsProvider.overrideWithValue(FakeSystemSettings()),
+    externalLinkProvider.overrideWithValue(FakeExternalLink()),
+  ];
+
+  /// Closes the boxes.
+  Future<void> dispose() async {
+    await lifecycle.dispose();
+    await _sessionBox.close();
+    await _settingsBox.close();
+  }
+}

@@ -3,25 +3,25 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visual_time_counter/app/app.dart';
-import 'package:visual_time_counter/app/router.dart';
 import 'package:visual_time_counter/app/shortcuts.dart';
-import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
-import 'package:visual_time_counter/features/timer/application/active_session.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
+import '../../helpers/test_app.dart';
+
 void main() {
+  late TestAppDependencies dependencies;
+
+  setUp(() async => dependencies = await TestAppDependencies.create());
+  tearDown(() => dependencies.dispose());
+
   Future<BuildContext> pumpApp(
     WidgetTester tester, {
     AppSettings settings = AppSettings.initial,
   }) async {
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [
-          restoredSessionProvider.overrideWithValue(null),
-          restoredSettingsProvider.overrideWithValue(settings),
-          presetExistsProvider.overrideWithValue((_) => false),
-        ],
+        overrides: dependencies.overrides(settings: settings),
         child: const KidTimerApp(),
       ),
     );
