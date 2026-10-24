@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "sounds": [
+    {
+      "id": "chime_soft",
+      "file": "chime_soft.wav",
+      "kind": "alarm",
+      "names": { "pt": "Sino suave", "en": "Soft chime" }
+    }
+  ]
+}
