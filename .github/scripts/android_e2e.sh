@@ -26,6 +26,14 @@ patrol_run() {
   patrol test --device "$device" "$@"
 }
 
+# The own-image test picks this photo in the system photo picker.
+own_image_test=patrol_test/e2e_us3_own_image_test.dart
+if [[ -f "$own_image_test" ]]; then
+  adb -s "$device" push test/fixtures/images/with_gps.jpg /sdcard/Pictures/e2e_photo.jpg
+  adb -s "$device" shell am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE \
+    -d file:///sdcard/Pictures/e2e_photo.jpg
+fi
+
 # The permission test needs a fresh install, where notifications were never
 # granted; the others grant the permission themselves.
 if [[ -f patrol_test/e2e_us2_permissions_android_test.dart ]]; then
