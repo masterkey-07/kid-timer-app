@@ -251,7 +251,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get batteryHelpAlarmsApple =>
-      'On iPhone, iPad and Mac: Settings → Notifications → Kid Timer → turn on Allow Notifications and Time Sensitive.';
+      'On iPhone, iPad and Mac: Settings › Notifications › Kid Timer › turn on Allow Notifications and Time Sensitive.';
 
   @override
   String get batteryHelpOpenExactAlarm => 'Open alarms & reminders';
@@ -268,23 +268,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get batteryHelpBatterySamsung =>
-      'Samsung: Settings → Apps → Kid Timer → Battery → Unrestricted.';
+      'Samsung: Settings › Apps › Kid Timer › Battery › Unrestricted.';
 
   @override
   String get batteryHelpBatteryXiaomi =>
-      'Xiaomi, Redmi, POCO: Settings → Apps → Manage apps → Kid Timer → Battery saver → No restrictions, and turn on Autostart.';
+      'Xiaomi, Redmi, POCO: Settings › Apps › Manage apps › Kid Timer › Battery saver › No restrictions, and turn on Autostart.';
 
   @override
   String get batteryHelpBatteryMotorola =>
-      'Motorola: Settings → Apps → Kid Timer → App battery usage → Unrestricted.';
+      'Motorola: Settings › Apps › Kid Timer › App battery usage › Unrestricted.';
 
   @override
   String get batteryHelpBatteryHuawei =>
-      'Huawei: Settings → Battery → App launch → Kid Timer → Manage manually, with Auto-launch and Run in background on.';
+      'Huawei: Settings › Battery › App launch › Kid Timer › Manage manually, with Auto-launch and Run in background on.';
 
   @override
   String get batteryHelpBatteryOthers =>
-      'Others: Settings → Apps → Kid Timer → Battery → Unrestricted (or Don\'t optimize).';
+      'Others: Settings › Apps › Kid Timer › Battery › Unrestricted (or Don\'t optimize).';
 
   @override
   String get batteryHelpOpenBatteryOptimization => 'Open battery optimization';
@@ -294,11 +294,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get batteryHelpPinningAndroid =>
-      'Android: turn on Settings → Security → App pinning, then pin Kid Timer from the recent apps screen.';
+      'Android: turn on Settings › Security › App pinning, then pin Kid Timer from the recent apps screen.';
 
   @override
   String get batteryHelpPinningApple =>
-      'iPhone and iPad: turn on Settings → Accessibility → Guided Access, then triple-click the side button inside Kid Timer.';
+      'iPhone and iPad: turn on Settings › Accessibility › Guided Access, then triple-click the side button inside Kid Timer.';
 
   @override
   String get batteryHelpPinningDesktop =>

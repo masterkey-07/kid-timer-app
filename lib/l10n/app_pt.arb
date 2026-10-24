@@ -299,7 +299,7 @@
   "@batteryHelpAlarmsBody": {
     "description": "Why the app needs alarm and notification permissions."
   },
-  "batteryHelpAlarmsApple": "No iPhone, iPad e Mac: Ajustes → Notificações → Kid Timer → ative Permitir Notificações e Sensível ao Tempo.",
+  "batteryHelpAlarmsApple": "No iPhone, iPad e Mac: Ajustes › Notificações › Kid Timer › ative Permitir Notificações e Sensível ao Tempo.",
   "@batteryHelpAlarmsApple": {
     "description": "Instructions for Apple platforms."
   },
@@ -319,23 +319,23 @@
   "@batteryHelpBatteryBody": {
     "description": "Intro to the per-vendor battery steps."
   },
-  "batteryHelpBatterySamsung": "Samsung: Configurações → Aplicativos → Kid Timer → Bateria → Sem restrições.",
+  "batteryHelpBatterySamsung": "Samsung: Configurações › Aplicativos › Kid Timer › Bateria › Sem restrições.",
   "@batteryHelpBatterySamsung": {
     "description": "Battery steps for Samsung."
   },
-  "batteryHelpBatteryXiaomi": "Xiaomi, Redmi, POCO: Configurações → Apps → Gerenciar apps → Kid Timer → Economia de bateria → Sem restrições, e ative a Inicialização automática.",
+  "batteryHelpBatteryXiaomi": "Xiaomi, Redmi, POCO: Configurações › Apps › Gerenciar apps › Kid Timer › Economia de bateria › Sem restrições, e ative a Inicialização automática.",
   "@batteryHelpBatteryXiaomi": {
     "description": "Battery steps for Xiaomi, Redmi and POCO."
   },
-  "batteryHelpBatteryMotorola": "Motorola: Configurações → Apps → Kid Timer → Uso da bateria pelo app → Sem restrições.",
+  "batteryHelpBatteryMotorola": "Motorola: Configurações › Apps › Kid Timer › Uso da bateria pelo app › Sem restrições.",
   "@batteryHelpBatteryMotorola": {
     "description": "Battery steps for Motorola."
   },
-  "batteryHelpBatteryHuawei": "Huawei: Configurações → Bateria → Inicialização de apps → Kid Timer → Gerenciar manualmente, com Inicialização automática e Executar em segundo plano ativados.",
+  "batteryHelpBatteryHuawei": "Huawei: Configurações › Bateria › Inicialização de apps › Kid Timer › Gerenciar manualmente, com Inicialização automática e Executar em segundo plano ativados.",
   "@batteryHelpBatteryHuawei": {
     "description": "Battery steps for Huawei."
   },
-  "batteryHelpBatteryOthers": "Outros: Configurações → Apps → Kid Timer → Bateria → Sem restrições (ou Não otimizar).",
+  "batteryHelpBatteryOthers": "Outros: Configurações › Apps › Kid Timer › Bateria › Sem restrições (ou Não otimizar).",
   "@batteryHelpBatteryOthers": {
     "description": "Battery steps for other vendors."
   },
@@ -347,11 +347,11 @@
   "@batteryHelpPinningTitle": {
     "description": "Help section about screen pinning."
   },
-  "batteryHelpPinningAndroid": "Android: ative Configurações → Segurança → Fixar app e depois fixe o Kid Timer na tela de apps recentes.",
+  "batteryHelpPinningAndroid": "Android: ative Configurações › Segurança › Fixar app e depois fixe o Kid Timer na tela de apps recentes.",
   "@batteryHelpPinningAndroid": {
     "description": "Screen pinning on Android."
   },
-  "batteryHelpPinningApple": "iPhone e iPad: ative Ajustes → Acessibilidade → Acesso Guiado e depois clique três vezes no botão lateral dentro do Kid Timer.",
+  "batteryHelpPinningApple": "iPhone e iPad: ative Ajustes › Acessibilidade › Acesso Guiado e depois clique três vezes no botão lateral dentro do Kid Timer.",
   "@batteryHelpPinningApple": {
     "description": "Guided Access on iOS and iPadOS."
   },

@@ -497,7 +497,7 @@ abstract class AppLocalizations {
   /// Instructions for Apple platforms.
   ///
   /// In pt, this message translates to:
-  /// **'No iPhone, iPad e Mac: Ajustes → Notificações → Kid Timer → ative Permitir Notificações e Sensível ao Tempo.'**
+  /// **'No iPhone, iPad e Mac: Ajustes › Notificações › Kid Timer › ative Permitir Notificações e Sensível ao Tempo.'**
   String get batteryHelpAlarmsApple;
 
   /// Android button that opens the exact alarm setting.
@@ -527,31 +527,31 @@ abstract class AppLocalizations {
   /// Battery steps for Samsung.
   ///
   /// In pt, this message translates to:
-  /// **'Samsung: Configurações → Aplicativos → Kid Timer → Bateria → Sem restrições.'**
+  /// **'Samsung: Configurações › Aplicativos › Kid Timer › Bateria › Sem restrições.'**
   String get batteryHelpBatterySamsung;
 
   /// Battery steps for Xiaomi, Redmi and POCO.
   ///
   /// In pt, this message translates to:
-  /// **'Xiaomi, Redmi, POCO: Configurações → Apps → Gerenciar apps → Kid Timer → Economia de bateria → Sem restrições, e ative a Inicialização automática.'**
+  /// **'Xiaomi, Redmi, POCO: Configurações › Apps › Gerenciar apps › Kid Timer › Economia de bateria › Sem restrições, e ative a Inicialização automática.'**
   String get batteryHelpBatteryXiaomi;
 
   /// Battery steps for Motorola.
   ///
   /// In pt, this message translates to:
-  /// **'Motorola: Configurações → Apps → Kid Timer → Uso da bateria pelo app → Sem restrições.'**
+  /// **'Motorola: Configurações › Apps › Kid Timer › Uso da bateria pelo app › Sem restrições.'**
   String get batteryHelpBatteryMotorola;
 
   /// Battery steps for Huawei.
   ///
   /// In pt, this message translates to:
-  /// **'Huawei: Configurações → Bateria → Inicialização de apps → Kid Timer → Gerenciar manualmente, com Inicialização automática e Executar em segundo plano ativados.'**
+  /// **'Huawei: Configurações › Bateria › Inicialização de apps › Kid Timer › Gerenciar manualmente, com Inicialização automática e Executar em segundo plano ativados.'**
   String get batteryHelpBatteryHuawei;
 
   /// Battery steps for other vendors.
   ///
   /// In pt, this message translates to:
-  /// **'Outros: Configurações → Apps → Kid Timer → Bateria → Sem restrições (ou Não otimizar).'**
+  /// **'Outros: Configurações › Apps › Kid Timer › Bateria › Sem restrições (ou Não otimizar).'**
   String get batteryHelpBatteryOthers;
 
   /// Android button that opens the battery optimization settings.
@@ -569,13 +569,13 @@ abstract class AppLocalizations {
   /// Screen pinning on Android.
   ///
   /// In pt, this message translates to:
-  /// **'Android: ative Configurações → Segurança → Fixar app e depois fixe o Kid Timer na tela de apps recentes.'**
+  /// **'Android: ative Configurações › Segurança › Fixar app e depois fixe o Kid Timer na tela de apps recentes.'**
   String get batteryHelpPinningAndroid;
 
   /// Guided Access on iOS and iPadOS.
   ///
   /// In pt, this message translates to:
-  /// **'iPhone e iPad: ative Ajustes → Acessibilidade → Acesso Guiado e depois clique três vezes no botão lateral dentro do Kid Timer.'**
+  /// **'iPhone e iPad: ative Ajustes › Acessibilidade › Acesso Guiado e depois clique três vezes no botão lateral dentro do Kid Timer.'**
   String get batteryHelpPinningApple;
 
   /// Keeping the child in the app on desktop.

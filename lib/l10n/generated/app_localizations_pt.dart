@@ -252,7 +252,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get batteryHelpAlarmsApple =>
-      'No iPhone, iPad e Mac: Ajustes → Notificações → Kid Timer → ative Permitir Notificações e Sensível ao Tempo.';
+      'No iPhone, iPad e Mac: Ajustes › Notificações › Kid Timer › ative Permitir Notificações e Sensível ao Tempo.';
 
   @override
   String get batteryHelpOpenExactAlarm => 'Abrir alarmes e lembretes';
@@ -270,23 +270,23 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get batteryHelpBatterySamsung =>
-      'Samsung: Configurações → Aplicativos → Kid Timer → Bateria → Sem restrições.';
+      'Samsung: Configurações › Aplicativos › Kid Timer › Bateria › Sem restrições.';
 
   @override
   String get batteryHelpBatteryXiaomi =>
-      'Xiaomi, Redmi, POCO: Configurações → Apps → Gerenciar apps → Kid Timer → Economia de bateria → Sem restrições, e ative a Inicialização automática.';
+      'Xiaomi, Redmi, POCO: Configurações › Apps › Gerenciar apps › Kid Timer › Economia de bateria › Sem restrições, e ative a Inicialização automática.';
 
   @override
   String get batteryHelpBatteryMotorola =>
-      'Motorola: Configurações → Apps → Kid Timer → Uso da bateria pelo app → Sem restrições.';
+      'Motorola: Configurações › Apps › Kid Timer › Uso da bateria pelo app › Sem restrições.';
 
   @override
   String get batteryHelpBatteryHuawei =>
-      'Huawei: Configurações → Bateria → Inicialização de apps → Kid Timer → Gerenciar manualmente, com Inicialização automática e Executar em segundo plano ativados.';
+      'Huawei: Configurações › Bateria › Inicialização de apps › Kid Timer › Gerenciar manualmente, com Inicialização automática e Executar em segundo plano ativados.';
 
   @override
   String get batteryHelpBatteryOthers =>
-      'Outros: Configurações → Apps → Kid Timer → Bateria → Sem restrições (ou Não otimizar).';
+      'Outros: Configurações › Apps › Kid Timer › Bateria › Sem restrições (ou Não otimizar).';
 
   @override
   String get batteryHelpOpenBatteryOptimization =>
@@ -297,11 +297,11 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get batteryHelpPinningAndroid =>
-      'Android: ative Configurações → Segurança → Fixar app e depois fixe o Kid Timer na tela de apps recentes.';
+      'Android: ative Configurações › Segurança › Fixar app e depois fixe o Kid Timer na tela de apps recentes.';
 
   @override
   String get batteryHelpPinningApple =>
-      'iPhone e iPad: ative Ajustes → Acessibilidade → Acesso Guiado e depois clique três vezes no botão lateral dentro do Kid Timer.';
+      'iPhone e iPad: ative Ajustes › Acessibilidade › Acesso Guiado e depois clique três vezes no botão lateral dentro do Kid Timer.';
 
   @override
   String get batteryHelpPinningDesktop =>

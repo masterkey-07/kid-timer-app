@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
+import 'package:visual_time_counter/features/settings/presentation/battery_help_screen.dart';
 import 'package:visual_time_counter/features/timer/application/active_session.dart';
 import 'package:visual_time_counter/features/timer/presentation/finished_screen.dart';
 import 'package:visual_time_counter/features/timer/presentation/home_screen.dart';
@@ -80,6 +81,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.finished,
         builder: (context, state) => const FinishedScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.batteryHelp,
+        builder: (context, state) => BatteryHelpScreen(
+          section: BatteryHelpSection.values.asNameMap()[state.uri.fragment],
+        ),
       ),
     ],
   );
