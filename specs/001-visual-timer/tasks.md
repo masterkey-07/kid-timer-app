@@ -208,7 +208,7 @@ images", image on the dial with a fallback to colors.
 
 - [x] T092 [US3] Verify the license of `microsoft/fluentui-emoji` (the `LICENSE` file and its scope over the assets) and record the result in `specs/001-visual-timer/research.md` (R9); if it is not MIT/compatible, use the fallback (Twemoji CC BY 4.0 or Noto Emoji Apache-2.0)
 - [x] T093 [US3] Create the `tool/image_bank/` pipeline (`package.json`, `build.mjs` with `@resvg/resvg-js` + `sharp`, `sources.json` mapping emoji → id/category/pt-en names) that generates `assets/images/bank/<category>/<slug>.webp` at 768×768 with a soft circular background and `assets/images/bank/manifest.json`
-- [ ] T094 [US3] Generate and commit ≥ 36 images (≥ 6 per category: `hygiene`, `meal`, `play`, `rest`, `school`, `goingOut`), `assets/images/bank/manifest.json` and `assets/images/bank/LICENSES.md` (author, license, source per file); human review recorded in `docs/assets-review.md` using the research R9 criteria (per asset: reviewer, date, verdict) and the R9 recognition validation; replace failing images
+- [ ] T094 [US3] Generate and commit ≥ 36 images (≥ 6 per category: `hygiene`, `meal`, `play`, `rest`, `school`, `goingOut`), `assets/images/bank/manifest.json` and `assets/images/bank/LICENSES.md` (author, license, source per file); human review recorded in `docs/assets-review.md` using the research R9 criteria (per asset: reviewer, date, verdict) and the R9 recognition validation; replace failing images — **partial**: 40 images, manifest, `LICENSES.md` and `docs/assets-review.md` committed; every verdict is `pending` until a human reviews them, and the recognition validation is still to be run
 
 ### Tests for User Story 3 ⚠️
 

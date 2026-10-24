@@ -1,0 +1,485 @@
+{
+  "schemaVersion": 1,
+  "images": [
+    {
+      "id": "bank:hygiene/brush_teeth",
+      "category": "hygiene",
+      "file": "hygiene/brush_teeth.webp",
+      "names": {
+        "pt": "Escovar os dentes",
+        "en": "Brush teeth"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Toothbrush/Color/toothbrush_color.svg"
+    },
+    {
+      "id": "bank:hygiene/bath",
+      "category": "hygiene",
+      "file": "hygiene/bath.webp",
+      "names": {
+        "pt": "Tomar banho",
+        "en": "Take a bath"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Bathtub/Color/bathtub_color.svg"
+    },
+    {
+      "id": "bank:hygiene/wash_hands",
+      "category": "hygiene",
+      "file": "hygiene/wash_hands.webp",
+      "names": {
+        "pt": "Lavar as mãos",
+        "en": "Wash hands"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Soap/Color/soap_color.svg"
+    },
+    {
+      "id": "bank:hygiene/shower",
+      "category": "hygiene",
+      "file": "hygiene/shower.webp",
+      "names": {
+        "pt": "Chuveiro",
+        "en": "Shower"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Shower/Color/shower_color.svg"
+    },
+    {
+      "id": "bank:hygiene/toilet",
+      "category": "hygiene",
+      "file": "hygiene/toilet.webp",
+      "names": {
+        "pt": "Ir ao banheiro",
+        "en": "Use the toilet"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Toilet/Color/toilet_color.svg"
+    },
+    {
+      "id": "bank:hygiene/clean_up",
+      "category": "hygiene",
+      "file": "hygiene/clean_up.webp",
+      "names": {
+        "pt": "Limpar",
+        "en": "Clean up"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Sponge/Color/sponge_color.svg"
+    },
+    {
+      "id": "bank:meal/meal",
+      "category": "meal",
+      "file": "meal/meal.webp",
+      "names": {
+        "pt": "Refeição",
+        "en": "Mealtime"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Fork%20and%20knife%20with%20plate/Color/fork_and_knife_with_plate_color.svg"
+    },
+    {
+      "id": "bank:meal/breakfast",
+      "category": "meal",
+      "file": "meal/breakfast.webp",
+      "names": {
+        "pt": "Café da manhã",
+        "en": "Breakfast"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Bowl%20with%20spoon/Color/bowl_with_spoon_color.svg"
+    },
+    {
+      "id": "bank:meal/drink_milk",
+      "category": "meal",
+      "file": "meal/drink_milk.webp",
+      "names": {
+        "pt": "Tomar leite",
+        "en": "Drink milk"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Glass%20of%20milk/Color/glass_of_milk_color.svg"
+    },
+    {
+      "id": "bank:meal/eat_fruit",
+      "category": "meal",
+      "file": "meal/eat_fruit.webp",
+      "names": {
+        "pt": "Comer fruta",
+        "en": "Eat fruit"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Red%20apple/Color/red_apple_color.svg"
+    },
+    {
+      "id": "bank:meal/snack",
+      "category": "meal",
+      "file": "meal/snack.webp",
+      "names": {
+        "pt": "Lanche",
+        "en": "Snack"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Sandwich/Color/sandwich_color.svg"
+    },
+    {
+      "id": "bank:meal/eat_vegetables",
+      "category": "meal",
+      "file": "meal/eat_vegetables.webp",
+      "names": {
+        "pt": "Comer legumes",
+        "en": "Eat vegetables"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Carrot/Color/carrot_color.svg"
+    },
+    {
+      "id": "bank:meal/dinner",
+      "category": "meal",
+      "file": "meal/dinner.webp",
+      "names": {
+        "pt": "Jantar",
+        "en": "Dinner"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Spaghetti/Color/spaghetti_color.svg"
+    },
+    {
+      "id": "bank:play/toys",
+      "category": "play",
+      "file": "play/toys.webp",
+      "names": {
+        "pt": "Brincar",
+        "en": "Play with toys"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Teddy%20bear/Color/teddy_bear_color.svg"
+    },
+    {
+      "id": "bank:play/puzzle",
+      "category": "play",
+      "file": "play/puzzle.webp",
+      "names": {
+        "pt": "Quebra-cabeça",
+        "en": "Puzzle"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Puzzle%20piece/Color/puzzle_piece_color.svg"
+    },
+    {
+      "id": "bank:play/ball",
+      "category": "play",
+      "file": "play/ball.webp",
+      "names": {
+        "pt": "Jogar bola",
+        "en": "Play ball"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Soccer%20ball/Color/soccer_ball_color.svg"
+    },
+    {
+      "id": "bank:play/painting",
+      "category": "play",
+      "file": "play/painting.webp",
+      "names": {
+        "pt": "Pintar",
+        "en": "Painting"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Artist%20palette/Color/artist_palette_color.svg"
+    },
+    {
+      "id": "bank:play/drawing",
+      "category": "play",
+      "file": "play/drawing.webp",
+      "names": {
+        "pt": "Desenhar",
+        "en": "Drawing"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Crayon/Color/crayon_color.svg"
+    },
+    {
+      "id": "bank:play/kite",
+      "category": "play",
+      "file": "play/kite.webp",
+      "names": {
+        "pt": "Soltar pipa",
+        "en": "Fly a kite"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Kite/Color/kite_color.svg"
+    },
+    {
+      "id": "bank:play/video_game",
+      "category": "play",
+      "file": "play/video_game.webp",
+      "names": {
+        "pt": "Videogame",
+        "en": "Video games"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Video%20game/Color/video_game_color.svg"
+    },
+    {
+      "id": "bank:rest/sleep",
+      "category": "rest",
+      "file": "rest/sleep.webp",
+      "names": {
+        "pt": "Dormir",
+        "en": "Sleep"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Bed/Color/bed_color.svg"
+    },
+    {
+      "id": "bank:rest/nap",
+      "category": "rest",
+      "file": "rest/nap.webp",
+      "names": {
+        "pt": "Soneca",
+        "en": "Nap"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Sleeping%20face/Color/sleeping_face_color.svg"
+    },
+    {
+      "id": "bank:rest/bedtime",
+      "category": "rest",
+      "file": "rest/bedtime.webp",
+      "names": {
+        "pt": "Hora de dormir",
+        "en": "Bedtime"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Crescent%20moon/Color/crescent_moon_color.svg"
+    },
+    {
+      "id": "bank:rest/relax",
+      "category": "rest",
+      "file": "rest/relax.webp",
+      "names": {
+        "pt": "Descansar",
+        "en": "Relax"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Couch%20and%20lamp/Color/couch_and_lamp_color.svg"
+    },
+    {
+      "id": "bank:rest/story_time",
+      "category": "rest",
+      "file": "rest/story_time.webp",
+      "names": {
+        "pt": "Hora da história",
+        "en": "Story time"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Open%20book/Color/open_book_color.svg"
+    },
+    {
+      "id": "bank:rest/quiet_music",
+      "category": "rest",
+      "file": "rest/quiet_music.webp",
+      "names": {
+        "pt": "Ouvir música",
+        "en": "Listen to music"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Headphone/Color/headphone_color.svg"
+    },
+    {
+      "id": "bank:school/go_to_school",
+      "category": "school",
+      "file": "school/go_to_school.webp",
+      "names": {
+        "pt": "Ir para a escola",
+        "en": "Go to school"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Backpack/Color/backpack_color.svg"
+    },
+    {
+      "id": "bank:school/school",
+      "category": "school",
+      "file": "school/school.webp",
+      "names": {
+        "pt": "Escola",
+        "en": "School"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/School/Color/school_color.svg"
+    },
+    {
+      "id": "bank:school/homework",
+      "category": "school",
+      "file": "school/homework.webp",
+      "names": {
+        "pt": "Lição de casa",
+        "en": "Homework"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Pencil/Color/pencil_color.svg"
+    },
+    {
+      "id": "bank:school/reading",
+      "category": "school",
+      "file": "school/reading.webp",
+      "names": {
+        "pt": "Ler",
+        "en": "Reading"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Books/Color/books_color.svg"
+    },
+    {
+      "id": "bank:school/writing",
+      "category": "school",
+      "file": "school/writing.webp",
+      "names": {
+        "pt": "Escrever",
+        "en": "Writing"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Notebook/Color/notebook_color.svg"
+    },
+    {
+      "id": "bank:school/counting",
+      "category": "school",
+      "file": "school/counting.webp",
+      "names": {
+        "pt": "Contar",
+        "en": "Counting"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Abacus/Color/abacus_color.svg"
+    },
+    {
+      "id": "bank:goingOut/put_on_shoes",
+      "category": "goingOut",
+      "file": "goingOut/put_on_shoes.webp",
+      "names": {
+        "pt": "Calçar os sapatos",
+        "en": "Put on shoes"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Running%20shoe/Color/running_shoe_color.svg"
+    },
+    {
+      "id": "bank:goingOut/put_on_coat",
+      "category": "goingOut",
+      "file": "goingOut/put_on_coat.webp",
+      "names": {
+        "pt": "Vestir o casaco",
+        "en": "Put on a coat"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Coat/Color/coat_color.svg"
+    },
+    {
+      "id": "bank:goingOut/car_ride",
+      "category": "goingOut",
+      "file": "goingOut/car_ride.webp",
+      "names": {
+        "pt": "Andar de carro",
+        "en": "Car ride"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Automobile/Color/automobile_color.svg"
+    },
+    {
+      "id": "bank:goingOut/bus_ride",
+      "category": "goingOut",
+      "file": "goingOut/bus_ride.webp",
+      "names": {
+        "pt": "Andar de ônibus",
+        "en": "Bus ride"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Bus/Color/bus_color.svg"
+    },
+    {
+      "id": "bank:goingOut/playground",
+      "category": "goingOut",
+      "file": "goingOut/playground.webp",
+      "names": {
+        "pt": "Parquinho",
+        "en": "Playground"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Playground%20slide/Color/playground_slide_color.svg"
+    },
+    {
+      "id": "bank:goingOut/bike_ride",
+      "category": "goingOut",
+      "file": "goingOut/bike_ride.webp",
+      "names": {
+        "pt": "Andar de bicicleta",
+        "en": "Bike ride"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Bicycle/Color/bicycle_color.svg"
+    },
+    {
+      "id": "bank:goingOut/shopping",
+      "category": "goingOut",
+      "file": "goingOut/shopping.webp",
+      "names": {
+        "pt": "Ir ao mercado",
+        "en": "Go shopping"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/Shopping%20cart/Color/shopping_cart_color.svg"
+    },
+    {
+      "id": "bank:goingOut/go_home",
+      "category": "goingOut",
+      "file": "goingOut/go_home.webp",
+      "names": {
+        "pt": "Voltar para casa",
+        "en": "Go home"
+      },
+      "author": "Microsoft Corporation",
+      "license": "MIT",
+      "source": "https://github.com/microsoft/fluentui-emoji/blob/1ffb34c752ecf5d402f04cfb4b392c77f57c54bc/assets/House/Color/house_color.svg"
+    }
+  ]
+}
