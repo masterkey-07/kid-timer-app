@@ -21,6 +21,7 @@ import 'package:visual_time_counter/features/timer/data/session_repository.dart'
 import '../../../../helpers/fakes/fake_alarm_scheduler.dart';
 import '../../../../helpers/fakes/fake_audio.dart';
 import '../../../../helpers/fakes/fake_haptics.dart';
+import '../../../../helpers/fakes/fake_lifecycle.dart';
 
 final _t0 = DateTime.utc(2026, 10, 23, 12);
 
@@ -85,6 +86,7 @@ class _Harness {
         alarmSchedulerProvider.overrideWithValue(scheduler),
         audioProvider.overrideWithValue(audio),
         hapticsProvider.overrideWithValue(this.haptics),
+        appLifecycleProvider.overrideWithValue(lifecycle),
         restoredSessionProvider.overrideWithValue(restored),
         sessionIdGeneratorProvider.overrideWithValue(
           () => 'session-${_sessionCount++}',
@@ -98,6 +100,7 @@ class _Harness {
   final _OrderCheckingScheduler scheduler;
   final FakeHaptics haptics;
   final audio = FakeAudio();
+  final lifecycle = FakeLifecycle();
   late final SessionRepository repository;
   late final ProviderContainer container;
   var _sessionCount = 1;
@@ -141,6 +144,7 @@ void main() {
   tearDown(() async {
     for (final created in harnesses) {
       created.container.dispose();
+      await created.lifecycle.dispose();
     }
     harnesses.clear();
     await sessionBox.close();

@@ -110,6 +110,14 @@ class TimerController extends Notifier<TimerSession?> {
   @override
   TimerSession? build() {
     ref.onDispose(_disarmEndTimer);
+    // Back in front, wherever the app is, catch up with the clock (the OS
+    // alarm covered the background; contracts/ui/02 Behavior 4).
+    final returns = ref
+        .read(appLifecycleProvider)
+        .states
+        .where((state) => state == AppLifecycleState.resumed)
+        .listen((_) => unawaited(checkTimeUp()));
+    ref.onDispose(returns.cancel);
     final restored = ref.read(restoredSessionProvider);
     _armEndTimer(restored);
     return restored;

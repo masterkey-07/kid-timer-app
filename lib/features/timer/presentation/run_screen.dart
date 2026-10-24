@@ -8,7 +8,6 @@ import 'package:visual_time_counter/app/layout.dart';
 import 'package:visual_time_counter/app/router.dart';
 import 'package:visual_time_counter/app/widgets/confirm_dialog.dart';
 import 'package:visual_time_counter/core/clock/clock_provider.dart';
-import 'package:visual_time_counter/core/platform/providers.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
@@ -39,27 +38,7 @@ class _RunScreenState extends ConsumerState<RunScreen> {
   /// Room kept under a stacked dial for the digits and the controls.
   static const _controlsHeight = 200.0;
 
-  StreamSubscription<AppLifecycleState>? _lifecycle;
-
   TimerController get _controller => ref.read(timerControllerProvider.notifier);
-
-  @override
-  void initState() {
-    super.initState();
-    _lifecycle = ref.read(appLifecycleProvider).states.listen((state) {
-      // The OS alarm covers the background; back in front, catch up with
-      // the clock (contracts/ui/02 Behavior 4).
-      if (state == AppLifecycleState.resumed) {
-        unawaited(_controller.checkTimeUp());
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    unawaited(_lifecycle?.cancel());
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

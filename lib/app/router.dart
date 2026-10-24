@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:visual_time_counter/core/platform/providers.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
 import 'package:visual_time_counter/features/timer/application/active_session.dart';
@@ -81,8 +84,27 @@ final routerProvider = Provider<GoRouter>((ref) {
     ],
   );
   ref.onDispose(router.dispose);
+  _followNotifications(ref, router);
   return router;
 });
+
+/// Opens the deep link of a tapped notification, including the one that
+/// launched the app (contracts/ui/08 §8.3).
+void _followNotifications(Ref ref, GoRouter router) {
+  var isDisposed = false;
+  final alarms = ref.read(alarmSchedulerProvider);
+  final taps = alarms.notificationTaps.listen(router.go);
+  ref.onDispose(() {
+    isDisposed = true;
+    unawaited(taps.cancel());
+  });
+
+  unawaited(
+    alarms.launchPayload().then((payload) {
+      if (payload != null && !isDisposed) router.go(payload);
+    }),
+  );
+}
 
 const _deepLinkScheme = 'vtc';
 const _noticeParameter = 'notice';
