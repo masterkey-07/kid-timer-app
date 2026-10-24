@@ -7,8 +7,16 @@ import 'package:flutter_test/flutter_test.dart';
 // tool/image_bank wrote and what a person approved in docs/assets-review.md.
 const _bankDir = 'assets/images/bank';
 const _reviewPath = 'docs/assets-review.md';
-const _categories = ['hygiene', 'meal', 'play', 'rest', 'school', 'goingOut'];
-const _minimumImages = 36;
+const _categories = [
+  'hygiene',
+  'meal',
+  'play',
+  'rest',
+  'school',
+  'goingOut',
+  'animals',
+];
+const _minimumImages = 42;
 const _minimumPerCategory = 6;
 const _allowedLicenses = {'CC0-1.0', 'CC-BY-4.0', 'MIT', 'Apache-2.0'};
 const _approved = 'approved';

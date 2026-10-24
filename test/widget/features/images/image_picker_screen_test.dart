@@ -15,7 +15,15 @@ import '../../../helpers/test_app.dart';
 const _pageTransition = Duration(seconds: 1);
 const _brushTeeth = 'bank:hygiene/brush_teeth';
 const _mealtime = 'bank:meal/meal';
-const _categories = ['hygiene', 'meal', 'play', 'rest', 'school', 'goingOut'];
+const _categories = [
+  'hygiene',
+  'meal',
+  'play',
+  'rest',
+  'school',
+  'goingOut',
+  'animals',
+];
 
 final _pickedFile = PickedImage(
   bytes: Uint8List.fromList(const [1, 2, 3]),
