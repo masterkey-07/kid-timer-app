@@ -213,6 +213,8 @@ class _DialHint extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     return Card(
       key: const Key('home.dialHint'),
+      // The text and the button are read on their own, not as one card.
+      semanticContainer: false,
       margin: const EdgeInsets.only(bottom: _padding),
       child: Padding(
         padding: const EdgeInsets.all(_padding),
@@ -220,7 +222,12 @@ class _DialHint extends ConsumerWidget {
           children: [
             const Icon(Icons.touch_app_rounded),
             const SizedBox(width: _padding),
-            Expanded(child: Text(l10n.homeDialHint)),
+            Expanded(
+              child: Text(
+                l10n.homeDialHint,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
             TextButton(
               key: const Key('home.dialHintDismiss'),
               onPressed: () => _dismiss(ref),
