@@ -132,6 +132,13 @@ them.
   `assets/images/bank/manifest.json` with id, category, pt-BR/en names, author, license and
   source. Reproducible pipeline in `tool/image_bank/` (Node script with `@resvg/resvg-js` and
   `sharp`, used only in development; output committed to Git).
+- **License verification (T092, 2026-10-24)**: confirmed MIT. The repository has a single
+  license file, the root `LICENSE` ("MIT License, Copyright (c) Microsoft Corporation",
+  unchanged since commit `252e16f`, 2021-08-02), checked at commit `1ffb34c` of `main`; GitHub
+  detects it as SPDX `MIT`. No `LICENSE`/`NOTICE` file anywhere under `assets/` narrows its
+  scope, and the README adds no terms, so the SVGs in `assets/<name>/Color/` are covered. MIT is
+  allowed by Constitution IX; the fallback is not needed. `LICENSES.md` must reproduce the
+  copyright and permission notice (the MIT condition).
 - **Rationale**: Friendly style, coverage of children's activities (🪥 🛁 🍽️ 🧸 🛏️ 🎒 👟),
   license compatible with Constitution IX, renders the same on every platform and needs no SVG
   package at runtime.
