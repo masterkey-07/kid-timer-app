@@ -1,8 +1,7 @@
-import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:clock/clock.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
@@ -54,6 +53,7 @@ class TestAppDependencies {
     this._settingsBox,
     this.userImagesMeta,
     this.presets,
+    this.bankImages,
     Clock? clock,
   ) {
     this.clock = clock ?? Clock(() => now);
@@ -83,6 +83,7 @@ class TestAppDependencies {
         'test_presets_$id',
         bytes: Uint8List(0),
       ),
+      await _loadBankImages(),
       clock,
     );
   }
@@ -127,7 +128,7 @@ class TestAppDependencies {
   final imageProcessor = FakeImageProcessor();
 
   /// The library, read from the committed manifest.
-  List<BankImageAsset> bankImages = testBankImages;
+  List<BankImageAsset> bankImages;
 
   /// What decoding a picked image for the frame screen yields; null makes
   /// it fail as for a file that cannot be opened.
@@ -243,10 +244,15 @@ class TestAppDependencies {
 
 final _seedJpeg = Uint8List.fromList(const [0xFF, 0xD8, 0xFF, 0xD9]);
 
-/// The committed library manifest, parsed once.
-final List<BankImageAsset> testBankImages = BankManifestLoader.parse(
-  File('assets/images/bank/manifest.json').readAsStringSync(),
-);
+const _bankManifestAsset = 'assets/images/bank/manifest.json';
+
+Future<List<BankImageAsset>>? _bankImages;
+
+/// The committed library manifest, parsed once. Read from the asset bundle
+/// so integration tests find it on a device as well as on the host.
+Future<List<BankImageAsset>> _loadBankImages() => _bankImages ??= rootBundle
+    .loadString(_bankManifestAsset)
+    .then(BankManifestLoader.parse);
 
 extension PumpKidTimerApp on WidgetTester {
   /// Pumps the whole app (router included) over [dependencies], in

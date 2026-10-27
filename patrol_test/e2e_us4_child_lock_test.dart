@@ -8,6 +8,7 @@ import 'package:patrol/patrol.dart';
 import 'package:visual_time_counter/features/timer/application/timer_controller.dart';
 
 import 'support/one_minute_timer.dart';
+import 'support/system_ui.dart';
 
 /// US4 on a real device: in child mode 30 taps and the Android back button
 /// change nothing; holding the padlock for 3 s shows the controls (SC-003).
@@ -26,6 +27,7 @@ void main() {
       await $.platform.mobile.grantPermissionWhenInUse();
     }
     await $.waitUntilVisible(find.byKey(const Key('run.screen')));
+    await dismissFullScreenHint($);
 
     final container = ProviderScope.containerOf(
       $.tester.element(find.byKey(const Key('run.screen'))),
