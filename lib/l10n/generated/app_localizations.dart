@@ -350,6 +350,60 @@ abstract class AppLocalizations {
   /// **'Não foi possível salvar a alteração. Tente de novo.'**
   String get runActionFailed;
 
+  /// Screen reader label of the padlock in child mode.
+  ///
+  /// In pt, this message translates to:
+  /// **'Segure por 3 segundos para mostrar os controles'**
+  String get runUnlockHint;
+
+  /// Countdown under the unlocked controls until child mode returns.
+  ///
+  /// In pt, this message translates to:
+  /// **'Bloqueia de novo em {seconds} s'**
+  String runRelockIn(int seconds);
+
+  /// Settings section header.
+  ///
+  /// In pt, this message translates to:
+  /// **'Modo criança'**
+  String get settingsSectionChildMode;
+
+  /// Switch that locks the countdown screen for the child.
+  ///
+  /// In pt, this message translates to:
+  /// **'Bloqueio infantil'**
+  String get settingsChildLock;
+
+  /// Explanation under the child lock switch.
+  ///
+  /// In pt, this message translates to:
+  /// **'Esconde os controles durante a contagem; segure o cadeado por 3 segundos para mostrá-los.'**
+  String get settingsChildLockDescription;
+
+  /// Confirmation title when turning the child lock off.
+  ///
+  /// In pt, this message translates to:
+  /// **'Desativar o bloqueio infantil?'**
+  String get settingsChildLockOffConfirmTitle;
+
+  /// Confirmation message when turning the child lock off.
+  ///
+  /// In pt, this message translates to:
+  /// **'A criança vai poder pausar o timer.'**
+  String get settingsChildLockOffConfirm;
+
+  /// Confirm button that turns the child lock off.
+  ///
+  /// In pt, this message translates to:
+  /// **'Desativar'**
+  String get settingsChildLockOffConfirmAction;
+
+  /// Link to the screen pinning help.
+  ///
+  /// In pt, this message translates to:
+  /// **'Como manter a criança no app'**
+  String get settingsChildLockPinning;
+
   /// Title of the final (celebration) screen; also announced to screen readers.
   ///
   /// In pt, this message translates to:

@@ -141,8 +141,9 @@ void main() {
       'unlock again by itself', () {
     inFakeTime((async) {
       controller().startHold(HoldSource.padlock);
-      async.elapse(UnlockController.holdDuration);
-      async.elapse(UnlockController.controlsDuration);
+      async
+        ..elapse(UnlockController.holdDuration)
+        ..elapse(UnlockController.controlsDuration);
       expect(phase(), UnlockPhase.locked);
 
       async.elapse(UnlockController.holdDuration);

@@ -1,11 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:visual_time_counter/app/app.dart';
-import 'package:visual_time_counter/core/platform/fullscreen/fullscreen_port.dart';
 import 'package:visual_time_counter/core/platform/fullscreen/impl/system_chrome_fullscreen.dart';
 import 'package:visual_time_counter/core/platform/fullscreen/impl/window_manager_fullscreen.dart';
 import 'package:visual_time_counter/core/platform/lifecycle/impl/flutter_app_lifecycle_port.dart';
@@ -20,6 +18,8 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   const hold = Duration(seconds: 3);
+  const fullScreenAttempts = 30;
+  const fullScreenPollEvery = Duration(milliseconds: 100);
   final isDesktop = defaultTargetPlatform == TargetPlatform.linux;
 
   late TestAppDependencies dependencies;
@@ -31,7 +31,7 @@ void main() {
 
   setUp(() async {
     lifecycle = FlutterAppLifecyclePort();
-    final FullscreenPort fullscreen = isDesktop
+    final fullscreen = isDesktop
         ? const WindowManagerFullscreen()
         : const SystemChromeFullscreen();
     dependencies = await TestAppDependencies.create()
@@ -49,8 +49,15 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
   }
 
+  /// The compositor applies full screen asynchronously, so the window may
+  /// take a moment to report it.
   Future<void> expectFullScreen({required bool isOn}) async {
-    if (isDesktop) expect(await windowManager.isFullScreen(), isOn);
+    if (!isDesktop) return;
+    for (var attempt = 0; attempt < fullScreenAttempts; attempt++) {
+      if (await windowManager.isFullScreen() == isOn) return;
+      await Future<void>.delayed(fullScreenPollEvery);
+    }
+    expect(await windowManager.isFullScreen(), isOn);
   }
 
   Future<void> unlock(WidgetTester tester) async {

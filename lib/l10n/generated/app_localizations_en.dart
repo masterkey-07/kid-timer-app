@@ -170,6 +170,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get runActionFailed => 'The change could not be saved. Try again.';
 
   @override
+  String get runUnlockHint => 'Hold for 3 seconds to show the controls';
+
+  @override
+  String runRelockIn(int seconds) {
+    return 'Locks again in $seconds s';
+  }
+
+  @override
+  String get settingsSectionChildMode => 'Child mode';
+
+  @override
+  String get settingsChildLock => 'Child lock';
+
+  @override
+  String get settingsChildLockDescription =>
+      'Hides the controls during the countdown; hold the padlock for 3 seconds to show them.';
+
+  @override
+  String get settingsChildLockOffConfirmTitle => 'Turn off the child lock?';
+
+  @override
+  String get settingsChildLockOffConfirm =>
+      'The child will be able to pause the timer.';
+
+  @override
+  String get settingsChildLockOffConfirmAction => 'Turn off';
+
+  @override
+  String get settingsChildLockPinning => 'How to keep the child in the app';
+
+  @override
   String get finishedTitle => 'Time\'s up!';
 
   @override

@@ -10,6 +10,10 @@ import 'package:visual_time_counter/app/widgets/confirm_dialog.dart';
 import 'package:visual_time_counter/core/clock/clock_provider.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
+import 'package:visual_time_counter/features/child_lock/application/unlock_controller.dart';
+import 'package:visual_time_counter/features/child_lock/presentation/hold_to_unlock.dart';
+import 'package:visual_time_counter/features/child_lock/presentation/relock_countdown.dart';
+import 'package:visual_time_counter/features/child_lock/presentation/touch_shield.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/timer/application/run_controller.dart';
 import 'package:visual_time_counter/features/timer/application/timer_controller.dart';
@@ -18,8 +22,9 @@ import 'package:visual_time_counter/features/timer/presentation/widgets/dial_vie
 import 'package:visual_time_counter/features/timer/presentation/widgets/digits_label.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
-/// The countdown (contracts/ui/02). In v1.0 US1 the controls are always
-/// visible; the child lock (US4) hides them.
+/// The countdown (contracts/ui/02). With the child lock on (FR-030) the
+/// controls hide behind the padlock and every touch and key is absorbed,
+/// except holding the padlock or Esc for 3 s.
 class RunScreen extends ConsumerStatefulWidget {
   /// Creates the screen.
   const new({super.key = const Key('run.screen')});
@@ -38,7 +43,25 @@ class _RunScreenState extends ConsumerState<RunScreen> {
   /// Room kept under a stacked dial for the digits and the controls.
   static const _controlsHeight = 200.0;
 
+  final _padlockGlow = PadlockGlow();
+
   TimerController get _controller => ref.read(timerControllerProvider.notifier);
+
+  UnlockController get _unlock => ref.read(unlockControllerProvider.notifier);
+
+  bool get _isChildLockEnabled =>
+      ref.read(appSettingsProvider).childLockEnabled;
+
+  /// Whether child mode absorbs touches and keys right now.
+  bool get _isLocked =>
+      _isChildLockEnabled &&
+      !ref.read(unlockControllerProvider).areControlsVisible;
+
+  @override
+  void dispose() {
+    _padlockGlow.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +72,18 @@ class _RunScreenState extends ConsumerState<RunScreen> {
     }
     // Keeps the screen on, full screen and the single ring while shown.
     ref.watch(runControllerProvider);
+    final childLockEnabled = ref.watch(
+      appSettingsProvider.select((settings) => settings.childLockEnabled),
+    );
+    final unlock = childLockEnabled
+        ? ref.watch(unlockControllerProvider)
+        : null;
+    final isLocked = unlock != null && !unlock.areControlsVisible;
 
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, _) {
-        if (!didPop) unawaited(_stop());
+        if (!didPop) _onBack();
       },
       child: CallbackShortcuts(
         bindings: {
@@ -61,11 +91,31 @@ class _RunScreenState extends ConsumerState<RunScreen> {
         },
         child: Focus(
           autofocus: true,
+          onKeyEvent: _onKeyEvent,
           child: Scaffold(
-            body: SafeArea(
-              child: LayoutBuilder(
-                builder: (context, constraints) =>
-                    _layout(constraints.biggest, session),
+            body: Listener(
+              behavior: HitTestBehavior.translucent,
+              onPointerDown: (_) => _unlock.registerInteraction(),
+              child: Stack(
+                children: [
+                  AbsorbPointer(
+                    absorbing: isLocked,
+                    child: SafeArea(
+                      child: LayoutBuilder(
+                        builder: (context, constraints) =>
+                            _layout(constraints.biggest, session, unlock),
+                      ),
+                    ),
+                  ),
+                  if (isLocked) TouchShield(onTouch: _padlockGlow.request),
+                  if (isLocked)
+                    SafeArea(
+                      child: Align(
+                        alignment: AlignmentDirectional.topStart,
+                        child: HoldToUnlock(glow: _padlockGlow),
+                      ),
+                    ),
+                ],
               ),
             ),
           ),
@@ -74,30 +124,31 @@ class _RunScreenState extends ConsumerState<RunScreen> {
     );
   }
 
-  Widget _layout(Size size, TimerSession session) {
+  /// [unlock] is null when the child lock is off.
+  Widget _layout(Size size, TimerSession session, UnlockState? unlock) {
     final layout = ScreenLayout.of(size);
     final dial = DialView.countdown(
       key: const Key('run.dial'),
       session: session,
     );
-    final childLockEnabled = ref.watch(
-      appSettingsProvider.select((settings) => settings.childLockEnabled),
-    );
+    final showsControls = unlock == null || unlock.areControlsVisible;
     final details = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Never in child mode (contracts/ui/08 §8.2); the child lock (US4)
-        // shows it on the unlocked controls.
-        if (!childLockEnabled)
+        // Never in child mode (contracts/ui/08 §8.2).
+        if (showsControls)
           const BackgroundAlarmBanner(padding: EdgeInsets.only(bottom: 12)),
         if (session.config.showDigits)
           CountdownDigits(key: const Key('run.digits'), session: session),
-        _RunControls(
-          session: session,
-          onPauseResume: _pauseOrResume,
-          onRestart: () => unawaited(_restart()),
-          onStop: () => unawaited(_stop()),
-        ),
+        if (showsControls)
+          _RunControls(
+            session: session,
+            onPauseResume: _pauseOrResume,
+            onRestart: () => unawaited(_restart()),
+            onStop: () => unawaited(_stop()),
+          ),
+        if (unlock != null && unlock.areControlsVisible)
+          RelockCountdown(window: unlock.window),
       ],
     );
 
@@ -132,6 +183,34 @@ class _RunScreenState extends ConsumerState<RunScreen> {
         ],
       ),
     );
+  }
+
+  /// In child mode every key is absorbed; holding Esc unlocks (FR-031).
+  /// Esc needs its key-up as well, which shortcuts do not report.
+  KeyEventResult _onKeyEvent(FocusNode node, KeyEvent event) {
+    if (!_isChildLockEnabled) return KeyEventResult.ignored;
+    if (event.logicalKey == LogicalKeyboardKey.escape) {
+      switch (event) {
+        case KeyDownEvent():
+          _unlock.startHold(HoldSource.escapeKey);
+        case KeyUpEvent():
+          _unlock.endHold(HoldSource.escapeKey);
+        case KeyRepeatEvent():
+          break;
+      }
+      return KeyEventResult.handled;
+    }
+    if (_isLocked) return KeyEventResult.handled;
+    _unlock.registerInteraction();
+    return KeyEventResult.ignored;
+  }
+
+  /// Android back and the iOS back gesture: nothing in child mode, stopping
+  /// otherwise.
+  void _onBack() {
+    if (_isLocked) return;
+    if (_isChildLockEnabled) _unlock.registerInteraction();
+    unawaited(_stop());
   }
 
   /// Leaves the screen when the session ends or goes away.

@@ -11,6 +11,7 @@ import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
 import 'package:visual_time_counter/features/timer/application/timer_controller.dart';
 
+import '../../../helpers/pump_app.dart';
 import '../../../helpers/test_app.dart';
 
 /// SC-003: 30 sequences of 20 gestures each (testing-strategy §SC-003).
@@ -50,7 +51,7 @@ enum _GestureKind {
 }
 
 /// Keys a child could press; Esc is only ever pressed briefly.
-const _childKeys = [
+const List<LogicalKeyboardKey> _childKeys = [
   LogicalKeyboardKey.space,
   LogicalKeyboardKey.enter,
   LogicalKeyboardKey.escape,
@@ -234,6 +235,8 @@ void main() {
     expect(padlockOpacity(tester), _idleOpacity);
 
     await tester.tapAt(tester.getCenter(byKey('run.dial')));
+    // The glow's clock starts on the next frame.
+    await tester.pump();
     await tester.pump(const Duration(milliseconds: 150));
     expect(padlockOpacity(tester), _glowOpacity);
 
@@ -357,6 +360,8 @@ void main() {
     final press = await tester.startGesture(
       tester.getCenter(byKey('run.lock')),
     );
+    // The ring's clock starts on the next frame.
+    await tester.pump();
     await tester.pump(const Duration(milliseconds: 1100));
     expect(tester.textOf('run.lockProgress'), '1…');
     await tester.pump(const Duration(seconds: 1));
@@ -385,7 +390,7 @@ void main() {
     expect(currentSession(tester), _running);
     expect(
       tester.getSemantics(byKey('run.lock')),
-      containsSemantics(
+      isSemantics(
         label: 'Hold for 3 seconds to show the controls',
         isFocusable: true,
       ),

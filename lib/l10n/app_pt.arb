@@ -203,6 +203,48 @@
   "@runActionFailed": {
     "description": "Snackbar when pausing, resuming, restarting or stopping fails to save."
   },
+  "runUnlockHint": "Segure por 3 segundos para mostrar os controles",
+  "@runUnlockHint": {
+    "description": "Screen reader label of the padlock in child mode."
+  },
+  "runRelockIn": "Bloqueia de novo em {seconds} s",
+  "@runRelockIn": {
+    "description": "Countdown under the unlocked controls until child mode returns.",
+    "placeholders": {
+      "seconds": {
+        "type": "int",
+        "example": "8"
+      }
+    }
+  },
+  "settingsSectionChildMode": "Modo criança",
+  "@settingsSectionChildMode": {
+    "description": "Settings section header."
+  },
+  "settingsChildLock": "Bloqueio infantil",
+  "@settingsChildLock": {
+    "description": "Switch that locks the countdown screen for the child."
+  },
+  "settingsChildLockDescription": "Esconde os controles durante a contagem; segure o cadeado por 3 segundos para mostrá-los.",
+  "@settingsChildLockDescription": {
+    "description": "Explanation under the child lock switch."
+  },
+  "settingsChildLockOffConfirmTitle": "Desativar o bloqueio infantil?",
+  "@settingsChildLockOffConfirmTitle": {
+    "description": "Confirmation title when turning the child lock off."
+  },
+  "settingsChildLockOffConfirm": "A criança vai poder pausar o timer.",
+  "@settingsChildLockOffConfirm": {
+    "description": "Confirmation message when turning the child lock off."
+  },
+  "settingsChildLockOffConfirmAction": "Desativar",
+  "@settingsChildLockOffConfirmAction": {
+    "description": "Confirm button that turns the child lock off."
+  },
+  "settingsChildLockPinning": "Como manter a criança no app",
+  "@settingsChildLockPinning": {
+    "description": "Link to the screen pinning help."
+  },
   "finishedTitle": "Acabou o tempo!",
   "@finishedTitle": {
     "description": "Title of the final (celebration) screen; also announced to screen readers."

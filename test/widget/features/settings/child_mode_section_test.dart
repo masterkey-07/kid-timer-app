@@ -125,7 +125,7 @@ void main() {
     await settle(tester);
 
     expect(byKey('battery.screen'), findsOneWidget);
-    expect(tester.textOf('test.anchor'), 'pinning');
+    expect(tester.widget<Text>(byKey('test.anchor')).data, 'pinning');
   });
 
   testWidgets('meets the accessibility guidelines', (tester) async {

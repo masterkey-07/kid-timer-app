@@ -170,6 +170,38 @@ class AppLocalizationsPt extends AppLocalizations {
       'Não foi possível salvar a alteração. Tente de novo.';
 
   @override
+  String get runUnlockHint => 'Segure por 3 segundos para mostrar os controles';
+
+  @override
+  String runRelockIn(int seconds) {
+    return 'Bloqueia de novo em $seconds s';
+  }
+
+  @override
+  String get settingsSectionChildMode => 'Modo criança';
+
+  @override
+  String get settingsChildLock => 'Bloqueio infantil';
+
+  @override
+  String get settingsChildLockDescription =>
+      'Esconde os controles durante a contagem; segure o cadeado por 3 segundos para mostrá-los.';
+
+  @override
+  String get settingsChildLockOffConfirmTitle =>
+      'Desativar o bloqueio infantil?';
+
+  @override
+  String get settingsChildLockOffConfirm =>
+      'A criança vai poder pausar o timer.';
+
+  @override
+  String get settingsChildLockOffConfirmAction => 'Desativar';
+
+  @override
+  String get settingsChildLockPinning => 'Como manter a criança no app';
+
+  @override
   String get finishedTitle => 'Acabou o tempo!';
 
   @override

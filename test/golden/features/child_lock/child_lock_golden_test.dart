@@ -19,7 +19,10 @@ final _running = TimerSession(
   endsAt: testNow.add(const Duration(minutes: 3)),
 );
 
-const _themes = {'light': AppThemeMode.light, 'dark': AppThemeMode.dark};
+const Map<String, AppThemeMode> _themes = {
+  'light': AppThemeMode.light,
+  'dark': AppThemeMode.dark,
+};
 
 const _hold = Duration(seconds: 3);
 

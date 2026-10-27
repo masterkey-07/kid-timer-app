@@ -252,16 +252,16 @@ controls.
 
 - [x] T112 [P] [US4] `UnlockController` tests in `test/unit/features/child_lock/unlock_controller_test.dart` (`fake_async`: 3 s completes; releasing earlier resets; controls for 10 s; interaction restarts the 10 s; Esc held for 3 s)
 - [x] T113 [P] [US4] Widget tests in `test/widget/features/child_lock/run_screen_child_lock_test.dart` (30 random gestures with `Random(42)`: tap, drag, double tap, pinch → state unchanged; Android back button consumed; padlock glow; `childLockEnabled=false` always shows controls; reduce motion replaces the ring with "1… 2… 3"; turning on accessible navigation mid-countdown keeps the session unchanged and the padlock focusable)
-- [ ] T114 [P] [US4] Goldens of child mode and unlocked controls in `test/golden/features/child_lock/child_lock_golden_test.dart`
-- [ ] T115 [P] [US4] E2E `patrol_test/e2e_us4_child_lock_test.dart` (30 taps + native back with no effect; holding for 3 s shows the controls) and integration `integration_test/child_lock_integration_test.dart` (Android, Linux: real `FullscreenPort` and `AppLifecyclePort`; entering `/run` enters full screen, Esc held 3 s on Linux shows the controls, leaving exits full screen)
+- [x] T114 [P] [US4] Goldens of child mode and unlocked controls in `test/golden/features/child_lock/child_lock_golden_test.dart`
+- [ ] T115 [P] [US4] E2E `patrol_test/e2e_us4_child_lock_test.dart` (30 taps + native back with no effect; holding for 3 s shows the controls) and integration `integration_test/child_lock_integration_test.dart` (Android, Linux: real `FullscreenPort` and `AppLifecyclePort`; entering `/run` enters full screen, Esc held 3 s on Linux shows the controls, leaving exits full screen) — **partial**: the integration test passes on Linux; it and the Patrol E2E have not yet run on an Android emulator (none available in the implementing environment)
 
 ### Implementation for User Story 4
 
-- [ ] T116 [US4] Implement `UnlockController` in `lib/features/child_lock/application/unlock_controller.dart` (depends on T112)
-- [ ] T117 [P] [US4] Implement `HoldToUnlock` (key `run.lock`, ring `run.lockProgress`) and `TouchShield` (key `run.touchShield`) in `lib/features/child_lock/presentation/`
-- [ ] T118 [US4] Integrate child mode into `RunScreen`: `PopScope(canPop: false)`, full screen via `FullscreenPort`, temporary controls with a countdown bar, `Shortcuts` for Esc in `lib/features/timer/presentation/run_screen.dart` (depends on T116, T117)
-- [ ] T119 [US4] Add the "Child mode" section (`settings.childLock` with confirmation on disabling) — prepare the provider in `lib/features/settings/application/settings_controller.dart` (the full screen comes in US6)
-- [ ] T120 [US4] Add US4 strings (`runUnlockHint`, `runRelockIn`, `settingsChildLock*`, `batteryHelpPinning*`) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
+- [x] T116 [US4] Implement `UnlockController` in `lib/features/child_lock/application/unlock_controller.dart` (depends on T112)
+- [x] T117 [P] [US4] Implement `HoldToUnlock` (key `run.lock`, ring `run.lockProgress`) and `TouchShield` (key `run.touchShield`) in `lib/features/child_lock/presentation/`
+- [x] T118 [US4] Integrate child mode into `RunScreen`: `PopScope(canPop: false)`, full screen via `FullscreenPort`, temporary controls with a countdown bar, `Shortcuts` for Esc in `lib/features/timer/presentation/run_screen.dart` (depends on T116, T117)
+- [x] T119 [US4] Add the "Child mode" section (`settings.childLock` with confirmation on disabling) — prepare the provider in `lib/features/settings/application/settings_controller.dart` (the full screen comes in US6)
+- [x] T120 [US4] Add US4 strings (`runUnlockHint`, `runRelockIn`, `settingsChildLock*`, `batteryHelpPinning*`) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
 
 **Checkpoint**: SC-003 validated (30 attempts with no effect).
 
