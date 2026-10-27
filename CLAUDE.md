@@ -58,7 +58,8 @@ Scripts: `.specify/scripts/bash/check-prerequisites.sh --json` resolves the feat
    flutter test --coverage
    dart run tool/check_coverage.dart
    ```
-   plus the story's integration/E2E tests (see `testing-strategy.md`).
+   plus the story's integration/E2E tests (see `testing-strategy.md`). Before running anything
+   on an Android emulator, read `docs/android-testing.md` (setup, commands, known failures).
 5. **Spike** tasks record their decision in `research.md` before moving on.
 6. Requirement changed? Update `spec.md` (and `plan.md`/contracts/tasks if needed) before the
    code, then run `/speckit-analyze`.
