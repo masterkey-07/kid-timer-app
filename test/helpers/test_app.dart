@@ -13,6 +13,8 @@ import 'package:visual_time_counter/app/router.dart';
 import 'package:visual_time_counter/core/clock/clock_provider.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
 import 'package:visual_time_counter/core/domain/visual_source.dart';
+import 'package:visual_time_counter/core/platform/fullscreen/fullscreen_port.dart';
+import 'package:visual_time_counter/core/platform/lifecycle/app_lifecycle_port.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
 import 'package:visual_time_counter/core/platform/wakelock/wakelock_port.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
@@ -113,7 +115,13 @@ class TestAppDependencies {
   /// A real wakelock to use instead of [wakeLock] (integration tests).
   WakeLockPort? wakeLockOverride;
   final fullscreen = FakeFullscreen();
+
+  /// A real full screen to use instead of [fullscreen] (integration tests).
+  FullscreenPort? fullscreenOverride;
   final lifecycle = FakeLifecycle();
+
+  /// A real lifecycle to use instead of [lifecycle] (integration tests).
+  AppLifecyclePort? lifecycleOverride;
   final systemSettings = FakeSystemSettings();
   final imagePicker = FakeImagePicker();
   final imageProcessor = FakeImageProcessor();
@@ -176,8 +184,8 @@ class TestAppDependencies {
     audioProvider.overrideWithValue(audio),
     hapticsProvider.overrideWithValue(haptics),
     wakeLockProvider.overrideWithValue(wakeLockOverride ?? wakeLock),
-    fullscreenProvider.overrideWithValue(fullscreen),
-    appLifecycleProvider.overrideWithValue(lifecycle),
+    fullscreenProvider.overrideWithValue(fullscreenOverride ?? fullscreen),
+    appLifecycleProvider.overrideWithValue(lifecycleOverride ?? lifecycle),
     imagePickerProvider.overrideWithValue(imagePicker),
     systemSettingsProvider.overrideWithValue(systemSettings),
     externalLinkProvider.overrideWithValue(FakeExternalLink()),
