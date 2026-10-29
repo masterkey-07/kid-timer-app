@@ -279,8 +279,8 @@ controls.
 - [x] T122 [P] [US5] `PresetRepository` tests in `test/unit/features/presets/preset_repository_test.dart` (CRUD, duplicate with suffix, reorder, limit 100, seeding of 6 examples only once via `onboarding.examplesSeeded`, v1 fixture)
 - [x] T123 [P] [US5] Widget tests in `test/widget/features/presets/presets_screen_test.dart` (list, start `presets.start.<id>`, reorder by drag and Ctrl+↑/↓, delete with a 5 s undo, empty, limit) and `preset_editor_test.dart` (validation, sound preview, discard changes)
 - [x] T124 [P] [US5] Goldens in `test/golden/features/presets/presets_golden_test.dart`
-- [ ] T125 [P] [US5] Integration `integration_test/presets_persist_test.dart` (Android, Linux, Web)
-- [ ] T126 [P] [US5] E2E `patrol_test/e2e_us5_presets_test.dart` (create → restart → `/run` in 2 taps — SC-006)
+- [ ] T125 [P] [US5] Integration `integration_test/presets_persist_test.dart` (Android, Linux, Web) — **partial**: passes on Linux and on an Android 14 emulator; not yet run on the Web
+- [x] T126 [P] [US5] E2E `patrol_test/e2e_us5_presets_test.dart` (create → restart → `/run` in 2 taps — SC-006) — passes on an Android 14 emulator
 
 ### Implementation for User Story 5
 

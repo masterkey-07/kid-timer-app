@@ -35,7 +35,7 @@ void main() {
   Future<PersistenceBoxes> reopen() async {
     await Hive.close();
     await Hive.initFlutter(storageFolder);
-    return openPersistence(clock: clock);
+    return await openPersistence(clock: clock);
   }
 
   PresetRepository repositoryOver(PersistenceBoxes boxes) {
@@ -82,7 +82,7 @@ void main() {
   testWidgets('the examples are seeded once across restarts', (tester) async {
     final seeds = [
       PresetSeed(name: 'Brush teeth', config: bathConfig),
-      PresetSeed(name: 'Homework', config: TimerConfig.defaults),
+      const PresetSeed(name: 'Homework', config: TimerConfig.defaults),
     ];
     var boxes = await openPersistence(clock: clock);
     await loadStartupState(boxes: boxes, clock: clock, examplePresets: seeds);

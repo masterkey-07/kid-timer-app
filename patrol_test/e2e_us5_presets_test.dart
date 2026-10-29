@@ -34,9 +34,18 @@ void main() {
       $,
       'home.screen',
     ).read(presetsProvider).singleWhere((preset) => preset.name == presetName);
-    // One tap from home (the limit is two).
+    // The first-use examples come first, so the new preset sits at the end
+    // of the horizontal strip. Scrolling is not a tap: one tap from home
+    // starts it (the limit is two).
+    await $(const Key('home.presetStrip')).scrollTo();
     await $(Key('home.presetStart.${preset.id}'))
-        .scrollTo()
+        .scrollTo(
+          view: find.descendant(
+            of: find.byKey(const Key('home.presetStrip')),
+            matching: find.byType(Scrollable),
+          ),
+          scrollDirection: AxisDirection.right,
+        )
         .tap(settlePolicy: SettlePolicy.noSettle);
     if (await $.platform.mobile.isPermissionDialogVisible()) {
       await $.platform.mobile.grantPermissionWhenInUse();
