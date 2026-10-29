@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "5b0d9c1e-7f4a-4c55-9a39-0d3f3c1b2a10",
+  "name": "Brush teeth",
+  "order": 0,
+  "isExample": true,
+  "favorite": false,
+  "config": {
+    "durationMs": 120000,
+    "scale": "min5",
+    "direction": "clockwise",
+    "visual": { "type": "bank", "imageId": "bank:hygiene/brush_teeth" },
+    "soundId": "chime_soft",
+    "alarmVolume": 0.7,
+    "tickEnabled": false,
+    "tickVolume": 0.3,
+    "vibrate": true,
+    "showDigits": true,
+    "imageEffect": "reveal",
+    "warningsMin": []
+  },
+  "createdAt": "2026-10-23T12:00:00.000Z",
+  "updatedAt": "2026-10-23T12:00:00.000Z"
+}

@@ -12,6 +12,8 @@ import 'package:visual_time_counter/core/persistence/hive_bootstrap.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
 import 'package:visual_time_counter/features/images/data/user_image_repository.dart';
+import 'package:visual_time_counter/features/presets/data/preset_repository.dart';
+import 'package:visual_time_counter/features/presets/data/preset_seeds.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/settings/data/settings_repository.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
@@ -151,9 +153,58 @@ void main() {
       container.read(settingsRepositoryProvider).load(),
       AppSettings.initial,
     );
+    expect(container.read(presetStorageProvider), same(boxes.presets));
     expect(container.read(presetExistsProvider)('p1'), isTrue);
     expect(container.read(presetExistsProvider)('p2'), isFalse);
     expect(container.read(startupIssuesProvider), isEmpty);
     expect(container.read(clockProvider).now(), now);
+  });
+
+  group('example presets (FR-042)', () {
+    final seeds = [
+      PresetSeed(name: 'Bath', config: TimerConfig.defaults),
+      PresetSeed(name: 'Homework', config: TimerConfig.defaults),
+    ];
+
+    test('are seeded on the first start and flagged', () async {
+      final boxes = await open();
+
+      final state = await loadStartupState(
+        boxes: boxes,
+        clock: clock,
+        examplePresets: seeds,
+      );
+
+      expect(boxes.presets.length, 2);
+      expect(state.settings.onboarding.examplesSeeded, isTrue);
+      expect(
+        SettingsRepository(boxes.settings).load().onboarding.examplesSeeded,
+        isTrue,
+      );
+    });
+
+    test('are not seeded again after the adult deleted them', () async {
+      final boxes = await open();
+      await loadStartupState(boxes: boxes, clock: clock, examplePresets: seeds);
+      await boxes.presets.clear();
+
+      await loadStartupState(boxes: boxes, clock: clock, examplePresets: seeds);
+
+      expect(boxes.presets.isEmpty, isTrue);
+    });
+
+    test('a failed seeding does not stop the app', () async {
+      final boxes = await open();
+      await boxes.presets.close();
+
+      final state = await loadStartupState(
+        boxes: boxes,
+        clock: clock,
+        examplePresets: seeds,
+      );
+
+      // Flagged first: losing the examples is harmless, seeding twice is not.
+      expect(state.settings.onboarding.examplesSeeded, isTrue);
+    });
   });
 }

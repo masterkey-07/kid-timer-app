@@ -11,6 +11,7 @@ import 'package:visual_time_counter/app/app.dart';
 import 'package:visual_time_counter/app/router.dart';
 import 'package:visual_time_counter/core/clock/clock_provider.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
+import 'package:visual_time_counter/core/domain/timer_duration.dart';
 import 'package:visual_time_counter/core/domain/visual_source.dart';
 import 'package:visual_time_counter/core/platform/fullscreen/fullscreen_port.dart';
 import 'package:visual_time_counter/core/platform/lifecycle/app_lifecycle_port.dart';
@@ -21,6 +22,7 @@ import 'package:visual_time_counter/features/images/application/image_library.da
 import 'package:visual_time_counter/features/images/data/bank_manifest_loader.dart';
 import 'package:visual_time_counter/features/images/data/user_image_repository.dart';
 import 'package:visual_time_counter/features/images/domain/image_asset.dart';
+import 'package:visual_time_counter/features/presets/data/preset_repository.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/settings/data/settings_repository.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
@@ -97,7 +99,7 @@ class TestAppDependencies {
   /// Own image bytes.
   final userImageBytes = InMemoryLazyBox<Uint8List>();
 
-  /// Presets, as raw documents until the presets feature (US5).
+  /// Presets, as stored documents.
   final Box<Map<dynamic, dynamic>> presets;
 
   /// What the clock reads; tests move it forward.
@@ -110,7 +112,9 @@ class TestAppDependencies {
 
   /// The audio fake; a test may swap it before building the overrides.
   FakeAudio audio = FakeAudio();
-  final haptics = FakeHaptics();
+
+  /// The haptics fake; a test may swap it before building the overrides.
+  FakeHaptics haptics = FakeHaptics();
   final wakeLock = FakeWakeLock();
 
   /// A real wakelock to use instead of [wakeLock] (integration tests).
@@ -135,6 +139,7 @@ class TestAppDependencies {
   ui.Image? pickedPreview;
 
   var _nextImageId = 0;
+  var _nextPresetId = 0;
 
   /// The platform the app believes it runs on; tests may change it.
   AppPlatform platform = AppPlatform.android;
@@ -153,18 +158,23 @@ class TestAppDependencies {
     restoredSettingsProvider.overrideWithValue(settings),
     presetExistsProvider.overrideWithValue(presetExists ?? (_) => false),
     ...imageOverrides(),
+    ...presetOverrides(),
     ...portOverrides(),
+  ];
+
+  /// Preset storage, with ids `preset-0`, `preset-1`, …
+  List<Override> presetOverrides() => [
+    presetStorageProvider.overrideWithValue(presets),
+    presetIdGeneratorProvider.overrideWithValue(
+      () => 'preset-${_nextPresetId++}',
+    ),
   ];
 
   /// The library, own image storage and processing.
   List<Override> imageOverrides() => [
     bankImagesProvider.overrideWith((ref) => bankImages),
     userImageStorageProvider.overrideWithValue(
-      UserImageStorage(
-        meta: userImagesMeta,
-        bytes: userImageBytes,
-        presets: presets,
-      ),
+      UserImageStorage(meta: userImagesMeta, bytes: userImageBytes),
     ),
     userImageIdGeneratorProvider.overrideWithValue(
       () => 'image-${_nextImageId++}',
@@ -212,19 +222,26 @@ class TestAppDependencies {
     return images;
   }
 
-  /// Stores a preset document named [name] showing [visual].
-  Future<void> seedPreset(String id, String name, VisualSource visual) =>
-      presets.put(id, {
-        'schemaVersion': 1,
-        'id': id,
-        'name': name,
-        'order': presets.length,
-        'isExample': false,
-        'favorite': false,
-        'config': TimerConfig.defaults.copyWith(visual: visual).toJson(),
-        'createdAt': testNow.toIso8601String(),
-        'updatedAt': testNow.toIso8601String(),
-      });
+  /// Stores a preset document named [name] showing [visual] for
+  /// [duration], after the presets already stored.
+  Future<void> seedPreset(
+    String id,
+    String name,
+    VisualSource visual, {
+    Duration duration = const Duration(minutes: 5),
+  }) => presets.put(id, {
+    'schemaVersion': 1,
+    'id': id,
+    'name': name,
+    'order': presets.length,
+    'isExample': false,
+    'favorite': false,
+    'config': TimerConfig.defaults
+        .copyWith(visual: visual, duration: TimerDuration(duration))
+        .toJson(),
+    'createdAt': testNow.toIso8601String(),
+    'updatedAt': testNow.toIso8601String(),
+  });
 
   /// Makes every later session write fail, as a full disk would.
   Future<void> breakSessionStorage() => _sessionBox.close();

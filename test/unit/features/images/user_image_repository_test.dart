@@ -11,6 +11,7 @@ import 'package:visual_time_counter/core/persistence/boxes.dart';
 import 'package:visual_time_counter/features/images/data/user_image_repository.dart';
 import 'package:visual_time_counter/features/images/domain/image_asset.dart';
 import 'package:visual_time_counter/features/images/domain/image_processor.dart';
+import 'package:visual_time_counter/features/presets/data/preset_repository.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
 
 import '../../../helpers/hive_test_utils.dart';
@@ -55,7 +56,7 @@ void main() {
   }) => UserImageRepository(
     meta: metaBox ?? meta,
     bytes: bytesBox ?? bytes,
-    presets: presets,
+    presets: _presetsOver(presets),
     readSettings: () => settings,
     updateSettings: (change) async => settings = change(settings),
     clock: Clock.fixed(_now),
@@ -136,7 +137,7 @@ void main() {
       final images = UserImageRepository(
         meta: meta,
         bytes: bytes,
-        presets: presets,
+        presets: _presetsOver(presets),
         readSettings: () => settings,
         updateSettings: (change) async => settings = change(settings),
         clock: Clock(() => now),
@@ -236,7 +237,7 @@ void main() {
       final counting = UserImageRepository(
         meta: meta,
         bytes: bytes,
-        presets: presets,
+        presets: _presetsOver(presets),
         readSettings: () => settings,
         updateSettings: (change) async {
           updates++;
@@ -311,3 +312,13 @@ VisualSource _presetVisual(Box<Map<dynamic, dynamic>> presets, String id) {
     (config['visual']! as Map<dynamic, dynamic>).cast<String, Object?>(),
   );
 }
+
+/// The presets an image repository reads and rewrites.
+PresetRepository _presetsOver(Box<Map<dynamic, dynamic>> presets) =>
+    PresetRepository(
+      presets: presets,
+      readSettings: () => AppSettings.initial,
+      updateSettings: (change) async {},
+      clock: Clock.fixed(_now),
+      newId: () => 'unused',
+    );

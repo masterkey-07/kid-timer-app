@@ -7,6 +7,7 @@ import 'package:visual_time_counter/core/persistence/hive_bootstrap.dart';
 import 'package:visual_time_counter/features/images/data/image_processor_impl.dart';
 import 'package:visual_time_counter/features/images/data/user_image_repository.dart';
 import 'package:visual_time_counter/features/images/domain/frame_spec.dart';
+import 'package:visual_time_counter/features/presets/data/preset_repository.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
 
 /// An own image survives closing and reopening the real storage of each
@@ -30,7 +31,13 @@ void main() {
       UserImageRepository(
         meta: boxes.userImagesMeta,
         bytes: boxes.userImages,
-        presets: boxes.presets,
+        presets: PresetRepository(
+          presets: boxes.presets,
+          readSettings: () => settings,
+          updateSettings: (change) async => settings = change(settings),
+          clock: clock,
+          newId: () => 'unused',
+        ),
         readSettings: () => settings,
         updateSettings: (change) async => settings = change(settings),
         clock: clock,
