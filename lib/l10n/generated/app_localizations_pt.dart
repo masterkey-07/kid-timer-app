@@ -530,4 +530,208 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get imagesCategoryAnimals => 'Animais';
+
+  @override
+  String get homeOpenPresets => 'Predefinições';
+
+  @override
+  String get homeSavePreset => 'Salvar como predefinição';
+
+  @override
+  String homePresetSemantics(String name, String duration) {
+    return 'Predefinição $name, $duration';
+  }
+
+  @override
+  String get presetsTitle => 'Predefinições';
+
+  @override
+  String get presetsNew => 'Nova predefinição';
+
+  @override
+  String get presetsEmpty =>
+      'Crie predefinições para iniciar timers com um toque';
+
+  @override
+  String presetsLimit(int max) {
+    return 'Você chegou ao limite de $max predefinições. Apague uma para criar outra.';
+  }
+
+  @override
+  String presetsStart(String name) {
+    return 'Iniciar $name';
+  }
+
+  @override
+  String presetsItemSemantics(String name, String duration) {
+    return '$name, $duration';
+  }
+
+  @override
+  String get presetsMoreOptions => 'Mais opções';
+
+  @override
+  String get presetsEdit => 'Editar';
+
+  @override
+  String get presetsDuplicate => 'Duplicar';
+
+  @override
+  String get presetsDelete => 'Apagar';
+
+  @override
+  String get presetsMoveUp => 'Mover para cima';
+
+  @override
+  String get presetsMoveDown => 'Mover para baixo';
+
+  @override
+  String get presetsDragHandle => 'Arraste para reordenar';
+
+  @override
+  String get presetsDuplicateSuffix => '(cópia)';
+
+  @override
+  String get presetsDeleteTitle => 'Apagar predefinição?';
+
+  @override
+  String presetsDeleteMessage(String name) {
+    return '“$name” será apagada.';
+  }
+
+  @override
+  String get presetsDeleted => 'Predefinição apagada';
+
+  @override
+  String get presetsUndo => 'Desfazer';
+
+  @override
+  String get presetsSaveFailed => 'Não foi possível salvar. Tente de novo.';
+
+  @override
+  String get presetsExampleBrushTeeth => 'Escovar os dentes';
+
+  @override
+  String get presetsExampleMeal => 'Hora de comer';
+
+  @override
+  String get presetsExamplePlay => 'Hora de brincar';
+
+  @override
+  String get presetsExampleQuietTime => 'Momento de calma';
+
+  @override
+  String get presetsExampleHomework => 'Lição de casa';
+
+  @override
+  String get presetsExampleGoingOut => 'Arrumar-se para sair';
+
+  @override
+  String get presetEditorEditTitle => 'Editar predefinição';
+
+  @override
+  String get presetEditorSave => 'Salvar';
+
+  @override
+  String get presetEditorClose => 'Fechar';
+
+  @override
+  String get presetEditorName => 'Nome';
+
+  @override
+  String presetEditorNameError(int max) {
+    return 'Use de 1 a $max caracteres';
+  }
+
+  @override
+  String get presetEditorDiscardTitle => 'Descartar alterações?';
+
+  @override
+  String get presetEditorDiscardMessage =>
+      'As alterações desta predefinição serão perdidas.';
+
+  @override
+  String get presetEditorDiscard => 'Descartar';
+
+  @override
+  String get presetEditorChangeImage => 'Trocar';
+
+  @override
+  String get presetEditorScale => 'Escala do mostrador';
+
+  @override
+  String presetEditorScaleMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get presetEditorDirection => 'Sentido';
+
+  @override
+  String get presetEditorClockwise => 'Horário';
+
+  @override
+  String get presetEditorCounterClockwise => 'Anti-horário';
+
+  @override
+  String get presetEditorColors => 'Cores';
+
+  @override
+  String get paletteProgressive => 'Progressivo';
+
+  @override
+  String get paletteSingle => 'Cor única';
+
+  @override
+  String get paletteCalm => 'Calmo';
+
+  @override
+  String get colorBlue => 'Azul';
+
+  @override
+  String get colorGreen => 'Verde';
+
+  @override
+  String get colorYellow => 'Amarelo';
+
+  @override
+  String get colorOrange => 'Laranja';
+
+  @override
+  String get colorPurple => 'Roxo';
+
+  @override
+  String get colorPink => 'Rosa';
+
+  @override
+  String get colorTeal => 'Verde-azulado';
+
+  @override
+  String get colorGray => 'Cinza';
+
+  @override
+  String get presetEditorSound => 'Som';
+
+  @override
+  String presetEditorSoundPreview(String sound) {
+    return 'Tocar $sound';
+  }
+
+  @override
+  String get soundChimeSoft => 'Sino suave';
+
+  @override
+  String get soundNone => 'Sem som';
+
+  @override
+  String get presetEditorVolume => 'Volume';
+
+  @override
+  String get presetEditorTick => 'Tique-taque';
+
+  @override
+  String get presetEditorVibrate => 'Vibrar';
+
+  @override
+  String get presetEditorDigits => 'Mostrar números';
 }

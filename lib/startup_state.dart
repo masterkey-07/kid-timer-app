@@ -2,12 +2,15 @@ import 'package:clock/clock.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
+import 'package:uuid/uuid.dart';
 import 'package:visual_time_counter/app/router.dart';
 import 'package:visual_time_counter/core/clock/clock_provider.dart';
 import 'package:visual_time_counter/core/persistence/hive_bootstrap.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_engine.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
 import 'package:visual_time_counter/features/images/data/user_image_repository.dart';
+import 'package:visual_time_counter/features/presets/data/preset_repository.dart';
+import 'package:visual_time_counter/features/presets/data/preset_seeds.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/settings/data/settings_repository.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
@@ -56,10 +59,12 @@ final class StartupState {
 
 /// Loads the session and settings from [boxes], reconciling a session whose
 /// end passed while the app was closed (plan: Boot → load → reconcile →
-/// route guard), and removes own images a crash left half written.
+/// route guard), removes own images a crash left half written and, on first
+/// use, creates [examplePresets].
 Future<StartupState> loadStartupState({
   required PersistenceBoxes boxes,
   required Clock clock,
+  List<PresetSeed> examplePresets = const [],
 }) async {
   final issues = <StartupIssue>{
     if (boxes.migrationFailures.isNotEmpty) StartupIssue.migrationFailed,
@@ -72,7 +77,20 @@ Future<StartupState> loadStartupState({
     TimerEngine(clock: clock),
     issues,
   );
-  final settings = _restoreSettings(settingsRepository, issues);
+  var settings = _restoreSettings(settingsRepository, issues);
+  await _seedExamplePresets(
+    PresetRepository(
+      presets: boxes.presets,
+      readSettings: () => settings,
+      updateSettings: (change) async {
+        settings = change(settings);
+        await settingsRepository.save(settings);
+      },
+      clock: clock,
+      newId: const Uuid().v4,
+    ),
+    examplePresets,
+  );
   await UserImageRepository.removeOrphans(
     meta: boxes.userImagesMeta,
     bytes: boxes.userImages,
@@ -88,13 +106,10 @@ Future<StartupState> loadStartupState({
       settingsRepositoryProvider.overrideWithValue(settingsRepository),
       restoredSessionProvider.overrideWithValue(session),
       restoredSettingsProvider.overrideWithValue(settings),
+      presetStorageProvider.overrideWithValue(boxes.presets),
       presetExistsProvider.overrideWithValue(boxes.presets.containsKey),
       userImageStorageProvider.overrideWithValue(
-        UserImageStorage(
-          meta: boxes.userImagesMeta,
-          bytes: boxes.userImages,
-          presets: boxes.presets,
-        ),
+        UserImageStorage(meta: boxes.userImagesMeta, bytes: boxes.userImages),
       ),
       startupIssuesProvider.overrideWithValue(Set.unmodifiable(issues)),
     ],
@@ -120,6 +135,20 @@ Future<TimerSession?> _restoreSession(
   final reconciled = engine.reconcile(stored);
   if (reconciled != stored) await repository.save(reconciled);
   return reconciled;
+}
+
+/// The examples are a convenience, so failing to create them is logged and
+/// the app starts anyway.
+Future<void> _seedExamplePresets(
+  PresetRepository presets,
+  List<PresetSeed> seeds,
+) async {
+  if (seeds.isEmpty) return;
+  try {
+    await presets.seedExamples(seeds);
+  } on Object catch (error) {
+    debugPrint('Could not create the example presets: $error');
+  }
 }
 
 AppSettings _restoreSettings(

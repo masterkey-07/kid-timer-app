@@ -284,13 +284,13 @@ controls.
 
 ### Implementation for User Story 5
 
-- [ ] T127 [P] [US5] Implement `Preset` in `lib/features/presets/domain/preset.dart` (depends on T121)
-- [ ] T128 [US5] Implement `PresetRepository` + seeds (6 examples, one per activity category of the library — not animals — with names localized at seeding time) in `lib/features/presets/data/preset_repository.dart` and `preset_seeds.dart` (depends on T122, T127, T094)
-- [ ] T129 [US5] Implement `PresetsController` in `lib/features/presets/application/presets_controller.dart`
-- [ ] T130 [US5] Implement `PresetsScreen` and `PresetEditorScreen` in `lib/features/presets/presentation/` with the keys from contracts/ui/05 (depends on T129)
-- [ ] T131 [US5] Wire the preset strip into `HomeScreen` (`home.presetStrip`, `home.preset.<id>`, `home.savePreset`) and the `preset(id)` origin in the session in `lib/features/timer/presentation/home_screen.dart` and `lib/features/timer/application/timer_controller.dart`
-- [ ] T132 [US5] When an own image is deleted, update affected presets in `lib/features/images/data/user_image_repository.dart` + `lib/features/presets/data/preset_repository.dart` (integration with T105)
-- [ ] T133 [US5] Add US5 strings (`presets*`, `presetEditor*`) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
+- [x] T127 [P] [US5] Implement `Preset` in `lib/features/presets/domain/preset.dart` (depends on T121)
+- [x] T128 [US5] Implement `PresetRepository` + seeds (6 examples, one per activity category of the library — not animals — with names localized at seeding time) in `lib/features/presets/data/preset_repository.dart` and `preset_seeds.dart` (depends on T122, T127, T094)
+- [x] T129 [US5] Implement `PresetsController` in `lib/features/presets/application/presets_controller.dart`
+- [x] T130 [US5] Implement `PresetsScreen` and `PresetEditorScreen` in `lib/features/presets/presentation/` with the keys from contracts/ui/05 (depends on T129)
+- [x] T131 [US5] Wire the preset strip into `HomeScreen` (`home.presetStrip`, `home.preset.<id>`, `home.savePreset`) and the `preset(id)` origin in the session in `lib/features/timer/presentation/home_screen.dart` and `lib/features/timer/application/timer_controller.dart`
+- [x] T132 [US5] When an own image is deleted, update affected presets in `lib/features/images/data/user_image_repository.dart` + `lib/features/presets/data/preset_repository.dart` (integration with T105)
+- [x] T133 [US5] Add US5 strings (`presets*`, `presetEditor*`) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
 
 **Checkpoint**: SC-006 validated.
 

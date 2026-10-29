@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:visual_time_counter/core/domain/timer_duration.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
-/// The −1 min, +1 min and +5 min buttons (FR-001); keys `home.minus1`,
-/// `home.plus1` and `home.plus5`.
+/// The −1 min, +1 min and +5 min buttons (FR-001); keys
+/// `<keyPrefix>.minus1`, `<keyPrefix>.plus1` and `<keyPrefix>.plus5`.
 class DurationQuickButtons extends StatelessWidget {
   /// Creates the buttons for [duration].
   const new({
     required this.duration,
     required this.onChanged,
     required this.onMaxReached,
+    this.keyPrefix = 'home',
     super.key,
   });
+
+  /// The screen part of the button keys.
+  final String keyPrefix;
 
   /// The current duration.
   final TimerDuration duration;
@@ -45,7 +49,7 @@ class DurationQuickButtons extends StatelessWidget {
       runSpacing: _spacing,
       children: [
         _QuickButton(
-          buttonKey: const Key('home.minus1'),
+          buttonKey: Key('$keyPrefix.minus1'),
           label: l10n.homeMinus1,
           semanticsLabel: l10n.homeMinus1Semantics,
           onPressed: _isAtMin
@@ -53,7 +57,7 @@ class DurationQuickButtons extends StatelessWidget {
               : () => onChanged(duration.adjustedBy(-_oneMinute)),
         ),
         _QuickButton(
-          buttonKey: const Key('home.plus1'),
+          buttonKey: Key('$keyPrefix.plus1'),
           label: l10n.homePlus1,
           semanticsLabel: l10n.homePlus1Semantics,
           onPressed: _isAtMax
@@ -61,7 +65,7 @@ class DurationQuickButtons extends StatelessWidget {
               : () => onChanged(duration.adjustedBy(_oneMinute)),
         ),
         _QuickButton(
-          buttonKey: const Key('home.plus5'),
+          buttonKey: Key('$keyPrefix.plus5'),
           label: l10n.homePlus5,
           semanticsLabel: l10n.homePlus5Semantics,
           onPressed: _isAtMax ? null : _addFiveMinutes,

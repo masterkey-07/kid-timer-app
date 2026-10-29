@@ -8,6 +8,7 @@ import 'package:visual_time_counter/core/domain/visual_source.dart';
 import 'package:visual_time_counter/core/persistence/migrator.dart';
 import 'package:visual_time_counter/features/images/domain/image_asset.dart';
 import 'package:visual_time_counter/features/images/domain/image_processor.dart';
+import 'package:visual_time_counter/features/presets/data/preset_repository.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
 
 /// The boxes holding own images; bootstrap provides them.
@@ -22,20 +23,17 @@ final userImageIdGeneratorProvider = Provider<String Function()>(
   (ref) => const Uuid().v4,
 );
 
-/// The boxes an own image lives in, and the presets that may use it.
+/// The boxes an own image lives in.
 @immutable
 final class UserImageStorage {
   /// Groups the opened boxes.
-  const new({required this.meta, required this.bytes, required this.presets});
+  const new({required this.meta, required this.bytes});
 
   /// `user_images_meta`: one [UserImageAsset] document per image.
   final Box<Map<dynamic, dynamic>> meta;
 
   /// `user_images`: the JPEG of each image.
   final LazyBox<Uint8List> bytes;
-
-  /// `presets`: read and rewritten when an image is deleted.
-  final Box<Map<dynamic, dynamic>> presets;
 }
 
 /// Thrown when adding an image beyond [UserImageRepository.maxImages].
@@ -93,7 +91,9 @@ final class UserImageRepository {
 
   final Box<Map<dynamic, dynamic>> _meta;
   final LazyBox<Uint8List> _bytes;
-  final Box<Map<dynamic, dynamic>> _presets;
+
+  /// Read and rewritten when an image is deleted.
+  final PresetRepository _presets;
   final AppSettings Function() _readSettings;
   final Future<void> Function(AppSettings Function(AppSettings current))
   _updateSettings;
@@ -158,10 +158,7 @@ final class UserImageRepository {
     final source = UserImageSource(id);
     final settings = _readSettings();
     return ImageReferences(
-      presetNames: [
-        for (final preset in _readablePresets())
-          if (preset.config.visual == source) preset.name,
-      ],
+      presetNames: _presets.namesUsing(source),
       isInDefaults: settings.defaults.visual == source,
       isInLastConfig: settings.lastConfig.visual == source,
     );
@@ -235,15 +232,7 @@ final class UserImageRepository {
   }
 
   Future<void> _switchReferencesToColors(UserImageSource source) async {
-    for (final preset in _readablePresets()) {
-      if (preset.config.visual != source) continue;
-      await _presets.put(preset.key, {
-        ...preset.document,
-        'config': _withColors(preset.config).toJson(),
-        'updatedAt': _clock.now().toUtc().toIso8601String(),
-      });
-    }
-    await _presets.flush();
+    await _presets.replaceVisual(source, VisualSource.defaultSource);
 
     final settings = _readSettings();
     final usesImage =
@@ -264,38 +253,4 @@ final class UserImageRepository {
 
   static TimerConfig _withColors(TimerConfig config) =>
       config.copyWith(visual: VisualSource.defaultSource);
-
-  /// Presets as raw documents: the presets feature (US5) owns their model;
-  /// only the name and config matter here.
-  Iterable<_StoredPreset> _readablePresets() sync* {
-    for (final key in _presets.keys) {
-      final document = toDocument(_presets.get(key)!);
-      try {
-        yield _StoredPreset(
-          key: key,
-          document: document,
-          name: document['name']! as String,
-          config: TimerConfig.fromJson(
-            document['config']! as Map<String, Object?>,
-          ),
-        );
-      } on Object catch (error) {
-        debugPrint('Skipping unreadable preset $key: $error');
-      }
-    }
-  }
-}
-
-final class _StoredPreset {
-  const new({
-    required this.key,
-    required this.document,
-    required this.name,
-    required this.config,
-  });
-
-  final Object? key;
-  final Map<String, Object?> document;
-  final String name;
-  final TimerConfig config;
 }

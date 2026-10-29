@@ -662,5 +662,299 @@
   "imagesCategoryAnimals": "Animais",
   "@imagesCategoryAnimals": {
     "description": "Library category."
+  },
+  "homeOpenPresets": "Predefinições",
+  "@homeOpenPresets": {
+    "description": "Home app bar button that opens the preset list."
+  },
+  "homeSavePreset": "Salvar como predefinição",
+  "@homeSavePreset": {
+    "description": "Home button that opens the preset editor with the current setup."
+  },
+  "homePresetSemantics": "Predefinição {name}, {duration}",
+  "@homePresetSemantics": {
+    "description": "Screen reader label of a preset in the home strip; tapping loads it.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "presetsTitle": "Predefinições",
+  "@presetsTitle": {
+    "description": "Title of the preset list."
+  },
+  "presetsNew": "Nova predefinição",
+  "@presetsNew": {
+    "description": "Button that creates a preset; also the editor title for a new one."
+  },
+  "presetsEmpty": "Crie predefinições para iniciar timers com um toque",
+  "@presetsEmpty": {
+    "description": "Empty state of the preset list."
+  },
+  "presetsLimit": "Você chegou ao limite de {max} predefinições. Apague uma para criar outra.",
+  "@presetsLimit": {
+    "description": "Shown when the preset limit is reached.",
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "presetsStart": "Iniciar {name}",
+  "@presetsStart": {
+    "description": "Button (and its screen reader label) that starts a preset right away.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "presetsItemSemantics": "{name}, {duration}",
+  "@presetsItemSemantics": {
+    "description": "Screen reader label of a preset in the list; tapping edits it.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "presetsMoreOptions": "Mais opções",
+  "@presetsMoreOptions": {
+    "description": "Menu button of a preset."
+  },
+  "presetsEdit": "Editar",
+  "@presetsEdit": {
+    "description": "Preset menu and screen reader action."
+  },
+  "presetsDuplicate": "Duplicar",
+  "@presetsDuplicate": {
+    "description": "Preset menu and screen reader action."
+  },
+  "presetsDelete": "Apagar",
+  "@presetsDelete": {
+    "description": "Preset menu and screen reader action; also the confirm button."
+  },
+  "presetsMoveUp": "Mover para cima",
+  "@presetsMoveUp": {
+    "description": "Screen reader action that moves a preset up the list."
+  },
+  "presetsMoveDown": "Mover para baixo",
+  "@presetsMoveDown": {
+    "description": "Screen reader action that moves a preset down the list."
+  },
+  "presetsDragHandle": "Arraste para reordenar",
+  "@presetsDragHandle": {
+    "description": "Tooltip of a preset's drag handle."
+  },
+  "presetsDuplicateSuffix": "(cópia)",
+  "@presetsDuplicateSuffix": {
+    "description": "Added after the name of a duplicated preset."
+  },
+  "presetsDeleteTitle": "Apagar predefinição?",
+  "@presetsDeleteTitle": {
+    "description": "Title of the delete confirmation."
+  },
+  "presetsDeleteMessage": "“{name}” será apagada.",
+  "@presetsDeleteMessage": {
+    "description": "Message of the delete confirmation.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "presetsDeleted": "Predefinição apagada",
+  "@presetsDeleted": {
+    "description": "Snackbar after deleting a preset, with an undo action."
+  },
+  "presetsUndo": "Desfazer",
+  "@presetsUndo": {
+    "description": "Snackbar action that restores a deleted preset."
+  },
+  "presetsSaveFailed": "Não foi possível salvar. Tente de novo.",
+  "@presetsSaveFailed": {
+    "description": "Snackbar when writing presets to storage fails."
+  },
+  "presetsExampleBrushTeeth": "Escovar os dentes",
+  "@presetsExampleBrushTeeth": {
+    "description": "First-use example preset (hygiene, 2 min)."
+  },
+  "presetsExampleMeal": "Hora de comer",
+  "@presetsExampleMeal": {
+    "description": "First-use example preset (meal, 20 min)."
+  },
+  "presetsExamplePlay": "Hora de brincar",
+  "@presetsExamplePlay": {
+    "description": "First-use example preset (play, 15 min)."
+  },
+  "presetsExampleQuietTime": "Momento de calma",
+  "@presetsExampleQuietTime": {
+    "description": "First-use example preset (rest, 10 min)."
+  },
+  "presetsExampleHomework": "Lição de casa",
+  "@presetsExampleHomework": {
+    "description": "First-use example preset (school, 25 min)."
+  },
+  "presetsExampleGoingOut": "Arrumar-se para sair",
+  "@presetsExampleGoingOut": {
+    "description": "First-use example preset (going out, 5 min)."
+  },
+  "presetEditorEditTitle": "Editar predefinição",
+  "@presetEditorEditTitle": {
+    "description": "Editor title for an existing preset."
+  },
+  "presetEditorSave": "Salvar",
+  "@presetEditorSave": {
+    "description": "Saves the preset."
+  },
+  "presetEditorClose": "Fechar",
+  "@presetEditorClose": {
+    "description": "Tooltip of the editor's close button."
+  },
+  "presetEditorName": "Nome",
+  "@presetEditorName": {
+    "description": "Label of the preset name field."
+  },
+  "presetEditorNameError": "Use de 1 a {max} caracteres",
+  "@presetEditorNameError": {
+    "description": "Error under an empty or too long preset name.",
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "presetEditorDiscardTitle": "Descartar alterações?",
+  "@presetEditorDiscardTitle": {
+    "description": "Asked when leaving the editor with unsaved changes."
+  },
+  "presetEditorDiscardMessage": "As alterações desta predefinição serão perdidas.",
+  "@presetEditorDiscardMessage": {
+    "description": "Message of the discard confirmation."
+  },
+  "presetEditorDiscard": "Descartar",
+  "@presetEditorDiscard": {
+    "description": "Confirm button of the discard confirmation."
+  },
+  "presetEditorChangeImage": "Trocar",
+  "@presetEditorChangeImage": {
+    "description": "Opens the image picker from the preset editor."
+  },
+  "presetEditorScale": "Escala do mostrador",
+  "@presetEditorScale": {
+    "description": "Label of the dial scale choice."
+  },
+  "presetEditorScaleMinutes": "{minutes} min",
+  "@presetEditorScaleMinutes": {
+    "description": "A dial scale option.",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "presetEditorDirection": "Sentido",
+  "@presetEditorDirection": {
+    "description": "Label of the dial direction choice."
+  },
+  "presetEditorClockwise": "Horário",
+  "@presetEditorClockwise": {
+    "description": "Dial direction option."
+  },
+  "presetEditorCounterClockwise": "Anti-horário",
+  "@presetEditorCounterClockwise": {
+    "description": "Dial direction option."
+  },
+  "presetEditorColors": "Cores",
+  "@presetEditorColors": {
+    "description": "Label of the palette choice (only without an image)."
+  },
+  "paletteProgressive": "Progressivo",
+  "@paletteProgressive": {
+    "description": "Palette: green, then yellow, then red."
+  },
+  "paletteSingle": "Cor única",
+  "@paletteSingle": {
+    "description": "Palette: one fixed color."
+  },
+  "paletteCalm": "Calmo",
+  "@paletteCalm": {
+    "description": "Palette: pastel colors with no red."
+  },
+  "colorBlue": "Azul",
+  "@colorBlue": {
+    "description": "Single palette color."
+  },
+  "colorGreen": "Verde",
+  "@colorGreen": {
+    "description": "Single palette color."
+  },
+  "colorYellow": "Amarelo",
+  "@colorYellow": {
+    "description": "Single palette color."
+  },
+  "colorOrange": "Laranja",
+  "@colorOrange": {
+    "description": "Single palette color."
+  },
+  "colorPurple": "Roxo",
+  "@colorPurple": {
+    "description": "Single palette color."
+  },
+  "colorPink": "Rosa",
+  "@colorPink": {
+    "description": "Single palette color."
+  },
+  "colorTeal": "Verde-azulado",
+  "@colorTeal": {
+    "description": "Single palette color."
+  },
+  "colorGray": "Cinza",
+  "@colorGray": {
+    "description": "Single palette color."
+  },
+  "presetEditorSound": "Som",
+  "@presetEditorSound": {
+    "description": "Label of the alarm sound row."
+  },
+  "presetEditorSoundPreview": "Tocar {sound}",
+  "@presetEditorSoundPreview": {
+    "description": "Plays a preview of the alarm sound.",
+    "placeholders": {
+      "sound": {
+        "type": "String"
+      }
+    }
+  },
+  "soundChimeSoft": "Sino suave",
+  "@soundChimeSoft": {
+    "description": "Name of the chime_soft sound."
+  },
+  "soundNone": "Sem som",
+  "@soundNone": {
+    "description": "No alarm sound."
+  },
+  "presetEditorVolume": "Volume",
+  "@presetEditorVolume": {
+    "description": "Label of the alarm volume slider."
+  },
+  "presetEditorTick": "Tique-taque",
+  "@presetEditorTick": {
+    "description": "Switch: a tick every second while the app is open."
+  },
+  "presetEditorVibrate": "Vibrar",
+  "@presetEditorVibrate": {
+    "description": "Switch: vibrate at the end."
+  },
+  "presetEditorDigits": "Mostrar números",
+  "@presetEditorDigits": {
+    "description": "Switch: show the remaining time as digits on the countdown."
   }
 }

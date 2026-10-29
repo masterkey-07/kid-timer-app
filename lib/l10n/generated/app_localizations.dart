@@ -961,6 +961,378 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Animais'**
   String get imagesCategoryAnimals;
+
+  /// Home app bar button that opens the preset list.
+  ///
+  /// In pt, this message translates to:
+  /// **'Predefinições'**
+  String get homeOpenPresets;
+
+  /// Home button that opens the preset editor with the current setup.
+  ///
+  /// In pt, this message translates to:
+  /// **'Salvar como predefinição'**
+  String get homeSavePreset;
+
+  /// Screen reader label of a preset in the home strip; tapping loads it.
+  ///
+  /// In pt, this message translates to:
+  /// **'Predefinição {name}, {duration}'**
+  String homePresetSemantics(String name, String duration);
+
+  /// Title of the preset list.
+  ///
+  /// In pt, this message translates to:
+  /// **'Predefinições'**
+  String get presetsTitle;
+
+  /// Button that creates a preset; also the editor title for a new one.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nova predefinição'**
+  String get presetsNew;
+
+  /// Empty state of the preset list.
+  ///
+  /// In pt, this message translates to:
+  /// **'Crie predefinições para iniciar timers com um toque'**
+  String get presetsEmpty;
+
+  /// Shown when the preset limit is reached.
+  ///
+  /// In pt, this message translates to:
+  /// **'Você chegou ao limite de {max} predefinições. Apague uma para criar outra.'**
+  String presetsLimit(int max);
+
+  /// Button (and its screen reader label) that starts a preset right away.
+  ///
+  /// In pt, this message translates to:
+  /// **'Iniciar {name}'**
+  String presetsStart(String name);
+
+  /// Screen reader label of a preset in the list; tapping edits it.
+  ///
+  /// In pt, this message translates to:
+  /// **'{name}, {duration}'**
+  String presetsItemSemantics(String name, String duration);
+
+  /// Menu button of a preset.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mais opções'**
+  String get presetsMoreOptions;
+
+  /// Preset menu and screen reader action.
+  ///
+  /// In pt, this message translates to:
+  /// **'Editar'**
+  String get presetsEdit;
+
+  /// Preset menu and screen reader action.
+  ///
+  /// In pt, this message translates to:
+  /// **'Duplicar'**
+  String get presetsDuplicate;
+
+  /// Preset menu and screen reader action; also the confirm button.
+  ///
+  /// In pt, this message translates to:
+  /// **'Apagar'**
+  String get presetsDelete;
+
+  /// Screen reader action that moves a preset up the list.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mover para cima'**
+  String get presetsMoveUp;
+
+  /// Screen reader action that moves a preset down the list.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mover para baixo'**
+  String get presetsMoveDown;
+
+  /// Tooltip of a preset's drag handle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Arraste para reordenar'**
+  String get presetsDragHandle;
+
+  /// Added after the name of a duplicated preset.
+  ///
+  /// In pt, this message translates to:
+  /// **'(cópia)'**
+  String get presetsDuplicateSuffix;
+
+  /// Title of the delete confirmation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Apagar predefinição?'**
+  String get presetsDeleteTitle;
+
+  /// Message of the delete confirmation.
+  ///
+  /// In pt, this message translates to:
+  /// **'“{name}” será apagada.'**
+  String presetsDeleteMessage(String name);
+
+  /// Snackbar after deleting a preset, with an undo action.
+  ///
+  /// In pt, this message translates to:
+  /// **'Predefinição apagada'**
+  String get presetsDeleted;
+
+  /// Snackbar action that restores a deleted preset.
+  ///
+  /// In pt, this message translates to:
+  /// **'Desfazer'**
+  String get presetsUndo;
+
+  /// Snackbar when writing presets to storage fails.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível salvar. Tente de novo.'**
+  String get presetsSaveFailed;
+
+  /// First-use example preset (hygiene, 2 min).
+  ///
+  /// In pt, this message translates to:
+  /// **'Escovar os dentes'**
+  String get presetsExampleBrushTeeth;
+
+  /// First-use example preset (meal, 20 min).
+  ///
+  /// In pt, this message translates to:
+  /// **'Hora de comer'**
+  String get presetsExampleMeal;
+
+  /// First-use example preset (play, 15 min).
+  ///
+  /// In pt, this message translates to:
+  /// **'Hora de brincar'**
+  String get presetsExamplePlay;
+
+  /// First-use example preset (rest, 10 min).
+  ///
+  /// In pt, this message translates to:
+  /// **'Momento de calma'**
+  String get presetsExampleQuietTime;
+
+  /// First-use example preset (school, 25 min).
+  ///
+  /// In pt, this message translates to:
+  /// **'Lição de casa'**
+  String get presetsExampleHomework;
+
+  /// First-use example preset (going out, 5 min).
+  ///
+  /// In pt, this message translates to:
+  /// **'Arrumar-se para sair'**
+  String get presetsExampleGoingOut;
+
+  /// Editor title for an existing preset.
+  ///
+  /// In pt, this message translates to:
+  /// **'Editar predefinição'**
+  String get presetEditorEditTitle;
+
+  /// Saves the preset.
+  ///
+  /// In pt, this message translates to:
+  /// **'Salvar'**
+  String get presetEditorSave;
+
+  /// Tooltip of the editor's close button.
+  ///
+  /// In pt, this message translates to:
+  /// **'Fechar'**
+  String get presetEditorClose;
+
+  /// Label of the preset name field.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nome'**
+  String get presetEditorName;
+
+  /// Error under an empty or too long preset name.
+  ///
+  /// In pt, this message translates to:
+  /// **'Use de 1 a {max} caracteres'**
+  String presetEditorNameError(int max);
+
+  /// Asked when leaving the editor with unsaved changes.
+  ///
+  /// In pt, this message translates to:
+  /// **'Descartar alterações?'**
+  String get presetEditorDiscardTitle;
+
+  /// Message of the discard confirmation.
+  ///
+  /// In pt, this message translates to:
+  /// **'As alterações desta predefinição serão perdidas.'**
+  String get presetEditorDiscardMessage;
+
+  /// Confirm button of the discard confirmation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Descartar'**
+  String get presetEditorDiscard;
+
+  /// Opens the image picker from the preset editor.
+  ///
+  /// In pt, this message translates to:
+  /// **'Trocar'**
+  String get presetEditorChangeImage;
+
+  /// Label of the dial scale choice.
+  ///
+  /// In pt, this message translates to:
+  /// **'Escala do mostrador'**
+  String get presetEditorScale;
+
+  /// A dial scale option.
+  ///
+  /// In pt, this message translates to:
+  /// **'{minutes} min'**
+  String presetEditorScaleMinutes(int minutes);
+
+  /// Label of the dial direction choice.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sentido'**
+  String get presetEditorDirection;
+
+  /// Dial direction option.
+  ///
+  /// In pt, this message translates to:
+  /// **'Horário'**
+  String get presetEditorClockwise;
+
+  /// Dial direction option.
+  ///
+  /// In pt, this message translates to:
+  /// **'Anti-horário'**
+  String get presetEditorCounterClockwise;
+
+  /// Label of the palette choice (only without an image).
+  ///
+  /// In pt, this message translates to:
+  /// **'Cores'**
+  String get presetEditorColors;
+
+  /// Palette: green, then yellow, then red.
+  ///
+  /// In pt, this message translates to:
+  /// **'Progressivo'**
+  String get paletteProgressive;
+
+  /// Palette: one fixed color.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cor única'**
+  String get paletteSingle;
+
+  /// Palette: pastel colors with no red.
+  ///
+  /// In pt, this message translates to:
+  /// **'Calmo'**
+  String get paletteCalm;
+
+  /// Single palette color.
+  ///
+  /// In pt, this message translates to:
+  /// **'Azul'**
+  String get colorBlue;
+
+  /// Single palette color.
+  ///
+  /// In pt, this message translates to:
+  /// **'Verde'**
+  String get colorGreen;
+
+  /// Single palette color.
+  ///
+  /// In pt, this message translates to:
+  /// **'Amarelo'**
+  String get colorYellow;
+
+  /// Single palette color.
+  ///
+  /// In pt, this message translates to:
+  /// **'Laranja'**
+  String get colorOrange;
+
+  /// Single palette color.
+  ///
+  /// In pt, this message translates to:
+  /// **'Roxo'**
+  String get colorPurple;
+
+  /// Single palette color.
+  ///
+  /// In pt, this message translates to:
+  /// **'Rosa'**
+  String get colorPink;
+
+  /// Single palette color.
+  ///
+  /// In pt, this message translates to:
+  /// **'Verde-azulado'**
+  String get colorTeal;
+
+  /// Single palette color.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cinza'**
+  String get colorGray;
+
+  /// Label of the alarm sound row.
+  ///
+  /// In pt, this message translates to:
+  /// **'Som'**
+  String get presetEditorSound;
+
+  /// Plays a preview of the alarm sound.
+  ///
+  /// In pt, this message translates to:
+  /// **'Tocar {sound}'**
+  String presetEditorSoundPreview(String sound);
+
+  /// Name of the chime_soft sound.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sino suave'**
+  String get soundChimeSoft;
+
+  /// No alarm sound.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sem som'**
+  String get soundNone;
+
+  /// Label of the alarm volume slider.
+  ///
+  /// In pt, this message translates to:
+  /// **'Volume'**
+  String get presetEditorVolume;
+
+  /// Switch: a tick every second while the app is open.
+  ///
+  /// In pt, this message translates to:
+  /// **'Tique-taque'**
+  String get presetEditorTick;
+
+  /// Switch: vibrate at the end.
+  ///
+  /// In pt, this message translates to:
+  /// **'Vibrar'**
+  String get presetEditorVibrate;
+
+  /// Switch: show the remaining time as digits on the countdown.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mostrar números'**
+  String get presetEditorDigits;
 }
 
 class _AppLocalizationsDelegate

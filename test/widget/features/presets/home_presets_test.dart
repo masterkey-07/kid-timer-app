@@ -114,7 +114,7 @@ void main() {
 
     await tapKey(tester, 'home.savePreset');
     expect(find.byKey(const Key('presetEditor.screen')), findsOneWidget);
-    expect(tester.textOf('presetEditor.digits'), '04:00');
+    expect(tester.textOf('presetEditor.durationDigits'), '04:00');
 
     await tester.enterText(find.byKey(const Key('presetEditor.name')), 'Snack');
     await tapKey(tester, 'presetEditor.save');

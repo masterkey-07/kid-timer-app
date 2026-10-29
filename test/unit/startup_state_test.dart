@@ -162,8 +162,8 @@ void main() {
 
   group('example presets (FR-042)', () {
     final seeds = [
-      PresetSeed(name: 'Bath', config: TimerConfig.defaults),
-      PresetSeed(name: 'Homework', config: TimerConfig.defaults),
+      const PresetSeed(name: 'Bath', config: TimerConfig.defaults),
+      const PresetSeed(name: 'Homework', config: TimerConfig.defaults),
     ];
 
     test('are seeded on the first start and flagged', () async {

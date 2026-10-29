@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -160,7 +161,7 @@ void main() {
       final drag = await tester.startGesture(
         tester.getCenter(find.byKey(const Key('presets.drag.a'))),
       );
-      await tester.pump(kLongPressTimeout);
+      await tester.pump();
       for (var step = 0; step < 10; step++) {
         await drag.moveBy(Offset(0, rowHeight * 0.25));
         await tester.pump(const Duration(milliseconds: 50));
@@ -205,7 +206,8 @@ void main() {
       );
       final labels = [
         for (final id
-            in semantics.getSemanticsData().customSemanticsActionIds ?? [])
+            in semantics.getSemanticsData().customSemanticsActionIds ??
+                const <int>[])
           CustomSemanticsAction.getAction(id)!.label,
       ];
 

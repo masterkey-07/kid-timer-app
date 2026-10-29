@@ -126,7 +126,7 @@ void main() {
       );
       await open(tester, '/presets/p1/edit');
 
-      expect(tester.textOf('presetEditor.digits'), '10:00');
+      expect(tester.textOf('presetEditor.durationDigits'), '10:00');
       await tapKey(tester, 'presetEditor.plus1');
       await tapKey(tester, 'presetEditor.save');
 
@@ -274,7 +274,6 @@ void main() {
 
   testWidgets('meets the accessibility guidelines', (tester) async {
     await open(tester, '/presets/new');
-
     await expectMeetsA11yGuidelines(tester);
   });
 }

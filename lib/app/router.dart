@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:visual_time_counter/core/domain/timer_config.dart';
 import 'package:visual_time_counter/core/domain/visual_source.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
 import 'package:visual_time_counter/core/timer_engine/session_status.dart';
@@ -10,8 +11,12 @@ import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
 import 'package:visual_time_counter/features/images/presentation/frame_screen.dart';
 import 'package:visual_time_counter/features/images/presentation/image_picker_screen.dart';
 import 'package:visual_time_counter/features/images/presentation/my_images_screen.dart';
+import 'package:visual_time_counter/features/presets/application/presets_controller.dart';
+import 'package:visual_time_counter/features/presets/presentation/preset_editor_screen.dart';
+import 'package:visual_time_counter/features/presets/presentation/presets_screen.dart';
 import 'package:visual_time_counter/features/settings/presentation/battery_help_screen.dart';
 import 'package:visual_time_counter/features/timer/application/active_session.dart';
+import 'package:visual_time_counter/features/timer/application/setup_config_controller.dart';
 import 'package:visual_time_counter/features/timer/presentation/finished_screen.dart';
 import 'package:visual_time_counter/features/timer/presentation/home_screen.dart';
 import 'package:visual_time_counter/features/timer/presentation/run_screen.dart';
@@ -38,6 +43,15 @@ abstract final class AppRoutes {
 
   /// Manage own images.
   static const imagesMine = '/images/mine';
+
+  /// The preset list.
+  static const presets = '/presets';
+
+  /// A new preset; `extra` is the [TimerConfig] it starts from.
+  static const presetsNew = '/presets/new';
+
+  /// Edit the preset [id].
+  static String presetEdit(String id) => '/presets/$id/edit';
 
   /// Help: battery, alarms and screen pinning.
   static const batteryHelp = '/settings/battery';
@@ -85,7 +99,9 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.home,
         builder: (context, state) => _DeepLinkNotice(
           notice: state.uri.queryParameters[_noticeParameter],
-          child: const HomeScreen(),
+          child: HomeScreen(
+            startPresetId: state.uri.queryParameters[_startPresetParameter],
+          ),
         ),
       ),
       GoRoute(
@@ -118,6 +134,29 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const MyImagesScreen(),
       ),
       GoRoute(
+        path: AppRoutes.presets,
+        builder: (context, state) => const PresetsScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.presetsNew,
+        builder: (context, state) => PresetEditorScreen.create(
+          initialConfig: state.extra is TimerConfig
+              ? state.extra! as TimerConfig
+              : ref.read(setupConfigProvider),
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.presetEdit(':$_presetIdParameter'),
+        // A preset deleted meanwhile (or a stale Web URL) has nothing to
+        // edit.
+        redirect: (context, state) =>
+            ref.read(presetsProvider.notifier).find(_presetIdOf(state)) == null
+            ? AppRoutes.presets
+            : null,
+        builder: (context, state) =>
+            PresetEditorScreen.edit(presetId: _presetIdOf(state)),
+      ),
+      GoRoute(
         path: AppRoutes.batteryHelp,
         builder: (context, state) => BatteryHelpScreen(
           section: BatteryHelpSection.values.asNameMap()[state.uri.fragment],
@@ -147,6 +186,11 @@ void _followNotifications(Ref ref, GoRouter router) {
     }),
   );
 }
+
+const _presetIdParameter = 'id';
+
+String _presetIdOf(GoRouterState state) =>
+    state.pathParameters[_presetIdParameter]!;
 
 const _deepLinkScheme = 'vtc';
 const _noticeParameter = 'notice';

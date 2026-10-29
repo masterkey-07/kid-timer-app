@@ -1,28 +1,35 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:visual_time_counter/app/layout.dart';
 import 'package:visual_time_counter/app/router.dart';
-import 'package:visual_time_counter/app/widgets/confirm_dialog.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
+import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
+import 'package:visual_time_counter/features/presets/application/presets_controller.dart';
+import 'package:visual_time_counter/features/presets/domain/preset.dart';
+import 'package:visual_time_counter/features/presets/presentation/widgets/preset_strip.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/timer/application/setup_config_controller.dart';
-import 'package:visual_time_counter/features/timer/application/start_preflight.dart';
-import 'package:visual_time_counter/features/timer/application/timer_controller.dart';
 import 'package:visual_time_counter/features/timer/presentation/spoken_duration.dart';
+import 'package:visual_time_counter/features/timer/presentation/start_timer.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/background_alarm_banner.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/dial_view.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/digits_label.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/duration_quick_buttons.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/image_chip.dart';
-import 'package:visual_time_counter/features/timer/presentation/widgets/preflight_dialogs.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
 /// Home: the adult sets up the timer and starts it (contracts/ui/01).
 class HomeScreen extends ConsumerWidget {
-  /// Creates the screen.
-  const new({super.key = const Key('home.screen')});
+  /// Creates the screen; with [startPresetId] (a `vtc://preset/<id>/start`
+  /// link) it starts that preset once shown.
+  const new({this.startPresetId, super.key = const Key('home.screen')});
+
+  /// The preset a deep link asked to start.
+  final String? startPresetId;
 
   /// The dial takes this share of the smaller side during setup
   /// (contracts/ui/00 §3).
@@ -43,6 +50,7 @@ class HomeScreen extends ConsumerWidget {
       config: config,
       onStart: () => _start(context, ref),
     );
+    final presetId = startPresetId;
 
     return CallbackShortcuts(
       bindings: {
@@ -51,12 +59,34 @@ class HomeScreen extends ConsumerWidget {
       },
       child: Focus(
         autofocus: true,
-        child: Scaffold(
-          appBar: AppBar(title: Text(l10n.appTitle)),
-          body: SafeArea(
-            child: LayoutBuilder(
-              builder: (context, constraints) =>
-                  _layout(constraints.biggest, dial: dial, controls: controls),
+        child: _PresetDeepLink(
+          presetId: presetId,
+          onStart: (preset) => startTimer(
+            context,
+            ref,
+            preset.config,
+            origin: PresetOrigin(preset.id),
+          ),
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(l10n.appTitle),
+              actions: [
+                IconButton(
+                  key: const Key('home.openPresets'),
+                  tooltip: l10n.homeOpenPresets,
+                  icon: const Icon(Icons.grid_view_rounded),
+                  onPressed: () => context.push<void>(AppRoutes.presets),
+                ),
+              ],
+            ),
+            body: SafeArea(
+              child: LayoutBuilder(
+                builder: (context, constraints) => _layout(
+                  constraints.biggest,
+                  dial: dial,
+                  controls: controls,
+                ),
+              ),
             ),
           ),
         ),
@@ -115,44 +145,12 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Future<void> _start(BuildContext context, WidgetRef ref) async {
-    final l10n = AppLocalizations.of(context);
-    final controller = ref.read(timerControllerProvider.notifier);
-    final config = ref.read(setupConfigProvider);
-
-    await ref.read(startPreflightProvider).run(DialogPreflightPrompts(context));
-    if (!context.mounted) return;
-    var result = await controller.start(config);
-    if (result == TimerActionResult.needsConfirmation) {
-      if (!context.mounted) return;
-      final confirmed = await showConfirmDialog(
-        context,
-        title: l10n.homeReplaceTitle,
-        message: l10n.homeReplaceMessage,
-        confirmLabel: l10n.homeReplaceConfirm,
-      );
-      if (!confirmed) return;
-      result = await controller.start(config, replaceActive: true);
-    }
-
-    if (!context.mounted) return;
-    switch (result) {
-      case TimerActionResult.done:
-        context.go(AppRoutes.run);
-      case TimerActionResult.storageFailed:
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            key: const Key('home.startFailed'),
-            content: Text(l10n.homeStartFailed),
-          ),
-        );
-      case TimerActionResult.needsConfirmation:
-        break;
-    }
-  }
+  Future<void> _start(BuildContext context, WidgetRef ref) =>
+      startTimer(context, ref, ref.read(setupConfigProvider));
 }
 
-/// Digits, quick buttons, the image chip and the start button.
+/// Digits, quick buttons, the image chip, the start button and the
+/// presets.
 class _SetupControls extends ConsumerWidget {
   const new({required this.config, required this.onStart});
 
@@ -193,6 +191,19 @@ class _SetupControls extends ConsumerWidget {
             ),
           ),
         ),
+        const SizedBox(height: _gap / 2),
+        OutlinedButton.icon(
+          key: const Key('home.savePreset'),
+          style: OutlinedButton.styleFrom(
+            textStyle: Theme.of(context).textTheme.titleMedium,
+          ),
+          onPressed: () =>
+              context.push<void>(AppRoutes.presetsNew, extra: config),
+          icon: const Icon(Icons.star_outline_rounded),
+          label: Text(l10n.homeSavePreset),
+        ),
+        const SizedBox(height: _gap),
+        const Align(alignment: Alignment.centerLeft, child: PresetStrip()),
       ],
     );
   }
@@ -268,4 +279,50 @@ class _DialHint extends ConsumerWidget {
       debugPrint('Could not save the hint flag: $error');
     }
   }
+}
+
+/// Starts the preset a `vtc://preset/<id>/start` link names, once per link
+/// (contracts/ui/00 §2).
+class _PresetDeepLink extends ConsumerStatefulWidget {
+  const new({
+    required this.presetId,
+    required this.onStart,
+    required this.child,
+  });
+
+  final String? presetId;
+  final Future<void> Function(Preset preset) onStart;
+  final Widget child;
+
+  @override
+  ConsumerState<_PresetDeepLink> createState() => _PresetDeepLinkState();
+}
+
+class _PresetDeepLinkState extends ConsumerState<_PresetDeepLink> {
+  @override
+  void initState() {
+    super.initState();
+    _scheduleStart();
+  }
+
+  /// Home keeps its state when only the query changes.
+  @override
+  void didUpdateWidget(_PresetDeepLink oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.presetId != oldWidget.presetId) _scheduleStart();
+  }
+
+  void _scheduleStart() {
+    final presetId = widget.presetId;
+    if (presetId == null) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      // The router checked the preset exists; it may be gone since.
+      final preset = ref.read(presetsProvider.notifier).find(presetId);
+      if (preset != null) unawaited(widget.onStart(preset));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }

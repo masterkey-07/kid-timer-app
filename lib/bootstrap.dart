@@ -9,6 +9,7 @@ import 'package:visual_time_counter/app/locale_resolution.dart';
 import 'package:visual_time_counter/core/persistence/hive_bootstrap.dart';
 import 'package:visual_time_counter/core/platform/impl/platform_ports.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
+import 'package:visual_time_counter/features/presets/data/preset_seeds.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 import 'package:visual_time_counter/startup_state.dart';
 import 'package:window_manager/window_manager.dart';
@@ -28,9 +29,13 @@ Future<List<Override>> bootstrap() async {
   await _initStorage();
 
   final boxes = await openPersistence(clock: clock);
-  final startup = await loadStartupState(boxes: boxes, clock: clock);
   final texts = lookupAppLocalizations(
     resolveAppLocale(WidgetsBinding.instance.platformDispatcher.locales),
+  );
+  final startup = await loadStartupState(
+    boxes: boxes,
+    clock: clock,
+    examplePresets: examplePresetSeeds(texts),
   );
   final ports = await createPlatformPortOverrides(
     platform,

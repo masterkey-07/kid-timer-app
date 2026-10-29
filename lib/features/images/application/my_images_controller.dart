@@ -4,6 +4,7 @@ import 'package:visual_time_counter/features/images/application/decoded_image_ca
 import 'package:visual_time_counter/features/images/data/user_image_repository.dart';
 import 'package:visual_time_counter/features/images/domain/image_asset.dart';
 import 'package:visual_time_counter/features/images/domain/image_processor.dart';
+import 'package:visual_time_counter/features/presets/application/presets_controller.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 
 /// The own-image repository over the stored boxes, changing settings
@@ -13,7 +14,7 @@ final userImageRepositoryProvider = Provider<UserImageRepository>((ref) {
   return UserImageRepository(
     meta: storage.meta,
     bytes: storage.bytes,
-    presets: storage.presets,
+    presets: ref.watch(presetRepositoryProvider),
     readSettings: () => ref.read(appSettingsProvider),
     updateSettings: (change) =>
         ref.read(appSettingsProvider.notifier).update(change),
@@ -58,6 +59,7 @@ class MyImagesController extends Notifier<List<UserImageAsset>> {
   Future<void> delete(String id) async {
     await _repository.delete(id);
     ref.read(decodedImageCacheProvider).evict(id);
+    ref.invalidate(presetsProvider);
     state = _repository.list();
   }
 }
