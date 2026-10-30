@@ -1333,6 +1333,24 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Mostrar números'**
   String get presetEditorDigits;
+
+  /// Title of the sound picker sheet.
+  ///
+  /// In pt, this message translates to:
+  /// **'Som do alarme'**
+  String get soundPickerTitle;
+
+  /// Plays a preview of a sound in the sound picker.
+  ///
+  /// In pt, this message translates to:
+  /// **'Tocar {sound}'**
+  String soundPickerPlay(String sound);
+
+  /// Label of the alarm volume slider in the sound picker.
+  ///
+  /// In pt, this message translates to:
+  /// **'Volume do alarme'**
+  String get soundPickerVolume;
 }
 
 class _AppLocalizationsDelegate

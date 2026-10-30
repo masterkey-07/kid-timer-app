@@ -13,8 +13,12 @@ abstract interface class AudioPort {
     int repeat = 1,
   });
 
-  /// Plays a short preview at [volume] (sound picker).
+  /// Plays a short preview at [volume] (sound picker); it replaces the
+  /// preview still playing.
   Future<void> playPreview(SoundId sound, {required double volume});
+
+  /// Stops the preview.
+  Future<void> stopPreview();
 
   /// Starts the once-per-second tick at [volume].
   Future<void> startTicking({required double volume});

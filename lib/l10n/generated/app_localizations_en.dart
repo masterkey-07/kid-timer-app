@@ -726,4 +726,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get presetEditorDigits => 'Show digits';
+
+  @override
+  String get soundPickerTitle => 'Alarm sound';
+
+  @override
+  String soundPickerPlay(String sound) {
+    return 'Play $sound';
+  }
+
+  @override
+  String get soundPickerVolume => 'Alarm volume';
 }

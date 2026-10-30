@@ -205,5 +205,8 @@
   "presetEditorVolume": "Volume",
   "presetEditorTick": "Ticking",
   "presetEditorVibrate": "Vibrate",
-  "presetEditorDigits": "Show digits"
+  "presetEditorDigits": "Show digits",
+  "soundPickerTitle": "Alarm sound",
+  "soundPickerPlay": "Play {sound}",
+  "soundPickerVolume": "Alarm volume"
 }

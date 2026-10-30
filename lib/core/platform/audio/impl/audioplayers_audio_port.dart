@@ -51,6 +51,9 @@ final class AudioplayersAudioPort implements AudioPort {
   }
 
   @override
+  Future<void> stopPreview() => _preview.stop();
+
+  @override
   Future<void> startTicking({required double volume}) async {
     await _tick.setReleaseMode(ReleaseMode.loop);
     await _tick.play(AssetSource(_assetPath(_tickSound)), volume: volume);

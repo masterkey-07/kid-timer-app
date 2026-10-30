@@ -956,5 +956,22 @@
   "presetEditorDigits": "Mostrar números",
   "@presetEditorDigits": {
     "description": "Switch: show the remaining time as digits on the countdown."
+  },
+  "soundPickerTitle": "Som do alarme",
+  "@soundPickerTitle": {
+    "description": "Title of the sound picker sheet."
+  },
+  "soundPickerPlay": "Tocar {sound}",
+  "@soundPickerPlay": {
+    "description": "Plays a preview of a sound in the sound picker.",
+    "placeholders": {
+      "sound": {
+        "type": "String"
+      }
+    }
+  },
+  "soundPickerVolume": "Volume do alarme",
+  "@soundPickerVolume": {
+    "description": "Label of the alarm volume slider in the sound picker."
   }
 }
