@@ -7,6 +7,7 @@ import 'package:visual_time_counter/core/domain/color_token.dart';
 import 'package:visual_time_counter/core/domain/dial_direction.dart';
 import 'package:visual_time_counter/core/domain/dial_scale.dart';
 import 'package:visual_time_counter/core/domain/palette_id.dart';
+import 'package:visual_time_counter/core/domain/sound_id.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
 import 'package:visual_time_counter/core/domain/timer_duration.dart';
 import 'package:visual_time_counter/core/domain/visual_source.dart';
@@ -234,6 +235,38 @@ void main() {
       expect(
         dependencies.audio.calls,
         contains('playPreview(chime_soft, 0.5)'),
+      );
+    });
+
+    testWidgets('the sound row opens the picker and saves the choice', (
+      tester,
+    ) async {
+      await open(tester, '/presets/new');
+      await enterName(tester, 'Bath');
+
+      await tapKey(tester, 'presetEditor.sound');
+      await tapKey(tester, 'soundPicker.sound.marimba');
+      await tester.tapAt(const Offset(10, 10));
+      await tester.pumpAndSettle();
+      await tapKey(tester, 'presetEditor.save');
+
+      expect(storedConfig('preset-0').soundId, const SoundId('marimba'));
+    });
+
+    testWidgets('names the chosen sound from the catalog', (tester) async {
+      await open(tester, '/presets/new');
+
+      await tapKey(tester, 'presetEditor.sound');
+      await tapKey(tester, 'soundPicker.sound.harp');
+      await tester.tapAt(const Offset(10, 10));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('presetEditor.sound')),
+          matching: find.text('Harp'),
+        ),
+        findsOneWidget,
       );
     });
 

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:visual_time_counter/core/domain/sound_id.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
 import 'package:visual_time_counter/core/domain/timer_duration.dart';
 import 'package:visual_time_counter/core/domain/visual_source.dart';
@@ -132,7 +133,11 @@ void main() {
     testWidgets('ticks the haptics on whole minutes', (tester) async {
       await pumpHome(tester);
 
-      await dragAlongRing(tester, const [Offset(0, -1), Offset(0.71, -0.71)]);
+      await dragAlongRing(tester, const [
+        Offset(0, -1),
+        Offset(0.38, -0.92),
+        Offset(0.71, -0.71),
+      ]);
 
       expect(dependencies.haptics.calls, contains('selectionTick'));
     });
@@ -280,6 +285,34 @@ void main() {
       dependencies.settingsRepository.load().lastConfig.duration.value,
       const Duration(minutes: 6),
     );
+  });
+
+  group('sound chip (US6)', () {
+    testWidgets('names the alarm sound', (tester) async {
+      await pumpHome(tester);
+
+      expect(tester.textOf('home.soundPicker'), 'Alarm sound: Soft chime');
+    });
+
+    testWidgets('choosing a sound in the sheet changes it and the volume', (
+      tester,
+    ) async {
+      await pumpHome(tester);
+
+      await tester.tap(find.byKey(const Key('home.soundPicker')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('soundPicker.sound.marimba')));
+      await tester.pumpAndSettle();
+      await tester.tapAt(const Offset(10, 10));
+      await tester.pumpAndSettle();
+
+      expect(tester.textOf('home.soundPicker'), 'Alarm sound: Marimba');
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(
+        dependencies.settingsRepository.load().lastConfig.soundId,
+        const SoundId('marimba'),
+      );
+    });
   });
 
   group('image chip (US3)', () {

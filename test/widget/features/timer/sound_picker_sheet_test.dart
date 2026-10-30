@@ -21,22 +21,18 @@ void main() {
 
   Finder byKey(String key) => find.byKey(Key(key));
 
-  SoundId? chosenSound;
-  double? chosenVolume;
+  SoundChoice? choice;
 
   Future<void> pumpSheet(
     WidgetTester tester, {
     SoundId selected = SoundId.chimeSoft,
     Locale locale = const Locale('en'),
   }) async {
-    chosenSound = null;
-    chosenVolume = null;
+    choice = null;
     await tester.pumpApp(
       SoundPickerSheet(
-        selected: selected,
-        volume: _volume,
-        onSoundChanged: (sound) => chosenSound = sound,
-        onVolumeChanged: (volume) => chosenVolume = volume,
+        current: (sound: selected, volume: _volume),
+        onChanged: (changed) => choice = changed,
       ),
       overrides: dependencies.overrides(),
       locale: locale,
@@ -84,7 +80,7 @@ void main() {
     await tester.tap(byKey('soundPicker.sound.marimba'));
     await tester.pump();
 
-    expect(chosenSound, _marimba);
+    expect(choice, (sound: _marimba, volume: _volume));
     expect(dependencies.audio.calls, ['playPreview(marimba, $_volume)']);
   });
 
@@ -98,7 +94,7 @@ void main() {
     await tester.tap(byKey('soundPicker.sound.harp'));
     await tester.pump();
 
-    expect(chosenSound, _harp);
+    expect(choice?.sound, _harp);
     expect(dependencies.audio.previewing, _harp);
   });
 
@@ -110,7 +106,7 @@ void main() {
     await tester.tap(byKey('soundPicker.preview.harp'));
     await tester.pump();
 
-    expect(chosenSound, isNull);
+    expect(choice, isNull);
     expect(dependencies.audio.previewing, _harp);
   });
 
@@ -122,17 +118,19 @@ void main() {
     await tester.tap(byKey('soundPicker.sound.none'));
     await tester.pump();
 
-    expect(chosenSound, SoundId.none);
+    expect(choice?.sound, SoundId.none);
     expect(dependencies.audio.previewing, isNull);
   });
 
-  testWidgets('the volume slider reports the new volume', (tester) async {
+  testWidgets('the volume slider reports it with the chosen sound', (
+    tester,
+  ) async {
     await pumpSheet(tester);
 
     await tester.drag(byKey('soundPicker.volume'), const Offset(1000, 0));
     await tester.pump();
 
-    expect(chosenVolume, 1.0);
+    expect(choice, (sound: SoundId.chimeSoft, volume: 1.0));
   });
 
   testWidgets('closing the sheet stops the preview', (tester) async {
