@@ -77,7 +77,7 @@ void main() {
       for (final key in [
         'settings.section.appearance',
         'settings.section.sound',
-        'settings.childLock',
+        'settings.section.childMode',
         'settings.section.alarm',
         'settings.section.accessibility',
         'settings.section.images',
@@ -94,7 +94,7 @@ void main() {
       expect(tester.textOf('settings.myImages'), 'My images (0)');
       await tapKey(tester, 'settings.myImages');
 
-      expect(byKey('myImages.screen'), findsOneWidget);
+      expect(byKey('mine.screen'), findsOneWidget);
     });
   });
 
