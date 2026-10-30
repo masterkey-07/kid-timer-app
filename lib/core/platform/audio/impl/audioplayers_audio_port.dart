@@ -12,7 +12,7 @@ final class AudioplayersAudioPort implements AudioPort {
       _tick = AudioPlayer();
 
   /// A one-second tick, looped while ticking is on.
-  static const _tickSound = SoundId('tick');
+  static const _tickSound = SoundId('tick_soft');
 
   final AudioPlayer _alarm;
   final AudioPlayer _preview;

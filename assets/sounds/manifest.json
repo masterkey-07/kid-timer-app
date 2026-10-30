@@ -5,7 +5,100 @@
       "id": "chime_soft",
       "file": "chime_soft.wav",
       "kind": "alarm",
-      "names": { "pt": "Sino suave", "en": "Soft chime" }
+      "names": {
+        "pt": "Sino suave",
+        "en": "Soft chime"
+      }
+    },
+    {
+      "id": "bell_gentle",
+      "file": "bell_gentle.wav",
+      "kind": "alarm",
+      "names": {
+        "pt": "Sininho",
+        "en": "Little bell"
+      }
+    },
+    {
+      "id": "ding_dong",
+      "file": "ding_dong.wav",
+      "kind": "alarm",
+      "names": {
+        "pt": "Dim-dom",
+        "en": "Ding dong"
+      }
+    },
+    {
+      "id": "marimba",
+      "file": "marimba.wav",
+      "kind": "alarm",
+      "names": {
+        "pt": "Marimba",
+        "en": "Marimba"
+      }
+    },
+    {
+      "id": "harp",
+      "file": "harp.wav",
+      "kind": "alarm",
+      "names": {
+        "pt": "Harpa",
+        "en": "Harp"
+      }
+    },
+    {
+      "id": "music_box",
+      "file": "music_box.wav",
+      "kind": "alarm",
+      "names": {
+        "pt": "Caixinha de música",
+        "en": "Music box"
+      }
+    },
+    {
+      "id": "xylophone",
+      "file": "xylophone.wav",
+      "kind": "alarm",
+      "names": {
+        "pt": "Xilofone",
+        "en": "Xylophone"
+      }
+    },
+    {
+      "id": "water_drop",
+      "file": "water_drop.wav",
+      "kind": "alarm",
+      "names": {
+        "pt": "Gota d’água",
+        "en": "Water drop"
+      }
+    },
+    {
+      "id": "lullaby",
+      "file": "lullaby.wav",
+      "kind": "alarm",
+      "names": {
+        "pt": "Cantiga de ninar",
+        "en": "Lullaby"
+      }
+    },
+    {
+      "id": "tick_soft",
+      "file": "tick_soft.wav",
+      "kind": "tick",
+      "names": {
+        "pt": "Tique suave",
+        "en": "Soft tick"
+      }
+    },
+    {
+      "id": "transition_soft",
+      "file": "transition_soft.wav",
+      "kind": "transition",
+      "names": {
+        "pt": "Transição suave",
+        "en": "Soft transition"
+      }
     }
   ]
 }

@@ -74,6 +74,30 @@ people or symbols; the notes column flags what a reviewer should look at closely
 | `bank:animals/penguin`       | Penguin         | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
 | `bank:animals/butterfly`     | Butterfly       | Victor Jorge Carvalho Chaves | 2026-10-24 | approved |                                                        |
 
+## Sounds (`assets/sounds/`)
+
+Source: the project's own synthesis, CC0-1.0, built by `tool/sounds/generate_sounds.dart`.
+`tool/sounds/check_sounds.dart` (run in CI) enforces the R6 targets: format, loudness, true
+peak, length, soft attack and ending, nothing piercing above 12 kHz. A reviewer still has to
+listen to each sound (criteria 1–3 and "gentle to a child's ear").
+
+Pre-check (2026-10-30, by the implementing agent; not a review): every file passes
+`check_sounds.dart`; none has speech, melody from a known work or a brand jingle.
+
+| Asset | Label (en) | Reviewer | Date | Verdict | Notes |
+| ----- | ---------- | -------- | ---- | ------- | ----- |
+| `sound:chime_soft` | Soft chime | | | pending | alarm |
+| `sound:bell_gentle` | Little bell | | | pending | alarm |
+| `sound:ding_dong` | Ding dong | | | pending | alarm |
+| `sound:marimba` | Marimba | | | pending | alarm |
+| `sound:harp` | Harp | | | pending | alarm |
+| `sound:music_box` | Music box | | | pending | alarm |
+| `sound:xylophone` | Xylophone | | | pending | alarm |
+| `sound:water_drop` | Water drop | | | pending | alarm |
+| `sound:lullaby` | Lullaby | | | pending | alarm |
+| `sound:tick_soft` | Soft tick | | | pending | tick |
+| `sound:transition_soft` | Soft transition | | | pending | transition |
+
 ## Recognition validation (R9, before v1.0)
 
 Each library image is shown alone at 96 dp to at least 3 children aged 3–6 (with consent from

@@ -305,7 +305,7 @@ ticking, vibration, theme; all persisted.
 
 ### Assets
 
-- [ ] T134 [US6] Select ≥ 8 friendly sounds (Kenney CC0 or own), normalize them (WAV 16-bit mono 44.1 kHz, ≤ 30 s, ≤ 500 KB, research R6 targets: −20 LUFS ± 1 (tick −30), true peak ≤ −3 dBTP, attack ≥ 20 ms, alarm 1–5 s), implement `tool/sounds/check_sounds.dart` (with a test in `test/unit/tool/check_sounds_test.dart`) and run it in CI, add `tick_soft.wav` and `transition_soft.wav`, update `assets/sounds/manifest.json` and `LICENSES.md`; human review of every sound recorded in `docs/assets-review.md` (research R9 criteria); run `tool/sounds/sync_notification_sounds.dart`
+- [ ] T134 [US6] Select ≥ 8 friendly sounds (Kenney CC0 or own), normalize them (WAV 16-bit mono 44.1 kHz, ≤ 30 s, ≤ 500 KB, research R6 targets: −20 LUFS ± 1 (tick −30), true peak ≤ −3 dBTP, attack ≥ 20 ms, alarm 1–5 s), implement `tool/sounds/check_sounds.dart` (with a test in `test/unit/tool/check_sounds_test.dart`) and run it in CI, add `tick_soft.wav` and `transition_soft.wav`, update `assets/sounds/manifest.json` and `LICENSES.md`; human review of every sound recorded in `docs/assets-review.md` (research R9 criteria); run `tool/sounds/sync_notification_sounds.dart` — **partial**: 11 sounds synthesized (CC0), `check_sounds.dart` + test + CI step, sync done; the human listening review in `docs/assets-review.md` is still pending
 
 ### Tests for User Story 6 ⚠️
 
