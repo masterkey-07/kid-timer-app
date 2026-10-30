@@ -321,7 +321,7 @@ ticking, vibration, theme; all persisted.
 - [x] T141 [US6] Implement `SettingsController` in `lib/features/settings/application/settings_controller.dart` (depends on T135)
 - [x] T142 [US6] Implement `SettingsScreen` (`/settings`) with every section and the keys from contracts/ui/06 in `lib/features/settings/presentation/settings_screen.dart` (depends on T141)
 - [x] T143 [P] [US6] Implement `SoundPickerSheet` (list + preview + volume) in `lib/features/timer/presentation/widgets/sound_picker_sheet.dart` and wire it into `home.soundPicker` and the preset editor
-- [ ] T144 [US6] Apply `themeMode` and the system high-contrast variant in `lib/app/app.dart`, scale/direction/palette in `lib/features/timer/presentation/widgets/dial_painter.dart`, ticking in `lib/features/timer/application/run_controller.dart` (depends on T136, T137)
+- [x] T144 [US6] Apply `themeMode` and the system high-contrast variant in `lib/app/app.dart`, scale/direction/palette in `lib/features/timer/presentation/widgets/dial_painter.dart`, ticking in `lib/features/timer/application/run_controller.dart` (depends on T136, T137)
 - [x] T145 [US6] Validate palettes for color vision deficiency with simulation (Machado/Brettel) in `test/unit/app/theme/colorblind_check_test.dart` (phases distinguishable by luminance ≥ 20%) and adjust colors if needed
 - [x] T146 [US6] Add US6 strings (`settings*`, sound names, palettes, colors) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb`
 

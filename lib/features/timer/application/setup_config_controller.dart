@@ -24,6 +24,10 @@ class SetupConfigController extends Notifier<TimerConfig> {
   @override
   TimerConfig build() {
     ref.onDispose(() => _pendingSave?.cancel());
+    ref.listen(
+      appSettingsProvider.select((settings) => settings.lastConfig),
+      _adoptChangedLastConfig,
+    );
     return ref.read(appSettingsProvider).lastConfig;
   }
 
@@ -37,6 +41,12 @@ class SetupConfigController extends Notifier<TimerConfig> {
   /// Sets the duration, keeping the rest of the configuration.
   void setDuration(TimerDuration duration) =>
       change(state.copyWith(duration: duration));
+
+  /// The settings screen moves `lastConfig` along with the defaults; this
+  /// controller's own saves arrive here equal to [state] and change nothing.
+  void _adoptChangedLastConfig(TimerConfig? previous, TimerConfig next) {
+    if (next != state) state = next;
+  }
 
   void _saveLastConfig() {
     final config = state;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:visual_time_counter/core/a11y/announce_throttle.dart';
 import 'package:visual_time_counter/core/domain/color_token.dart';
@@ -10,6 +11,7 @@ import 'package:visual_time_counter/core/domain/visual_source.dart';
 import 'package:visual_time_counter/core/platform/alarm/alarm_scheduler.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
+import 'package:visual_time_counter/features/timer/application/setup_config_controller.dart';
 
 import '../../../helpers/a11y_expectations.dart';
 import '../../../helpers/fakes/fake_haptics.dart';
@@ -163,6 +165,19 @@ void main() {
 
       expect(saved().lastConfig.scale, DialScale.min10);
     });
+  });
+
+  testWidgets('home follows a changed default when going back', (tester) async {
+    await openSettings(tester);
+
+    await pick(tester, 'settings.scale', 'settings.scale.min10');
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+
+    final home = ProviderScope.containerOf(
+      tester.element(byKey('home.screen')),
+    );
+    expect(home.read(setupConfigProvider).scale, DialScale.min10);
   });
 
   group('sound and vibration', () {
