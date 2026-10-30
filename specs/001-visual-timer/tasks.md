@@ -311,7 +311,7 @@ ticking, vibration, theme; all persisted.
 
 - [x] T135 [P] [US6] `SettingsController` tests in `test/unit/features/settings/settings_controller_test.dart` (each field persists; changing defaults updates `lastConfig` when it equals the previous default; disabling the lock requires confirmation)
 - [x] T136 [P] [US6] Palette/color tests in `test/unit/app/theme/palette_interpolation_test.dart` (50%/20% thresholds with 2% interpolation; calm without a red hue — hue outside [345°, 15°]; single color constant)
-- [ ] T137 [P] [US6] Audio tests in `test/unit/features/timer/application/tick_and_alarm_audio_test.dart` (ticking only with `tickEnabled`; volumes applied; preview stops the previous one)
+- [ ] T137 [P] [US6] Audio tests in `test/unit/features/timer/application/tick_and_alarm_audio_test.dart` (ticking only with `tickEnabled`; volumes applied; preview stops the previous one) — **partial**: ticking and volumes covered; the "preview stops the previous one" case waits for the `SoundPickerSheet` (T143)
 - [ ] T138 [P] [US6] Widget tests in `test/widget/features/settings/settings_screen_test.dart` (every section from contracts/ui/06; alarm status per platform via a fake; Android buttons hidden elsewhere) and goldens in `test/golden/features/settings/settings_golden_test.dart`
 - [ ] T139 [P] [US6] Integration `integration_test/theme_persist_test.dart` (Linux)
 - [ ] T140 [P] [US6] E2E `patrol_test/e2e_us6_calm_mode_test.dart` (calm mode, ticking off, screen golden without red)
