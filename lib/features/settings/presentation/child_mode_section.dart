@@ -7,6 +7,7 @@ import 'package:visual_time_counter/app/router.dart';
 import 'package:visual_time_counter/app/widgets/confirm_dialog.dart';
 import 'package:visual_time_counter/features/settings/application/app_settings_state.dart';
 import 'package:visual_time_counter/features/settings/application/settings_controller.dart';
+import 'package:visual_time_counter/features/settings/presentation/widgets/settings_widgets.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
 /// The "Child mode" section of the settings (contracts/ui/06 §6.1): the
@@ -26,11 +27,9 @@ class ChildModeSection extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ListTile(
-          title: Text(
-            l10n.settingsSectionChildMode,
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
+        SettingsSectionHeader(
+          sectionKey: 'childMode',
+          title: l10n.settingsSectionChildMode,
         ),
         SwitchListTile(
           key: const Key('settings.childLock'),

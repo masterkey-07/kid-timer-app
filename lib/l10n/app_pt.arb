@@ -978,5 +978,106 @@
         "type": "String"
       }
     }
+  },
+  "homeOpenSettings": "Configurações",
+  "@homeOpenSettings": {
+    "description": "Tooltip of the home button that opens the settings."
+  },
+  "settingsTitle": "Configurações",
+  "@settingsTitle": {
+    "description": "Title of the settings screen."
+  },
+  "settingsSectionAppearance": "Aparência",
+  "@settingsSectionAppearance": {
+    "description": "Settings section header."
+  },
+  "settingsSectionSound": "Som e vibração",
+  "@settingsSectionSound": {
+    "description": "Settings section header."
+  },
+  "settingsSectionAlarm": "Alarme",
+  "@settingsSectionAlarm": {
+    "description": "Settings section header."
+  },
+  "settingsSectionAccessibility": "Acessibilidade",
+  "@settingsSectionAccessibility": {
+    "description": "Settings section header."
+  },
+  "settingsSectionImages": "Imagens",
+  "@settingsSectionImages": {
+    "description": "Settings section header."
+  },
+  "settingsTheme": "Tema",
+  "@settingsTheme": {
+    "description": "Label of the theme choice."
+  },
+  "settingsThemeSystem": "Sistema",
+  "@settingsThemeSystem": {
+    "description": "Theme option: follow the system."
+  },
+  "settingsThemeLight": "Claro",
+  "@settingsThemeLight": {
+    "description": "Theme option: always light."
+  },
+  "settingsThemeDark": "Escuro",
+  "@settingsThemeDark": {
+    "description": "Theme option: always dark."
+  },
+  "settingsTickVolume": "Volume do tique-taque",
+  "@settingsTickVolume": {
+    "description": "Label of the ticking volume slider."
+  },
+  "settingsAlarmStatusOk": "Alarme ativo",
+  "@settingsAlarmStatusOk": {
+    "description": "Alarm status: reliable with the app in the background."
+  },
+  "settingsAlarmStatusKeepOpen": "Neste dispositivo o alarme só toca com o app aberto.",
+  "@settingsAlarmStatusKeepOpen": {
+    "description": "Alarm status: the platform cannot schedule OS alarms."
+  },
+  "settingsAlarmStatusNotificationsOff": "Notificações desativadas: o alarme só toca com o app aberto.",
+  "@settingsAlarmStatusNotificationsOff": {
+    "description": "Alarm status: notifications not allowed."
+  },
+  "settingsAlarmStatusReducedAccuracy": "Alarmes exatos desativados: o alarme pode atrasar alguns minutos.",
+  "@settingsAlarmStatusReducedAccuracy": {
+    "description": "Alarm status: only inexact alarms."
+  },
+  "settingsAlarmFix": "Permitir",
+  "@settingsAlarmFix": {
+    "description": "Button that opens the system setting needed by the alarm."
+  },
+  "settingsAlarmHelp": "Ajuda: bateria e alarmes",
+  "@settingsAlarmHelp": {
+    "description": "Link to the battery and alarms help page."
+  },
+  "settingsA11yInterval": "Anunciar tempo restante",
+  "@settingsA11yInterval": {
+    "description": "Label of how often screen readers hear the remaining time."
+  },
+  "settingsA11yIntervalOneMin": "A cada 1 min",
+  "@settingsA11yIntervalOneMin": {
+    "description": "Announcement interval option."
+  },
+  "settingsA11yIntervalFiveMin": "A cada 5 min",
+  "@settingsA11yIntervalFiveMin": {
+    "description": "Announcement interval option."
+  },
+  "settingsA11yIntervalOff": "Desligado",
+  "@settingsA11yIntervalOff": {
+    "description": "Announcement interval option: never."
+  },
+  "settingsMyImages": "Minhas imagens ({count})",
+  "@settingsMyImages": {
+    "description": "Link to the adult's own images, with how many there are.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsColor": "Cor",
+  "@settingsColor": {
+    "description": "Label of the single palette color choice."
   }
 }

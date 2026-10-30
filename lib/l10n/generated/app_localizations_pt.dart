@@ -747,4 +747,81 @@ class AppLocalizationsPt extends AppLocalizations {
   String homeSound(String sound) {
     return 'Som do alarme: $sound';
   }
+
+  @override
+  String get homeOpenSettings => 'Configurações';
+
+  @override
+  String get settingsTitle => 'Configurações';
+
+  @override
+  String get settingsSectionAppearance => 'Aparência';
+
+  @override
+  String get settingsSectionSound => 'Som e vibração';
+
+  @override
+  String get settingsSectionAlarm => 'Alarme';
+
+  @override
+  String get settingsSectionAccessibility => 'Acessibilidade';
+
+  @override
+  String get settingsSectionImages => 'Imagens';
+
+  @override
+  String get settingsTheme => 'Tema';
+
+  @override
+  String get settingsThemeSystem => 'Sistema';
+
+  @override
+  String get settingsThemeLight => 'Claro';
+
+  @override
+  String get settingsThemeDark => 'Escuro';
+
+  @override
+  String get settingsTickVolume => 'Volume do tique-taque';
+
+  @override
+  String get settingsAlarmStatusOk => 'Alarme ativo';
+
+  @override
+  String get settingsAlarmStatusKeepOpen =>
+      'Neste dispositivo o alarme só toca com o app aberto.';
+
+  @override
+  String get settingsAlarmStatusNotificationsOff =>
+      'Notificações desativadas: o alarme só toca com o app aberto.';
+
+  @override
+  String get settingsAlarmStatusReducedAccuracy =>
+      'Alarmes exatos desativados: o alarme pode atrasar alguns minutos.';
+
+  @override
+  String get settingsAlarmFix => 'Permitir';
+
+  @override
+  String get settingsAlarmHelp => 'Ajuda: bateria e alarmes';
+
+  @override
+  String get settingsA11yInterval => 'Anunciar tempo restante';
+
+  @override
+  String get settingsA11yIntervalOneMin => 'A cada 1 min';
+
+  @override
+  String get settingsA11yIntervalFiveMin => 'A cada 5 min';
+
+  @override
+  String get settingsA11yIntervalOff => 'Desligado';
+
+  @override
+  String settingsMyImages(int count) {
+    return 'Minhas imagens ($count)';
+  }
+
+  @override
+  String get settingsColor => 'Cor';
 }

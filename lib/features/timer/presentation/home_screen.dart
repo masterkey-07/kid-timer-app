@@ -78,6 +78,12 @@ class HomeScreen extends ConsumerWidget {
                   icon: const Icon(Icons.grid_view_rounded),
                   onPressed: () => context.push<void>(AppRoutes.presets),
                 ),
+                IconButton(
+                  key: const Key('home.openSettings'),
+                  tooltip: l10n.homeOpenSettings,
+                  icon: const Icon(Icons.settings_rounded),
+                  onPressed: () => context.push<void>(AppRoutes.settings),
+                ),
               ],
             ),
             body: SafeArea(

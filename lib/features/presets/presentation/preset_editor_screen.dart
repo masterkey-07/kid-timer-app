@@ -22,6 +22,7 @@ import 'package:visual_time_counter/features/presets/data/preset_repository.dart
 import 'package:visual_time_counter/features/presets/domain/preset.dart';
 import 'package:visual_time_counter/features/presets/presentation/widgets/preset_thumb.dart';
 import 'package:visual_time_counter/features/timer/application/sound_catalog.dart';
+import 'package:visual_time_counter/features/timer/presentation/option_names.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/dial_view.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/digits_label.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/duration_quick_buttons.dart';
@@ -392,7 +393,7 @@ class _AppearanceControls extends StatelessWidget {
               for (final direction in DialDirection.values)
                 ChoiceChip(
                   key: Key('presetEditor.direction.${direction.name}'),
-                  label: Text(_directionName(l10n, direction)),
+                  label: Text(directionName(l10n, direction)),
                   selected: direction == config.direction,
                   onSelected: (_) =>
                       onChanged(config.copyWith(direction: direction)),
@@ -445,7 +446,7 @@ class _PaletteControls extends StatelessWidget {
               for (final paletteId in PaletteId.values)
                 ChoiceChip(
                   key: Key('presetEditor.palette.${paletteId.name}'),
-                  label: Text(_paletteName(l10n, paletteId)),
+                  label: Text(paletteName(l10n, paletteId)),
                   selected: paletteId == palette.paletteId,
                   onSelected: (_) => onChanged(
                     PaletteSource(
@@ -467,7 +468,7 @@ class _PaletteControls extends StatelessWidget {
                       radius: _swatchSize / 2,
                       backgroundColor: DialPalettes.tokenColor(token),
                     ),
-                    label: Text(_colorName(l10n, token)),
+                    label: Text(colorName(l10n, token)),
                     selected: token == singleColor,
                     onSelected: (_) => onChanged(
                       PaletteSource(
@@ -610,27 +611,3 @@ class _Labeled extends StatelessWidget {
     ],
   );
 }
-
-String _directionName(AppLocalizations l10n, DialDirection direction) =>
-    switch (direction) {
-      DialDirection.clockwise => l10n.presetEditorClockwise,
-      DialDirection.counterClockwise => l10n.presetEditorCounterClockwise,
-    };
-
-String _paletteName(AppLocalizations l10n, PaletteId paletteId) =>
-    switch (paletteId) {
-      PaletteId.progressive => l10n.paletteProgressive,
-      PaletteId.single => l10n.paletteSingle,
-      PaletteId.calm => l10n.paletteCalm,
-    };
-
-String _colorName(AppLocalizations l10n, ColorToken token) => switch (token) {
-  ColorToken.blue => l10n.colorBlue,
-  ColorToken.green => l10n.colorGreen,
-  ColorToken.yellow => l10n.colorYellow,
-  ColorToken.orange => l10n.colorOrange,
-  ColorToken.purple => l10n.colorPurple,
-  ColorToken.pink => l10n.colorPink,
-  ColorToken.teal => l10n.colorTeal,
-  ColorToken.gray => l10n.colorGray,
-};

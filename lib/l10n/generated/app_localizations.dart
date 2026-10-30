@@ -1351,6 +1351,150 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Som do alarme: {sound}'**
   String homeSound(String sound);
+
+  /// Tooltip of the home button that opens the settings.
+  ///
+  /// In pt, this message translates to:
+  /// **'Configurações'**
+  String get homeOpenSettings;
+
+  /// Title of the settings screen.
+  ///
+  /// In pt, this message translates to:
+  /// **'Configurações'**
+  String get settingsTitle;
+
+  /// Settings section header.
+  ///
+  /// In pt, this message translates to:
+  /// **'Aparência'**
+  String get settingsSectionAppearance;
+
+  /// Settings section header.
+  ///
+  /// In pt, this message translates to:
+  /// **'Som e vibração'**
+  String get settingsSectionSound;
+
+  /// Settings section header.
+  ///
+  /// In pt, this message translates to:
+  /// **'Alarme'**
+  String get settingsSectionAlarm;
+
+  /// Settings section header.
+  ///
+  /// In pt, this message translates to:
+  /// **'Acessibilidade'**
+  String get settingsSectionAccessibility;
+
+  /// Settings section header.
+  ///
+  /// In pt, this message translates to:
+  /// **'Imagens'**
+  String get settingsSectionImages;
+
+  /// Label of the theme choice.
+  ///
+  /// In pt, this message translates to:
+  /// **'Tema'**
+  String get settingsTheme;
+
+  /// Theme option: follow the system.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sistema'**
+  String get settingsThemeSystem;
+
+  /// Theme option: always light.
+  ///
+  /// In pt, this message translates to:
+  /// **'Claro'**
+  String get settingsThemeLight;
+
+  /// Theme option: always dark.
+  ///
+  /// In pt, this message translates to:
+  /// **'Escuro'**
+  String get settingsThemeDark;
+
+  /// Label of the ticking volume slider.
+  ///
+  /// In pt, this message translates to:
+  /// **'Volume do tique-taque'**
+  String get settingsTickVolume;
+
+  /// Alarm status: reliable with the app in the background.
+  ///
+  /// In pt, this message translates to:
+  /// **'Alarme ativo'**
+  String get settingsAlarmStatusOk;
+
+  /// Alarm status: the platform cannot schedule OS alarms.
+  ///
+  /// In pt, this message translates to:
+  /// **'Neste dispositivo o alarme só toca com o app aberto.'**
+  String get settingsAlarmStatusKeepOpen;
+
+  /// Alarm status: notifications not allowed.
+  ///
+  /// In pt, this message translates to:
+  /// **'Notificações desativadas: o alarme só toca com o app aberto.'**
+  String get settingsAlarmStatusNotificationsOff;
+
+  /// Alarm status: only inexact alarms.
+  ///
+  /// In pt, this message translates to:
+  /// **'Alarmes exatos desativados: o alarme pode atrasar alguns minutos.'**
+  String get settingsAlarmStatusReducedAccuracy;
+
+  /// Button that opens the system setting needed by the alarm.
+  ///
+  /// In pt, this message translates to:
+  /// **'Permitir'**
+  String get settingsAlarmFix;
+
+  /// Link to the battery and alarms help page.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ajuda: bateria e alarmes'**
+  String get settingsAlarmHelp;
+
+  /// Label of how often screen readers hear the remaining time.
+  ///
+  /// In pt, this message translates to:
+  /// **'Anunciar tempo restante'**
+  String get settingsA11yInterval;
+
+  /// Announcement interval option.
+  ///
+  /// In pt, this message translates to:
+  /// **'A cada 1 min'**
+  String get settingsA11yIntervalOneMin;
+
+  /// Announcement interval option.
+  ///
+  /// In pt, this message translates to:
+  /// **'A cada 5 min'**
+  String get settingsA11yIntervalFiveMin;
+
+  /// Announcement interval option: never.
+  ///
+  /// In pt, this message translates to:
+  /// **'Desligado'**
+  String get settingsA11yIntervalOff;
+
+  /// Link to the adult's own images, with how many there are.
+  ///
+  /// In pt, this message translates to:
+  /// **'Minhas imagens ({count})'**
+  String settingsMyImages(int count);
+
+  /// Label of the single palette color choice.
+  ///
+  /// In pt, this message translates to:
+  /// **'Cor'**
+  String get settingsColor;
 }
 
 class _AppLocalizationsDelegate

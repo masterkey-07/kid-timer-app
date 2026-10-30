@@ -739,4 +739,81 @@ class AppLocalizationsEn extends AppLocalizations {
   String homeSound(String sound) {
     return 'Alarm sound: $sound';
   }
+
+  @override
+  String get homeOpenSettings => 'Settings';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsSectionAppearance => 'Appearance';
+
+  @override
+  String get settingsSectionSound => 'Sound and vibration';
+
+  @override
+  String get settingsSectionAlarm => 'Alarm';
+
+  @override
+  String get settingsSectionAccessibility => 'Accessibility';
+
+  @override
+  String get settingsSectionImages => 'Images';
+
+  @override
+  String get settingsTheme => 'Theme';
+
+  @override
+  String get settingsThemeSystem => 'System';
+
+  @override
+  String get settingsThemeLight => 'Light';
+
+  @override
+  String get settingsThemeDark => 'Dark';
+
+  @override
+  String get settingsTickVolume => 'Ticking volume';
+
+  @override
+  String get settingsAlarmStatusOk => 'Alarm active';
+
+  @override
+  String get settingsAlarmStatusKeepOpen =>
+      'On this device the alarm only rings with the app open.';
+
+  @override
+  String get settingsAlarmStatusNotificationsOff =>
+      'Notifications are off: the alarm only rings with the app open.';
+
+  @override
+  String get settingsAlarmStatusReducedAccuracy =>
+      'Exact alarms are off: the alarm may ring a few minutes late.';
+
+  @override
+  String get settingsAlarmFix => 'Allow';
+
+  @override
+  String get settingsAlarmHelp => 'Help: battery and alarms';
+
+  @override
+  String get settingsA11yInterval => 'Announce remaining time';
+
+  @override
+  String get settingsA11yIntervalOneMin => 'Every 1 min';
+
+  @override
+  String get settingsA11yIntervalFiveMin => 'Every 5 min';
+
+  @override
+  String get settingsA11yIntervalOff => 'Off';
+
+  @override
+  String settingsMyImages(int count) {
+    return 'My images ($count)';
+  }
+
+  @override
+  String get settingsColor => 'Color';
 }

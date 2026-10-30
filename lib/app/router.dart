@@ -15,6 +15,7 @@ import 'package:visual_time_counter/features/presets/application/presets_control
 import 'package:visual_time_counter/features/presets/presentation/preset_editor_screen.dart';
 import 'package:visual_time_counter/features/presets/presentation/presets_screen.dart';
 import 'package:visual_time_counter/features/settings/presentation/battery_help_screen.dart';
+import 'package:visual_time_counter/features/settings/presentation/settings_screen.dart';
 import 'package:visual_time_counter/features/timer/application/active_session.dart';
 import 'package:visual_time_counter/features/timer/application/setup_config_controller.dart';
 import 'package:visual_time_counter/features/timer/presentation/finished_screen.dart';
@@ -52,6 +53,9 @@ abstract final class AppRoutes {
 
   /// Edit the preset [id].
   static String presetEdit(String id) => '/presets/$id/edit';
+
+  /// The adult's preferences.
+  static const settings = '/settings';
 
   /// Help: battery, alarms and screen pinning.
   static const batteryHelp = '/settings/battery';
@@ -155,6 +159,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             : null,
         builder: (context, state) =>
             PresetEditorScreen.edit(presetId: _presetIdOf(state)),
+      ),
+      GoRoute(
+        path: AppRoutes.settings,
+        builder: (context, state) => const SettingsScreen(),
       ),
       GoRoute(
         path: AppRoutes.batteryHelp,
