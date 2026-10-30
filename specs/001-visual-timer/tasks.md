@@ -309,7 +309,7 @@ ticking, vibration, theme; all persisted.
 
 ### Tests for User Story 6 ⚠️
 
-- [ ] T135 [P] [US6] `SettingsController` tests in `test/unit/features/settings/settings_controller_test.dart` (each field persists; changing defaults updates `lastConfig` when it equals the previous default; disabling the lock requires confirmation)
+- [x] T135 [P] [US6] `SettingsController` tests in `test/unit/features/settings/settings_controller_test.dart` (each field persists; changing defaults updates `lastConfig` when it equals the previous default; disabling the lock requires confirmation)
 - [ ] T136 [P] [US6] Palette/color tests in `test/unit/app/theme/palette_interpolation_test.dart` (50%/20% thresholds with 2% interpolation; calm without a red hue — hue outside [345°, 15°]; single color constant)
 - [ ] T137 [P] [US6] Audio tests in `test/unit/features/timer/application/tick_and_alarm_audio_test.dart` (ticking only with `tickEnabled`; volumes applied; preview stops the previous one)
 - [ ] T138 [P] [US6] Widget tests in `test/widget/features/settings/settings_screen_test.dart` (every section from contracts/ui/06; alarm status per platform via a fake; Android buttons hidden elsewhere) and goldens in `test/golden/features/settings/settings_golden_test.dart`
@@ -318,7 +318,7 @@ ticking, vibration, theme; all persisted.
 
 ### Implementation for User Story 6
 
-- [ ] T141 [US6] Implement `SettingsController` in `lib/features/settings/application/settings_controller.dart` (depends on T135)
+- [x] T141 [US6] Implement `SettingsController` in `lib/features/settings/application/settings_controller.dart` (depends on T135)
 - [ ] T142 [US6] Implement `SettingsScreen` (`/settings`) with every section and the keys from contracts/ui/06 in `lib/features/settings/presentation/settings_screen.dart` (depends on T141)
 - [ ] T143 [P] [US6] Implement `SoundPickerSheet` (list + preview + volume) in `lib/features/timer/presentation/widgets/sound_picker_sheet.dart` and wire it into `home.soundPicker` and the preset editor
 - [ ] T144 [US6] Apply `themeMode` and the system high-contrast variant in `lib/app/app.dart`, scale/direction/palette in `lib/features/timer/presentation/widgets/dial_painter.dart`, ticking in `lib/features/timer/application/run_controller.dart` (depends on T136, T137)

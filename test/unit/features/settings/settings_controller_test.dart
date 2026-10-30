@@ -140,7 +140,7 @@ void main() {
 
     test('lastConfig is kept once the adult has changed it', () async {
       final adjusted = TimerConfig.defaults.copyWith(
-        duration: const TimerDuration(Duration(minutes: 7)),
+        duration: TimerDuration(const Duration(minutes: 7)),
       );
       await container
           .read(appSettingsProvider.notifier)
