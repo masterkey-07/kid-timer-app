@@ -9,15 +9,15 @@ void main() {
     test('progressive phases are green, yellow and red', () {
       expect(
         DialPalettes.colorAt(PaletteId.progressive, 1),
-        const Color(0xFF3BAA5C),
+        const Color(0xFF41C863),
       );
       expect(
         DialPalettes.colorAt(PaletteId.progressive, 0.35),
-        const Color(0xFFF2C14E),
+        const Color(0xFFFFE047),
       );
       expect(
         DialPalettes.colorAt(PaletteId.progressive, 0.05),
-        const Color(0xFFE05A47),
+        const Color(0xFFBF4A40),
       );
     });
 
@@ -25,7 +25,7 @@ void main() {
       expect(
         DialPalettes.colorAt(PaletteId.progressive, 0.5),
         isSameColorAs(
-          Color.lerp(const Color(0xFF3BAA5C), const Color(0xFFF2C14E), 0.5)!,
+          Color.lerp(const Color(0xFF41C863), const Color(0xFFFFE047), 0.5)!,
         ),
       );
     });

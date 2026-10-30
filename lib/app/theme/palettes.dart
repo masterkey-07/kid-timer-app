@@ -5,10 +5,12 @@ import 'package:visual_time_counter/core/domain/palette_id.dart';
 /// Dial colors (contracts/ui/00 §4); the domain decides the phase, this
 /// maps phases and tokens to colors.
 abstract final class DialPalettes {
+  // The phases keep a relative luminance gap of at least 0.2 under
+  // protanopia, deuteranopia and tritanopia (colorblind_check_test.dart).
   static const Map<PalettePhase, Color> _progressive = {
-    PalettePhase.start: Color(0xFF3BAA5C),
-    PalettePhase.middle: Color(0xFFF2C14E),
-    PalettePhase.end: Color(0xFFE05A47),
+    PalettePhase.start: Color(0xFF41C863),
+    PalettePhase.middle: Color(0xFFFFE047),
+    PalettePhase.end: Color(0xFFBF4A40),
   };
 
   /// Calm mode: blue, lilac and peach; no red or alert color.

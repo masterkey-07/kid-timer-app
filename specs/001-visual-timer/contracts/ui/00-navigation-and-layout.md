@@ -106,7 +106,9 @@ sits on a scrim of the theme surface color at 0.7 opacity, guaranteeing ≥ 4.5:
   `#A8C7FF`, secondary text `#E6E6E6`. Text and icons ≥ 7:1, components ≥ 4.5:1, focus ring
   3 dp, dial outline 3 dp in the text color. Dial palettes keep their hues; their sectors get a
   2 dp outline in the text color so phases do not rely on color alone.
-- **Progressive dial palette**: green `#3BAA5C`, yellow `#F2C14E`, red `#E05A47`.
+- **Progressive dial palette**: green `#41C863`, yellow `#FFE047`, red `#BF4A40`. Chosen so the
+  three phases differ by at least 0.2 in relative luminance under protanopia, deuteranopia and
+  tritanopia (`test/unit/app/theme/colorblind_check_test.dart`, task T145).
 - **Calm mode**: blue `#8FB8E8` → lilac `#B9A7E0` → peach `#F3C3A3`.
 - **Empty (not yet filled)**: neutral `#9AA0A6` at 0.18 opacity (light) / 0.28 (dark). With the system's
   increase-contrast setting on (`MediaQuery.highContrastOf`), an opaque tone is used instead:
