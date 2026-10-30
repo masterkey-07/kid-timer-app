@@ -6,6 +6,9 @@ class FakeAudio implements AudioPort {
   final List<String> calls = [];
   bool isTicking = false;
 
+  /// The sound being previewed; a new preview replaces it, as in the port.
+  SoundId? previewing;
+
   /// What [systemVolume] returns.
   double? systemVolumeValue = 1;
 
@@ -21,8 +24,16 @@ class FakeAudio implements AudioPort {
   }) async => calls.add('playAlarm(${sound.value}, $volume, $repeat)');
 
   @override
-  Future<void> playPreview(SoundId sound, {required double volume}) async =>
-      calls.add('playPreview(${sound.value}, $volume)');
+  Future<void> playPreview(SoundId sound, {required double volume}) async {
+    previewing = sound;
+    calls.add('playPreview(${sound.value}, $volume)');
+  }
+
+  @override
+  Future<void> stopPreview() async {
+    previewing = null;
+    calls.add('stopPreview');
+  }
 
   @override
   Future<void> startTicking({required double volume}) async {
@@ -39,6 +50,7 @@ class FakeAudio implements AudioPort {
   @override
   Future<void> stopAll() async {
     isTicking = false;
+    previewing = null;
     calls.add('stopAll');
   }
 

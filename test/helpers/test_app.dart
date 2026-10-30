@@ -10,6 +10,7 @@ import 'package:hive_ce/hive_ce.dart';
 import 'package:visual_time_counter/app/app.dart';
 import 'package:visual_time_counter/app/router.dart';
 import 'package:visual_time_counter/core/clock/clock_provider.dart';
+import 'package:visual_time_counter/core/domain/sound_info.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
 import 'package:visual_time_counter/core/domain/timer_duration.dart';
 import 'package:visual_time_counter/core/domain/visual_source.dart';
@@ -27,7 +28,9 @@ import 'package:visual_time_counter/features/settings/application/app_settings_s
 import 'package:visual_time_counter/features/settings/data/settings_repository.dart';
 import 'package:visual_time_counter/features/settings/domain/app_settings.dart';
 import 'package:visual_time_counter/features/timer/application/active_session.dart';
+import 'package:visual_time_counter/features/timer/application/sound_catalog.dart';
 import 'package:visual_time_counter/features/timer/data/session_repository.dart';
+import 'package:visual_time_counter/features/timer/data/sound_manifest_loader.dart';
 
 import 'fakes/fake_alarm_scheduler.dart';
 import 'fakes/fake_audio.dart';
@@ -56,6 +59,7 @@ class TestAppDependencies {
     this.userImagesMeta,
     this.presets,
     this.bankImages,
+    this.sounds,
     Clock? clock,
   ) {
     this.clock = clock ?? Clock(() => now);
@@ -86,6 +90,7 @@ class TestAppDependencies {
         bytes: Uint8List(0),
       ),
       await _loadBankImages(),
+      await _loadSounds(),
       clock,
     );
   }
@@ -134,6 +139,9 @@ class TestAppDependencies {
   /// The library, read from the committed manifest.
   List<BankImageAsset> bankImages;
 
+  /// The bundled sounds, read from the committed manifest.
+  List<SoundInfo> sounds;
+
   /// What decoding a picked image for the frame screen yields; null makes
   /// it fail as for a file that cannot be opened.
   ui.Image? pickedPreview;
@@ -160,6 +168,7 @@ class TestAppDependencies {
     ...imageOverrides(),
     ...presetOverrides(),
     ...portOverrides(),
+    soundCatalogProvider.overrideWith((ref) => sounds),
   ];
 
   /// Preset storage, with ids `preset-0`, `preset-1`, …
@@ -260,6 +269,15 @@ class TestAppDependencies {
 }
 
 final _seedJpeg = Uint8List.fromList(const [0xFF, 0xD8, 0xFF, 0xD9]);
+
+const _soundManifestAsset = 'assets/sounds/manifest.json';
+
+Future<List<SoundInfo>>? _sounds;
+
+/// The committed sound manifest, parsed once.
+Future<List<SoundInfo>> _loadSounds() => _sounds ??= rootBundle
+    .loadString(_soundManifestAsset)
+    .then(SoundManifestLoader.parse);
 
 const _bankManifestAsset = 'assets/images/bank/manifest.json';
 
