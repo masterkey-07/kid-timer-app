@@ -8,24 +8,22 @@ import 'package:visual_time_counter/core/platform/providers.dart';
 import 'package:visual_time_counter/features/timer/application/sound_catalog.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
-/// Opens the [SoundPickerSheet] as a modal bottom sheet. The callbacks fire
+/// The alarm sound and volume together: the sheet reports both on every
+/// change, so a caller holding an older config never undoes the other half.
+typedef SoundChoice = ({SoundId sound, double volume});
+
+/// Opens the [SoundPickerSheet] as a modal bottom sheet. [onChanged] fires
 /// on every change, so the caller applies choices as they are made.
 Future<void> showSoundPicker(
   BuildContext context, {
-  required SoundId selected,
-  required double volume,
-  required ValueChanged<SoundId> onSoundChanged,
-  required ValueChanged<double> onVolumeChanged,
+  required SoundChoice current,
+  required ValueChanged<SoundChoice> onChanged,
 }) => showModalBottomSheet<void>(
   context: context,
   isScrollControlled: true,
   showDragHandle: true,
-  builder: (context) => SoundPickerSheet(
-    selected: selected,
-    volume: volume,
-    onSoundChanged: onSoundChanged,
-    onVolumeChanged: onVolumeChanged,
-  ),
+  builder: (context) =>
+      SoundPickerSheet(current: current, onChanged: onChanged),
 );
 
 /// The alarm sound list with preview and volume (contracts/ui/01 "Sound",
@@ -37,26 +35,14 @@ Future<void> showSoundPicker(
 /// Keys: `soundPicker.sound.<id>`, `soundPicker.preview.<id>`,
 /// `soundPicker.volume`.
 class SoundPickerSheet extends ConsumerStatefulWidget {
-  /// Creates the sheet showing [selected] at [volume].
-  const new({
-    required this.selected,
-    required this.volume,
-    required this.onSoundChanged,
-    required this.onVolumeChanged,
-    super.key,
-  });
+  /// Creates the sheet showing the [current] choice.
+  const new({required this.current, required this.onChanged, super.key});
 
-  /// The sound chosen when the sheet opens.
-  final SoundId selected;
+  /// The sound and volume (0.0–1.0) when the sheet opens.
+  final SoundChoice current;
 
-  /// The alarm volume when the sheet opens, 0.0–1.0.
-  final double volume;
-
-  /// Called when the adult chooses a sound.
-  final ValueChanged<SoundId> onSoundChanged;
-
-  /// Called while the adult moves the volume slider.
-  final ValueChanged<double> onVolumeChanged;
+  /// Called when the adult chooses a sound or moves the volume slider.
+  final ValueChanged<SoundChoice> onChanged;
 
   @override
   ConsumerState<SoundPickerSheet> createState() => _SoundPickerSheetState();
@@ -69,8 +55,8 @@ class _SoundPickerSheetState extends ConsumerState<SoundPickerSheet> {
   // Captured up front: dispose cannot read providers.
   late final AudioPort _audio;
 
-  late SoundId _selected = widget.selected;
-  late double _volume = widget.volume;
+  late SoundId _selected = widget.current.sound;
+  late double _volume = widget.current.volume;
 
   @override
   void initState() {
@@ -105,7 +91,7 @@ class _SoundPickerSheetState extends ConsumerState<SoundPickerSheet> {
           for (final sound in sounds)
             _SoundRow(
               sound: sound,
-              name: soundName(l10n, catalog, sound),
+              name: soundNameOf(l10n, catalog, sound),
               isSelected: sound == _selected,
               onChoose: () => _choose(sound),
               onPreview: () => _preview(sound),
@@ -129,7 +115,7 @@ class _SoundPickerSheetState extends ConsumerState<SoundPickerSheet> {
 
   void _choose(SoundId sound) {
     setState(() => _selected = sound);
-    widget.onSoundChanged(sound);
+    widget.onChanged((sound: sound, volume: _volume));
     _preview(sound);
   }
 
@@ -143,7 +129,7 @@ class _SoundPickerSheetState extends ConsumerState<SoundPickerSheet> {
 
   void _changeVolume(double volume) {
     setState(() => _volume = volume);
-    widget.onVolumeChanged(volume);
+    widget.onChanged((sound: _selected, volume: volume));
   }
 }
 

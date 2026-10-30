@@ -12,7 +12,6 @@ import 'package:visual_time_counter/core/domain/color_token.dart';
 import 'package:visual_time_counter/core/domain/dial_direction.dart';
 import 'package:visual_time_counter/core/domain/dial_scale.dart';
 import 'package:visual_time_counter/core/domain/palette_id.dart';
-import 'package:visual_time_counter/core/domain/sound_id.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
 import 'package:visual_time_counter/core/domain/timer_duration.dart';
 import 'package:visual_time_counter/core/domain/visual_source.dart';
@@ -22,9 +21,11 @@ import 'package:visual_time_counter/features/presets/application/presets_control
 import 'package:visual_time_counter/features/presets/data/preset_repository.dart';
 import 'package:visual_time_counter/features/presets/domain/preset.dart';
 import 'package:visual_time_counter/features/presets/presentation/widgets/preset_thumb.dart';
+import 'package:visual_time_counter/features/timer/application/sound_catalog.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/dial_view.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/digits_label.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/duration_quick_buttons.dart';
+import 'package:visual_time_counter/features/timer/presentation/widgets/sound_picker_sheet.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
 /// Creates or edits a preset (contracts/ui/05 §5.2, FR-040).
@@ -513,7 +514,11 @@ class _SoundControls extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    final soundName = _soundName(l10n, config.soundId);
+    final soundName = soundNameOf(
+      l10n,
+      ref.watch(soundCatalogProvider).value,
+      config.soundId,
+    );
     final hasVibrator = ref.watch(hapticsProvider).hasVibrator;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -523,6 +528,18 @@ class _SoundControls extends ConsumerWidget {
           contentPadding: EdgeInsets.zero,
           title: Text(l10n.presetEditorSound),
           subtitle: Text(soundName),
+          onTap: () => unawaited(
+            showSoundPicker(
+              context,
+              current: (sound: config.soundId, volume: config.alarmVolume),
+              onChanged: (choice) => onChanged(
+                config.copyWith(
+                  soundId: choice.sound,
+                  alarmVolume: choice.volume,
+                ),
+              ),
+            ),
+          ),
           trailing: IconButton(
             key: const Key('presetEditor.soundPreview'),
             tooltip: l10n.presetEditorSoundPreview(soundName),
@@ -616,12 +633,4 @@ String _colorName(AppLocalizations l10n, ColorToken token) => switch (token) {
   ColorToken.pink => l10n.colorPink,
   ColorToken.teal => l10n.colorTeal,
   ColorToken.gray => l10n.colorGray,
-};
-
-/// The name of a bundled sound; until the sound picker (US6) brings the
-/// full list, only the default and silence are named.
-String _soundName(AppLocalizations l10n, SoundId sound) => switch (sound) {
-  SoundId.none => l10n.soundNone,
-  SoundId.chimeSoft => l10n.soundChimeSoft,
-  _ => sound.value,
 };

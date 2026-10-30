@@ -718,9 +718,6 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get soundChimeSoft => 'Sino suave';
-
-  @override
   String get soundNone => 'Sem som';
 
   @override
@@ -745,4 +742,9 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get soundPickerVolume => 'Volume do alarme';
+
+  @override
+  String homeSound(String sound) {
+    return 'Som do alarme: $sound';
+  }
 }

@@ -21,7 +21,7 @@ final alarmSoundsProvider = FutureProvider<List<SoundInfo>>((ref) async {
 
 /// The display name of [sound] in the language of [l10n]; the id itself
 /// until the catalog has loaded.
-String soundName(
+String soundNameOf(
   AppLocalizations l10n,
   List<SoundInfo>? catalog,
   SoundId sound,

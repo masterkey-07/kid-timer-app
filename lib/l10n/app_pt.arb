@@ -933,10 +933,6 @@
       }
     }
   },
-  "soundChimeSoft": "Sino suave",
-  "@soundChimeSoft": {
-    "description": "Name of the chime_soft sound."
-  },
   "soundNone": "Sem som",
   "@soundNone": {
     "description": "No alarm sound."
@@ -973,5 +969,14 @@
   "soundPickerVolume": "Volume do alarme",
   "@soundPickerVolume": {
     "description": "Label of the alarm volume slider in the sound picker."
+  },
+  "homeSound": "Som do alarme: {sound}",
+  "@homeSound": {
+    "description": "Home button naming the alarm sound; opens the sound picker.",
+    "placeholders": {
+      "sound": {
+        "type": "String"
+      }
+    }
   }
 }

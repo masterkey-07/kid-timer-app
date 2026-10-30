@@ -710,9 +710,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get soundChimeSoft => 'Soft chime';
-
-  @override
   String get soundNone => 'No sound';
 
   @override
@@ -737,4 +734,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get soundPickerVolume => 'Alarm volume';
+
+  @override
+  String homeSound(String sound) {
+    return 'Alarm sound: $sound';
+  }
 }

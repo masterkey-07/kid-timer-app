@@ -20,6 +20,7 @@ import 'package:visual_time_counter/features/timer/presentation/widgets/dial_vie
 import 'package:visual_time_counter/features/timer/presentation/widgets/digits_label.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/duration_quick_buttons.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/image_chip.dart';
+import 'package:visual_time_counter/features/timer/presentation/widgets/sound_chip.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
 /// Home: the adult sets up the timer and starts it (contracts/ui/01).
@@ -176,6 +177,8 @@ class _SetupControls extends ConsumerWidget {
         ),
         const SizedBox(height: _gap),
         const ImageChip(),
+        const SizedBox(height: _gap / 2),
+        const SoundChip(),
         const SizedBox(height: _gap),
         SizedBox(
           width: double.infinity,

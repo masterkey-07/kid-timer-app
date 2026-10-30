@@ -1298,12 +1298,6 @@ abstract class AppLocalizations {
   /// **'Tocar {sound}'**
   String presetEditorSoundPreview(String sound);
 
-  /// Name of the chime_soft sound.
-  ///
-  /// In pt, this message translates to:
-  /// **'Sino suave'**
-  String get soundChimeSoft;
-
   /// No alarm sound.
   ///
   /// In pt, this message translates to:
@@ -1351,6 +1345,12 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Volume do alarme'**
   String get soundPickerVolume;
+
+  /// Home button naming the alarm sound; opens the sound picker.
+  ///
+  /// In pt, this message translates to:
+  /// **'Som do alarme: {sound}'**
+  String homeSound(String sound);
 }
 
 class _AppLocalizationsDelegate

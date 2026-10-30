@@ -200,7 +200,6 @@
   "colorGray": "Gray",
   "presetEditorSound": "Sound",
   "presetEditorSoundPreview": "Play {sound}",
-  "soundChimeSoft": "Soft chime",
   "soundNone": "No sound",
   "presetEditorVolume": "Volume",
   "presetEditorTick": "Ticking",
@@ -208,5 +207,6 @@
   "presetEditorDigits": "Show digits",
   "soundPickerTitle": "Alarm sound",
   "soundPickerPlay": "Play {sound}",
-  "soundPickerVolume": "Alarm volume"
+  "soundPickerVolume": "Alarm volume",
+  "homeSound": "Alarm sound: {sound}"
 }
