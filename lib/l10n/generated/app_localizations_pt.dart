@@ -861,4 +861,77 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get gateConfirm => 'OK';
+
+  @override
+  String get homeOpenAbout => 'Área dos pais';
+
+  @override
+  String get parentTitle => 'Área dos pais';
+
+  @override
+  String get parentTagline => 'Gratuito, sem anúncios e sem coleta de dados.';
+
+  @override
+  String parentVersion(String version, String build) {
+    return 'Kid Timer v$version ($build)';
+  }
+
+  @override
+  String get parentPrivacy => 'Política de privacidade';
+
+  @override
+  String get parentLicenses => 'Licenças de código aberto';
+
+  @override
+  String get parentCredits => 'Créditos de imagens e sons';
+
+  @override
+  String get parentSource => 'Código-fonte no GitHub';
+
+  @override
+  String get parentReport => 'Relatar um problema';
+
+  @override
+  String get parentHelp => 'Ajuda: bateria e alarmes';
+
+  @override
+  String get parentOpenBrowserConfirm => 'Abrir o navegador?';
+
+  @override
+  String parentOpenBrowserMessage(String url) {
+    return 'O link abre fora do app: $url';
+  }
+
+  @override
+  String get parentOpenBrowserAction => 'Abrir';
+
+  @override
+  String get parentReportMessage =>
+      'O texto de diagnóstico foi copiado. Cole-o na página do problema; ele não tem dados pessoais.';
+
+  @override
+  String get parentNoBrowser => 'Nenhum navegador disponível';
+
+  @override
+  String get privacyTitle => 'Política de privacidade';
+
+  @override
+  String get privacyLoadError => 'Não foi possível carregar a política.';
+
+  @override
+  String get creditsTitle => 'Créditos';
+
+  @override
+  String get creditsImages => 'Imagens';
+
+  @override
+  String get creditsSounds => 'Sons';
+
+  @override
+  String creditsAuthorLicense(String author, String license) {
+    return '$author · $license';
+  }
+
+  @override
+  String get parentCreditsError => 'Não foi possível carregar os créditos';
 }

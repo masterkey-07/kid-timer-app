@@ -11,6 +11,10 @@ import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
 import 'package:visual_time_counter/features/images/presentation/frame_screen.dart';
 import 'package:visual_time_counter/features/images/presentation/image_picker_screen.dart';
 import 'package:visual_time_counter/features/images/presentation/my_images_screen.dart';
+import 'package:visual_time_counter/features/parental/application/parental_gate_controller.dart';
+import 'package:visual_time_counter/features/parental/presentation/credits_screen.dart';
+import 'package:visual_time_counter/features/parental/presentation/parent_area_screen.dart';
+import 'package:visual_time_counter/features/parental/presentation/privacy_screen.dart';
 import 'package:visual_time_counter/features/presets/application/presets_controller.dart';
 import 'package:visual_time_counter/features/presets/presentation/preset_editor_screen.dart';
 import 'package:visual_time_counter/features/presets/presentation/presets_screen.dart';
@@ -60,6 +64,15 @@ abstract final class AppRoutes {
   /// Help: battery, alarms and screen pinning.
   static const batteryHelp = '/settings/battery';
 
+  /// The parent area, behind the parental gate.
+  static const parent = '/parent';
+
+  /// The privacy policy.
+  static const parentPrivacy = '/parent/privacy';
+
+  /// Image and sound credits.
+  static const parentCredits = '/parent/credits';
+
   /// [batteryHelp] scrolled to [section].
   static String batteryHelpAt(BatteryHelpSection section) =>
       '$batteryHelp#${section.name}';
@@ -96,6 +109,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       state.uri,
       session: ref.read(activeSessionProvider),
       presetExists: ref.read(presetExistsProvider),
+      isParentUnlocked: ref
+          .read(parentalGateControllerProvider.notifier)
+          .isUnlocked,
     ),
     onException: (context, state, router) => router.go(AppRoutes.home),
     routes: [
@@ -165,6 +181,18 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const SettingsScreen(),
       ),
       GoRoute(
+        path: AppRoutes.parent,
+        builder: (context, state) => const ParentAreaScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.parentPrivacy,
+        builder: (context, state) => const PrivacyScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.parentCredits,
+        builder: (context, state) => const CreditsScreen(),
+      ),
+      GoRoute(
         path: AppRoutes.batteryHelp,
         builder: (context, state) => BatteryHelpScreen(
           section: BatteryHelpSection.values.asNameMap()[state.uri.fragment],
@@ -214,11 +242,13 @@ String initialLocationFor(TimerSession? session) {
 }
 
 /// The redirect for [uri]: maps `vtc://` deep links and keeps `/run` and
-/// `/finished` consistent with [session]. Returns null to stay on [uri].
+/// `/finished` consistent with [session] and keeps the parent area behind
+/// the gate ([isParentUnlocked]). Returns null to stay on [uri].
 String? redirectFor(
   Uri uri, {
   required TimerSession? session,
   required bool Function(String presetId) presetExists,
+  bool isParentUnlocked = false,
 }) {
   if (uri.scheme == _deepLinkScheme) {
     return _deepLinkLocation(uri, session: session, presetExists: presetExists);
@@ -227,8 +257,12 @@ String? redirectFor(
   if (uri.path == AppRoutes.finished && !_awaitsAcknowledgement(session)) {
     return AppRoutes.home;
   }
+  if (_isParentPath(uri.path) && !isParentUnlocked) return AppRoutes.home;
   return null;
 }
+
+bool _isParentPath(String path) =>
+    path == AppRoutes.parent || path.startsWith('${AppRoutes.parent}/');
 
 /// `vtc://run` opens the countdown (or the final screen once time is up);
 /// `vtc://preset/<id>/start` asks home to start the preset (US5) or shows

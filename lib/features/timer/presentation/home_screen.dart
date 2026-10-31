@@ -8,6 +8,7 @@ import 'package:visual_time_counter/app/layout.dart';
 import 'package:visual_time_counter/app/router.dart';
 import 'package:visual_time_counter/core/domain/timer_config.dart';
 import 'package:visual_time_counter/core/timer_engine/timer_session.dart';
+import 'package:visual_time_counter/features/parental/presentation/parental_gate.dart';
 import 'package:visual_time_counter/features/presets/application/presets_controller.dart';
 import 'package:visual_time_counter/features/presets/domain/preset.dart';
 import 'package:visual_time_counter/features/presets/presentation/widgets/preset_strip.dart';
@@ -77,6 +78,12 @@ class HomeScreen extends ConsumerWidget {
                   tooltip: l10n.homeOpenPresets,
                   icon: const Icon(Icons.grid_view_rounded),
                   onPressed: () => context.push<void>(AppRoutes.presets),
+                ),
+                IconButton(
+                  key: const Key('home.openAbout'),
+                  tooltip: l10n.homeOpenAbout,
+                  icon: const Icon(Icons.info_outline_rounded),
+                  onPressed: () => unawaited(_openParentArea(context)),
                 ),
                 IconButton(
                   key: const Key('home.openSettings'),
@@ -150,6 +157,14 @@ class HomeScreen extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  /// Asks the parental gate, then opens the parent area.
+  Future<void> _openParentArea(BuildContext context) async {
+    final isUnlocked = await showParentalGate(context);
+    if (isUnlocked && context.mounted) {
+      unawaited(context.push(AppRoutes.parent));
+    }
   }
 
   Future<void> _start(BuildContext context, WidgetRef ref) =>

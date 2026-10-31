@@ -1127,5 +1127,119 @@
   "gateConfirm": "OK",
   "@gateConfirm": {
     "description": "Confirm key of the parental gate keypad."
+  },
+  "homeOpenAbout": "Área dos pais",
+  "@homeOpenAbout": {
+    "description": "Tooltip of the home button that opens the parental gate."
+  },
+  "parentTitle": "Área dos pais",
+  "@parentTitle": {
+    "description": "Title of the parent area screen."
+  },
+  "parentTagline": "Gratuito, sem anúncios e sem coleta de dados.",
+  "@parentTagline": {
+    "description": "Line under the app name in the parent area."
+  },
+  "parentVersion": "Kid Timer v{version} ({build})",
+  "@parentVersion": {
+    "description": "App name and version in the parent area.",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0.0"
+      },
+      "build": {
+        "type": "String",
+        "example": "1"
+      }
+    }
+  },
+  "parentPrivacy": "Política de privacidade",
+  "@parentPrivacy": {
+    "description": "Parent area row that opens the privacy policy."
+  },
+  "parentLicenses": "Licenças de código aberto",
+  "@parentLicenses": {
+    "description": "Parent area row that opens the licenses page."
+  },
+  "parentCredits": "Créditos de imagens e sons",
+  "@parentCredits": {
+    "description": "Parent area row that opens the credits."
+  },
+  "parentSource": "Código-fonte no GitHub",
+  "@parentSource": {
+    "description": "Parent area row that opens the repository in the browser."
+  },
+  "parentReport": "Relatar um problema",
+  "@parentReport": {
+    "description": "Parent area row that copies a diagnostic text and opens the issue page."
+  },
+  "parentHelp": "Ajuda: bateria e alarmes",
+  "@parentHelp": {
+    "description": "Parent area row that opens the battery and alarms help."
+  },
+  "parentOpenBrowserConfirm": "Abrir o navegador?",
+  "@parentOpenBrowserConfirm": {
+    "description": "Title of the confirmation before an external link."
+  },
+  "parentOpenBrowserMessage": "O link abre fora do app: {url}",
+  "@parentOpenBrowserMessage": {
+    "description": "Message of the confirmation before an external link.",
+    "placeholders": {
+      "url": {
+        "type": "String",
+        "example": "https://example.org"
+      }
+    }
+  },
+  "parentOpenBrowserAction": "Abrir",
+  "@parentOpenBrowserAction": {
+    "description": "Confirm button before an external link."
+  },
+  "parentReportMessage": "O texto de diagnóstico foi copiado. Cole-o na página do problema; ele não tem dados pessoais.",
+  "@parentReportMessage": {
+    "description": "Message of the confirmation before opening the issue page."
+  },
+  "parentNoBrowser": "Nenhum navegador disponível",
+  "@parentNoBrowser": {
+    "description": "Snackbar when a link cannot be opened."
+  },
+  "privacyTitle": "Política de privacidade",
+  "@privacyTitle": {
+    "description": "Title of the privacy policy screen."
+  },
+  "privacyLoadError": "Não foi possível carregar a política.",
+  "@privacyLoadError": {
+    "description": "Shown when the privacy policy text cannot be read."
+  },
+  "creditsTitle": "Créditos",
+  "@creditsTitle": {
+    "description": "Title of the credits screen."
+  },
+  "creditsImages": "Imagens",
+  "@creditsImages": {
+    "description": "Credits section header."
+  },
+  "creditsSounds": "Sons",
+  "@creditsSounds": {
+    "description": "Credits section header."
+  },
+  "creditsAuthorLicense": "{author} · {license}",
+  "@creditsAuthorLicense": {
+    "description": "Author and license of an image in the credits.",
+    "placeholders": {
+      "author": {
+        "type": "String",
+        "example": "Author"
+      },
+      "license": {
+        "type": "String",
+        "example": "MIT"
+      }
+    }
+  },
+  "parentCreditsError": "Não foi possível carregar os créditos",
+  "@parentCreditsError": {
+    "description": "Shown when the credit manifests cannot be read."
   }
 }

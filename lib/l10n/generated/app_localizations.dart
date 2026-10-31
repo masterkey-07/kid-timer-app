@@ -1549,6 +1549,138 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'OK'**
   String get gateConfirm;
+
+  /// Tooltip of the home button that opens the parental gate.
+  ///
+  /// In pt, this message translates to:
+  /// **'Área dos pais'**
+  String get homeOpenAbout;
+
+  /// Title of the parent area screen.
+  ///
+  /// In pt, this message translates to:
+  /// **'Área dos pais'**
+  String get parentTitle;
+
+  /// Line under the app name in the parent area.
+  ///
+  /// In pt, this message translates to:
+  /// **'Gratuito, sem anúncios e sem coleta de dados.'**
+  String get parentTagline;
+
+  /// App name and version in the parent area.
+  ///
+  /// In pt, this message translates to:
+  /// **'Kid Timer v{version} ({build})'**
+  String parentVersion(String version, String build);
+
+  /// Parent area row that opens the privacy policy.
+  ///
+  /// In pt, this message translates to:
+  /// **'Política de privacidade'**
+  String get parentPrivacy;
+
+  /// Parent area row that opens the licenses page.
+  ///
+  /// In pt, this message translates to:
+  /// **'Licenças de código aberto'**
+  String get parentLicenses;
+
+  /// Parent area row that opens the credits.
+  ///
+  /// In pt, this message translates to:
+  /// **'Créditos de imagens e sons'**
+  String get parentCredits;
+
+  /// Parent area row that opens the repository in the browser.
+  ///
+  /// In pt, this message translates to:
+  /// **'Código-fonte no GitHub'**
+  String get parentSource;
+
+  /// Parent area row that copies a diagnostic text and opens the issue page.
+  ///
+  /// In pt, this message translates to:
+  /// **'Relatar um problema'**
+  String get parentReport;
+
+  /// Parent area row that opens the battery and alarms help.
+  ///
+  /// In pt, this message translates to:
+  /// **'Ajuda: bateria e alarmes'**
+  String get parentHelp;
+
+  /// Title of the confirmation before an external link.
+  ///
+  /// In pt, this message translates to:
+  /// **'Abrir o navegador?'**
+  String get parentOpenBrowserConfirm;
+
+  /// Message of the confirmation before an external link.
+  ///
+  /// In pt, this message translates to:
+  /// **'O link abre fora do app: {url}'**
+  String parentOpenBrowserMessage(String url);
+
+  /// Confirm button before an external link.
+  ///
+  /// In pt, this message translates to:
+  /// **'Abrir'**
+  String get parentOpenBrowserAction;
+
+  /// Message of the confirmation before opening the issue page.
+  ///
+  /// In pt, this message translates to:
+  /// **'O texto de diagnóstico foi copiado. Cole-o na página do problema; ele não tem dados pessoais.'**
+  String get parentReportMessage;
+
+  /// Snackbar when a link cannot be opened.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nenhum navegador disponível'**
+  String get parentNoBrowser;
+
+  /// Title of the privacy policy screen.
+  ///
+  /// In pt, this message translates to:
+  /// **'Política de privacidade'**
+  String get privacyTitle;
+
+  /// Shown when the privacy policy text cannot be read.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível carregar a política.'**
+  String get privacyLoadError;
+
+  /// Title of the credits screen.
+  ///
+  /// In pt, this message translates to:
+  /// **'Créditos'**
+  String get creditsTitle;
+
+  /// Credits section header.
+  ///
+  /// In pt, this message translates to:
+  /// **'Imagens'**
+  String get creditsImages;
+
+  /// Credits section header.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sons'**
+  String get creditsSounds;
+
+  /// Author and license of an image in the credits.
+  ///
+  /// In pt, this message translates to:
+  /// **'{author} · {license}'**
+  String creditsAuthorLicense(String author, String license);
+
+  /// Shown when the credit manifests cannot be read.
+  ///
+  /// In pt, this message translates to:
+  /// **'Não foi possível carregar os créditos'**
+  String get parentCreditsError;
 }
 
 class _AppLocalizationsDelegate

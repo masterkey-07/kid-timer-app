@@ -4,6 +4,7 @@ import 'package:visual_time_counter/core/platform/alarm/alarm_scheduler.dart';
 import 'package:visual_time_counter/core/platform/alarm/foreground_only_alarm_scheduler.dart';
 import 'package:visual_time_counter/core/platform/alarm/impl/local_notifications_alarm_scheduler.dart';
 import 'package:visual_time_counter/core/platform/audio/impl/audioplayers_audio_port.dart';
+import 'package:visual_time_counter/core/platform/external_link/url_launcher_external_link.dart';
 import 'package:visual_time_counter/core/platform/fullscreen/fullscreen_port.dart';
 import 'package:visual_time_counter/core/platform/fullscreen/impl/system_chrome_fullscreen.dart';
 import 'package:visual_time_counter/core/platform/fullscreen/impl/web_fullscreen.dart';
@@ -17,8 +18,6 @@ import 'package:visual_time_counter/core/platform/wakelock/impl/wakelock_plus_po
 
 /// Creates the real port implementations for [platform] and returns the
 /// provider overrides for the app's `ProviderScope`.
-///
-/// The external link port is added by the story that uses it (US7).
 ///
 /// [alarmChannelNames] are the localized Android notification channel
 /// names; [imageFileTypeLabel] names the image filter of desktop file
@@ -49,6 +48,7 @@ Future<List<Override>> createPlatformPortOverrides(
       MethodChannelSystemSettings(isAndroid: choice.hasSystemSettings),
     ),
     appLifecycleProvider.overrideWithValue(FlutterAppLifecyclePort()),
+    externalLinkProvider.overrideWithValue(const UrlLauncherExternalLink()),
     imagePickerProvider.overrideWithValue(
       ImagePickerPortImpl.forPlatform(
         platform,

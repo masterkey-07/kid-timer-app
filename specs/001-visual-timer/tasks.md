@@ -339,7 +339,7 @@ parent area with privacy and licenses.
 ### Tests for User Story 7 ⚠️
 
 - [x] T147 [P] [US7] Parental gate tests in `test/unit/features/parental/gate_challenge_test.dart` (factors 3–9 with a seeded `Random`; 3 errors → 30 s lockout with `fake_async`; 5 min validity) and `number_words_test.dart` (products in words in pt and en, e.g. 7×8 → "sete vezes oito"/"seven times eight")
-- [ ] T148 [P] [US7] Widget tests in `test/widget/features/parental/parental_gate_test.dart` (custom and physical keypad, error, lockout, screen reader reading) and `parent_area_test.dart` (privacy, licenses including assets' `LICENSES.md`, credits from the manifests, confirmation before an external link, diagnostic report without personal data) — **partial**: `parental_gate_test.dart` done; `parent_area_test.dart` waits for T153
+- [x] T148 [P] [US7] Widget tests in `test/widget/features/parental/parental_gate_test.dart` (custom and physical keypad, error, lockout, screen reader reading) and `parent_area_test.dart` (privacy, licenses including assets' `LICENSES.md`, credits from the manifests, confirmation before an external link, diagnostic report without personal data)
 - [ ] T149 [P] [US7] Accessibility sweep in `test/widget/a11y/all_screens_a11y_test.dart` (every v1.0 screen × pt/en × light/dark: 4 guidelines, 200% font, Tab focus reaches every control, dial announcements via `AnnounceThrottle`, reduce motion; dialogs move focus in, trap it and return it to the opener; compact landscape 800×360 without overflow; elapsed sector opaque with `highContrast`; every repeating animation cycle ≥ 400 ms (flash safety, contracts/ui/00 §4))
 - [ ] T150 [P] [US7] E2E `patrol_test/e2e_us7_parental_gate_test.dart` and `patrol_test/e2e_us7_a11y_smoke_test.dart` (TalkBack enabled via `adb shell settings put secure enabled_accessibility_services …`), and integration `integration_test/locale_and_gate_integration_test.dart` (Linux, Web: app boots in en and pt-BR from the platform locale, an unsupported locale falls back to en; gate → `/parent`; the external link asks for confirmation through the real `ExternalLinkPort` wiring)
 
@@ -347,11 +347,11 @@ parent area with privacy and licenses.
 
 - [x] T151 [P] [US7] Implement `GateChallenge`, `NumberWords` in `lib/features/parental/domain/` and `ParentalGateController` in `lib/features/parental/application/` (depends on T147)
 - [x] T152 [US7] Implement `ParentalGate` (dialog, keys `gate.*`) in `lib/features/parental/presentation/parental_gate.dart`
-- [ ] T153 [US7] Implement `ParentAreaScreen` (`/parent`), `PrivacyScreen`, `CreditsScreen` and the `ExternalLinkPort` with `url_launcher` in `lib/features/parental/presentation/` and `lib/core/platform/external_link/url_launcher_external_link.dart`; register the assets' `LICENSES.md` in the `LicenseRegistry` in `bootstrap.dart`
-- [ ] T154 [P] [US7] Write the privacy policy in `assets/legal/privacy_pt.md` and `assets/legal/privacy_en.md` (nothing is collected; images stay local; no network; contact) and publish a copy in `docs/privacy-policy.md`
+- [x] T153 [US7] Implement `ParentAreaScreen` (`/parent`), `PrivacyScreen`, `CreditsScreen` and the `ExternalLinkPort` with `url_launcher` in `lib/features/parental/presentation/` and `lib/core/platform/external_link/url_launcher_external_link.dart`; register the assets' `LICENSES.md` in the `LicenseRegistry` in `bootstrap.dart`
+- [x] T154 [P] [US7] Write the privacy policy in `assets/legal/privacy_pt.md` and `assets/legal/privacy_en.md` (nothing is collected; images stay local; no network; contact) and publish a copy in `docs/privacy-policy.md`
 - [ ] T155 [US7] Fix every issue found by the T149 sweep (semantics, focus, overflow) in the screens under `lib/features/**/presentation/` and `lib/app/widgets/`
 - [ ] T156 [US7] Review and complete `app_en.arb` (100% of keys) and run `tool/l10n_check.dart`
-- [ ] T157 [US7] Add US7 strings (`gate*`, `parent*`, `privacyPolicyBody`) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb` — **partial**: `gate*` strings added; `parent*` and `privacyPolicyBody` wait for T153/T154
+- [ ] T157 [US7] Add US7 strings (`gate*`, `parent*`, `privacyPolicyBody`) to `lib/l10n/app_pt.arb` and `lib/l10n/app_en.arb` — **partial**: `gate*`, `parent*`, `privacy*` and `credits*` strings added; the policy text itself is read from `assets/legal/privacy_*.md` (T154), so there is no `privacyPolicyBody` key
 
 **Checkpoint**: All v1.0 stories complete.
 

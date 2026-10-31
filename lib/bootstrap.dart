@@ -1,5 +1,6 @@
 import 'package:clock/clock.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
@@ -9,6 +10,7 @@ import 'package:visual_time_counter/app/locale_resolution.dart';
 import 'package:visual_time_counter/core/persistence/hive_bootstrap.dart';
 import 'package:visual_time_counter/core/platform/impl/platform_ports.dart';
 import 'package:visual_time_counter/core/platform/providers.dart';
+import 'package:visual_time_counter/features/parental/data/asset_licenses.dart';
 import 'package:visual_time_counter/features/presets/data/preset_seeds.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 import 'package:visual_time_counter/startup_state.dart';
@@ -25,6 +27,7 @@ Future<List<Override>> bootstrap() async {
   );
 
   time_zones.initializeTimeZones();
+  registerAssetLicenses(rootBundle);
   if (_isDesktop(platform)) await windowManager.ensureInitialized();
   await _initStorage();
 

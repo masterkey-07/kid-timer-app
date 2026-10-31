@@ -59,6 +59,7 @@ flutter:
     - assets/images/bank/animals/
     - assets/sounds/
     - assets/legal/
+    - assets/fonts/LICENSES.md
 
   fonts:
     - family: AtkinsonHyperlegibleNext

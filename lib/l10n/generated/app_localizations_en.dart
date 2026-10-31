@@ -853,4 +853,77 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gateConfirm => 'OK';
+
+  @override
+  String get homeOpenAbout => 'Parent area';
+
+  @override
+  String get parentTitle => 'Parent area';
+
+  @override
+  String get parentTagline => 'Free, no ads and no data collection.';
+
+  @override
+  String parentVersion(String version, String build) {
+    return 'Kid Timer v$version ($build)';
+  }
+
+  @override
+  String get parentPrivacy => 'Privacy policy';
+
+  @override
+  String get parentLicenses => 'Open source licenses';
+
+  @override
+  String get parentCredits => 'Image and sound credits';
+
+  @override
+  String get parentSource => 'Source code on GitHub';
+
+  @override
+  String get parentReport => 'Report a problem';
+
+  @override
+  String get parentHelp => 'Help: battery and alarms';
+
+  @override
+  String get parentOpenBrowserConfirm => 'Open the browser?';
+
+  @override
+  String parentOpenBrowserMessage(String url) {
+    return 'The link opens outside the app: $url';
+  }
+
+  @override
+  String get parentOpenBrowserAction => 'Open';
+
+  @override
+  String get parentReportMessage =>
+      'The diagnostic text was copied. Paste it on the issue page; it holds no personal data.';
+
+  @override
+  String get parentNoBrowser => 'No browser available';
+
+  @override
+  String get privacyTitle => 'Privacy policy';
+
+  @override
+  String get privacyLoadError => 'The policy could not be loaded.';
+
+  @override
+  String get creditsTitle => 'Credits';
+
+  @override
+  String get creditsImages => 'Images';
+
+  @override
+  String get creditsSounds => 'Sounds';
+
+  @override
+  String creditsAuthorLicense(String author, String license) {
+    return '$author · $license';
+  }
+
+  @override
+  String get parentCreditsError => 'Credits could not be loaded';
 }
