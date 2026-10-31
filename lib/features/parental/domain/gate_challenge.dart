@@ -10,7 +10,7 @@ final class GateChallenge {
   const new({required this.left, required this.right});
 
   /// Draws both factors from [minFactor] to [maxFactor].
-  factory .random(Random random) =>
+  factory random(Random random) =>
       GateChallenge(left: _randomFactor(random), right: _randomFactor(random));
 
   /// The smallest factor drawn.
