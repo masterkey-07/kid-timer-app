@@ -133,6 +133,9 @@ class TestAppDependencies {
   /// A real lifecycle to use instead of [lifecycle] (integration tests).
   AppLifecyclePort? lifecycleOverride;
   final systemSettings = FakeSystemSettings();
+
+  /// Records the links the app opened.
+  final externalLink = FakeExternalLink();
   final imagePicker = FakeImagePicker();
   final imageProcessor = FakeImageProcessor();
 
@@ -208,7 +211,7 @@ class TestAppDependencies {
     appLifecycleProvider.overrideWithValue(lifecycleOverride ?? lifecycle),
     imagePickerProvider.overrideWithValue(imagePicker),
     systemSettingsProvider.overrideWithValue(systemSettings),
-    externalLinkProvider.overrideWithValue(FakeExternalLink()),
+    externalLinkProvider.overrideWithValue(externalLink),
   ];
 
   /// Stores [count] own images, oldest first, as if added earlier.

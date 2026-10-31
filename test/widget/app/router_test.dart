@@ -159,6 +159,34 @@ void main() {
       );
     });
 
+    test('the parent area needs the gate to have been answered', () {
+      for (final path in [
+        AppRoutes.parent,
+        AppRoutes.parentPrivacy,
+        AppRoutes.parentCredits,
+      ]) {
+        expect(
+          redirectFor(
+            Uri.parse(path),
+            session: null,
+            presetExists: presetExists,
+          ),
+          AppRoutes.home,
+          reason: path,
+        );
+        expect(
+          redirectFor(
+            Uri.parse(path),
+            session: null,
+            presetExists: presetExists,
+            isParentUnlocked: true,
+          ),
+          isNull,
+          reason: path,
+        );
+      }
+    });
+
     test('/run without an active session goes home', () {
       expect(
         redirectFor(
