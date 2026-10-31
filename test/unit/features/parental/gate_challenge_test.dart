@@ -77,8 +77,7 @@ void main() {
           clockProvider.overrideWithValue(Clock(() => now)),
           gateRandomProvider.overrideWithValue(Random(1)),
         ],
-      );
-      container.listen(parentalGateControllerProvider, (_, _) {});
+      )..listen(parentalGateControllerProvider, (_, _) {});
     });
 
     tearDown(() => container.dispose());

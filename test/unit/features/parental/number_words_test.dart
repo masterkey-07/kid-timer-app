@@ -47,19 +47,13 @@ void main() {
 
     for (final entry in portuguese.entries) {
       test('${entry.key} in Portuguese', () {
-        expect(
-          NumberWords.spell(entry.key, languageCode: 'pt'),
-          entry.value,
-        );
+        expect(NumberWords.spell(entry.key, languageCode: 'pt'), entry.value);
       });
     }
 
     for (final entry in english.entries) {
       test('${entry.key} in English', () {
-        expect(
-          NumberWords.spell(entry.key, languageCode: 'en'),
-          entry.value,
-        );
+        expect(NumberWords.spell(entry.key, languageCode: 'en'), entry.value);
       });
     }
 

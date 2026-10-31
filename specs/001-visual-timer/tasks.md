@@ -345,7 +345,7 @@ parent area with privacy and licenses.
 
 ### Implementation for User Story 7
 
-- [ ] T151 [P] [US7] Implement `GateChallenge`, `NumberWords` in `lib/features/parental/domain/` and `ParentalGateController` in `lib/features/parental/application/` (depends on T147)
+- [x] T151 [P] [US7] Implement `GateChallenge`, `NumberWords` in `lib/features/parental/domain/` and `ParentalGateController` in `lib/features/parental/application/` (depends on T147)
 - [ ] T152 [US7] Implement `ParentalGate` (dialog, keys `gate.*`) in `lib/features/parental/presentation/parental_gate.dart`
 - [ ] T153 [US7] Implement `ParentAreaScreen` (`/parent`), `PrivacyScreen`, `CreditsScreen` and the `ExternalLinkPort` with `url_launcher` in `lib/features/parental/presentation/` and `lib/core/platform/external_link/url_launcher_external_link.dart`; register the assets' `LICENSES.md` in the `LicenseRegistry` in `bootstrap.dart`
 - [ ] T154 [P] [US7] Write the privacy policy in `assets/legal/privacy_pt.md` and `assets/legal/privacy_en.md` (nothing is collected; images stay local; no network; contact) and publish a copy in `docs/privacy-policy.md`
