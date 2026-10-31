@@ -230,7 +230,7 @@ void main() {
     expect(byKey('confirm.dialog'), findsNothing);
   });
 
-  testWidgets('a touch makes the padlock glow for 300 ms', (tester) async {
+  testWidgets('a touch makes the padlock glow for 420 ms', (tester) async {
     await pumpRun(tester);
     expect(padlockOpacity(tester), _idleOpacity);
 
@@ -240,7 +240,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 150));
     expect(padlockOpacity(tester), _glowOpacity);
 
-    await tester.pump(const Duration(milliseconds: 200));
+    await tester.pump(const Duration(milliseconds: 300));
     expect(padlockOpacity(tester), _idleOpacity);
   });
 
@@ -256,7 +256,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 20));
     expect(padlockOpacity(tester), _glowOpacity);
 
-    await tester.pump(const Duration(milliseconds: 330));
+    await tester.pump(const Duration(milliseconds: 430));
     expect(padlockOpacity(tester), _idleOpacity);
   });
 
