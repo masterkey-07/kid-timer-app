@@ -1079,5 +1079,53 @@
   "settingsColor": "Cor",
   "@settingsColor": {
     "description": "Label of the single palette color choice."
+  },
+  "gateTitle": "Área dos pais",
+  "@gateTitle": {
+    "description": "Title of the parental gate dialog."
+  },
+  "gatePrompt": "Para continuar, responda:",
+  "@gatePrompt": {
+    "description": "Prompt above the multiplication question in the parental gate."
+  },
+  "gateAnswerLabel": "Resposta",
+  "@gateAnswerLabel": {
+    "description": "Screen reader label of the typed answer in the parental gate."
+  },
+  "gateWrong": "Resposta incorreta",
+  "@gateWrong": {
+    "description": "Error shown after a wrong answer in the parental gate."
+  },
+  "gateAttemptsLeft": "{count, plural, =1{Resta 1 tentativa} other{Restam {count} tentativas}}",
+  "@gateAttemptsLeft": {
+    "description": "Attempts left before the parental gate locks.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "gateLockout": "Tente de novo em {seconds} s",
+  "@gateLockout": {
+    "description": "Countdown while the parental gate is locked.",
+    "placeholders": {
+      "seconds": {
+        "type": "int",
+        "example": "30"
+      }
+    }
+  },
+  "gateClose": "Fechar",
+  "@gateClose": {
+    "description": "Screen reader label of the close button of the parental gate."
+  },
+  "gateBackspace": "Apagar",
+  "@gateBackspace": {
+    "description": "Screen reader label of the backspace key of the parental gate."
+  },
+  "gateConfirm": "OK",
+  "@gateConfirm": {
+    "description": "Confirm key of the parental gate keypad."
   }
 }

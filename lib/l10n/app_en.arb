@@ -232,5 +232,14 @@
   "settingsA11yIntervalFiveMin": "Every 5 min",
   "settingsA11yIntervalOff": "Off",
   "settingsMyImages": "My images ({count})",
-  "settingsColor": "Color"
+  "settingsColor": "Color",
+  "gateTitle": "Parent area",
+  "gatePrompt": "To continue, answer:",
+  "gateAnswerLabel": "Answer",
+  "gateWrong": "Incorrect answer",
+  "gateAttemptsLeft": "{count, plural, =1{1 attempt left} other{{count} attempts left}}",
+  "gateLockout": "Try again in {seconds} s",
+  "gateClose": "Close",
+  "gateBackspace": "Delete",
+  "gateConfirm": "OK"
 }

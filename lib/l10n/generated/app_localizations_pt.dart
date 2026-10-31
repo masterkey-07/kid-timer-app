@@ -824,4 +824,41 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get settingsColor => 'Cor';
+
+  @override
+  String get gateTitle => 'Área dos pais';
+
+  @override
+  String get gatePrompt => 'Para continuar, responda:';
+
+  @override
+  String get gateAnswerLabel => 'Resposta';
+
+  @override
+  String get gateWrong => 'Resposta incorreta';
+
+  @override
+  String gateAttemptsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Restam $count tentativas',
+      one: 'Resta 1 tentativa',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String gateLockout(int seconds) {
+    return 'Tente de novo em $seconds s';
+  }
+
+  @override
+  String get gateClose => 'Fechar';
+
+  @override
+  String get gateBackspace => 'Apagar';
+
+  @override
+  String get gateConfirm => 'OK';
 }

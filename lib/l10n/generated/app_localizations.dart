@@ -1495,6 +1495,60 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Cor'**
   String get settingsColor;
+
+  /// Title of the parental gate dialog.
+  ///
+  /// In pt, this message translates to:
+  /// **'Área dos pais'**
+  String get gateTitle;
+
+  /// Prompt above the multiplication question in the parental gate.
+  ///
+  /// In pt, this message translates to:
+  /// **'Para continuar, responda:'**
+  String get gatePrompt;
+
+  /// Screen reader label of the typed answer in the parental gate.
+  ///
+  /// In pt, this message translates to:
+  /// **'Resposta'**
+  String get gateAnswerLabel;
+
+  /// Error shown after a wrong answer in the parental gate.
+  ///
+  /// In pt, this message translates to:
+  /// **'Resposta incorreta'**
+  String get gateWrong;
+
+  /// Attempts left before the parental gate locks.
+  ///
+  /// In pt, this message translates to:
+  /// **'{count, plural, =1{Resta 1 tentativa} other{Restam {count} tentativas}}'**
+  String gateAttemptsLeft(int count);
+
+  /// Countdown while the parental gate is locked.
+  ///
+  /// In pt, this message translates to:
+  /// **'Tente de novo em {seconds} s'**
+  String gateLockout(int seconds);
+
+  /// Screen reader label of the close button of the parental gate.
+  ///
+  /// In pt, this message translates to:
+  /// **'Fechar'**
+  String get gateClose;
+
+  /// Screen reader label of the backspace key of the parental gate.
+  ///
+  /// In pt, this message translates to:
+  /// **'Apagar'**
+  String get gateBackspace;
+
+  /// Confirm key of the parental gate keypad.
+  ///
+  /// In pt, this message translates to:
+  /// **'OK'**
+  String get gateConfirm;
 }
 
 class _AppLocalizationsDelegate
