@@ -64,7 +64,12 @@ class PlatformNotice extends StatelessWidget {
             TextButton(
               key: const Key('notice.banner.learnMore'),
               onPressed: onLearnMore,
-              style: TextButton.styleFrom(foregroundColor: colors.onSurface),
+              style: TextButton.styleFrom(
+                foregroundColor: colors.onSurface,
+                // The compact label keeps the banner to as few lines as
+                // before; the app-wide text button style is larger.
+                textStyle: textTheme.labelLarge,
+              ),
               // Underlined text color: the theme primary is below 4.5:1 on
               // the amber container.
               child: Text(

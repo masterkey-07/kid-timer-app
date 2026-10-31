@@ -61,9 +61,10 @@ Show the child time passing, without distractions and without any way to change 
    the sound; starts ticking if enabled.
 2. Child mode: `AbsorbPointer` + `touchShield`; keys ignored except Esc held for 3 s. Android
    "back" is consumed (no effect); the iOS back gesture is disabled. Padlock glow on an
-   absorbed touch: opacity 0.35 → 0.8 over 100 ms, held 100 ms, back to 0.35 over 100 ms
-   (300 ms total, no scale or color change); repeated touches restart it, never stacking
-   faster than once per 300 ms. With reduce motion: the same opacity steps without easing.
+   absorbed touch: opacity 0.35 → 0.8 over 140 ms, held 140 ms, back to 0.35 over 140 ms
+   (420 ms total, no scale or color change); repeated touches restart it, never stacking
+   faster than once per 420 ms (a cycle of at least 400 ms keeps it under 3 flashes per second,
+   contracts/ui/00 §4). With reduce motion: the same opacity steps without easing.
 3. Unlock: controls for 10 s; any interaction restarts the 10 s; then back to child mode. With
    `childLockEnabled = false`, controls are always visible and there is no padlock.
 4. Lifecycle: `paused`/`inactive`/`hidden` → keeps the session (the OS alarm handles it);

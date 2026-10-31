@@ -27,6 +27,11 @@ class HoldToUnlock extends ConsumerStatefulWidget {
   /// Glow requests from absorbed touches.
   final PadlockGlow glow;
 
+  /// How long one glow lasts: fade in, hold and fade out. At least 400 ms,
+  /// so repeated touches never flash more than 3 times a second
+  /// (contracts/ui/00 §4).
+  static const glowDuration = Duration(milliseconds: 420);
+
   @override
   ConsumerState<HoldToUnlock> createState() => _HoldToUnlockState();
 }
@@ -35,9 +40,6 @@ class _HoldToUnlockState extends ConsumerState<HoldToUnlock>
     with TickerProviderStateMixin {
   static const _idleOpacity = 0.35;
   static const _glowOpacity = 0.8;
-
-  /// Fade in, hold and fade out, 100 ms each (contracts/ui/02 Behavior 2).
-  static const _glowDuration = Duration(milliseconds: 300);
 
   static const _iconSize = 40.0;
 
@@ -68,7 +70,7 @@ class _HoldToUnlockState extends ConsumerState<HoldToUnlock>
   );
   late final _glow = AnimationController(
     vsync: this,
-    duration: _glowDuration,
+    duration: HoldToUnlock.glowDuration,
     animationBehavior: AnimationBehavior.preserve,
   );
 
@@ -99,7 +101,7 @@ class _HoldToUnlockState extends ConsumerState<HoldToUnlock>
     super.dispose();
   }
 
-  /// Repeated touches never glow faster than once per [_glowDuration].
+  /// Repeated touches never glow faster than once per glow.
   void _startGlow() {
     if (_glow.isAnimating) return;
     _glow.forward(from: 0);

@@ -57,6 +57,8 @@ class ConfirmDialog extends StatelessWidget {
       actions: [
         TextButton(
           key: const Key('confirm.cancel'),
+          // Focus moves into the dialog on the safe choice.
+          autofocus: true,
           onPressed: () => Navigator.of(context).pop(false),
           child: Text(AppLocalizations.of(context).commonCancel),
         ),

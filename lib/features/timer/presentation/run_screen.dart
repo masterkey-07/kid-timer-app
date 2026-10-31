@@ -20,6 +20,7 @@ import 'package:visual_time_counter/features/timer/application/timer_controller.
 import 'package:visual_time_counter/features/timer/presentation/widgets/background_alarm_banner.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/dial_view.dart';
 import 'package:visual_time_counter/features/timer/presentation/widgets/digits_label.dart';
+import 'package:visual_time_counter/features/timer/presentation/widgets/remaining_time_announcer.dart';
 import 'package:visual_time_counter/l10n/generated/app_localizations.dart';
 
 /// The countdown (contracts/ui/02). With the child lock on (FR-030) the
@@ -98,6 +99,7 @@ class _RunScreenState extends ConsumerState<RunScreen> {
               onPointerDown: (_) => _unlock.registerInteraction(),
               child: Stack(
                 children: [
+                  const RemainingTimeAnnouncer(),
                   AbsorbPointer(
                     absorbing: isLocked,
                     child: SafeArea(

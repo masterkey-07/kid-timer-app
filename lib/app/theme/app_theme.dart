@@ -55,16 +55,21 @@ abstract final class AppTheme {
       scaffoldBackgroundColor: colors.surface,
     );
 
+    final textTheme = AppTypography.apply(base.textTheme);
     return base.copyWith(
-      textTheme: AppTypography.apply(base.textTheme),
+      textTheme: textTheme,
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
+          textStyle: _buttonTextStyle(textTheme),
           minimumSize: const Size(
             AppTokens.primaryButtonHeight,
             AppTokens.primaryButtonHeight,
           ),
           shape: const StadiumBorder(),
         ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(textStyle: _buttonTextStyle(textTheme)),
       ),
       cardTheme: const CardThemeData(
         shape: RoundedRectangleBorder(
@@ -73,4 +78,9 @@ abstract final class AppTheme {
       ),
     );
   }
+
+  /// Body size and bold: 14 sp labels fall under 4.5:1 once anti-aliased
+  /// (and under a focus overlay), and children read big labels more easily.
+  static TextStyle? _buttonTextStyle(TextTheme textTheme) =>
+      textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold);
 }
